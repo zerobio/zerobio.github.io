@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="msvalidate.01" content="78D4DB560EF9B1E53D12AD944C83079A">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Falcon：一组用于快速比对 long reads 以达到 consensus 和 组装的工具；是研究单倍体和二倍体基因组的一种高效组装算法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="De novo 基因组组装套件 --- FALCON">
+<meta property="og:url" content="https://zerobio.github.io/archives/1810479489.html">
+<meta property="og:site_name" content="JWei&#39;s Blog">
+<meta property="og:description" content="Falcon：一组用于快速比对 long reads 以达到 consensus 和 组装的工具；是研究单倍体和二倍体基因组的一种高效组装算法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-21T04:45:06.000Z">
+<meta property="article:modified_time" content="2022-06-07T13:12:18.158Z">
+<meta property="article:author" content="JWei Ma">
+<meta property="article:tag" content="FALCON">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://zerobio.github.io/archives/1810479489.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zerobio.github.io/archives/1810479489.html","path":"archives/1810479489.html","title":"De novo 基因组组装套件 --- FALCON"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>De novo 基因组组装套件 --- FALCON | JWei's Blog</title>
+  
+
+
+
+
+  <script async src="https://www.clarity.ms/tag/b7w6x5pa54"></script>
+<script src="/lib/fireworks.js"></script>
+
+<meta name="msvalidate.01" content="78D4DB560EF9B1E53D12AD944C83079A" />
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "b7w6x5pa54");
+</script>
+
+
+
+ 
+
+<script>
+  var OriginTitile = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂)我藏好了哦~" + OriginTitile;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~" + OriginTitile;
+      titleTime = setTimeout(function() {
+        document.title = OriginTitile;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css">
+<link rel="stylesheet" type="text/css" href="/css/injector/main.css" /><link rel="preload" as="style" href="/css/injector/light.css" /><link rel="preload" as="style" href="/css/injector/dark.css" />
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">JWei's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一枚生信小白的 Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">42</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">63</span></a></li>
+        <li class="menu-item menu-item-images"><a href="/photos/" rel="section"><i class="fa fa-image fa-fw"></i>相册</a></li>
+        <li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-spa fa-fw"></i>留言</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#falcon-%E8%BF%90%E8%A1%8C%E8%A6%81%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">Falcon 运行要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">相关参数设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">3.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="JWei Ma"
+      src="/images/apple-touch-icon.png">
+  <p class="site-author-name" itemprop="name">JWei Ma</p>
+  <div class="site-description" itemprop="description">爱随意却不失精致 乐自由而不失自律</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3plcm9iaW8=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zerobio"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/#Contact-me" title="E-Mail → &#x2F;about&#x2F;#Contact-me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+<div style="margin-top: 10px">
+  <canvas id="canvas" style="width:58%;"></canvas>
+</div>
+<script>
+(function(){
+
+   var digit=
+    [
+        [
+            [0,0,1,1,1,0,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,0,1,1,0],
+            [0,0,1,1,1,0,0]
+        ],//0
+        [
+            [0,0,0,1,1,0,0],
+            [0,1,1,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [1,1,1,1,1,1,1]
+        ],//1
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,1,1],
+            [1,1,1,1,1,1,1]
+        ],//2
+        [
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//3
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,0],
+            [0,0,1,1,1,1,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,1,1,0],
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,1]
+        ],//4
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,1,1,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//5
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//6
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0]
+        ],//7
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//8
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,1,1,0,0,0,0]
+        ],//9
+        [
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0]
+        ]//:
+    ];
+
+var canvas = document.getElementById('canvas');
+
+if(canvas.getContext){
+    var cxt = canvas.getContext('2d');
+    //声明canvas的宽高
+    var H = 100,W = 700;
+    canvas.height = H;
+    canvas.width = W;
+    cxt.fillStyle = '#f00';
+    cxt.fillRect(10,10,50,50);
+
+    //存储时间数据
+    var data = [];
+    //存储运动的小球
+    var balls = [];
+    //设置粒子半径
+    var R = canvas.height/20-1;
+    (function(){
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        //存储时间数字，由十位小时、个位小时、冒号、十位分钟、个位分钟、冒号、十位秒钟、个位秒钟这7个数字组成
+        data.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+    })();
+
+    /*生成点阵数字*/
+    function renderDigit(index,num){
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    cxt.beginPath();
+                    cxt.arc(14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                }
+            }
+        }
+    }
+
+    /*更新时钟*/
+    function updateDigitTime(){
+        var changeNumArray = [];
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        var NewData = [];
+        NewData.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+        for(var i = data.length-1; i >=0 ; i--){
+            //时间发生变化
+            if(NewData[i] !== data[i]){
+                //将变化的数字值和在data数组中的索引存储在changeNumArray数组中
+                changeNumArray.push(i+'_'+(Number(data[i])+1)%10);
+            }
+        }
+        //增加小球
+        for(var i = 0; i< changeNumArray.length; i++){
+            addBalls.apply(this,changeNumArray[i].split('_'));
+        }
+        data = NewData.concat();
+    }
+
+    /*更新小球状态*/
+    function updateBalls(){
+        for(var i = 0; i < balls.length; i++){
+            balls[i].stepY += balls[i].disY;
+            balls[i].x += balls[i].stepX;
+            balls[i].y += balls[i].stepY;
+            if(balls[i].x > W + R || balls[i].y > H + R){
+                balls.splice(i,1);
+                i--;
+            }
+        }
+    }
+
+    /*增加要运动的小球*/
+    function addBalls(index,num){
+        var numArray = [1,2,3];
+        var colorArray =  ["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"];
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    var ball = {
+                        x:14*(R+2)*index + j*2*(R+1)+(R+1),
+                        y:i*2*(R+1)+(R+1),
+                        stepX:Math.floor(Math.random() * 4 -2),
+                        stepY:-2*numArray[Math.floor(Math.random()*numArray.length)],
+                        color:colorArray[Math.floor(Math.random()*colorArray.length)],
+                        disY:1
+                    };
+                    balls.push(ball);
+                }
+            }
+        }
+    }
+
+    /*渲染*/
+    function render(){
+        //重置画布宽度，达到清空画布的效果
+        canvas.height = 100;
+        //渲染时钟
+        for(var i = 0; i < data.length; i++){
+            renderDigit(i,data[i]);
+        }
+        //渲染小球
+        for(var i = 0; i < balls.length; i++){
+            cxt.beginPath();
+            cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI);
+            cxt.fillStyle = balls[i].color;
+            cxt.closePath();
+            cxt.fill();
+        }
+    }
+
+    clearInterval(oTimer);
+    var oTimer = setInterval(function(){
+        //更新时钟
+        updateDigitTime();
+        //更新小球状态
+        updateBalls();
+        //渲染
+        render();
+    },50);
+}
+
+})();
+</script>
+
+<div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+<div class="site-overview">
+    
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+
+
+<div id="aplayer" style="border-radius: 20px; margin-top: 20px;"></div>
+
+
+<script>
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        autoplay: false,                 // 是否自动播放
+        fixed: false,                //是否附着页面底部，否为false
+        volume: 0.3,                //初始音量（0~1）
+        lrcType: 3,                 //歌词模式（1、HTML模式 2、js模式 3、lrc文件模式）
+        mutex: true,                //互斥模式：阻止多个播放器同时播放，当前播放器播放时暂停其他播放器
+        order: 'list',            //音频循环顺序（'list'：顺序, 'random'：随机）
+        preload: 'auto',            //预加载（'none'：不预加载, 'metadata'：元数据, 'auto'：自动）
+        loop: 'all',
+        listFolded: true,          //列表默认折叠，开启为true
+        theme: '#ee8243',           //主题颜色
+        audio: [{ //1
+            name: '十年如烟',           //歌曲名称
+            artist: '郁可唯',       //歌曲作者
+            url: '/music/郁可唯 - 十年如烟.mp3',         //歌曲源文件地址
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/十年如烟.lrc',    // 添加歌词
+        },
+        {//2
+            name: '独家记忆 (Live)',           //歌曲名称
+            artist: '郁可唯',       //歌曲作者
+            url: '/music/郁可唯 - 独家记忆 (Live).mp3',         //歌曲源文件地址
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/独家记忆 (Live).lrc',    // 添加歌词
+        },
+        {//3
+            name: '很受伤 (Live)',           //歌曲名称
+            artist: '郁可唯',       //歌曲作者
+            url: '/music/郁可唯 - 很受伤 (Live).mp3',         //歌曲源文件地址
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/很受伤 (Live).lrc',    // 添加歌词
+        },
+        {//4
+            name: '离人 (Live)',           //歌曲名称
+            artist: '郁可唯',       //歌曲作者
+            url: '/music/郁可唯 - 离人 (Live).mp3',         //歌曲源文件地址
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/离人 (Live).lrc',    // 添加歌词
+        },
+        {//5
+            name: '路过人间',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 路过人间 (Live).mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/路过人间.lrc',    // 添加歌词
+        },
+        {//6
+            name: '时光正好',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 时光正好.mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/时光正好.lrc',    // 添加歌词
+        },
+        {//7
+            name: '他不懂 (Live)',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 他不懂 (Live).mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/他不懂 (Live).lrc',    // 添加歌词
+        },
+        {//8
+            name: '水中花 (Live)',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 水中花 (Live).mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/水中花.lrc',    // 添加歌词
+        },
+        {//9
+            name: '倒流',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 倒流.mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/倒流.lrc',    // 添加歌词
+        }
+        ]
+    });
+</script>
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zerobio.github.io/archives/1810479489.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/apple-touch-icon.png">
+      <meta itemprop="name" content="JWei Ma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JWei's Blog">
+      <meta itemprop="description" content="爱随意却不失精致 乐自由而不失自律">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="De novo 基因组组装套件 --- FALCON | JWei's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          De novo 基因组组装套件 --- FALCON
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-03-21 12:45:06" itemprop="dateCreated datePublished" datetime="2022-03-21T12:45:06+08:00">2022-03-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-07 21:12:18" itemprop="dateModified" datetime="2022-06-07T21:12:18+08:00">2022-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Learn/" itemprop="url" rel="index"><span itemprop="name">Learn</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Learn/Bioinfo/" itemprop="url" rel="index"><span itemprop="name">Bioinfo</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+
+
+
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><code>Falcon</code>：一组用于快速比对 long reads 以达到 consensus 和
+组装的工具；是研究单倍体和二倍体基因组的一种高效组装算法。</p>
+<span id="more"></span>
+<p><code>Falcon</code>
+采用的是分层基因组组装策略（<code>Hierarchical Genome Assembly Process</code>），有如下几个过程：</p>
+<ul>
+<li>Raw sub-reads overlapping for error correction (原始
+<code>sub-reads</code> overlapping 用于纠错)</li>
+<li>Pre-assembly and error correction (预组装和纠错)</li>
+<li>Overlapping detection of the error corrected reads (纠错
+<code>reads</code> 的重叠检测)</li>
+<li>Overlap filtering (重叠过滤)</li>
+<li>Constructing graph from overlaps (从 <code>overlapping</code> 中构造
+<code>graph</code>)</li>
+<li>Constructing contig from graph (从 <code>graph</code> 构造
+<code>contigs</code>)</li>
+</ul>
+<blockquote>
+<p>overlapping ： 重叠</p>
+<p>graph： 图</p>
+</blockquote>
+<h2 id="falcon-运行要求"><code>Falcon</code> 运行要求</h2>
+<p>程序要求在集群计算的环境下运行，所以需要一个用于长期脚本作业的作业队列和富含
+<code>cpu</code>
+的计算作业队列；同时需要计算队列满足相应的资源配置；官方建议的是组装一个
+<code>100Mb</code> 大小的基因组，可能需要至少 <code>32</code> 个核心 cpu
+和 <code>128Gb RAM</code>。</p>
+<p>整个运行过程通过脚本 <code>fc_run.py</code>
+统一进行提交，也就是说只需要将这个脚本提交到集群，之后这个脚本将会启动
+<code>Falcon</code> 的整个工作流，从而将原始数据组装成初步的组装。</p>
+<p>为了更好的适应多样的数据集，我们还需要准备一个配置文件 ---
+<code>fc_run.cfg</code>，用于根据输入数据集来控制所使用的计算资源和重要的算法参数以达到优化组装。</p>
+<h2 id="相关参数设置">相关参数设置</h2>
+<p>在 <code>fc_run.cfg</code> 中：</p>
+<ul>
+<li>input_fofn=input.fofn --- 指向包含所有输入数据的文件。</li>
+<li>input_type=raw/preads --- 说明输入数据的类型；raw - 表示原始
+<code>reads</code>；preads - 表示为进行过纠错的
+<code>reads</code>，它将忽略任何纠错步骤并直接进入最终组装 contig
+的步骤。</li>
+<li>length_cutoff= <value>--- 长读截止值；通常在基因组组装可以获得最长
+15X 到 20X
+的点上选择阈值会很好。但是，如果计算资源丰富，并且可能会发现纠错读取的其他应用，你可以设置较低的
+<code>length_cutoff</code> 以获得更多的纠错读取。</li>
+<li>pa_concurrent_jobs = <int> ---
+用来控制可以提交的并发作业的数量。</li>
+<li>pa_DBsplit_option=-s400 ---
+设置如何拆分序列数据库，对于大型基因组，应该设置为
+<code>-s400</code>；-x<int> 忽略长度小于指定阈值的 reads。</li>
+<li>pa_HPCdaligner_option=-da1 --- 该 <code>-da1</code>
+选项中的数字决定了在单个作业中与每个块进行比较的块数，较大的数字提供较大的工作，但总工作量较小。</li>
+<li>falcon_sense_option ---
+用于对预组装和纠错进行参数设置，<code>--min_cov</code> 控制
+<code>seed reads</code>
+何时因覆盖率低而被修剪或中断。<code>--max_n_read</code>
+对用于纠错的读取次数设置上限。在高度重复的基因组中，你需要将其设置成更小，以确保共识代码不会浪费时间对齐重复。最长的适当重叠用于纠正以减少折叠重复的概率。</li>
+<li>ovlp_DBsplit_option=-x500 -s200 --- 设置 OLC 组装过程中对 preads
+数据进行分块的参数。</li>
+<li>pa_HPCTANmask_option = -k18 -h480 -w8 -e.80 ---
+设置在预组装过程中对串联重复进行屏蔽的参数，其参数会传递给 HPC.TANmask
+命令。</li>
+<li>pa_HPCREPmask_option=-k18 -h480 -w8 -e.80 ---
+设置在预组装过程中对散在重复进行屏蔽的参数。迭代 3 次。HPC.TANmask
+命令进行数据分析时有两个关键参数 -g 和
+-c，用于设置分析的数据块数量和覆盖度阈值</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 该部分转载自 http://www.chenlianfu.com/?p=2755</span></span><br><span class="line">[General]</span><br><span class="line">输入参数：</span><br><span class="line">input<span class="emphasis">_fofn = input.fofn</span></span><br><span class="line"><span class="emphasis">设置数据输入文件为input.fofn，该文本文件中每行是一个PacBio测序数据的FASTA文件路径。可以使用相对路径。</span></span><br><span class="line"><span class="emphasis">input_</span>type = raw</span><br><span class="line">设置输入数据类型为原始测序数据（raw），或者为修正后的数据（preads）。</span><br><span class="line"></span><br><span class="line">对数据进行分块：</span><br><span class="line">pa<span class="emphasis">_DBsplit_</span>option = -x500 –s200</span><br><span class="line">设置预组装（pre-assembly）过程中对raw reads数据进行分块的参数。这些参数会传递给Dbsplit命令来执行数据分块。</span><br><span class="line">-s<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span>    default: 200</span><br><span class="line">表示每份数据含有50Mb的数据量，该参数默认值为200。默认参数情况下，使用daligner进行比对需要消耗约16G内存。推荐设置该参数的值为预测的基因组大小。此外，软件作者推荐对小于10Mb的基因组设置该参数值为50，对于大基因组设置该参数值为200。</span><br><span class="line">-x<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span></span><br><span class="line">忽略长度小于指定阈值的reads。</span><br><span class="line">ovlp<span class="emphasis">_DBsplit_</span>option=-x500 –s200</span><br><span class="line">设置OLC组装过程中对preads数据进行分块的参数。</span><br><span class="line"></span><br><span class="line">对重复序列进行屏蔽：</span><br><span class="line">pa<span class="emphasis">_HPCTANmask_</span>option = -k18 -h480 -w8 -e.80</span><br><span class="line">设置在预组装过程对串联重复进行屏蔽的参数。其参数会传递给HPC.TANmask命令。该命令是正常daligner命令的一个变种，适合对串联重复序列进行比对。</span><br><span class="line">pa<span class="emphasis">_HPCREPmask_</span>option = -k18 -h480 -w8 -e.80</span><br><span class="line">设置在预组装过程对散在重复进行屏蔽的参数。其参数会传递给HPC.REPmask命令。该分析步骤会迭代3次。HPC.TANmask命令进行数据分析时有两个关键参数-g和-c，用于设置分析的数据块数量和覆盖度阈值。pa<span class="emphasis">_REPmask_</span>code设置3次迭代过程中这两个参数的值。这两个参数值的设置与数据分块方法和测序数据量有关。</span><br><span class="line">pa<span class="emphasis">_REPmask_</span>code = 1,666;4,266;8,53</span><br><span class="line">设置三次HPC.REPmask命令中的-g和-c参数的值。以上参数值则表示不对散在重复进行屏蔽。该参数的设置可以参考网址https://dazzlerblog.wordpress.com/2016/04/01/detecting-and-soft-masking-repeats/。在该文章中，作者给出了一个示例：对30Gb的基因组测序30x并将数据分割成3600个大小为250Mb的数据块，使用参数值“1,20;10,15;100,10”。每个数据块的测序深度为0.008x，对1个数据块的数据进行比对后，对reads中覆盖度超过20x的位点进行屏蔽，即对高度重复（20 / 0.008 = 2500x）的基因组序列位点进行屏蔽；然后第二次迭代中，对10个数据块的数据进行比对，对reads中覆盖度超过15x的位点进行屏蔽，即对中度重复（15 / 0.08 = 187.5x）的基因组序列位点进行屏蔽；最后第三次迭代中，对100个数据块的数据进行比对，对reads中覆盖度超过10x的位点进行屏蔽，即对低度重复（10 / 0.8 = 12.5x）的基因组序列位点进行屏蔽。示例中基因组大小是30Gb，超级大，一般含有大量重复序列，使用上述参数对数据中的重复位点进行屏蔽。</span><br><span class="line">对于常规的基因组组装，设置pa<span class="emphasis">_REPmask_</span>code参数后，在三次迭代过程中，推荐逐步对重复次数为1000x、100x和10x的序列位点进行屏蔽。例如：对300Mb大小的基因组测序100x，将数据分割成150个大小为200Mb的数据块，可以考虑设置pa<span class="emphasis">_REPmask_</span>code值为“1,666;4,266;8,53”。</span><br><span class="line">ovlp<span class="emphasis">_HPCTANmask_</span>option = -k20 -h480 -w8 -e.80</span><br><span class="line">设置在OLC组装过程对串联重复进行屏蔽的参数。其参数会传递给HPC.TANmask命令。</span><br><span class="line"></span><br><span class="line">预组装（pre-assembly）参数：</span><br><span class="line">length<span class="emphasis">_cutoff = -1</span></span><br><span class="line"><span class="emphasis">设置对种子序列的长度筛选阈值。若该参数值设置为-1，则程序自动计算种子序列的长度筛选阈值，根据如下两个参数挑选最长的reads序列作为种子序列，直到其数据量达到基因组指定覆盖度为止。</span></span><br><span class="line"><span class="emphasis">genome_</span>size = 4652500</span><br><span class="line">seed<span class="emphasis">_coverage = 30</span></span><br><span class="line"><span class="emphasis">设置基因组大小和种子序列覆盖度。推荐设置seed_</span>coverage参数的值为20~40x。当然是用更多的种子序列有利于基因组的组装效果，但是会消耗更多运行时间。</span><br><span class="line">pa<span class="emphasis">_daligner_</span>option = -k14 -w6 -h35 -e.70 -l1000</span><br><span class="line">在新版本FALCON中该参数额外再分出了pa<span class="emphasis">_HPCdaligner_</span>option参数，专门用于对数据块的分配。pa<span class="emphasis">_daligner_</span>option参数专门用于调用daligner软件对raw reads进行比对，进行overlap分析。其常用参数：</span><br><span class="line">-k<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span>    default: 14</span><br><span class="line">设置k-mer大小。推荐设置为14~18。设置较低的值，能提高sensitivity，得到更多的reads重叠结果，但增加磁盘、内存、计算和时间消耗，适合数据质量较差的情况；设置较高的值，能提高specificity，系统资源消耗更少，运行速度更快，仅适合数据质量较高的情况。</span><br><span class="line">-w<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span>    default: 6</span><br><span class="line">daligner命令对两个reads进行比对，得到一个斜对角线的比对带。该带的宽度设置为2的w次方。</span><br><span class="line">-h<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span>    default: 35</span><br><span class="line">在斜对角线带的比对区域上，需要至少有指定数目的碱基能被k-mers覆盖。-k、-w和-h是daligner命令进行比对的主要参数。默认设置下，寻找两两reads之间重叠，先将reads分割成长度为14bp的k-mers序列；对其中一条序列宽度为64bp的区域进行分析，要求至少有35个碱基位点能和被另外一条序列的k-mers覆盖，则找到重叠。</span><br><span class="line">-k、-w和-h的默认参数适合于PacBio测序的raw reads。对于修正后的read，推荐使用参数“daligner -k20 -h60 -e.95”。</span><br><span class="line">-e<span class="language-xml"><span class="tag">&lt;<span class="name">float</span>&gt;</span></span>    default: 0.70</span><br><span class="line">设置identity阈值。推荐设置为0.70~0.80。设置为较高的值有利于单倍型序列的组装。</span><br><span class="line">-l<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span>    default: 1000</span><br><span class="line">忽略长度小于低于设定值的reads。</span><br><span class="line">-T<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span>    default: 4</span><br><span class="line">设置每个daligner使用的CPU线程数。</span><br><span class="line">-M<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span></span><br><span class="line">尝试仅使用指定大小GB的内存。程序通过忽略覆盖度过高的k-mers来降低内存使用。一般情况下，对</span><br><span class="line">pa<span class="emphasis">_HPCdaligner_</span>option = -v -B4 -M16</span><br><span class="line">程序调用HPC.daligner进行分析，相比于daligner命令，其增加的常用参数：</span><br><span class="line">-v</span><br><span class="line">将-v参数传递给LAsort和LAmerge命令。</span><br><span class="line">-B<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span>    default: 4</span><br><span class="line">设置每个daligner任务对指定数目的数据块进行分析。在最新版本的FALCON中，该参数不能再设置到pa<span class="emphasis">_daligner_</span>option参数中，否则程序运行出错。</span><br><span class="line">falcon<span class="emphasis">_sense_</span>option = --output-multi --min-idt 0.70 --min-cov 4 --max-n-read 200</span><br><span class="line">FALCON使用fc<span class="emphasis">_consensus命令根据daligner进行Overlapping分析的结果进行一致性分析，从而对种子序列进行校正。常用参数：</span></span><br><span class="line"><span class="emphasis">--output-multi</span></span><br><span class="line"><span class="emphasis">输出每个种子序列多个修正后的区域。</span></span><br><span class="line"><span class="emphasis">--min-cov    default: 6</span></span><br><span class="line"><span class="emphasis">设置当种子序列上某位点覆盖度低于指定阈值时，则在该位点对序列打断或截短。</span></span><br><span class="line"><span class="emphasis">--min-cov-aln    default: 10</span></span><br><span class="line"><span class="emphasis">设置当种子序列的平均覆盖度低于指定阈值时，过滤掉该序列。</span></span><br><span class="line"><span class="emphasis">--min-n-read    default: 10</span></span><br><span class="line"><span class="emphasis">--max-n-read    default: 500</span></span><br><span class="line"><span class="emphasis">对覆盖度在--min_</span>n<span class="emphasis">_read和--max_</span>n<span class="emphasis">_read两个参数设定范围内的位点进行一致性分析，从而对种子序列进行校正。</span></span><br><span class="line"><span class="emphasis">--min-idt    default: 0.7</span></span><br><span class="line"><span class="emphasis">设置比对结果中reads重叠部分的最小identity阈值。</span></span><br><span class="line"><span class="emphasis">--n-core    default: 24</span></span><br><span class="line"><span class="emphasis">设置运行的线程数，默认值是24。</span></span><br><span class="line"><span class="emphasis">falcon_</span>sense<span class="emphasis">_greedy = False</span></span><br><span class="line"><span class="emphasis">falcon_</span>sense<span class="emphasis">_skip_</span>contained = False</span><br><span class="line"></span><br><span class="line">OLC算法进行组装的参数：</span><br><span class="line">length<span class="emphasis">_cutoff_</span>pr = 12000</span><br><span class="line">对预组装结果中长度超过此阈值的reads使用OLC算法进行下一步组装。</span><br><span class="line">ovlp<span class="emphasis">_HPCdaligner_</span>option = -v -B4 -M16</span><br><span class="line">ovlp<span class="emphasis">_daligner_</span>option = -k20 -w6 -h60 -e.96 -l1000</span><br><span class="line">调用daligner对校正后的preads进行overlapping分析时，参数相对要设置更加严格。</span><br><span class="line">-k<span class="language-xml"><span class="tag">&lt;<span class="name">int</span>&gt;</span></span>    default: 14</span><br><span class="line">对preads进行比对，推荐该参数的值为18~24。</span><br><span class="line">-e<span class="language-xml"><span class="tag">&lt;<span class="name">float</span>&gt;</span></span>    default: 0.70</span><br><span class="line">对preads进行比对，推荐该参数的值为0.93~0.96。</span><br><span class="line">overlap<span class="emphasis">_filtering_</span>setting = --max-diff 100 --max-cov 100 --min-cov 2 --bestn 10</span><br><span class="line">过滤overlaps。若reads首尾两端的覆盖度比平均覆盖度大很多，则表明reads首尾是重复序列；若reads首尾两端的覆盖度比平均覆盖度相差较小很多，则表明reads首尾出现错误的可能性很大。需要过滤掉这种reads的overlaps结果。</span><br><span class="line">--bestn    default: 10</span><br><span class="line">设置报告reads此数目的最优overlaps。</span><br><span class="line">--min-cov和—max-cov</span><br><span class="line">所允许的reads首尾的覆盖度范围。</span><br><span class="line">--max-diff</span><br><span class="line">设置所允许的首尾覆盖度值的最大差异。</span><br><span class="line">fc<span class="emphasis">_ovlp_</span>to<span class="emphasis">_graph_</span>option = --min<span class="emphasis">_len 4000 --min_</span>idt 0.96</span><br><span class="line"></span><br><span class="line">任务投递与计算资源消耗参数：</span><br><span class="line">[job.defaults]</span><br><span class="line">job<span class="emphasis">_type = local</span></span><br><span class="line"><span class="emphasis">设置任务提交方式。local表示使用本地主机运行FALCON，运行相对稳定。也可以设置为集群任务提交方式，可以设置的值有：sge、lsf、pbs、torque和slurm。该参数设置不同的值，后面的submit也要设置对应的信息。</span></span><br><span class="line"><span class="emphasis">pwatcher_</span>type=blocking</span><br><span class="line">submit = bash -C $&#123;CMD&#125; &gt;| $&#123;STDOUT<span class="emphasis">_FILE&#125; 2&gt;| $&#123;STDERR_</span>FILE&#125;</span><br><span class="line">MB=32768</span><br><span class="line">NPROC=6</span><br><span class="line">njobs=32</span><br><span class="line">FALCON软件流程对数据进行了切割，再进行并行化运算，加快程序运行速度。MB设置任务实用的内存数；NPROC设置单个任务的CPU线程数；njobs设置并行任务数。后续分别对每个流程中的计算资源进行分配。da表示预组装过程中运行的daligner命令；la表示预组装过程中运行的Lasort和LAmerge命令；cns表示预组装过程中运行的fc<span class="emphasis">_consensus命令；pda表示运行OLC组装过程中运行的的daligner命令；pla表示OLC组装过程中运行的Lasort和LAmerge命令；asm表示最终组装过程。</span></span><br><span class="line"><span class="emphasis">[job.step.da]</span></span><br><span class="line"><span class="emphasis">NPROC=4</span></span><br><span class="line"><span class="emphasis">MB=32768</span></span><br><span class="line"><span class="emphasis">njobs=240</span></span><br><span class="line"><span class="emphasis">[job.step.la]</span></span><br><span class="line"><span class="emphasis">NPROC=4</span></span><br><span class="line"><span class="emphasis">MB=32768</span></span><br><span class="line"><span class="emphasis">njobs=240</span></span><br><span class="line"><span class="emphasis">[job.step.cns]</span></span><br><span class="line"><span class="emphasis">NPROC=8</span></span><br><span class="line"><span class="emphasis">MB=65536</span></span><br><span class="line"><span class="emphasis">njobs=240</span></span><br><span class="line"><span class="emphasis">[job.step.pda]</span></span><br><span class="line"><span class="emphasis">NPROC=4</span></span><br><span class="line"><span class="emphasis">MB=32768</span></span><br><span class="line"><span class="emphasis">njobs=240</span></span><br><span class="line"><span class="emphasis">[job.step.pla]</span></span><br><span class="line"><span class="emphasis">NPROC=4</span></span><br><span class="line"><span class="emphasis">MB=32768</span></span><br><span class="line"><span class="emphasis">njobs=240</span></span><br><span class="line"><span class="emphasis">[job.step.asm]</span></span><br><span class="line"><span class="emphasis">NPROC=24</span></span><br><span class="line"><span class="emphasis">MB=196608</span></span><br><span class="line"><span class="emphasis">njobs=1</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>length_cutoff</code> 控制在纠错过程中
+<code>length_cutoff_pr</code>
+使用的截至值，并控制用于后面的组装重叠步骤的截至值。在最终的组装中，更多的
+<code>rads</code> 可能不会导致更好的组装，因为某些 <code>reads</code>
+可能会铲射高噪音并在组装图中创建错误的连接。有时，尝试不同的值可能是有意义的，<code>length_cutoff_pr</code>
+因为与第一个重叠步骤进行纠错相比，它的计算成本相对较低。一种策略是选择一个较小的
+<code>length_cutoff</code> 并进行一次计算。稍后，我们可以使用不同的
+<code>length_cutoff_pr</code> 的方法来获得更好的组装。</p>
+</blockquote>
+<h2 id="参考链接">参考链接</h2>
+<p>[1] https://github.com/PacificBiosciences/FALCON/wiki/Manual</p>
+<p>[2] http://www.chenlianfu.com/?p=2755</p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="JWei Ma 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>JWei Ma
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://zerobio.github.io/archives/1810479489.html" title="De novo 基因组组装套件 --- FALCON">https://zerobio.github.io/archives/1810479489.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpoQ0M="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/FALCON/" rel="tag"><i class="fa fa-tag"></i> FALCON</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/306037846.html" rel="prev" title="基因组组装评估 --- QUAST">
+                  <i class="fa fa-chevron-left"></i> 基因组组装评估 --- QUAST
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/3047867727.html" rel="next" title="单倍型基因组组装工具 --- Trio binning">
+                  单倍型基因组组装工具 --- Trio binning <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JWei Ma</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">216k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:17</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZw==">NexT.Gemini</span> 强力驱动
+  </div>
+
+
+
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.2.0/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://zerobio.github.io/archives/1810479489.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"zerobio","repo":"zerobio.github.io","client_id":"3dffdb596f003864b93e","client_secret":"954a12f2248bbaa730ef8c99d9573f9d15b8756f","admin_user":"zerobio","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","createIssueManually":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"6230abbad996c7b179e3bb65ed95f5ac"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+<script src="/js/jquery.backstretch.min.js" type="text/javascript"></script>
+<body>
+<script type="text/javascript">
+$.backstretch([
+        '/images/background-leave.png',
+        '/images/background1.jpg',
+        '/images/background.jpg',
+    ], {
+        fade : 3000, // 动画时长
+        duration : 30000 // 切换延时
+});
+</script>
+</body>
+
+
+
+        
+
+
+<div class="moon-menu">
+  <div class="moon-menu-items">
+    
+    <div id="moon-menu-item-back2bottom" class="moon-menu-item">
+      <i class='fas fa-chevron-down'></i>    </div>
+    
+    <div id="moon-menu-item-back2top" class="moon-menu-item">
+      <i class='fas fa-chevron-up'></i>    </div>
+    
+  </div>
+  <div class="moon-menu-button">
+    <svg class="moon-menu-bg">
+      <circle class="moon-menu-cricle" cx="50%" cy="50%" r="44%"></circle>
+      <circle class="moon-menu-border" cx="50%" cy="50%" r="48%"></circle>
+    </svg>
+    <div class="moon-menu-content">
+      <div class="moon-menu-icon"><i class='fas fa-ellipsis-v'></i></div>
+      <div class="moon-menu-text"></div>
+    </div>
+  </div>
+</div><script src="/js/injector.js"></script>
+</body>
+</html>

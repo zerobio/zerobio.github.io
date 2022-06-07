@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#222">
+  <meta name="msvalidate.01" content="78D4DB560EF9B1E53D12AD944C83079A">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Introduction Purge Haplotigs 主要用于三代测序数据组装校正，主要服务于高度杂合的基因组组装，以自动重新分配等位基因重叠群(automate the reassignment of allelic contigs)。 原理：通过识别和重新分配等位基因组重叠群来改进基于三代测序的基因组组装的单倍体和二倍体表示。  与基于比对的方法相比，该实现速度快且可以很好地扩展">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Purge Haplotigs --- allelic contig reassignment">
+<meta property="og:url" content="https://zerobio.github.io/archives/884e387b.html">
+<meta property="og:site_name" content="JWei&#39;s Blog">
+<meta property="og:description" content="Introduction Purge Haplotigs 主要用于三代测序数据组装校正，主要服务于高度杂合的基因组组装，以自动重新分配等位基因重叠群(automate the reassignment of allelic contigs)。 原理：通过识别和重新分配等位基因组重叠群来改进基于三代测序的基因组组装的单倍体和二倍体表示。  与基于比对的方法相比，该实现速度快且可以很好地扩展">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zerobio.github.io/images/12859_2018_2485_Fig1_HTML.png">
+<meta property="og:image" content="https://zerobio.github.io/images/84978409-phased_coverage_histogram.png">
+<meta property="og:image" content="https://zerobio.github.io/images/1039246939-coverage_histogram.png">
+<meta property="og:image" content="https://zerobio.github.io/images/aligned.bam.histogram.png">
+<meta property="article:published_time" content="2022-04-10T06:39:24.000Z">
+<meta property="article:modified_time" content="2022-06-07T13:12:17.955Z">
+<meta property="article:author" content="JWei Ma">
+<meta property="article:tag" content="Purge Haplotigs">
+<meta property="article:tag" content="Haplotype">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zerobio.github.io/images/12859_2018_2485_Fig1_HTML.png">
+
+
+<link rel="canonical" href="https://zerobio.github.io/archives/884e387b.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zerobio.github.io/archives/884e387b.html","path":"archives/884e387b.html","title":"Purge Haplotigs --- allelic contig reassignment"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Purge Haplotigs --- allelic contig reassignment | JWei's Blog</title>
+  
+
+
+
+
+  <script async src="https://www.clarity.ms/tag/b7w6x5pa54"></script>
+<script src="/lib/fireworks.js"></script>
+
+<meta name="msvalidate.01" content="78D4DB560EF9B1E53D12AD944C83079A" />
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "b7w6x5pa54");
+</script>
+
+
+
+ 
+
+<script>
+  var OriginTitile = document.title;
+  var titleTime;
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      document.title = "(つェ⊂)我藏好了哦~" + OriginTitile;
+      clearTimeout(titleTime);
+    } else {
+      document.title = "(*´∇｀*) 被你发现啦~" + OriginTitile;
+      titleTime = setTimeout(function() {
+        document.title = OriginTitile;
+      }, 2000);
+    }
+  });
+</script>
+
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css">
+<link rel="stylesheet" type="text/css" href="/css/injector/main.css" /><link rel="preload" as="style" href="/css/injector/light.css" /><link rel="preload" as="style" href="/css/injector/dark.css" />
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">JWei's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一枚生信小白的 Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">42</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">63</span></a></li>
+        <li class="menu-item menu-item-images"><a href="/photos/" rel="section"><i class="fa fa-image fa-fw"></i>相册</a></li>
+        <li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-spa fa-fw"></i>留言</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#purge-haplotigs-%E5%AE%9E%E7%8E%B0%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">Purge Haplotigs 实现流程图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#installation"><span class="nav-number">2.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getting-started"><span class="nav-number">3.</span> <span class="nav-text">Getting Started</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#step-0get-bam-file"><span class="nav-number">3.1.</span> <span class="nav-text">Step 0：Get BAM file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-1purge_haplotigs-hist"><span class="nav-number">3.2.</span> <span class="nav-text">Step 1：purge_haplotigs hist</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-2purge_haplotigs-cov"><span class="nav-number">3.3.</span> <span class="nav-text">Step 2：purge_haplotigs cov</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#step-3purge_haplotigs-purge"><span class="nav-number">3.4.</span> <span class="nav-text">Step 3：purge_haplotigs purge</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#results"><span class="nav-number">4.</span> <span class="nav-text">Results</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#example"><span class="nav-number">5.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references"><span class="nav-number">6.</span> <span class="nav-text">References</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="JWei Ma"
+      src="/images/apple-touch-icon.png">
+  <p class="site-author-name" itemprop="name">JWei Ma</p>
+  <div class="site-description" itemprop="description">爱随意却不失精致 乐自由而不失自律</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3plcm9iaW8=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zerobio"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/about/#Contact-me" title="E-Mail → &#x2F;about&#x2F;#Contact-me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+<div style="margin-top: 10px">
+  <canvas id="canvas" style="width:58%;"></canvas>
+</div>
+<script>
+(function(){
+
+   var digit=
+    [
+        [
+            [0,0,1,1,1,0,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,0,1,1,0],
+            [0,0,1,1,1,0,0]
+        ],//0
+        [
+            [0,0,0,1,1,0,0],
+            [0,1,1,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [1,1,1,1,1,1,1]
+        ],//1
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,1,1],
+            [1,1,1,1,1,1,1]
+        ],//2
+        [
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//3
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,0],
+            [0,0,1,1,1,1,0],
+            [0,1,1,0,1,1,0],
+            [1,1,0,0,1,1,0],
+            [1,1,1,1,1,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,1,1]
+        ],//4
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,1,1,1,1,0],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//5
+        [
+            [0,0,0,0,1,1,0],
+            [0,0,1,1,0,0,0],
+            [0,1,1,0,0,0,0],
+            [1,1,0,0,0,0,0],
+            [1,1,0,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//6
+        [
+            [1,1,1,1,1,1,1],
+            [1,1,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0],
+            [0,0,1,1,0,0,0]
+        ],//7
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,1,1,0]
+        ],//8
+        [
+            [0,1,1,1,1,1,0],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [1,1,0,0,0,1,1],
+            [0,1,1,1,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,0,1,1],
+            [0,0,0,0,1,1,0],
+            [0,0,0,1,1,0,0],
+            [0,1,1,0,0,0,0]
+        ],//9
+        [
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,1,1,1,0,0],
+            [0,0,0,0,0,0,0]
+        ]//:
+    ];
+
+var canvas = document.getElementById('canvas');
+
+if(canvas.getContext){
+    var cxt = canvas.getContext('2d');
+    //声明canvas的宽高
+    var H = 100,W = 700;
+    canvas.height = H;
+    canvas.width = W;
+    cxt.fillStyle = '#f00';
+    cxt.fillRect(10,10,50,50);
+
+    //存储时间数据
+    var data = [];
+    //存储运动的小球
+    var balls = [];
+    //设置粒子半径
+    var R = canvas.height/20-1;
+    (function(){
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        //存储时间数字，由十位小时、个位小时、冒号、十位分钟、个位分钟、冒号、十位秒钟、个位秒钟这7个数字组成
+        data.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+    })();
+
+    /*生成点阵数字*/
+    function renderDigit(index,num){
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    cxt.beginPath();
+                    cxt.arc(14*(R+2)*index + j*2*(R+1)+(R+1),i*2*(R+1)+(R+1),R,0,2*Math.PI);
+                    cxt.closePath();
+                    cxt.fill();
+                }
+            }
+        }
+    }
+
+    /*更新时钟*/
+    function updateDigitTime(){
+        var changeNumArray = [];
+        var temp = /(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date());
+        var NewData = [];
+        NewData.push(temp[1],temp[2],10,temp[3],temp[4],10,temp[5],temp[6]);
+        for(var i = data.length-1; i >=0 ; i--){
+            //时间发生变化
+            if(NewData[i] !== data[i]){
+                //将变化的数字值和在data数组中的索引存储在changeNumArray数组中
+                changeNumArray.push(i+'_'+(Number(data[i])+1)%10);
+            }
+        }
+        //增加小球
+        for(var i = 0; i< changeNumArray.length; i++){
+            addBalls.apply(this,changeNumArray[i].split('_'));
+        }
+        data = NewData.concat();
+    }
+
+    /*更新小球状态*/
+    function updateBalls(){
+        for(var i = 0; i < balls.length; i++){
+            balls[i].stepY += balls[i].disY;
+            balls[i].x += balls[i].stepX;
+            balls[i].y += balls[i].stepY;
+            if(balls[i].x > W + R || balls[i].y > H + R){
+                balls.splice(i,1);
+                i--;
+            }
+        }
+    }
+
+    /*增加要运动的小球*/
+    function addBalls(index,num){
+        var numArray = [1,2,3];
+        var colorArray =  ["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"];
+        for(var i = 0; i < digit[num].length; i++){
+            for(var j = 0; j < digit[num][i].length; j++){
+                if(digit[num][i][j] == 1){
+                    var ball = {
+                        x:14*(R+2)*index + j*2*(R+1)+(R+1),
+                        y:i*2*(R+1)+(R+1),
+                        stepX:Math.floor(Math.random() * 4 -2),
+                        stepY:-2*numArray[Math.floor(Math.random()*numArray.length)],
+                        color:colorArray[Math.floor(Math.random()*colorArray.length)],
+                        disY:1
+                    };
+                    balls.push(ball);
+                }
+            }
+        }
+    }
+
+    /*渲染*/
+    function render(){
+        //重置画布宽度，达到清空画布的效果
+        canvas.height = 100;
+        //渲染时钟
+        for(var i = 0; i < data.length; i++){
+            renderDigit(i,data[i]);
+        }
+        //渲染小球
+        for(var i = 0; i < balls.length; i++){
+            cxt.beginPath();
+            cxt.arc(balls[i].x,balls[i].y,R,0,2*Math.PI);
+            cxt.fillStyle = balls[i].color;
+            cxt.closePath();
+            cxt.fill();
+        }
+    }
+
+    clearInterval(oTimer);
+    var oTimer = setInterval(function(){
+        //更新时钟
+        updateDigitTime();
+        //更新小球状态
+        updateBalls();
+        //渲染
+        render();
+    },50);
+}
+
+})();
+</script>
+
+<div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+<div class="site-overview">
+    
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+
+
+<div id="aplayer" style="border-radius: 20px; margin-top: 20px;"></div>
+
+
+<script>
+    const ap = new APlayer({
+        container: document.getElementById('aplayer'),
+        autoplay: false,                 // 是否自动播放
+        fixed: false,                //是否附着页面底部，否为false
+        volume: 0.3,                //初始音量（0~1）
+        lrcType: 3,                 //歌词模式（1、HTML模式 2、js模式 3、lrc文件模式）
+        mutex: true,                //互斥模式：阻止多个播放器同时播放，当前播放器播放时暂停其他播放器
+        order: 'list',            //音频循环顺序（'list'：顺序, 'random'：随机）
+        preload: 'auto',            //预加载（'none'：不预加载, 'metadata'：元数据, 'auto'：自动）
+        loop: 'all',
+        listFolded: true,          //列表默认折叠，开启为true
+        theme: '#ee8243',           //主题颜色
+        audio: [{ //1
+            name: '十年如烟',           //歌曲名称
+            artist: '郁可唯',       //歌曲作者
+            url: '/music/郁可唯 - 十年如烟.mp3',         //歌曲源文件地址
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/十年如烟.lrc',    // 添加歌词
+        },
+        {//2
+            name: '独家记忆 (Live)',           //歌曲名称
+            artist: '郁可唯',       //歌曲作者
+            url: '/music/郁可唯 - 独家记忆 (Live).mp3',         //歌曲源文件地址
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/独家记忆 (Live).lrc',    // 添加歌词
+        },
+        {//3
+            name: '很受伤 (Live)',           //歌曲名称
+            artist: '郁可唯',       //歌曲作者
+            url: '/music/郁可唯 - 很受伤 (Live).mp3',         //歌曲源文件地址
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/很受伤 (Live).lrc',    // 添加歌词
+        },
+        {//4
+            name: '离人 (Live)',           //歌曲名称
+            artist: '郁可唯',       //歌曲作者
+            url: '/music/郁可唯 - 离人 (Live).mp3',         //歌曲源文件地址
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/离人 (Live).lrc',    // 添加歌词
+        },
+        {//5
+            name: '路过人间',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 路过人间 (Live).mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/路过人间.lrc',    // 添加歌词
+        },
+        {//6
+            name: '时光正好',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 时光正好.mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/时光正好.lrc',    // 添加歌词
+        },
+        {//7
+            name: '他不懂 (Live)',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 他不懂 (Live).mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/他不懂 (Live).lrc',    // 添加歌词
+        },
+        {//8
+            name: '水中花 (Live)',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 水中花 (Live).mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/水中花.lrc',    // 添加歌词
+        },
+        {//9
+            name: '倒流',
+            artist: '郁可唯',
+            url: '/music/郁可唯 - 倒流.mp3',
+            cover: '/music/郁可唯.jpg',     //歌曲封面地址
+            theme: '#eeeeee',        //主题颜色（优先）
+            lrc: '/music/倒流.lrc',    // 添加歌词
+        }
+        ]
+    });
+</script>
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zerobio.github.io/archives/884e387b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/apple-touch-icon.png">
+      <meta itemprop="name" content="JWei Ma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JWei's Blog">
+      <meta itemprop="description" content="爱随意却不失精致 乐自由而不失自律">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Purge Haplotigs --- allelic contig reassignment | JWei's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Purge Haplotigs --- allelic contig reassignment
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-10 14:39:24" itemprop="dateCreated datePublished" datetime="2022-04-10T14:39:24+08:00">2022-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-07 21:12:17" itemprop="dateModified" datetime="2022-06-07T21:12:17+08:00">2022-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Learn/" itemprop="url" rel="index"><span itemprop="name">Learn</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Learn/Bioinfo/" itemprop="url" rel="index"><span itemprop="name">Bioinfo</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+
+
+
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="introduction">Introduction</h2>
+<p><code>Purge Haplotigs</code>
+主要用于三代测序数据组装校正，主要服务于高度杂合的基因组组装，以自动重新分配等位基因重叠群(<code>automate the reassignment of allelic contigs</code>)。</p>
+<div class="note info"><p><strong>原理</strong>：通过识别和重新分配等位基因组重叠群来改进基于三代测序的基因组组装的单倍体和二倍体表示。</p>
+</div>
+<p>与基于比对的方法相比，该实现速度快且可以很好地扩展大型基因组，并且不太可能过度清除重复或旁系同源基因。</p>
+<span id="more"></span>
+<blockquote>
+<p><code>haplotigs</code>：单倍体</p>
+<p><code>primary contigs</code>：主要重叠群（<code>the haploid assembly</code>），即通过
+Canu / Falcon 得到的初步组装（contig-level）</p>
+<p><code>diploid aware</code>：二倍体感知</p>
+<p><code>haplotype-fused</code>： 单倍型融合</p>
+<p><code>secondary haplotigs</code>：次级单倍体</p>
+<p><code>hemizygous</code>：半合子，基因是单价的，即没有与之相对应的等位基因的合子</p>
+<p><code>haploid representation</code>：单倍体表示</p>
+</blockquote>
+<p><strong>二倍体组装是由 <code>primary contigs</code> 和
+<code>secondary haplotigs</code> 的结合组成单倍体。</strong></p>
+<p>理想的单倍型表示（<code>primary contigs</code>）将由两个单倍体中所有杂合区域的一个等位基因拷贝以及来自两个单倍体的所有半合子区域组成。这确保了任一单倍体中任何区域都完全比对到单倍体表示中的单个位置。<code>secondary haplotigs</code>
+应包含在两个单倍体中发现的杂合区域的两个等位基因拷贝之一；单倍体用作单倍体表示的相位信息。</p>
+<div class="note info"><p><strong>特点</strong>：仅需要三个步骤；将作用于单倍体组装以产生去重复的单倍体组装，或作用于二倍体组装以产生改进的、去重复的初级单倍体组装和更完整的次级单倍体组装。</p>
+</div>
+<h3 id="purge-haplotigs-实现流程图">Purge Haplotigs 实现流程图</h3>
+<p><img data-src="../images/12859_2018_2485_Fig1_HTML.png" alt="图1" style="zoom: 200%;"></p>
+<blockquote>
+<p>来自：https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2485-7/figures/1</p>
+</blockquote>
+<h2 id="installation">Installation</h2>
+<p>采用 <code>conda</code> 安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda create -n purge_haplotigs -c conda-forge -c bioconda purge_haplotigs</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 参照：https://bitbucket.org/mroachawri/purge_haplotigs/src/master/</span></span></span><br></pre></td></tr></table></figure>
+<p>不管怎么样，总是会遇到 <code>conda</code>
+不老实的情况，反正我的服务器并不能通过上面命令正常配置
+<code>purge_haplotigs</code> 环境（出现长时间无响应）。</p>
+<p>于是，我通过下面 <code>mamba</code> 成功安装：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">conda create -n purge_haplotigs python=3.6 -y</span><br><span class="line">conda activate purge_haplotigs</span><br><span class="line">conda install -c conda-forge mamba -y</span><br><span class="line">mamba install -c bioconda purge_haplotigs -y</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>总而言之，我服务器上的 <code>conda</code>
+真是一言难尽，几经辗转，勉强能用，如你未能通过官方提供的方案安装，可以尝试使用
+<code>mamba</code> 配置相关环境。</p>
+</blockquote>
+<p>这样一来，运行 <code>Purge haplotigs</code>
+所需的各种依赖环境就解决了。</p>
+<div class="note info"><p>可以通过 <code>purge_haplotigs test</code>
+运行示例，查看环境是否配置成功；如无任何
+<code>ERROR</code>，将会在工作路径生成一个名为
+<code>tmp_purge_haplotigs</code> 的文件夹。</p>
+</div>
+<h2 id="getting-started">Getting Started</h2>
+<p><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.048ex" xmlns="http://www.w3.org/2000/svg" width="9.618ex" height="1.593ex" role="img" focusable="false" viewBox="0 -683 4251 704"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle" fill="red" stroke="red"><g data-mml-node="mi"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g><g data-mml-node="mi" transform="translate(759,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(1288,0)"><path data-c="1D464" d="M580 385Q580 406 599 424T641 443Q659 443 674 425T690 368Q690 339 671 253Q656 197 644 161T609 80T554 12T482 -11Q438 -11 404 5T355 48Q354 47 352 44Q311 -11 252 -11Q226 -11 202 -5T155 14T118 53T104 116Q104 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Q21 293 29 315T52 366T96 418T161 441Q204 441 227 416T250 358Q250 340 217 250T184 111Q184 65 205 46T258 26Q301 26 334 87L339 96V119Q339 122 339 128T340 136T341 143T342 152T345 165T348 182T354 206T362 238T373 281Q402 395 406 404Q419 431 449 431Q468 431 475 421T483 402Q483 389 454 274T422 142Q420 131 420 107V100Q420 85 423 71T442 42T487 26Q558 26 600 148Q609 171 620 213T632 273Q632 306 619 325T593 357T580 385Z"></path></g><g data-mml-node="mi" transform="translate(2004,0)"><path data-c="1D437" d="M287 628Q287 635 230 637Q207 637 200 638T193 647Q193 655 197 667T204 682Q206 683 403 683Q570 682 590 682T630 676Q702 659 752 597T803 431Q803 275 696 151T444 3L430 1L236 0H125H72Q48 0 41 2T33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM703 469Q703 507 692 537T666 584T629 613T590 629T555 636Q553 636 541 636T512 636T479 637H436Q392 637 386 627Q384 623 313 339T242 52Q242 48 253 48T330 47Q335 47 349 47T373 46Q499 46 581 128Q617 164 640 212T683 339T703 469Z"></path></g><g data-mml-node="mi" transform="translate(2832,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(3361,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(3722,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g></g></g></g></svg></mjx-container></span>：</p>
+<ul>
+<li>haploid or diploid genome assembly【初步组装】</li>
+<li>PacBio subreads, or some decent long reads (or even short
+reads)【三代原始测序数据或二代双端 reads】</li>
+</ul>
+<h3 id="step-0get-bam-file">Step 0：Get BAM file</h3>
+<p>将三代测序数据映射到初步组装中。并得到排序后的 BAM 文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># conda activate purge_haplotigs</span></span></span><br><span class="line">assembly=  ## 初步组装 *.fasta</span><br><span class="line">pacbio=   ## 长度 *.fasta/*.fasta.gz</span><br><span class="line">minimap2 -ax map-pb ${assembly} ${pacbio} \</span><br><span class="line">    | samtools view -hF 256 - \</span><br><span class="line">    | samtools sort -@ 8 -m 1G -o aligned.bam -T tmp.ali</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>-h</code>：默认输出 sam 文件不带表头，<code>-h</code>
+参数将输出带有表头信息的 <code>sam</code></p>
+<p><code>-F</code>：mapped 的过滤设置【默认为0】</p>
+<p><code>-m</code>：每个线程运行内存大小</p>
+<p><code>-T</code>：临时文件前缀</p>
+</blockquote>
+<h3 id="step-1purge_haplotigs-hist">Step 1：purge_haplotigs hist</h3>
+<p>运行第一步，生成覆盖度直方图，从而 <code>手动获取</code> <strong>Low
+Cutoff</strong>、<strong>Mid Point</strong>、<strong>High
+Cutoff</strong>。以便进行 <code>Step 2</code>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">purge_haplotigs hist -b aligned.bam -g ${assembly} [ -t threads ]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># help</span></span></span><br><span class="line">USAGE:</span><br><span class="line">purge_haplotigs  hist  -b aligned.bam  -g genome.fasta  [ -t threads ]</span><br><span class="line"></span><br><span class="line">REQUIRED:</span><br><span class="line">-b / -bam       BAM file of aligned and sorted reads/subreads to the reference</span><br><span class="line">-g / -genome    Reference FASTA for the BAM file.</span><br><span class="line"></span><br><span class="line">OPTIONAL:</span><br><span class="line">-t / -threads   Number of worker threads to use, DEFAULT = 4, MINIMUM = 2</span><br><span class="line">-d / -depth     Maximum cutoff for depth. DEFAULT = 200, increase if needed,</span><br><span class="line">                set much higher than your expected average coverage.</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>-b</code>：BAM 文件（Step 0 生成的 bam
+），其中包含比对和排序到参考基因组的 reads/subreads</p>
+<p><code>-g</code>：生成 BAM
+文件的参考基因组，即我们需要处理的初步组装（primary assembly）</p>
+<p><code>-t</code>：线程数【默认：4，最小为 2】</p>
+</blockquote>
+<p>这一步骤运行成功之后，你会得到一个 <code>PNG</code> 展示
+<code>reads-depth</code>。顺利的话，应该会得到一个双峰直方图（一个代表单倍体覆盖水平，另一个代表二倍体覆盖水平）。</p>
+<div class="note warning"><p><strong>注意：</strong>
+如使用分阶段组装（<code>phased assembly</code>），二倍体峰可能非常小。</p>
+</div>
+<ul>
+<li>示例图 1 【Primary + Haplotigs】</li>
+</ul>
+<figure>
+<img data-src="../images/84978409-phased_coverage_histogram.png" alt="PacBio subreads on a Diploid-phased assembly (Primary + Haplotigs)">
+<figcaption aria-hidden="true">PacBio subreads on a Diploid-phased
+assembly (Primary + Haplotigs)</figcaption>
+</figure>
+<blockquote>
+<p>来自：https://bitbucket.org/repo/Ej8Mz7/images/84978409-phased_coverage_histogram.png</p>
+</blockquote>
+<ul>
+<li>示例图 2 【Primary contigs】</li>
+</ul>
+<figure>
+<img data-src="../images/1039246939-coverage_histogram.png" alt="Illumina PE reads on a Haploid assembly (Primary contigs)">
+<figcaption aria-hidden="true">Illumina PE reads on a Haploid assembly
+(Primary contigs)</figcaption>
+</figure>
+<blockquote>
+<p>来自：https://bitbucket.org/repo/Ej8Mz7/images/1039246939-coverage_histogram.png</p>
+</blockquote>
+<p>其中图标识的
+<code>Low Cutoff</code>、<code>Mid Point</code>、<code>High Cutoff</code>
+三个值是需要我们从图中得出的，分别指示 <code>Step 2</code> 中
+<code>-l</code>、<code>-m</code>、<code>-h</code>。</p>
+<h3 id="step-2purge_haplotigs-cov">Step 2：purge_haplotigs cov</h3>
+<p>使用 <code>Step 1</code> 得到的三个 <code>Cutoff</code>
+值运行第二个脚本，以逐个重叠群分析覆盖率。最终生成 contig 覆盖率统计 csv
+文件（<code>coverage_stats.csv</code>），其中标记了可疑的 contig
+以供进一步分析或删除。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">purge_haplotigs cov -i aligned.bam.genecov \</span><br><span class="line">			-l &lt;integer&gt; -m &lt;integer&gt; -h &lt;integer&gt; \ </span><br><span class="line">            [-o coverage_stats.csv -j 80 -s 80 ]</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># help</span></span></span><br><span class="line">USAGE:</span><br><span class="line">purge_haplotigs  cov  -i aligned.bam.genecov  -l &lt;integer&gt;  -m &lt;integer&gt;  -h &lt;integer&gt;  [-o coverage_stats.csv -j 80  -s 80 ]</span><br><span class="line"></span><br><span class="line">REQUIRED:</span><br><span class="line">-i / -in        The bedtools genomecov output that was produced from 'purge_haplotigs readhist'</span><br><span class="line">-l / -low       The read depth low cutoff (use the histogram to eyeball these cutoffs)</span><br><span class="line">-h / -high      The read depth high cutoff</span><br><span class="line">-m / -mid       The low point between the haploid and diploid peaks</span><br><span class="line"></span><br><span class="line">OPTIONAL:</span><br><span class="line">-o / -out       Choose an output file name (CSV format, DEFAULT = coverage_stats.csv)</span><br><span class="line">-j / -junk      Auto-assign contig as "j" (junk) if this percentage or greater of the contig is </span><br><span class="line">                low/high coverage (DEFAULT = 80, &gt; 100 = don't junk anything)</span><br><span class="line">-s / -suspect   Auto-assign contig as "s" (suspected haplotig) if this percentage or less of the</span><br><span class="line">                contig is diploid level of coverage (DEFAULT = 80)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>-i</code>：Step 1 - <code>purge_haplotigs hist</code> 产生的
+aligned.bam.genecov。</p>
+<p><code>-l</code>：reads 深度低截止点（<code>Low cutoff</code>）</p>
+<p><code>-m</code>：单倍体和二倍体峰之间的低点（<code>Mid point</code>）</p>
+<p><code>-h</code>：reads 深度高截止点（<code>High cutoff</code>）</p>
+<p><code>-o</code>：输出文件名【默认：coverage_stats.csv】</p>
+<p><code>-j</code>：Auto-assign contig as "j" (junk) if this percentage
+or greater of the contig is low/high coverage (DEFAULT = 80, &gt; 100 =
+don't junk anything)</p>
+<p><code>-s</code>：Auto-assign contig as "s" (suspected haplotig) if
+this percentage or less of the contig is diploid level of coverage
+(DEFAULT = 80)</p>
+</blockquote>
+<h3 id="step-3purge_haplotigs-purge">Step 3：purge_haplotigs purge</h3>
+<p>这里将自动运行 <code>BEDTools</code> 窗口化覆盖分析和
+<code>minimap2</code>
+对齐，以评估要重新分配哪些重叠群以及保留哪些重叠群。管道将进行多次
+<code>purge</code> 迭代。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">purge_haplotigs  purge  -g ${assembly}  -c coverage_stats.csv</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># help</span></span></span><br><span class="line">USAGE:</span><br><span class="line">purge_haplotigs  purge  -g genome.fasta  -c coverage_stats.csv</span><br><span class="line"></span><br><span class="line">REQUIRED:</span><br><span class="line">-g / -genome        Genome assembly in fasta format. Needs to be indexed with samtools faidx.</span><br><span class="line">-c / -coverage      Contig by contig coverage stats csv file from the previous step.</span><br><span class="line"></span><br><span class="line">OPTIONAL:</span><br><span class="line">-t / -threads       Number of worker threads to use. DEFAULT = 4</span><br><span class="line">-o / -outprefix     Prefix for the curated assembly. DEFAULT = "curated"</span><br><span class="line">-r / -repeats       BED-format file of repeats to ignore during analysis.</span><br><span class="line">-d / -dotplots      Generate dotplots for manual inspection.</span><br><span class="line">-b / -bam           Samtools-indexed bam file of aligned and sorted reads/subreads to the</span><br><span class="line">                    reference, required for generating dotplots.</span><br><span class="line">-f / -falconNaming  Rename contigs in the style used by FALCON/FALCON-unzip</span><br><span class="line"></span><br><span class="line">ADVANCED:</span><br><span class="line">-a / -align_cov     Percent cutoff for identifying a contig as a haplotig. DEFAULT = 70</span><br><span class="line">-m / -max_match     Percent cutoff for identifying repetitive contigs. Ignored when </span><br><span class="line">                    using repeat annotations (-repeats). DEFAULT = 250</span><br><span class="line">-I                  Minimap2 indexing, drop minimisers every N bases, DEFAULT = 4G</span><br><span class="line">-v / -verbose       Print EVERYTHING.</span><br><span class="line">-limit_io           Limit for I/O intensive jobs. DEFAULT = -threads</span><br><span class="line">-wind_min           Min window size for BED coverage plots (for dotplots). DEFAULT = 5000</span><br><span class="line">-wind_nmax          Max windows per contig for BED coverage plots (for dotplots). DEFAULT = 200</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>-g</code>：初步组装，并 <code>samtools faidx</code>
+进行索引</p>
+<p><code>-c</code>：Step 2 得到的 <code>coverage_stats.csv</code></p>
+<p><code>-t</code>：线程数【默认：4】</p>
+<p><code>-o</code>：精选组装（<code>curated assembly</code>）的输出前缀【默认：curated】</p>
+<p><code>-r</code>：--repeats，BED
+格式的重复注释文件，以改进对重复区域的处理；若无，可以不用</p>
+<p><code>-d</code>：生成用于手动检查的点图</p>
+<p><code>-b</code>：如需生成点图，则必须 -b 引入 samtools 索引的 bam
+文件，其中包含对参考的对齐和排序 reads/subreads。即
+<code>aligned.bam</code>。</p>
+<p><code>-a</code>：--align_cov， 将 contig 识别为 haplotigs
+的百分比截至值【默认：70】</p>
+<p><code>-m</code>：--max_match， 用于识别重复重叠群的百分比截至值，使用
+--repeats 参数时忽略，【默认：250】</p>
+<p><code>-I</code>：Minimap2 indexing, drop minimisers every N
+bases【默认：4G】</p>
+<p><code>-v</code>：打印所有内容</p>
+<p><code>-limit_io</code>：I/O 密集型作业的限制【默认：--threads】</p>
+<p><code>-wind_min</code>：BED 覆盖图的最小窗口大小（dot
+plot）【默认：5000】</p>
+<p><code>-wind_nmax</code>：每个重叠群的最大窗口，用于 BED 覆盖度（dot
+plot）【默认：200】</p>
+</blockquote>
+<h2 id="results">Results</h2>
+<p>成功运行上面的流程，将会得到五个输出文件：</p>
+<ul>
+<li><strong><prefix>.fasta</prefix></strong>：最终得到的主要重叠群。</li>
+<li><strong><prefix>.haplotigs.fasta</prefix></strong>：在初始输入组装中识别得到的所有
+haplotigs</li>
+<li><strong><prefix>.artefacts.fasta</prefix></strong>：覆盖度非常低/高的重叠群（在
+Step 2 中确定）</li>
+<li><strong><prefix>.reassignments.tsv</prefix></strong>：已进行的所有重新分配，以及未重新分贝的可以
+contig</li>
+<li><strong><prefix>.contig_associations.log</prefix></strong>：This shows the
+contig "associations"</li>
+</ul>
+<p>如有生成点图：</p>
+<ul>
+<li><strong>dotplots_unassigned_contigs</strong>：未分配的可疑重叠群的
+Dotplot</li>
+<li><strong>dotplots_reassigned_contigs</strong>：重新分配的重叠群的
+Dotplot</li>
+</ul>
+<div class="note warning"><p><strong>局限性：</strong> <code>Purge Haplotigs</code>
+目前仅针对二倍体基因组进行了测试。应该注意的是，单倍型转换（<code>haplotype switching</code>）经常发生在
+FALCON-Unzip 相邻 <code>phased block</code>
+之间的主要重叠群中。由于连续变体之间的距离较大，通常需要较长范围的链接信息来完全重建两个单倍体，因此可能会发生定相中断。故
+<code>Purge Haplotigs</code>
+无法解决单倍型转换（<code>haplotype switching</code>）问题，相反，它只会尝试识别等位基因的重叠群并产生基因组的去重复表示。</p>
+</div>
+<h2 id="example">Example</h2>
+<p>前几天，通过 CANU 设置
+<code>corOutCoverage=200 "batOptions=-dg 3 -db 3 -dr 1 -ca 500 -cp 50"</code>
+参数获得了一个二倍体 <code>primary + haplotigs</code>。首先通过 Busco
+分析 ---
+<code>C:98.9%[S:46.5%,D:52.4%],F:0.2%,M:0.9%,n:1614</code>，获知其中包含
+<code>52.4%</code> 的重复。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># conda activate purge_haplotigs</span></span></span><br><span class="line"></span><br><span class="line">assembly=  ## Canu / Falcon 得到的 primary contigs</span><br><span class="line">pacbio=  ## Pacbio CLR reads</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Step 0 - Get aligned.bam</span></span></span><br><span class="line">minimap2 -ax map-pb ${assembly} ${pacbio} \</span><br><span class="line">    | samtools view -hF 256 - \</span><br><span class="line">    | samtools sort -@ 8 -m 1G -o aligned.bam -T tmp.ali</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># step1 - hist</span></span></span><br><span class="line">purge_haplotigs hist -b aligned.bam  -g ${assembly} -t 8</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># step2 - cov step1-Low Cutoff-Mid Cutoff-High Cutoff</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 请注意修改 -l、-m、-h 这三个参数的值，根据 Step 1 生成的图确定。</span></span></span><br><span class="line">purge_haplotigs  cov  -i aligned.bam.gencov  -l 7 -m 60 -h 120 -o coverage_stats.csv</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># step3 - purge</span></span></span><br><span class="line">purge_haplotigs  purge  -g ${assembly}  -c coverage_stats.csv -b aligned.bam -d</span><br></pre></td></tr></table></figure>
+<ul>
+<li>确定三个 <code>Cutoff value</code></li>
+</ul>
+<figure>
+<img data-src="../images/aligned.bam.histogram.png" alt="aligned.bam.histogram">
+<figcaption aria-hidden="true">aligned.bam.histogram</figcaption>
+</figure>
+<blockquote>
+<p>所以，这里选用的三个截止值为 <code>-l 6 -m 60 -h 120</code>。</p>
+</blockquote>
+<ul>
+<li><p>最终得到清洗过的主要重叠群文件 --- <code>curated.fasta</code></p>
+<p>重新进行 Busco
+分析，得到：<code>C:98.3%[S:94.3%,D:4.0%],F:1.1%,M:0.6%,n:1614</code>，显示最终只保留了
+<code>4%</code> 的重复，序列完整性很可观。</p></li>
+<li><p>Purge Haplotigs 前后的数据质量</p>
+<table>
+<thead>
+<tr class="header">
+<th>Summary</th>
+<th>genome.fasta</th>
+<th>curated.fasta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>asm_contigs</td>
+<td>3,464</td>
+<td>547</td>
+</tr>
+<tr class="even">
+<td>asm_max</td>
+<td>3,156,869</td>
+<td>3,156,869</td>
+</tr>
+<tr class="odd">
+<td>asm_mean</td>
+<td>112,376</td>
+<td>400,990</td>
+</tr>
+<tr class="even">
+<td>asm_median</td>
+<td>48,698</td>
+<td>236,405</td>
+</tr>
+<tr class="odd">
+<td>asm_min</td>
+<td>1,852</td>
+<td>2,143</td>
+</tr>
+<tr class="even">
+<td>asm_n50</td>
+<td>259,489</td>
+<td>767,220</td>
+</tr>
+<tr class="odd">
+<td>asm_n90</td>
+<td>4,0764</td>
+<td>198,193</td>
+</tr>
+<tr class="even">
+<td>asm_n95</td>
+<td>3,1484</td>
+<td>129,397</td>
+</tr>
+<tr class="odd">
+<td>asm_total_bp</td>
+<td>389,273,046</td>
+<td>219,341,935</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><code>genome.fasta</code> - 是我通过 Canu
+组装得到的单倍型混合二倍体基因组</p>
+<p><code>curated.fasta</code> - 经过 Purge Haplotigs 清洗得到的 primary
+contigs</p>
+<p>通过简单的对比，在去除掉将近 <code>50%</code>
+的重复之后，明显提高了序列的连续性（N50
+更长），最终的基因组大小也符合该物种单倍型大小。</p>
+<p>也可以认为，原本希望得到混合二倍体单倍型组装，但是最终只得到了一个单倍型敏感的
+contigs。</p>
+</blockquote></li>
+</ul>
+<h2 id="references">References</h2>
+<p>[1]
+https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-018-2485-7</p>
+<p>[2] https://bitbucket.org/mroachawri/purge_haplotigs/src/master/</p>
+<p>[3] https://www.jianshu.com/p/f1e649c6ed40</p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="JWei Ma 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>JWei Ma
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://zerobio.github.io/archives/884e387b.html" title="Purge Haplotigs --- allelic contig reassignment">https://zerobio.github.io/archives/884e387b.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpoQ0M="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Purge-Haplotigs/" rel="tag"><i class="fa fa-tag"></i> Purge Haplotigs</a>
+              <a href="/tags/Haplotype/" rel="tag"><i class="fa fa-tag"></i> Haplotype</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/c2c99b79.html" rel="prev" title="停下来聊一聊 Blog">
+                  <i class="fa fa-chevron-left"></i> 停下来聊一聊 Blog
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/8ac4e631.html" rel="next" title="SyRI --- 从全基因组组装中识别基因组重排和局部序列差异">
+                  SyRI --- 从全基因组组装中识别基因组重排和局部序列差异 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JWei Ma</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">216k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:17</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZw==">NexT.Gemini</span> 强力驱动
+  </div>
+
+
+
+
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.2.0/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://zerobio.github.io/archives/884e387b.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"zerobio","repo":"zerobio.github.io","client_id":"3dffdb596f003864b93e","client_secret":"954a12f2248bbaa730ef8c99d9573f9d15b8756f","admin_user":"zerobio","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","createIssueManually":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.7.2/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"c188bd129984a225ce0b94fa065674d8"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+<script src="/js/jquery.backstretch.min.js" type="text/javascript"></script>
+<body>
+<script type="text/javascript">
+$.backstretch([
+        '/images/background-leave.png',
+        '/images/background1.jpg',
+        '/images/background.jpg',
+    ], {
+        fade : 3000, // 动画时长
+        duration : 30000 // 切换延时
+});
+</script>
+</body>
+
+
+
+        
+
+
+<div class="moon-menu">
+  <div class="moon-menu-items">
+    
+    <div id="moon-menu-item-back2bottom" class="moon-menu-item">
+      <i class='fas fa-chevron-down'></i>    </div>
+    
+    <div id="moon-menu-item-back2top" class="moon-menu-item">
+      <i class='fas fa-chevron-up'></i>    </div>
+    
+  </div>
+  <div class="moon-menu-button">
+    <svg class="moon-menu-bg">
+      <circle class="moon-menu-cricle" cx="50%" cy="50%" r="44%"></circle>
+      <circle class="moon-menu-border" cx="50%" cy="50%" r="48%"></circle>
+    </svg>
+    <div class="moon-menu-content">
+      <div class="moon-menu-icon"><i class='fas fa-ellipsis-v'></i></div>
+      <div class="moon-menu-text"></div>
+    </div>
+  </div>
+</div><script src="/js/injector.js"></script>
+</body>
+</html>
