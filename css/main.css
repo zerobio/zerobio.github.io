@@ -2998,14 +2998,16 @@ mjx-container[display='true'] + br {
 }
 .post-body h1,
 .post-body h2,
-.post-body h3,
-.post-body h4,
-.post-body h5,
-.post-body h6 {
+.post-body h3 {
   font-family: Times New Roman, cursive, Trebuchet MS, Times New Roman, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   border-bottom-color: #0c302e;
   background: url("/images/feather-alt-solid.svg") no-repeat;
   padding-left: 48px;
+}
+.post-body h4,
+.post-body h5,
+.post-body h6 {
+  font-family: Times New Roman, cursive, Trebuchet MS, Times New Roman, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
 .back-to-top {
   border-radius: 100px;
@@ -3049,7 +3051,7 @@ a {
   border-bottom-style: none;
 }
 a:hover {
-  color: #000;
+  color: #f80707;
 }
 code {
   color: #c7254e;
@@ -3173,4 +3175,7 @@ code {
     margin-left: 10px;
     margin-right: 10px;
   }
+}
+figcaption {
+  padding-top: 10px;
 }
