@@ -240,7 +240,7 @@ mjx-container[display="true"] + br {
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">42</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">64</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">65</span></a></li>
         <li class="menu-item menu-item-images"><a href="/photos/" rel="section"><i class="fa fa-image fa-fw"></i>相册</a></li>
         <li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-spa fa-fw"></i>留言</a></li>
       <li class="menu-item menu-item-search">
@@ -313,7 +313,7 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">65</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -749,6 +749,128 @@ if(canvas.getContext){
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://zerobio.github.io/archives/900800673.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/apple-touch-icon.png">
+      <meta itemprop="name" content="JWei Ma">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JWei's Blog">
+      <meta itemprop="description" content="爱随意却不失精致 乐自由而不失自律">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | JWei's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/archives/900800673.html" class="post-title-link" itemprop="url">Denove assembly pipeline --- 3D-DNA</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-03-30 19:42:35" itemprop="dateCreated datePublished" datetime="2022-03-30T19:42:35+08:00">2022-03-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-07 21:12:18" itemprop="dateModified" datetime="2022-06-07T21:12:18+08:00">2022-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Learn/" itemprop="url" rel="index"><span itemprop="name">Learn</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Learn/Bioinfo/" itemprop="url" rel="index"><span itemprop="name">Bioinfo</span></a>
+        </span>
+    </span>
+
+  
+
+
+
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>346</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="简单介绍">简单介绍</h2>
+<p><code>3D-DNA</code>
+一种从头组装管道，从一系列迭代开始，其目标是消除输入 scaffolds
+中的错误连接。每个步骤都从一个 scaffolds 池开始（最初，这个池是一组输入
+scaffold 本身）。scaffold 算法用于对这些 scaffold
+进行排序和定相。接着应用错误连接校正算法来检测 scaffold
+池中的错误，从而创建一个编辑后的 scaffold 池。最后，将编辑后的 scaffold
+池用作错误连接校正算法进行下一次迭代的输入。这些迭代的最终效果是再不删除正确组装的序列的情况下可靠地检测输入
+scaffold 中的错误连接。此过程完整后，将 scaffold 算法应用于修改后的输入
+scaffold。</p>  
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/900800673.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://zerobio.github.io/archives/559409240.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -927,14 +1049,14 @@ target="_blank" rel="noopener" href="https://github.com/nservant/HiC-Pro/blob/ma
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.6k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>7 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -1042,7 +1164,7 @@ target="_blank" rel="noopener" href="https://github.com/nservant/HiC-Pro/blob/ma
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>585</span>
+      <span>533</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1766,132 +1888,6 @@ target="_blank" rel="noopener" href="https://github.com/nservant/HiC-Pro/blob/ma
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://zerobio.github.io/archives/1199695541.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/apple-touch-icon.png">
-      <meta itemprop="name" content="JWei Ma">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="JWei's Blog">
-      <meta itemprop="description" content="爱随意却不失精致 乐自由而不失自律">
-    </span>
-    
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | JWei's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/archives/1199695541.html" class="post-title-link" itemprop="url">文献翻译 --- 解析二倍体和多倍体基因组中的单倍型</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-03-25 14:32:59" itemprop="dateCreated datePublished" datetime="2022-03-25T14:32:59+08:00">2022-03-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-07 21:12:18" itemprop="dateModified" datetime="2022-06-07T21:12:18+08:00">2022-06-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Learn/" itemprop="url" rel="index"><span itemprop="name">Learn</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Learn/%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB/" itemprop="url" rel="index"><span itemprop="name">文献阅读</span></a>
-        </span>
-    </span>
-
-  
-
-
-
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>16k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>15 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2
-id="解析二倍体和多倍体基因组中的单倍型">解析二倍体和多倍体基因组中的单倍型</h2>
-<p>作者：<strong>Xingtan Zhang</strong>, <strong>Ruoxi Wu</strong>,
-<strong>Yibin Wang</strong>, <strong>Jiaxin Yu</strong>, <strong>Haibao
-Tang</strong></p>
-<p>原文来源：<strong>Zhang X, Wu R, Wang Y, Yu J, Tang H. Unzipping
-haplotypes in diploid and polyploid genomes. Comput Struct Biotechnol J.
-2019; 18: 66 - 72.</strong></p>
-<h3 id="关键字">关键字</h3>
-<p>基因组组装、<strong>单倍型定相</strong>、倍性、参考基因组、杂合性</p>
-<h3 id="摘要">摘要</h3>
-<p>二倍体基因组由两个同源的染色体拷贝组成，两个亲本各有一个，而多倍体基因组包含两个以上的同源染色体组。大多数参考基因组组装折叠了代表
-“mosaic”
-序列的单倍型，忽略了可能涉及重要细胞和生物学功能的等位基因变异。在最近的基因组研究中，将单倍型解析成不同的序列集已成为一种增长趋势，因为它是解决重要临床和生物问题（如复合杂合子、杂种优势和进化）的重要工具。这里，我们回顾了用于杂合二倍体和多倍体基因组的基于比对和组装的单倍型定相的现有方法，以及改进基因组定相的实验方法的最新进展。我们预计，在不久的将来，完整的单倍型定相可能成为基因研究中的常规程序。</p>  
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/archives/1199695541.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1916,13 +1912,13 @@ haplotypes in diploid and polyploid genomes. Comput Struct Biotechnol J.
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">234k</span>
+    <span title="站点总字数">253k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:33</span>
+    <span title="站点阅读时长">3:50</span>
   </span>
 </div>
 <div class="busuanzi-count">
