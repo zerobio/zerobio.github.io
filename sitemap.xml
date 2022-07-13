@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://zerobio.github.io/archives/1695555586.html</loc>
+    <loc>https://zerobio.github.io/archives/cefc8975.html</loc>
     
     <lastmod>2022-07-13</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/archives/cefc8975.html</loc>
+    <loc>https://zerobio.github.io/archives/1695555586.html</loc>
     
     <lastmod>2022-07-13</lastmod>
     
@@ -648,13 +648,6 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/FALCON/</loc>
-    <lastmod>2022-07-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/Denove/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -663,6 +656,13 @@
   
   <url>
     <loc>https://zerobio.github.io/tags/3D-DNA/</loc>
+    <lastmod>2022-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/FALCON/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -690,20 +690,6 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/hexo-theme-next/</loc>
-    <lastmod>2022-07-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zerobio.github.io/tags/%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2022-07-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/Hexo/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -712,6 +698,20 @@
   
   <url>
     <loc>https://zerobio.github.io/tags/theme/</loc>
+    <lastmod>2022-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/hexo-theme-next/</loc>
+    <lastmod>2022-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/%E6%8F%92%E4%BB%B6/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -774,13 +774,6 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/tags/</loc>
-    <lastmod>2022-07-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/canvas/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -795,7 +788,7 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/%E5%AE%A0%E7%89%A9/</loc>
+    <loc>https://zerobio.github.io/tags/tags/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -816,6 +809,13 @@
   </url>
   
   <url>
+    <loc>https://zerobio.github.io/tags/%E5%AE%A0%E7%89%A9/</loc>
+    <lastmod>2022-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zerobio.github.io/tags/Purge-Haplotigs/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -824,6 +824,13 @@
   
   <url>
     <loc>https://zerobio.github.io/tags/Haplotype/</loc>
+    <lastmod>2022-07-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/Snakemake/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -851,13 +858,6 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/Snakemake/</loc>
-    <lastmod>2022-07-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/busuanzi/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -865,14 +865,14 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/Falcon-phase/</loc>
+    <loc>https://zerobio.github.io/tags/haplotype/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/haplotype/</loc>
+    <loc>https://zerobio.github.io/tags/Falcon-phase/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -986,14 +986,14 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/categories/Blog/Next/</loc>
+    <loc>https://zerobio.github.io/categories/Blog/Hexo/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/categories/Blog/Hexo/</loc>
+    <loc>https://zerobio.github.io/categories/Blog/Next/</loc>
     <lastmod>2022-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

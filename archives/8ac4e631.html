@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Introduction 首先，了解什么是结构变异？  名词解释：  Structural Variations (SVs)：结构变异 Translocation：易位 Inversions：倒位 Duplication：重复 Deletion：缺失 Insertion：插入 InDel：插入缺失 Copy Number Variants（CNVs）：拷贝数变异 Copy">
+    <meta name="description" content="Introduction首先，了解什么是结构变异？  名词解释：  Structural Variations (SVs)：结构变异 Translocation：易位 Inversions：倒位 Duplication：重复 Deletion：缺失 Insertion：插入 InDel：插入缺失 Copy Number Variants（CNVs）：拷贝数变异 Copy Number Polymo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SyRI --- 从全基因组组装中识别基因组重排和局部序列差异">
 <meta property="og:url" content="https://zerobio.github.io/archives/8ac4e631.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="Introduction 首先，了解什么是结构变异？  名词解释：  Structural Variations (SVs)：结构变异 Translocation：易位 Inversions：倒位 Duplication：重复 Deletion：缺失 Insertion：插入 InDel：插入缺失 Copy Number Variants（CNVs）：拷贝数变异 Copy">
+<meta property="og:description" content="Introduction首先，了解什么是结构变异？  名词解释：  Structural Variations (SVs)：结构变异 Translocation：易位 Inversions：倒位 Duplication：重复 Deletion：缺失 Insertion：插入 InDel：插入缺失 Copy Number Variants（CNVs）：拷贝数变异 Copy Number Polymo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-12T11:58:34.000Z">
 <meta property="article:modified_time" content="2022-06-07T13:12:18.118Z">
@@ -191,9 +191,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#installation"><span class="nav-number">2.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getting-started"><span class="nav-number">3.</span> <span class="nav-text">Getting Started</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">设置变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">3.2.</span> <span class="nav-text">获取示例数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B%E5%B9%B6%E9%87%8D%E9%93%BE%E6%8E%A5"><span class="nav-number">3.3.</span> <span class="nav-text">解压并重链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%85%A8%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%AF%94%E5%AF%B9wga"><span class="nav-number">3.4.</span> <span class="nav-text">运行全基因组比对（WGA）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-syri"><span class="nav-number">3.5.</span> <span class="nav-text">Run SyRI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%98%E5%88%B6-syri-%E9%A2%84%E6%B5%8B%E7%9A%84%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%93%E6%9E%84-----plotsr"><span class="nav-number">3.6.</span> <span class="nav-text">绘制 SyRI
-预测的基因组结构 --- Plotsr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E5%85%A8%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%AF%94%E5%AF%B9%E5%8F%AF%E4%BB%A5%E9%80%89%E6%8B%A9-mummer"><span class="nav-number">3.7.</span> <span class="nav-text">对于全基因组比对，可以选择
-MUMmer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">2.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Getting-Started"><span class="nav-number">3.</span> <span class="nav-text">Getting Started</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">设置变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">3.2.</span> <span class="nav-text">获取示例数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B%E5%B9%B6%E9%87%8D%E9%93%BE%E6%8E%A5"><span class="nav-number">3.3.</span> <span class="nav-text">解压并重链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%85%A8%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%AF%94%E5%AF%B9%EF%BC%88WGA%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">运行全基因组比对（WGA）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-SyRI"><span class="nav-number">3.5.</span> <span class="nav-text">Run SyRI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%98%E5%88%B6-SyRI-%E9%A2%84%E6%B5%8B%E7%9A%84%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%93%E6%9E%84-%E2%80%94-Plotsr"><span class="nav-number">3.6.</span> <span class="nav-text">绘制 SyRI 预测的基因组结构 — Plotsr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E4%BA%8E%E5%85%A8%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%AF%94%E5%AF%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E9%80%89%E6%8B%A9-MUMmer"><span class="nav-number">3.7.</span> <span class="nav-text">对于全基因组比对，可以选择 MUMmer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -732,8 +730,7 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="introduction">Introduction</h2>
-<p><strong>首先，了解什么是结构变异？</strong></p>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>首先，了解什么是结构变异？</strong></p>
 <blockquote>
 <p>名词解释：</p>
 <ul>
@@ -752,88 +749,62 @@ if(canvas.getContext){
 <li>whole-genome alignments（WGA）：全基因组比对</li>
 </ul>
 </blockquote>
-<p><code>SVs</code> 结构变异，包括 长度在 <code>50bp</code>
-以上的长片段序列的插入或缺失（<code>Indel</code>）、染色体倒位、序列串联倍增、染色体内部或染色体之间的序列易位、拷贝数变异（<code>CNV</code>）以及一些形式更为复杂的变异。</p>
-<p><code>Indel</code>，插入缺失，指的是在基因组的某个位置上所发生的小片段序列的插入或者删除，其长度通常在
-<code>50bp</code> 以下。</p>
-<p><code>CNV</code> 拷贝数变异，一般是指长度为由 <code>kb</code> 到
-<code>Mb</code> 级别组成大片段序列的拷贝数增加或减少。</p>
-<p><code>SNP</code>，单核苷酸多态性，由单个核苷酸 A、T、G、C
-的改变而引起的 DNA 序列的改变，造成个体之间基因组的多样性。SNP
-位点的分布是不均匀的，在非编码区比在编码区更为常见；一般来说，自然选择倾向于保留最有利于遗传适应性的
-SNP 位点。在人类的遗传变异中，约 90% 为 SNP
-变异，也就是说在人类基因组中，每隔 100 至 300 个碱基就会存在一个 SNP
-位点。</p>
+<p><code>SVs</code> 结构变异，包括 长度在 <code>50bp</code> 以上的长片段序列的插入或缺失（<code>Indel</code>）、染色体倒位、序列串联倍增、染色体内部或染色体之间的序列易位、拷贝数变异（<code>CNV</code>）以及一些形式更为复杂的变异。</p>
+<p><code>Indel</code>，插入缺失，指的是在基因组的某个位置上所发生的小片段序列的插入或者删除，其长度通常在 <code>50bp</code> 以下。</p>
+<p><code>CNV</code> 拷贝数变异，一般是指长度为由 <code>kb</code> 到 <code>Mb</code> 级别组成大片段序列的拷贝数增加或减少。</p>
+<p><code>SNP</code>，单核苷酸多态性，由单个核苷酸 A、T、G、C 的改变而引起的 DNA 序列的改变，造成个体之间基因组的多样性。SNP 位点的分布是不均匀的，在非编码区比在编码区更为常见；一般来说，自然选择倾向于保留最有利于遗传适应性的 SNP 位点。在人类的遗传变异中，约 90% 为 SNP 变异，也就是说在人类基因组中，每隔 100 至 300 个碱基就会存在一个 SNP 位点。</p>
 <span id="more"></span>
+
 <p>局部序列差异包括：SNP、Indel、SVs。</p>
-<p>预测基因组差异的许多先进的方法都是利用针对参考序列的短读或长读比对，这样的比对可以高精度的找到局部序列差异，但准确预测结构差异（<code>structural differences</code>）仍然具有挑战性。全基因组组装能够识别复杂的重排，因为与原始序列
-reads 相比，组装的重叠群通常更长且质量更高。</p>
-<p><code>SyRI</code> 全称为 “Synteny and Rearrangement
-Identifier”；一种用于染色体水平组装的成对全基因组比较工具，可以识别两个全基因组组装之间的结构和序列差异；首先寻找重排区域，然后搜索序列中的差异，这些差异因位于同线（<code>syntenic</code>）或重排（<code>rearranged</code>）区域而不同。</p>
-<p>基因组可以在结构和序列上有所不同，如果高度相似的区域在不同基因组之间具有不同的拷贝数、位置或方向，则会出现<code>结构差异</code>。在这里，这些区域被称为重排区域，而所有保守区域都称为同线区域。相反，<code>序列差异</code>
-是导致 SNP、Indel 等的核苷酸序列变化。</p>
-<h2 id="installation">Installation</h2>
-<p>很幸运的是，官方将 <code>SyRI</code> 在 conda
-提供支持，所以我们可以通过 conda 很轻松的安装环境：</p>
+<p>预测基因组差异的许多先进的方法都是利用针对参考序列的短读或长读比对，这样的比对可以高精度的找到局部序列差异，但准确预测结构差异（<code>structural differences</code>）仍然具有挑战性。全基因组组装能够识别复杂的重排，因为与原始序列 reads 相比，组装的重叠群通常更长且质量更高。</p>
+<p><code>SyRI</code> 全称为 “Synteny and Rearrangement Identifier”；一种用于染色体水平组装的成对全基因组比较工具，可以识别两个全基因组组装之间的结构和序列差异；首先寻找重排区域，然后搜索序列中的差异，这些差异因位于同线（<code>syntenic</code>）或重排（<code>rearranged</code>）区域而不同。</p>
+<p>基因组可以在结构和序列上有所不同，如果高度相似的区域在不同基因组之间具有不同的拷贝数、位置或方向，则会出现<code>结构差异</code>。在这里，这些区域被称为重排区域，而所有保守区域都称为同线区域。相反，<code>序列差异</code> 是导致 SNP、Indel 等的核苷酸序列变化。</p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>很幸运的是，官方将 <code>SyRI</code> 在 conda 提供支持，所以我们可以通过 conda 很轻松的安装环境：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">conda create -n syri_env python=3.9</span><br><span class="line">conda activate syri_env</span><br><span class="line">conda install -c bioconda syri -y</span><br><span class="line">conda install -c bioconda plotsr -y</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">python --version</span></span><br><span class="line">Python 3.9.12</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">syri --version</span></span><br><span class="line">1.5.4</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">plotsr --version</span></span><br><span class="line">0.5.3</span><br></pre></td></tr></table></figure>
-<p>需要注意的是，<code>syri</code> 包并不携带
-<code>plotsr</code>，需要通过 conda 而外 install。</p>
-<p>更多详情：<a
-target="_blank" rel="noopener" href="https://github.com/schneebergerlab/syri">SyRI-github</a></p>
-<h2 id="getting-started">Getting Started</h2>
-<p>根据官方提供的例子，将 <code>SyRI</code>
-的整个分析流程走一遍，更多内容：<a
-target="_blank" rel="noopener" href="https://schneebergerlab.github.io/syri/pipeline.html">SyRI-Pipeline</a>。</p>
-<h3 id="设置变量">设置变量</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cwd=&quot;.&quot;     # Change to working directory</span><br><span class="line">PATH_TO_SYRI=&quot;../syri/bin/syri&quot; #Change the path to point to syri executable</span><br><span class="line">PATH_TO_PLOTSR=&quot;../syri/bin/plotsr&quot; #Change the path to point to plotsr executable</span><br></pre></td></tr></table></figure>
-<h3 id="获取示例数据">获取示例数据</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd $cwd</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Get Yeast Reference genome</span></span></span><br><span class="line">wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/146/045/GCA_000146045.2_R64/GCA_000146045.2_R64_genomic.fna.gz</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Get Query genome</span></span></span><br><span class="line">wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/977/955/GCA_000977955.2_Sc_YJM1447_v1/GCA_000977955.2_Sc_YJM1447_v1_genomic.fna.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="解压并重链接">解压并重链接</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gzip -df GCA_000146045.2_R64_genomic.fna.gz</span><br><span class="line">gzip -df GCA_000977955.2_Sc_YJM1447_v1_genomic.fna.gz</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Remove mitochondrial DNA</span></span></span><br><span class="line">head -151797 GCA_000977955.2_Sc_YJM1447_v1_genomic.fna &gt; GCA_000977955.2_Sc_YJM1447_v1_genomic.fna.filtered</span><br><span class="line">ln -sf GCA_000146045.2_R64_genomic.fna refgenome</span><br><span class="line">ln -sf GCA_000977955.2_Sc_YJM1447_v1_genomic.fna.filtered qrygenome</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<div class="note info"><p>需要注意的是，SyRI
-处理的是染色体水平的两个基因组组装，所以这里也期望输入两个染色体级别的组装，并要求同源染色体的编号（染色体
-id）完全相同。如果情况并非如此，syri
-会尝试使用全基因组比对来寻找同源基因组，但这种方法是启发式的，可能会导致次优结果。此外，建议两个基因组（fasta
-文件）应具有相同数量的染色体。</p>
+
+<p>需要注意的是，<code>syri</code> 包并不携带 <code>plotsr</code>，需要通过 conda 而外 install。</p>
+<p>更多详情：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NjaG5lZWJlcmdlcmxhYi9zeXJp">SyRI-github<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>根据官方提供的例子，将 <code>SyRI</code> 的整个分析流程走一遍，更多内容：<span class="exturl" data-url="aHR0cHM6Ly9zY2huZWViZXJnZXJsYWIuZ2l0aHViLmlvL3N5cmkvcGlwZWxpbmUuaHRtbA==">SyRI-Pipeline<i class="fa fa-external-link-alt"></i></span>。</p>
+<h3 id="设置变量"><a href="#设置变量" class="headerlink" title="设置变量"></a>设置变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cwd=&quot;.&quot;     # Change to working directory</span><br><span class="line">PATH_TO_SYRI=&quot;../syri/bin/syri&quot; #Change the path to point to syri executable</span><br><span class="line">PATH_TO_PLOTSR=&quot;../syri/bin/plotsr&quot; #Change the path to point to plotsr executable</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取示例数据"><a href="#获取示例数据" class="headerlink" title="获取示例数据"></a>获取示例数据</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd $cwd</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Get Yeast Reference genome</span></span></span><br><span class="line">wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/146/045/GCA_000146045.2_R64/GCA_000146045.2_R64_genomic.fna.gz</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Get Query genome</span></span></span><br><span class="line">wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/977/955/GCA_000977955.2_Sc_YJM1447_v1/GCA_000977955.2_Sc_YJM1447_v1_genomic.fna.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="解压并重链接"><a href="#解压并重链接" class="headerlink" title="解压并重链接"></a>解压并重链接</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gzip -df GCA_000146045.2_R64_genomic.fna.gz</span><br><span class="line">gzip -df GCA_000977955.2_Sc_YJM1447_v1_genomic.fna.gz</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Remove mitochondrial DNA</span></span></span><br><span class="line">head -151797 GCA_000977955.2_Sc_YJM1447_v1_genomic.fna &gt; GCA_000977955.2_Sc_YJM1447_v1_genomic.fna.filtered</span><br><span class="line">ln -sf GCA_000146045.2_R64_genomic.fna refgenome</span><br><span class="line">ln -sf GCA_000977955.2_Sc_YJM1447_v1_genomic.fna.filtered qrygenome</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<div class="note info"><p>需要注意的是，SyRI 处理的是染色体水平的两个基因组组装，所以这里也期望输入两个染色体级别的组装，并要求同源染色体的编号（染色体 id）完全相同。如果情况并非如此，syri 会尝试使用全基因组比对来寻找同源基因组，但这种方法是启发式的，可能会导致次优结果。此外，建议两个基因组（fasta 文件）应具有相同数量的染色体。</p>
 </div>
-<h3 id="运行全基因组比对wga">运行全基因组比对（WGA）</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Using minimap2 <span class="keyword">for</span> generating alignment. Any other whole genome alignment tool can also be used.</span></span><br><span class="line">minimap2 -ax asm5 --eqx refgenome qrygenome &gt; out.sam</span><br></pre></td></tr></table></figure>
-<div class="note info"><p>建议用户测试不同的对齐设置，以找到适合其生物学问题的对齐分辨率。一些对齐工具会找到更长的对齐（有很多间隙），而其他对齐工具会找到更小更碎片化的对齐。较小的比对通常具有较高的比对同一性分数，并且更有助于识别较小的基因组结构重排。但它们也可能导致冗余对齐显着增加，从而导致对齐工具和
-SyRI 的运行时间增加。</p>
+
+<h3 id="运行全基因组比对（WGA）"><a href="#运行全基因组比对（WGA）" class="headerlink" title="运行全基因组比对（WGA）"></a>运行全基因组比对（WGA）</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Using minimap2 <span class="keyword">for</span> generating alignment. Any other whole genome alignment tool can also be used.</span></span><br><span class="line">minimap2 -ax asm5 --eqx refgenome qrygenome &gt; out.sam</span><br></pre></td></tr></table></figure>
+
+<div class="note info"><p>建议用户测试不同的对齐设置，以找到适合其生物学问题的对齐分辨率。一些对齐工具会找到更长的对齐（有很多间隙），而其他对齐工具会找到更小更碎片化的对齐。较小的比对通常具有较高的比对同一性分数，并且更有助于识别较小的基因组结构重排。但它们也可能导致冗余对齐显着增加，从而导致对齐工具和 SyRI 的运行时间增加。</p>
 <p>或者采用 MUMmer 获得 WGA。</p>
 </div>
-<h3 id="run-syri">Run SyRI</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python3 $PATH_TO_SYRI -c out.sam -r refgenome -q qrygenome -k -F S</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># OR</span></span></span><br><span class="line">samtools view -b out.sam &gt; out.bam</span><br><span class="line">python3 $PATH_TO_SYRI -c out.bam -r refgenome -q qrygenome -k -F B</span><br></pre></td></tr></table></figure>
+
+<h3 id="Run-SyRI"><a href="#Run-SyRI" class="headerlink" title="Run SyRI"></a>Run SyRI</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python3 $PATH_TO_SYRI -c out.sam -r refgenome -q qrygenome -k -F S</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># OR</span></span></span><br><span class="line">samtools view -b out.sam &gt; out.bam</span><br><span class="line">python3 $PATH_TO_SYRI -c out.bam -r refgenome -q qrygenome -k -F B</span><br></pre></td></tr></table></figure>
+
 <div class="note info"><p>最终得到两个含有基因组结构差异的文件：<code>syri.out</code>、<code>syri.vcf</code>。</p>
 </div>
-<h3 id="绘制-syri-预测的基因组结构-----plotsr">绘制 SyRI
-预测的基因组结构 --- Plotsr</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 $PATH_TO_PLOTSR syri.out refgenome qrygenome -H 8 -W 5</span><br></pre></td></tr></table></figure>
-<div class="note danger"><p>不幸的是，通过 conda 安装的 plotsr 运行上面命令进行可视化将会出校
-<span class="math inline">\(\textcolor{red}{ERROR}\)</span>。</p>
-<p>更多详细内容：<a
-target="_blank" rel="noopener" href="https://github.com/schneebergerlab/plotsr">plotsr-github</a></p>
+
+<h3 id="绘制-SyRI-预测的基因组结构-—-Plotsr"><a href="#绘制-SyRI-预测的基因组结构-—-Plotsr" class="headerlink" title="绘制 SyRI 预测的基因组结构 — Plotsr"></a>绘制 SyRI 预测的基因组结构 — Plotsr</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 $PATH_TO_PLOTSR syri.out refgenome qrygenome -H 8 -W 5</span><br></pre></td></tr></table></figure>
+
+<div class="note danger"><p>不幸的是，通过 conda 安装的 plotsr 运行上面命令进行可视化将会出校 $\textcolor{red}{ERROR}$。</p>
+<p>更多详细内容：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NjaG5lZWJlcmdlcmxhYi9wbG90c3I=">plotsr-github<i class="fa fa-external-link-alt"></i></span></p>
 </div>
-<p>首先，你需要准备一个 <code>genomes.txt</code> 文件，在有 WGA
-的情况下运行
-<code>plotsr --sr syri.out -H 8 -W 5 --genomes genomes.txt -o output_plotsr.png</code>。</p>
+
+<p>首先，你需要准备一个 <code>genomes.txt</code> 文件，在有 WGA 的情况下运行 <code>plotsr --sr syri.out -H 8 -W 5 --genomes genomes.txt -o output_plotsr.png</code>。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> genomes.txt</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">file	name</span></span><br><span class="line">&lt;path&gt;/refgenome	refgenome</span><br><span class="line">&lt;path&gt;/qrygenome	qrygenome</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>根据官方提供的信息，可以在第三列添加 <code>tags</code>
-标签，可以定义绘图的一些参数，其中第一列为基因组 fasta
-文件的路径，第二列为对应的名称（呈现在图中）。这是一个
-<code>genomes.txt</code> 示例：<a
-target="_blank" rel="noopener" href="https://github.com/schneebergerlab/plotsr/blob/master/example/genomes.txt">genomes.txt</a>。</p>
+
+<p>根据官方提供的信息，可以在第三列添加 <code>tags</code> 标签，可以定义绘图的一些参数，其中第一列为基因组 fasta 文件的路径，第二列为对应的名称（呈现在图中）。这是一个 <code>genomes.txt</code> 示例：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NjaG5lZWJlcmdlcmxhYi9wbG90c3IvYmxvYi9tYXN0ZXIvZXhhbXBsZS9nZW5vbWVzLnR4dA==">genomes.txt<i class="fa fa-external-link-alt"></i></span>。</p>
 <p><strong>至此，整个分析流程算是简单完成了，但是绘图可以根据官方提供的参数设置，生成更加全面的可视化。</strong></p>
-<h3 id="对于全基因组比对可以选择-mummer">对于全基因组比对，可以选择
-<code>MUMmer</code></h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nucmer --maxmatch -c 100 -b 500 -l 50 refgenome qrygenome       # Whole genome alignment. Any other alignment can also be used.</span><br><span class="line">delta-filter -m -i 90 -l 100 out.delta &gt; out.filtered.delta     # Remove small and lower quality alignments</span><br><span class="line">show-coords -THrd out.filtered.delta &gt; out.filtered.coords      # Convert alignment information to a .TSV format as required by SyRI</span><br><span class="line">python3 $PATH_TO_SYRI -c out.filtered.coords -d out.filtered.delta -r refgenome -q qrygenome</span><br><span class="line">python3 $PATH_TO_PLOTSR syri.out refgenome qrygenome -H 8 -W 5</span><br></pre></td></tr></table></figure>
-<h2 id="references">References</h2>
-<p>[1] https://zhuanlan.zhihu.com/p/161472051</p>
-<p>[2]
-https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1911-0</p>
-<p>[3] https://github.com/schneebergerlab/syri</p>
-<p>[4] https://github.com/schneebergerlab/plotsr</p>
-<p>[5] https://schneebergerlab.github.io/syri/pipeline.html</p>
+<h3 id="对于全基因组比对，可以选择-MUMmer"><a href="#对于全基因组比对，可以选择-MUMmer" class="headerlink" title="对于全基因组比对，可以选择 MUMmer"></a>对于全基因组比对，可以选择 <code>MUMmer</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nucmer --maxmatch -c 100 -b 500 -l 50 refgenome qrygenome       # Whole genome alignment. Any other alignment can also be used.</span><br><span class="line">delta-filter -m -i 90 -l 100 out.delta &gt; out.filtered.delta     # Remove small and lower quality alignments</span><br><span class="line">show-coords -THrd out.filtered.delta &gt; out.filtered.coords      # Convert alignment information to a .TSV format as required by SyRI</span><br><span class="line">python3 $PATH_TO_SYRI -c out.filtered.coords -d out.filtered.delta -r refgenome -q qrygenome</span><br><span class="line">python3 $PATH_TO_PLOTSR syri.out refgenome qrygenome -H 8 -W 5</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] <span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8xNjE0NzIwNTE=">https://zhuanlan.zhihu.com/p/161472051<i class="fa fa-external-link-alt"></i></span></p>
+<p>[2] <span class="exturl" data-url="aHR0cHM6Ly9nZW5vbWViaW9sb2d5LmJpb21lZGNlbnRyYWwuY29tL2FydGljbGVzLzEwLjExODYvczEzMDU5LTAxOS0xOTExLTA=">https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1911-0<i class="fa fa-external-link-alt"></i></span></p>
+<p>[3] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NjaG5lZWJlcmdlcmxhYi9zeXJp">https://github.com/schneebergerlab/syri<i class="fa fa-external-link-alt"></i></span></p>
+<p>[4] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NjaG5lZWJlcmdlcmxhYi9wbG90c3I=">https://github.com/schneebergerlab/plotsr<i class="fa fa-external-link-alt"></i></span></p>
+<p>[5] <span class="exturl" data-url="aHR0cHM6Ly9zY2huZWViZXJnZXJsYWIuZ2l0aHViLmlvL3N5cmkvcGlwZWxpbmUuaHRtbA==">https://schneebergerlab.github.io/syri/pipeline.html<i class="fa fa-external-link-alt"></i></span></p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
@@ -928,13 +899,13 @@ https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1911-0</p>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">264k</span>
+    <span title="站点总字数">254k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:01</span>
+    <span title="站点阅读时长">3:51</span>
   </span>
 </div>
 <div class="busuanzi-count">

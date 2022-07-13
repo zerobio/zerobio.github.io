@@ -717,8 +717,7 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>虽然 <code>hexo-theme-next</code>
-的主题很好看，但是我们总是想着弄一些跟别人不一样的；那这就需要依赖其他各种依赖插件，或者之际编写个性化样式，在原有的主题框架下，加入自己想要的东西。</p>  
+          <p>虽然 <code>hexo-theme-next</code> 的主题很好看，但是我们总是想着弄一些跟别人不一样的；那这就需要依赖其他各种依赖插件，或者之际编写个性化样式，在原有的主题框架下，加入自己想要的东西。</p>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/b41d647.html#more" rel="contents">
@@ -831,13 +830,8 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="hexo-hexo-theme-next-配置-blog">Hexo + hexo-theme-next 配置
-Blog</h2>
-<blockquote>
-<p>依托于 <code>Github Page</code> 创建个人博客，采用
-<code>hexo-theme-next</code> 主题，截至 <code>2022-03-10</code>
-<code>next</code>主题更新至 <code>8.10.1</code>，记录一下本次
-<code>Blog</code> 搭建过程</p>
+          <h2 id="Hexo-hexo-theme-next-配置-Blog"><a href="#Hexo-hexo-theme-next-配置-Blog" class="headerlink" title="Hexo + hexo-theme-next 配置 Blog"></a>Hexo + hexo-theme-next 配置 Blog</h2><blockquote>
+<p>依托于 <code>Github Page</code> 创建个人博客，采用 <code>hexo-theme-next</code> 主题，截至 <code>2022-03-10</code> <code>next</code>主题更新至 <code>8.10.1</code>，记录一下本次 <code>Blog</code> 搭建过程</p>
 </blockquote>  
           <!--noindex-->
             <div class="post-button">
@@ -951,12 +945,10 @@ Blog</h2>
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img data-src="../images/background-1900329__340.jpg" /></p>
-<h2
-id="查看当前目录下哪个文件占用空间最大">查看当前目录下哪个文件占用空间最大？</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">du -h --max-depth=1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看服务器磁盘空间使用情况</span></span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
-<h2 id="切割字符串">切割字符串</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;NR==1&#x27; seq.fasta &gt; seq_need.fasta &amp;&amp; sed -n &#x27;2,$p&#x27; seq.fasta | xargs | sed &#x27;s/ //g&#x27; | cut -c -start &gt;&gt; seq_need.fasta &amp;&amp; sed -n &#x27;2,$p&#x27; seq.fasta | xargs | sed &#x27;s/ //g&#x27; | cut -c end- &gt;&gt; seq_need.fasta</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">注意 start &gt; 1;</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">上面的命令直接提取 seq.fasta 103-end碱基到seq_need.fasta文件中</span></span><br></pre></td></tr></table></figure>  
+          <p><img data-src="/../images/background-1900329__340.jpg"></p>
+<h2 id="查看当前目录下哪个文件占用空间最大？"><a href="#查看当前目录下哪个文件占用空间最大？" class="headerlink" title="查看当前目录下哪个文件占用空间最大？"></a>查看当前目录下哪个文件占用空间最大？</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">du -h --max-depth=1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看服务器磁盘空间使用情况</span></span><br><span class="line">df -h</span><br></pre></td></tr></table></figure>
+
+<h2 id="切割字符串"><a href="#切割字符串" class="headerlink" title="切割字符串"></a>切割字符串</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;NR==1&#x27; seq.fasta &gt; seq_need.fasta &amp;&amp; sed -n &#x27;2,$p&#x27; seq.fasta | xargs | sed &#x27;s/ //g&#x27; | cut -c -start &gt;&gt; seq_need.fasta &amp;&amp; sed -n &#x27;2,$p&#x27; seq.fasta | xargs | sed &#x27;s/ //g&#x27; | cut -c end- &gt;&gt; seq_need.fasta</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">注意 start &gt; 1;</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">上面的命令直接提取 seq.fasta 103-end碱基到seq_need.fasta文件中</span></span><br></pre></td></tr></table></figure>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/5845f713.html#more" rel="contents">
@@ -1070,21 +1062,18 @@ id="查看当前目录下哪个文件占用空间最大">查看当前目录下�
     
     <div class="post-body" itemprop="articleBody">
           <blockquote>
-<p>当我们利用 <strong>Hexo + Github Page</strong> 部署 Blog
-之后，在更新博客时，需要常常用到 <em>hexo</em>
-命令，故在这里集中整理一下</p>
+<p>当我们利用 <strong>Hexo + Github Page</strong> 部署 Blog 之后，在更新博客时，需要常常用到 <em>hexo</em> 命令，故在这里集中整理一下</p>
 </blockquote>
-<p><strong>Hexo</strong>
-官方也出了中英文的教程文档，如有需要，可自行前去学习</p>
+<p><strong>Hexo</strong> 官方也出了中英文的教程文档，如有需要，可自行前去学习</p>
 <ul>
 <li><p>Links:</p>
 <ul>
 <li>zh-CN：<span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL3poLWNuL2RvY3Mv">文档 | Hexo<i class="fa fa-external-link-alt"></i></span></li>
-<li>en-US：<span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvaW5kZXguaHRtbA==">Documentation |
-Hexo<i class="fa fa-external-link-alt"></i></span></li>
-</ul></li>
+<li>en-US：<span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlvL2RvY3MvaW5kZXguaHRtbA==">Documentation | Hexo<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
-<p><img data-src="../images/image-20220306110645006.png" /></p>  
+</li>
+</ul>
+<p><img data-src="/../images/image-20220306110645006.png"></p>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/62580e04.html#more" rel="contents">
@@ -1247,13 +1236,13 @@ Hexo<i class="fa fa-external-link-alt"></i></span></li>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">264k</span>
+    <span title="站点总字数">254k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:01</span>
+    <span title="站点阅读时长">3:51</span>
   </span>
 </div>
 <div class="busuanzi-count">

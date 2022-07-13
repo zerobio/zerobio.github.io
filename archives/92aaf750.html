@@ -199,7 +199,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#d-genies"><span class="nav-number">2.</span> <span class="nav-text">D-GENIES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E8%A7%A3%E8%AF%BB"><span class="nav-number">3.</span> <span class="nav-text">结果解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dot-plot-%E8%A7%A3%E8%AF%BB"><span class="nav-number">4.</span> <span class="nav-text">Dot Plot 解读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#match-%E5%8C%B9%E9%85%8D"><span class="nav-number">4.1.</span> <span class="nav-text">Match （匹配）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gap%E7%A9%BA%E4%BD%8D"><span class="nav-number">4.2.</span> <span class="nav-text">Gap（空位）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inversion%E5%80%92%E7%BD%AE"><span class="nav-number">4.3.</span> <span class="nav-text">Inversion（倒置）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#repeats%E9%87%8D%E5%A4%8D"><span class="nav-number">4.4.</span> <span class="nav-text">Repeats（重复）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D-GENIES"><span class="nav-number">2.</span> <span class="nav-text">D-GENIES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E8%A7%A3%E8%AF%BB"><span class="nav-number">3.</span> <span class="nav-text">结果解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dot-Plot-%E8%A7%A3%E8%AF%BB"><span class="nav-number">4.</span> <span class="nav-text">Dot Plot 解读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Match-%EF%BC%88%E5%8C%B9%E9%85%8D%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">Match （匹配）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gap%EF%BC%88%E7%A9%BA%E4%BD%8D%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">Gap（空位）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inversion%EF%BC%88%E5%80%92%E7%BD%AE%EF%BC%89"><span class="nav-number">4.3.</span> <span class="nav-text">Inversion（倒置）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Repeats%EF%BC%88%E9%87%8D%E5%A4%8D%EF%BC%89"><span class="nav-number">4.4.</span> <span class="nav-text">Repeats（重复）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -720,7 +720,7 @@ if(canvas.getContext){
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -740,117 +740,55 @@ if(canvas.getContext){
     <div class="post-body" itemprop="articleBody">
         <p>点阵图通常用于直观地比较两组序列，可视化呈现碱基的插入、删除、反转或者重复。它们可以使用可变的线条粗细、线条形状或者颜色来表示相似性差异。</p>
 <span id="more"></span>
-<h2 id="前言">前言</h2>
-<p>现有的点阵图绘制工具可分为两代。</p>
-<p>一种是 <code>Unix</code> 命令行工具生成静态图形。其中包括 <a
-target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/16766553/"><code>tupple_plot</code></a>
-和 <a
-target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/8566757/"><code>dot-matrix</code></a>
-它们通常将两个处理步骤链接在一起，第一步生成的文件将作为第二步的输入文件，从而生成图像。其致命缺点是
-<code>仅限于单条序列 (fasta)</code> ，且不能与建立的图像进行交互。</p>
-<p>第二代软件包则是采用 <code>java</code>
-开发，以便独立于平台与用户交互。包括 <a
-target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/14734323/"><code>JDotter</code></a>
-、<a
-target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/17309896/"><code>Gepard</code></a>
-和 <a
-target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/20015948/"><code>r2cat</code></a>
-。这一代 <code>Dot Plot</code>
-绘制工具允许用户进行交互，对用户来说这是相当友好的。可以根据自己的需求对生成的图像进一步修饰。</p>
-<p>新一代的点阵图可视化工具是基于
-<code>JavaScript</code>，不过用户在上传坐标和索引文件之前必须先生成坐标和索引文件，才能渲染点阵图。早期的这一代工具：https://dnanexus.github.io/dot/</p>
-<h2 id="d-genies">D-GENIES</h2>
-<p>今天的主角是
-<code>D-GENIES</code>，一个交互式、快速且易于使用的独立的
-<code>Web应用程序</code>。<code>D-GENIES</code> 能够在
-<code>1h 10 min</code> 内生成完整的人类与黑猩猩基因组点阵图。</p>
-<p>其中序列比对程序采用的是 <code>minimap2</code>
-，适合大型基因组的序列比对。</p>
-<p><code>D-GENIES</code> 适配 <code>Unix</code> 和
-<code>Windows</code>；当然也有网页端的。详情请移步：<a
-target="_blank" rel="noopener" href="http://dgenies.toulouse.inrae.fr/install">D-GENIES - Dotplot large
-Genomes in an Interactive, Efficient and Simple way (inrae.fr)</a></p>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现有的点阵图绘制工具可分为两代。</p>
+<p>一种是 <code>Unix</code> 命令行工具生成静态图形。其中包括 <a target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/16766553/"><code>tupple_plot</code></a>  和 <a target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/8566757/"><code>dot-matrix</code></a> 它们通常将两个处理步骤链接在一起，第一步生成的文件将作为第二步的输入文件，从而生成图像。其致命缺点是 <code>仅限于单条序列 (fasta)</code> ，且不能与建立的图像进行交互。</p>
+<p>第二代软件包则是采用 <code>java</code> 开发，以便独立于平台与用户交互。包括 <a target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/14734323/"><code>JDotter</code></a> 、<a target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/17309896/"><code>Gepard</code></a> 和 <a target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pubmed/20015948/"><code>r2cat</code></a> 。这一代 <code>Dot Plot</code> 绘制工具允许用户进行交互，对用户来说这是相当友好的。可以根据自己的需求对生成的图像进一步修饰。</p>
+<p>新一代的点阵图可视化工具是基于 <code>JavaScript</code>，不过用户在上传坐标和索引文件之前必须先生成坐标和索引文件，才能渲染点阵图。早期的这一代工具：<span class="exturl" data-url="aHR0cHM6Ly9kbmFuZXh1cy5naXRodWIuaW8vZG90Lw==">https://dnanexus.github.io/dot/<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="D-GENIES"><a href="#D-GENIES" class="headerlink" title="D-GENIES"></a>D-GENIES</h2><p>今天的主角是 <code>D-GENIES</code>，一个交互式、快速且易于使用的独立的 <code>Web应用程序</code>。<code>D-GENIES</code> 能够在 <code>1h 10 min</code> 内生成完整的人类与黑猩猩基因组点阵图。</p>
+<p>其中序列比对程序采用的是 <code>minimap2</code> ，适合大型基因组的序列比对。</p>
+<p><code>D-GENIES</code> 适配 <code>Unix</code> 和 <code>Windows</code>；当然也有网页端的。详情请移步：<span class="exturl" data-url="aHR0cDovL2RnZW5pZXMudG91bG91c2UuaW5yYWUuZnIvaW5zdGFsbA==">D-GENIES - Dotplot large Genomes in an Interactive, Efficient and Simple way (inrae.fr)<i class="fa fa-external-link-alt"></i></span></p>
 <p>这里我们尝试一下网页端的 <code>D-GENIES</code>：</p>
-<p><img data-src="../images/image-20220312185559963.png" /></p>
-<div class="note info"><p>页面十分简洁，允许上传的文件格式有：<code>.fa</code>
-<code>.fasta</code> <code>.fna</code> <code>.fa.gz</code>
-<code>.fasta.gz</code> <code>.fna.gz</code></p>
+<p><img data-src="/../images/image-20220312185559963.png"></p>
+<div class="note info"><p>页面十分简洁，允许上传的文件格式有：<code>.fa</code> <code>.fasta</code> <code>.fna</code> <code>.fa.gz</code> <code>.fasta.gz</code> <code>.fna.gz</code> </p>
 </div>
-<p>填写了邮箱，任务完成之后便会收到邮件通知，还是很方便的，且支持上传的
-<code>fasta</code> 文件高达
-<code>3Gb</code>。而对于人类基因组或其他大型基因组的
-<code>Dot Plot</code> 可以选择本地的 <code>D-GENIES</code>。</p>
-<p><code>Submit</code>
-之后就能看到序列文件在缓慢上传中（这将取决于你的网速）</p>
-<p><img data-src="../images/image-20220312191726224.png" /></p>
-<h2 id="结果解读">结果解读</h2>
-<div class="note info"><p>强烈建议将序列文件进行压缩之后再上传，因为 <code>D-GENIES</code>
-服务器在国外，网速还是相对慢的，压缩文件可以为我们节省很多时间。文件上传之后，到出结果是很快的，几百兆的序列在十几分钟之内就能将点阵图绘制成功，所以我们没必要将时间浪费在文件上传上。</p>
+
+<p>填写了邮箱，任务完成之后便会收到邮件通知，还是很方便的，且支持上传的 <code>fasta</code> 文件高达 <code>3Gb</code>。而对于人类基因组或其他大型基因组的 <code>Dot Plot</code> 可以选择本地的 <code>D-GENIES</code>。</p>
+<p><code>Submit</code> 之后就能看到序列文件在缓慢上传中（这将取决于你的网速）</p>
+<p><img data-src="/../images/image-20220312191726224.png"></p>
+<h2 id="结果解读"><a href="#结果解读" class="headerlink" title="结果解读"></a>结果解读</h2><div class="note info"><p>强烈建议将序列文件进行压缩之后再上传，因为 <code>D-GENIES</code> 服务器在国外，网速还是相对慢的，压缩文件可以为我们节省很多时间。文件上传之后，到出结果是很快的，几百兆的序列在十几分钟之内就能将点阵图绘制成功，所以我们没必要将时间浪费在文件上传上。</p>
 </div>
-<p><img data-src="../images/image-20220314191409011.png" /></p>
+
+<p><img data-src="/../images/image-20220314191409011.png"></p>
 <div class="note info"><p>上图与上面上传的文件无关（我是另外找的两个序列）。</p>
 </div>
-<p><code>D-GENIES</code> 运行还是很快的，网络稳定的情况下，200 Mb
-基因组在十分钟内就能绘制出
-Dot-Plot。接下来我们来看看上面的点阵图。上图便是 <code>D-GENIES</code>
-的结果页面，你还可以进行 <code>Strong precision</code> ---
-只显示精度高的点，即隐藏相似度低于 75% 的点；<code>Sort contigs</code>
---- 对 <code>contigs</code> 进行排序；<code>Hide noise</code> ---
-隐藏噪点；<code>Summary</code> --- 统计整体的 <code>identity</code>
-分布情况。</p>
-<p><img data-src="../images/image-20220314192114896.png" /></p>
-<p>此外，还可以将生成的点阵图保存各种格式，如
-<code>png</code>、<code>svg</code> 等。</p>
-<h2 id="dot-plot-解读">Dot Plot 解读</h2>
-<div class="note info"><p>这一部分将记录 <code>Dot-Plot</code> 能传递的信息有哪些，参考链接：<a
-target="_blank" rel="noopener" href="http://dgenies.toulouse.inra.fr/documentation/dotplot">D-GENIES -
-Dotplot large Genomes in an Interactive, Efficient and Simple way
-(inra.fr)</a></p>
+
+<p><code>D-GENIES</code> 运行还是很快的，网络稳定的情况下，200 Mb 基因组在十分钟内就能绘制出 Dot-Plot。接下来我们来看看上面的点阵图。上图便是 <code>D-GENIES</code> 的结果页面，你还可以进行 <code>Strong precision</code> — 只显示精度高的点，即隐藏相似度低于 75% 的点；<code>Sort contigs</code> — 对 <code>contigs</code> 进行排序；<code>Hide noise</code> — 隐藏噪点；<code>Summary</code> — 统计整体的 <code>identity</code> 分布情况。</p>
+<p><img data-src="/../images/image-20220314192114896.png"></p>
+<p>此外，还可以将生成的点阵图保存各种格式，如 <code>png</code>、<code>svg</code> 等。</p>
+<h2 id="Dot-Plot-解读"><a href="#Dot-Plot-解读" class="headerlink" title="Dot Plot 解读"></a>Dot Plot 解读</h2><div class="note info"><p>这一部分将记录 <code>Dot-Plot</code> 能传递的信息有哪些，参考链接：<span class="exturl" data-url="aHR0cDovL2RnZW5pZXMudG91bG91c2UuaW5yYS5mci9kb2N1bWVudGF0aW9uL2RvdHBsb3Q=">D-GENIES - Dotplot large Genomes in an Interactive, Efficient and Simple way (inra.fr)<i class="fa fa-external-link-alt"></i></span></p>
 </div>
+
 <p>点阵图是一种递归图，在生物信息学中，可以比较两个生物序列之间并识别它们之间的相似性区域。</p>
-<h3 id="match-匹配">Match （匹配）</h3>
-<div class="note success"><p>当两个生物序列相似度很高时，它们被认为是相同的，即两者是
-<code>Match</code>。</p>
+<h3 id="Match-（匹配）"><a href="#Match-（匹配）" class="headerlink" title="Match （匹配）"></a>Match （匹配）</h3><div class="note success"><p>当两个生物序列相似度很高时，它们被认为是相同的，即两者是 <code>Match</code>。</p>
 </div>
-<figure>
-<img data-src="../images/match.png" alt="match" />
-<figcaption aria-hidden="true">match</figcaption>
-</figure>
-<h3 id="gap空位">Gap（空位）</h3>
-<div class="note danger"><p>点图可用于检测两个样本之间的间隙：仅存在于一个样本中、两个匹配区域之间的小序列。</p>
+
+<p><img data-src="/../images/match.png" alt="match"></p>
+<h3 id="Gap（空位）"><a href="#Gap（空位）" class="headerlink" title="Gap（空位）"></a>Gap（空位）</h3><div class="note danger"><p>点图可用于检测两个样本之间的间隙：仅存在于一个样本中、两个匹配区域之间的小序列。</p>
 </div>
-<figure>
-<img data-src="../images/gap.png" alt="gap" />
-<figcaption aria-hidden="true">gap</figcaption>
-</figure>
-<h3 id="inversion倒置">Inversion（倒置）</h3>
-<div class="note warning"><p>两个样本中存在但顺序不同的序列。</p>
+
+<p><img data-src="/../images/gap.png" alt="gap"></p>
+<h3 id="Inversion（倒置）"><a href="#Inversion（倒置）" class="headerlink" title="Inversion（倒置）"></a>Inversion（倒置）</h3><div class="note warning"><p>两个样本中存在但顺序不同的序列。</p>
 </div>
-<figure>
-<img data-src="../images/inversion.png" alt="inversion" />
-<figcaption aria-hidden="true">inversion</figcaption>
-</figure>
-<h3 id="repeats重复">Repeats（重复）</h3>
-<div class="note primary"><p>点图可用于检测重复区域：在样本中重复多次的序列。</p>
+
+<p><img data-src="/../images/inversion.png" alt="inversion"></p>
+<h3 id="Repeats（重复）"><a href="#Repeats（重复）" class="headerlink" title="Repeats（重复）"></a>Repeats（重复）</h3><div class="note primary"><p>点图可用于检测重复区域：在样本中重复多次的序列。</p>
 </div>
-<figure>
-<img data-src="../images/repeat2.png" alt="repeats" />
-<figcaption aria-hidden="true">repeats</figcaption>
-</figure>
-<h2 id="参考文献">参考文献</h2>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5991294/">Cabanettes
-F, Klopp C. D-GENIES: dot plot large genomes in an interactive,
-efficient and simple way. <em>PeerJ</em>. 2018;6:e4958. Published 2018
-Jun 4. doi:10.7717/peerj.4958</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="http://dgenies.toulouse.inra.fr/documentation/dotplot">D-GENIES -
-Dotplot large Genomes in an Interactive, Efficient and Simple way
-(inra.fr)</a></p>
-<p>[3] <a
-target="_blank" rel="noopener" href="http://dgenies.toulouse.inra.fr/documentation/result">D-GENIES -
-Dotplot large Genomes in an Interactive, Efficient and Simple way
-(inra.fr)</a></p>
+
+<p><img data-src="/../images/repeat2.png" alt="repeats"></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] <a target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5991294/">Cabanettes F, Klopp C. D-GENIES: dot plot large genomes in an interactive, efficient and simple way. <em>PeerJ</em>. 2018;6:e4958. Published 2018 Jun 4. doi:10.7717&#x2F;peerj.4958</a></p>
+<p>[2] <span class="exturl" data-url="aHR0cDovL2RnZW5pZXMudG91bG91c2UuaW5yYS5mci9kb2N1bWVudGF0aW9uL2RvdHBsb3Q=">D-GENIES - Dotplot large Genomes in an Interactive, Efficient and Simple way (inra.fr)<i class="fa fa-external-link-alt"></i></span></p>
+<p>[3] <span class="exturl" data-url="aHR0cDovL2RnZW5pZXMudG91bG91c2UuaW5yYS5mci9kb2N1bWVudGF0aW9uL3Jlc3VsdA==">D-GENIES - Dotplot large Genomes in an Interactive, Efficient and Simple way (inra.fr)<i class="fa fa-external-link-alt"></i></span></p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
@@ -944,13 +882,13 @@ Dotplot large Genomes in an Interactive, Efficient and Simple way
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">264k</span>
+    <span title="站点总字数">254k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:01</span>
+    <span title="站点阅读时长">3:51</span>
   </span>
 </div>
 <div class="busuanzi-count">

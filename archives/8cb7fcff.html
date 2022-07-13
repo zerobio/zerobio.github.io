@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="一、HTTP 协议的请求和响应： 1、定义：请求是指浏览器端通过 HTTP 协议发送给服务器端的数据； 响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据">
+    <meta name="description" content="一、HTTP 协议的请求和响应：1、定义：请求是指浏览器端通过 HTTP 协议发送给服务器端的数据； 响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Django 请求和响应">
 <meta property="og:url" content="https://zerobio.github.io/archives/8cb7fcff.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="一、HTTP 协议的请求和响应： 1、定义：请求是指浏览器端通过 HTTP 协议发送给服务器端的数据； 响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据">
+<meta property="og:description" content="一、HTTP 协议的请求和响应：1、定义：请求是指浏览器端通过 HTTP 协议发送给服务器端的数据； 响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-15T01:22:14.000Z">
 <meta property="article:modified_time" content="2022-06-07T13:12:18.064Z">
@@ -191,10 +191,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80http-%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94"><span class="nav-number">1.</span> <span class="nav-text">一、HTTP 协议的请求和响应：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E8%AF%B7%E6%B1%82%E6%98%AF%E6%8C%87%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AB%AF%E9%80%9A%E8%BF%87-http-%E5%8D%8F%E8%AE%AE%E5%8F%91%E9%80%81%E7%BB%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E7%9A%84%E6%95%B0%E6%8D%AE-%E5%93%8D%E5%BA%94%E6%98%AF%E6%8C%87%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%8E%A5%E5%8F%97%E5%88%B0%E8%AF%B7%E6%B1%82%E5%90%8E%E5%81%9A%E7%9B%B8%E5%BA%94%E7%9A%84%E5%A4%84%E7%90%86%E5%90%8E%E5%86%8D%E5%9B%9E%E5%A4%8D%E7%BB%99%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AB%AF%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.1.</span> <span class="nav-text">1、定义：请求是指浏览器端通过
-HTTP 协议发送给服务器端的数据；
-响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%A0%B9%E6%8D%AE-http-%E6%A0%87%E5%87%86http-%E8%AF%B7%E6%B1%82%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%A7%8D%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="nav-number">1.0.2.</span> <span class="nav-text">2、请求：根据
-HTTP 标准，HTTP 请求可以使用多种请求方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#django-%E4%B8%AD%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="nav-number">1.0.3.</span> <span class="nav-text">3、Django 中的请求</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%93%8D%E5%BA%94"><span class="nav-number">2.</span> <span class="nav-text">二、响应</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">2.0.1.</span> <span class="nav-text">1、响应状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.0.2.</span> <span class="nav-text">2、响应对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E8%AF%B7%E6%B1%82"><span class="nav-number">3.</span> <span class="nav-text">三、请求：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#get-%E8%AF%B7%E6%B1%82"><span class="nav-number">3.0.1.</span> <span class="nav-text">1、GET 请求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#post-%E8%AF%B7%E6%B1%82"><span class="nav-number">3.0.2.</span> <span class="nav-text">2、POST 请求：</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81HTTP-%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">一、HTTP 协议的请求和响应：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%AE%9A%E4%B9%89%EF%BC%9A%E8%AF%B7%E6%B1%82%E6%98%AF%E6%8C%87%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AB%AF%E9%80%9A%E8%BF%87-HTTP-%E5%8D%8F%E8%AE%AE%E5%8F%91%E9%80%81%E7%BB%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9B-%E5%93%8D%E5%BA%94%E6%98%AF%E6%8C%87%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E6%8E%A5%E5%8F%97%E5%88%B0%E8%AF%B7%E6%B1%82%E5%90%8E%E5%81%9A%E7%9B%B8%E5%BA%94%E7%9A%84%E5%A4%84%E7%90%86%E5%90%8E%E5%86%8D%E5%9B%9E%E5%A4%8D%E7%BB%99%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AB%AF%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">1.0.1.</span> <span class="nav-text">1、定义：请求是指浏览器端通过 HTTP 协议发送给服务器端的数据； 响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E8%AF%B7%E6%B1%82%EF%BC%9A%E6%A0%B9%E6%8D%AE-HTTP-%E6%A0%87%E5%87%86%EF%BC%8CHTTP-%E8%AF%B7%E6%B1%82%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%A7%8D%E8%AF%B7%E6%B1%82%E6%96%B9%E5%BC%8F"><span class="nav-number">1.0.2.</span> <span class="nav-text">2、请求：根据 HTTP 标准，HTTP 请求可以使用多种请求方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81Django-%E4%B8%AD%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="nav-number">1.0.3.</span> <span class="nav-text">3、Django 中的请求</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%93%8D%E5%BA%94"><span class="nav-number">2.</span> <span class="nav-text">二、响应</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">2.0.1.</span> <span class="nav-text">1、响应状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%93%8D%E5%BA%94%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.0.2.</span> <span class="nav-text">2、响应对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%AF%B7%E6%B1%82%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">三、请求：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81GET-%E8%AF%B7%E6%B1%82%EF%BC%9A"><span class="nav-number">3.0.1.</span> <span class="nav-text">1、GET 请求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81POST-%E8%AF%B7%E6%B1%82%EF%BC%9A"><span class="nav-number">3.0.2.</span> <span class="nav-text">2、POST 请求：</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -715,7 +712,7 @@ if(canvas.getContext){
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -733,62 +730,37 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="一http-协议的请求和响应">一、HTTP 协议的请求和响应：</h2>
-<h4
-id="定义请求是指浏览器端通过-http-协议发送给服务器端的数据-响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据">1、定义：请求是指浏览器端通过
-HTTP 协议发送给服务器端的数据；
-响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据</h4>
-<p><span id="more"></span></p>
-<h4 id="请求根据-http-标准http-请求可以使用多种请求方式">2、请求：根据
-HTTP 标准，HTTP 请求可以使用多种请求方式</h4>
-<ul>
-<li><code>HTTP1.0</code>
-定义了三种请求方式：<code>GET</code>，<code>POST</code>，和
-<code>HEAD</code> 方法（最常用）</li>
-<li><code>HTTP1.1</code> 新增 5
-种请求方式：<code>OPTIONS</code>，<code>PUT</code>，<code>DELETE</code>，<code>TARACE</code>
-和 <code>CONNECT</code> 方法</li>
+        <h2 id="一、HTTP-协议的请求和响应："><a href="#一、HTTP-协议的请求和响应：" class="headerlink" title="一、HTTP 协议的请求和响应："></a>一、HTTP 协议的请求和响应：</h2><h4 id="1、定义：请求是指浏览器端通过-HTTP-协议发送给服务器端的数据；-响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据"><a href="#1、定义：请求是指浏览器端通过-HTTP-协议发送给服务器端的数据；-响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据" class="headerlink" title="1、定义：请求是指浏览器端通过 HTTP 协议发送给服务器端的数据； 响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据"></a>1、定义：请求是指浏览器端通过 HTTP 协议发送给服务器端的数据； 响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据</h4> <span id="more"></span>
+
+<h4 id="2、请求：根据-HTTP-标准，HTTP-请求可以使用多种请求方式"><a href="#2、请求：根据-HTTP-标准，HTTP-请求可以使用多种请求方式" class="headerlink" title="2、请求：根据 HTTP 标准，HTTP 请求可以使用多种请求方式"></a>2、请求：根据 HTTP 标准，HTTP 请求可以使用多种请求方式</h4><ul>
+<li><code>HTTP1.0</code> 定义了三种请求方式：<code>GET</code>，<code>POST</code>，和 <code>HEAD</code> 方法（最常用）</li>
+<li><code>HTTP1.1</code> 新增 5 种请求方式：<code>OPTIONS</code>，<code>PUT</code>，<code>DELETE</code>，<code>TARACE</code> 和 <code>CONNECT</code> 方法</li>
 <li><code>GET</code>：请求指定的页面信息，并返回实体主体</li>
-<li><code>HEAD</code>：类似于 <code>GET</code>
-请求，只不过返回的响应中没有具体的内容，用于获取报头</li>
-<li><code>POST</code>：向指定资源提交资源进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中，<code>POST</code>
-请求可能会导致新的资源的建立和/或已有资源的修改</li>
+<li><code>HEAD</code>：类似于 <code>GET</code> 请求，只不过返回的响应中没有具体的内容，用于获取报头</li>
+<li><code>POST</code>：向指定资源提交资源进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中，<code>POST</code> 请求可能会导致新的资源的建立和&#x2F;或已有资源的修改</li>
 <li><code>PUT</code>：从客户端向服务器传送的数据取代指定的文档的内容</li>
 <li><code>DELETE</code>：请求服务器删除指定的页面</li>
-<li><code>CONNECT：HTTP/1.1</code>
-协议中预留给能够连接改为管道方式的代理服务器【翻墙时需用到】</li>
+<li><code>CONNECT：HTTP/1.1</code>     协议中预留给能够连接改为管道方式的代理服务器【翻墙时需用到】</li>
 <li><code>OPTIONS</code>：允许客户端查看服务器的性能</li>
 <li><code>TRACE</code>：回显服务器收到的请求，主要用于测试或诊断</li>
 </ul>
-<h4 id="django-中的请求">3、Django 中的请求</h4>
-<ul>
-<li>请求在 <code>Django</code> 实则就是 视图函数 中的第一个参数；即
-<code>HttpRequest</code> 对象</li>
-<li><code>Django</code> 接收到 <code>http</code>
-协议的请求后，会根据请求数据报文创建 <code>HttpRequest</code> 对象</li>
-<li>`HttpRequest 对象通过属性描述了请求的所有相关信息</li>
-<li><code>path_info</code>: <code>URL</code> 字符串</li>
-<li><code>method</code>：字符串，表示 <code>Http</code>
-请求方法；常用值：<code>GET</code>，<code>POST</code></li>
-<li><code>GET</code>：<code>QueryDict</code> 查询字典的对象，包含
-<code>get</code> 请求方式的所有数据</li>
-<li><code>POST</code>：<code>QueryDict</code> 查询字典的对象，包含
-<code>post</code> 请求方式的所有数据</li>
+<h4 id="3、Django-中的请求"><a href="#3、Django-中的请求" class="headerlink" title="3、Django 中的请求"></a>3、Django 中的请求</h4><ul>
+<li>请求在 <code>Django</code> 实则就是 视图函数 中的第一个参数；即     <code>HttpRequest</code> 对象</li>
+<li><code>Django</code> 接收到 <code>http</code> 协议的请求后，会根据请求数据报文创建     <code>HttpRequest</code> 对象</li>
+<li>&#96;HttpRequest 对象通过属性描述了请求的所有相关信息</li>
+<li><code>path_info</code>:     <code>URL</code> 字符串</li>
+<li><code>method</code>：字符串，表示 <code>Http</code> 请求方法；常用值：<code>GET</code>，<code>POST</code></li>
+<li><code>GET</code>：<code>QueryDict</code> 查询字典的对象，包含 <code>get</code> 请求方式的所有数据</li>
+<li><code>POST</code>：<code>QueryDict</code> 查询字典的对象，包含 <code>post</code> 请求方式的所有数据</li>
 <li><code>FILES</code>：类似于字典的对象，包含所有的上传文件信息</li>
-<li><code>COOKIES</code>：<code>Python</code> 字典，包含所有的
-<code>cookie</code> ，键和值都为 字符串</li>
+<li><code>COOKIES</code>：<code>Python</code> 字典，包含所有的 <code>cookie</code> ，键和值都为 字符串</li>
 <li><code>session</code>： 类似于字典的对象，表示当前的会话</li>
-<li><code>body</code>：字符串，请求体的内容（<code>POST</code> 或
-<code>GET</code>）</li>
-<li><code>scheme</code>：请求协议（<code>http</code> /
-<code>https</code>）</li>
+<li><code>body</code>：字符串，请求体的内容（<code>POST</code> 或 <code>GET</code>）</li>
+<li><code>scheme</code>：请求协议（<code>http</code> &#x2F; <code>https</code>）</li>
 <li><code>request.get_full_path()</code>：请求的完整路径</li>
-<li><code>request.META</code>：请求中的元数据（消息头）；例：<code>request.META['REMOTE_ADDR']</code>：客户端
-<code>IP</code> 地址</li>
+<li><code>request.META</code>：请求中的元数据（消息头）；例：<code>request.META[&#39;REMOTE_ADDR&#39;]</code>：客户端 <code>IP</code> 地址</li>
 </ul>
-<h2 id="二响应">二、响应</h2>
-<h4 id="响应状态码">1、响应状态码</h4>
-<ul>
+<h2 id="二、响应"><a href="#二、响应" class="headerlink" title="二、响应"></a>二、响应</h2><h4 id="1、响应状态码"><a href="#1、响应状态码" class="headerlink" title="1、响应状态码"></a>1、响应状态码</h4><ul>
 <li><code>HTTP Status Code</code></li>
 <li><code>200</code>：请求成功</li>
 <li><code>301</code>：永久重定向-资源（网页等）被永久转移到其他 URL</li>
@@ -796,43 +768,21 @@ HTTP 标准，HTTP 请求可以使用多种请求方式</h4>
 <li><code>404</code>：请求的资源（网页等）不存在</li>
 <li><code>500</code>：内部服务器错误</li>
 </ul>
-<h4 id="响应对象">2、响应对象</h4>
-<ul>
-<li>构造函数格式: <code>HttpResponse</code>(<code>content</code>=响应体,
-<code>content_type</code>=响应体数据类型.
-<code>status</code>=状态码)；作用：向客户端浏览器返回响应，同时携带响应体内容</li>
-<li>常用的
-<code>Content-Type: 'text/html</code>'[默认的，<code>html</code>
-文件]；<code>'text/plain'</code>[纯文本]；<code>'text/css'</code> [css
-文件]；<code>'text/javascript'</code> [js
-文件]；<code>'multipart/form-data'</code>
-[文件提交]；<code>'application/json'</code>
-[json传输]；<code>'application/xml'</code> [<code>xml</code>文件]</li>
-<li><code>HttpResponse</code>
-子类：<code>HttpResponseRedirect</code>【重定向；<code>302</code>】；<code>HttpResponseNotModified</code>【未修改；<code>304</code>】；<code>HttpResponseBadRequest</code>【错误请求；<code>400</code>】；<code>HttpResponseNotFound</code>【没有对应的资源；<code>404</code>】；<code>HttpResponseForbidden</code>【请求被禁止；<code>403</code>】；<code>HttpResponseServerError</code>【服务器错误；<code>500</code>】</li>
+<h4 id="2、响应对象"><a href="#2、响应对象" class="headerlink" title="2、响应对象"></a>2、响应对象</h4><ul>
+<li>构造函数格式:  <code>HttpResponse</code>(<code>content</code>&#x3D;响应体, <code>content_type</code>&#x3D;响应体数据类型. <code>status</code>&#x3D;状态码)；作用：向客户端浏览器返回响应，同时携带响应体内容</li>
+<li>常用的 <code>Content-Type: &#39;text/html</code>‘[默认的，<code>html</code> 文件]；<code>&#39;text/plain&#39;</code>[纯文本]；<code>&#39;text/css&#39;</code> [css 文件]；<code>&#39;text/javascript&#39;</code> [js 文件]；<code>&#39;multipart/form-data&#39;</code> [文件提交]；<code>&#39;application/json&#39;</code> [json传输]；<code>&#39;application/xml&#39;</code> [<code>xml</code>文件]</li>
+<li><code>HttpResponse</code> 子类：<code>HttpResponseRedirect</code>【重定向；<code>302</code>】；<code>HttpResponseNotModified</code>【未修改；<code>304</code>】；<code>HttpResponseBadRequest</code>【错误请求；<code>400</code>】；<code>HttpResponseNotFound</code>【没有对应的资源；<code>404</code>】；<code>HttpResponseForbidden</code>【请求被禁止；<code>403</code>】；<code>HttpResponseServerError</code>【服务器错误；<code>500</code>】</li>
 </ul>
-<h2 id="三请求">三、请求：</h2>
-<ul>
-<li>无论时 <code>GET</code> 还是 <code>POST</code>
-，统一由视图函数接收请求，通过判断 <code>request.method</code>
-区分具体的请求动作</li>
+<h2 id="三、请求："><a href="#三、请求：" class="headerlink" title="三、请求："></a>三、请求：</h2><ul>
+<li>无论时 <code>GET</code> 还是 <code>POST</code> ，统一由视图函数接收请求，通过判断  <code>request.method</code> 区分具体的请求动作</li>
 </ul>
-<h4 id="get-请求">1、GET 请求：</h4>
-<ul>
-<li><code>GET</code>
-请求动作，一般用于向服务器获取数据；若有数据传递给服务器，通常会用查询字符串（<code>Query String</code>）
-传递【注意：不要传递敏感数据】；服务器端接收参数，获取客户端请求
-<code>GET</code> 请求提交的数据</li>
+<h4 id="1、GET-请求："><a href="#1、GET-请求：" class="headerlink" title="1、GET 请求："></a>1、GET 请求：</h4><ul>
+<li><code>GET</code> 请求动作，一般用于向服务器获取数据；若有数据传递给服务器，通常会用查询字符串（<code>Query String</code>） 传递【注意：不要传递敏感数据】；服务器端接收参数，获取客户端请求 <code>GET</code> 请求提交的数据</li>
 </ul>
-<h4 id="post-请求">2、POST 请求：</h4>
-<ul>
-<li>一般用于向服务器提交大量 / 隐私数据</li>
+<h4 id="2、POST-请求："><a href="#2、POST-请求：" class="headerlink" title="2、POST 请求："></a>2、POST 请求：</h4><ul>
+<li>一般用于向服务器提交大量 &#x2F; 隐私数据</li>
 <li>客户端通过表单等 <code>POST</code> 请求将数据传递给服务器端</li>
-<li>取消 <code>csrf</code> 验证，否则 <code>Django</code>
-将会拒绝客户端发来的 <code>POST</code> 请求，报 <code>403</code>
-错误；需要禁止 <code>settings.py</code> 中 <code>MIDDLEWARE</code> 中的
-<code>CsrfViewsMiddleWare</code>
-的中间件-<code>'django.middleware.csrf.CsrfViewMiddleware'</code>。</li>
+<li>取消 <code>csrf</code> 验证，否则 <code>Django</code> 将会拒绝客户端发来的 <code>POST</code> 请求，报 <code>403</code> 错误；需要禁止 <code>settings.py</code> 中 <code>MIDDLEWARE</code> 中的 <code>CsrfViewsMiddleWare</code> 的中间件-<code>&#39;django.middleware.csrf.CsrfViewMiddleware&#39;</code>。</li>
 </ul>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
@@ -928,13 +878,13 @@ HTTP 标准，HTTP 请求可以使用多种请求方式</h4>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">264k</span>
+    <span title="站点总字数">254k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:01</span>
+    <span title="站点阅读时长">3:51</span>
   </span>
 </div>
 <div class="busuanzi-count">
