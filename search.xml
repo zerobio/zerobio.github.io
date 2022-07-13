@@ -633,7 +633,7 @@ Pasión”）作为评估组装效果的物种，所有的原始测序数据均�
 binning分型以及后期验证各种方法分型质量；目标个体F1接近80x的PacBio
 CLR长读段测序(19.9 Gbp)、Hi-C(57.6
 Gbp)以及花粉10x-Genomics单细胞测序数据(61.7 Gbp)。</p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>表1 原始测序数据统计 <br> Table 1 The statistics of raw sequencing
 data <br></p>
 </div>
@@ -703,7 +703,7 @@ k-mers）；这将会过滤在测序数据中出现次数超过1000000次的k-me
 Mbp，杂合率为1.06%，重复率为41%（图1
 a）。在coverage=1的位置出现大量唯一k-mer（红色线）可能是PCR错误导致。</p>
 <p><img data-src="../images/linear_plot-16576306275931.png"></p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>图1 k-mers频率分布图与PacBio长读段长度分布 <br> Fig. 1 Frequency
 distribution of k-mers and PacBio long read length distribution <br> a)
 为K-mers
@@ -798,7 +798,7 @@ haplotigs以参数“-l 7 -m 60 -h
 binning、Trio binning、FALCON-Phase、ALLHiC
 4种单倍型组装方法对二倍体物种杏(<em>Prunus
 armeniaca</em>)的单倍型基因组组装质量。</p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>表2 每个单倍型基因组组装统计 <br> Table 2 Genome assembly statistics
 per haplotype <br></p>
 </div>
@@ -985,7 +985,7 @@ binning的单倍型基因组组装进行Scaffolding，可以一定程度上改�
 2021)的单拷贝直系同源物数据库，BUSCO可以基于预期基因含量提供具有生物学意义的指标来估计基因组的完整性和冗余性(Manni
 et al
 2021)。杏属于有胚植物，选择有胚植物直系同源数据库(embryophyta_odb10)，其中共有1614个保守的单拷贝基因。4种单倍型基因组组装方法得到的基因组完整性(C)均在93.2%以上，且缺失率(M)在5.9%以下（表3），说明各种方法基本恢复了单倍型基因组中的单拷贝基因。FALCON-Phase与ALLHiC(k=16)的单倍型基因组组装存在9.0%以上的重复(D)（表3）。尽管ALLHiC并没有分离二倍体的单倍型基因组序列，但其组装的基因组序列完整性较高；将k值设置为二倍体染色体条数(k=8)，则可以获得Scaffolding之后的基因组Scaffold水平的组装。可以进一步提升组装序列的连续性。</p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>表3 单倍型基因组的BUSCO评估（经pilon校正）<br> Table 3 BUSCO
 assessment of haplotype genomes (pilon-corrected) <br></p>
 </div>
@@ -1165,7 +1165,7 @@ k=16
 <p>Gamete
 binning方法得到的两个单倍型基因组均在相应亲本基因组中找到92.70%以上的hap-mers。Trio
 binning方法生成的两个单倍型更是在95.85%以上（表4），表明大部分的单倍型序列都被正确分配给了单倍型。FALCON-Phase得到的两个单倍型的hap-mers在两个亲本中的占比相似，说明其单倍型为单倍型融合基因组，并没有将基因组中的单倍型序列分离开。ALLHiC(k=8)与FALCON-Phase类似，但其中只包含49.84%左右的hap-mers，说明ALLHiC(k=8)的单倍型混合基因组并不完整；而ALLHiC(k=16)虽然恢复了更多的单倍型信息，但仍是混合的单倍型基因组。</p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>表4 各个单倍型中来自不同亲本hap-mers的统计 <br> Table 4 Statistics of
 hap-mers from different parents in each haplotype <br></p>
 </div>
@@ -1357,7 +1357,7 @@ plot)可以直观的显示各条组装序列的单倍型来源，从而评估单
 binning的圆圈图）。Gamete binning与Trio
 binning的分型效果最佳（图2），几乎将所有的单倍型序列正确分配给了每个单倍型。FALCON-Phase则是两个单倍型序列的混合（紫色圆圈，红色与蓝色的重合）。</p>
 <p><img data-src="../images/polished.hapmer.blob.png"></p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>图2 hap-mers圆圈图 <br> Fig.2 Hap-mer blob plots <br>
 两轴分别是来自两个亲本Currot和OrangeRed原始测序数据的hap-mers计数；圆圈颜色表示不同的单倍型，大小表示序列长度。理想状态下，两种不同颜色的圆圈分别无限接近于两轴，不重叠。a)
 Gamete binning方法两个单倍型的hap-mers圆圈图。b)
@@ -1377,7 +1377,7 @@ binning三种方法得到的单倍型解析基因组绘制k-mer拷贝数谱（�
 binning与Trio
 binning方法运用的是相同的策略，都是在组装前将子代长读段测序数据分成两组不同的读段，再进行分别组装；从图3可看出两者的拷贝数差异不大。反观FALCON-Phase的两个单倍型存在大量缺失，图3显示组装中的单拷贝k-mers在原始测序数据中大量出现（黑色峰），说明FALCON-Phase只恢复了测序数据中的部分单倍型信息。此外，FALCON-Phase的两个单倍型中几乎没有单拷贝峰，说明组装得到的两个单倍型序列几乎都是纯合的（k-mer拷贝数谱中只有2拷贝峰），且两个单倍型的序列高度相似，所以我们猜测FALCON-Phase组装缺失的可能是单倍型的杂合序列（黑色峰）。K-mer拷贝数谱还显示各个单倍型组装中均存在不同程度的碱基错误，因为在单倍型组装中发现了在原始测序数据中不存在的k-mers（在0覆盖度下均存在红色竖线）。</p>
 <img data-src="../images/polished.spectra-cn.fl.ln.png">
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>图3 K-mer拷贝数谱图 <br> Fig. 3 K-mer copy number spectrum plots <br>
 x轴表示k-mer出现的次数，y轴表示出现x次数的k-mers数量；不同的颜色表示不同的拷贝数，黑色表示在测序数据中统计的k-mer数量，在一定程度上显示单倍型组装的缺失。第一个峰（杂合）表示基因组中的1拷贝(1-copy)k-mers，仅在一个单倍型中发现的k-mers；第二个峰（纯合）代表来自纯合序列或单倍型特异性重复的2拷贝(2-copy)k-mers，即同时在两个单倍型中存在的k-mers。a)
 Gamete binning方法两个单倍型的k-mer拷贝数谱。b)
@@ -1390,7 +1390,7 @@ binning方法两个单倍型的k-mer拷贝数谱。</p>
 et al 2020)。Gamete binning与Trio
 binning除了存在可能的碱基错误之外，几乎是完美的；其中1拷贝峰k-mers对每个单倍型组装都是特异的，2拷贝峰（绿色峰）则是两个单倍型组装共有的k-mers。这也验证了前面提到的高于92.70%的k-mer完整性（表4）。FALCON-Phase单倍型组装中并没有发现特异于单个单倍型的k-mers，所有统计的k-mers在两个单倍型中共享，且在1拷贝和2拷贝中都存在不同程度的缺失（黑色峰）。</p>
 <img data-src="../images/polished.spectra-asm.fl.ln.png">
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>图4 K-mer组装谱图 <br> Fig. 4 K-mer assembly spectrum plots <br>
 从左至右，第一个峰是纯合峰，以单倍型着色；紫色（红色与蓝色重叠）峰是两个单倍型中特异性的k-mers，绿色则代表在两个单倍型中同时存在的k-mers。a)
 Gamete binning方法两个单倍型的k-mer组装谱。b)
@@ -1409,7 +1409,7 @@ et al
 binning和FALCON-Phase得到的是单倍型解析的基因组组装，三者相位块的总长度与其组装序列总长度相近，但是相位块的N50相差较大。经统计，Gamete
 binning的单倍型解析基因组交换错误率最低，在0.3515%以下。Trio
 binning也控制在0.5000%以下，但是FALCON-Phase的交换错误率超出了预先设置的阈值(0.5000%)，高达0.6161%，这也验证了FALCON-Phase的单倍型之间都混合了另一个单倍型的等位变异序列。而ALLHiC无论是k=8还是k=16，交换错误率均在1.6491%以上，这也说明了ALLHiC获得的杂合二倍体基因组是单倍型混合的组装。</p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>表5 交换错误率统计 <br> Table 5 The statistics of switch error rate
 <br></p>
 </div>
@@ -1627,7 +1627,7 @@ k=16
 <p>结合以上几种单倍型基因组评估指标（表6），发现Gamete binning与Trio
 binning这两种方法得到的单倍型基因组较为完整，其中Gamete
 binning方法整体表现最好。FALCON-Phase方法分离得到的二倍体两组单倍型序列准确度不高，其中交换错误率超出了阈值（表5），说明单倍型序列中存在另一单倍型序列。ALLHiC方法则没有从基因组初步组装中分离出完整的单倍型基因组序列，但是可以利用ALLHiC对基因组组装进行scaffolding，从而提高基因组组装连续性。</p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>表6 4种单倍型基因组组装方法的优缺点 <br> Table 6 Advantages and
 disadvantages of 4 haplotype genome assembly methods <br></p>
 </div>
@@ -1825,7 +1825,7 @@ Plants</em>, 2019, 5: 833-845</li>
 </ol>
 <h2 id="附录a">附录A</h2>
 <h3 id="a.1-本文涉及软件及其版本号">A.1 本文涉及软件及其版本号</h3>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>表S1 软件及其版本号 <br> Table S1 Softwares and versions <br></p>
 </div>
 <table>
@@ -2124,7 +2124,7 @@ armeniaca</em>)的两个单倍型基因组序列下载链接分别是http://www.
 <h3 id="a.3-qv">A.3 QV</h3>
 <p>较高的 QV 表示更准确的一致性(consensus)，Q30
 对应于99.9%的准确度，Q40则表示准确度高达99.99%。</p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>表S2 一致性质量 <br> Table S2 QV <br></p>
 </div>
 <table>
@@ -2249,12 +2249,12 @@ k=16
 </table>
 <h3 id="a.4-spectra-cn-plotsallhic">A.4 Spectra-cn plots(ALLHiC)</h3>
 <p><img data-src="../images/allhic.k8.k16.spectra-cn.fl.ln.png"></p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>图S1 ALLHiC拷贝数谱图 <br> Fig. S1 ALLHiC spectra-cn plots <br></p>
 </div>
 <h3 id="a.5-spectra-asm-plotsallhic">A.5 Spectra-asm plots(ALLHiC)</h3>
 <p><img data-src="../images/allhic.k8.k16.spectra-asm.fl.ln.png"></p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>图S2 ALLHiC组装谱图 <br> Fig. S2 ALLHiC spectra-asm plots <br>
 通过上面的拷贝数谱和组装谱图，可以看出k=8的组装缺失了一半的单拷贝k-mers，并在reads中找到（在1-copy峰处红色与黑色几乎重合）；而k=16的光谱图显示其为两个单倍型的混合物，并存在不同程度的缺失，其中只组装了部分单倍型，在2-copy中出现了1-copy的峰，显示混合单倍型组装部分折叠(partially
 collapsed)了单倍型。</p>
@@ -2262,7 +2262,7 @@ collapsed)了单倍型。</p>
 <h3 id="a.6-hap-mers-blob-plotallhic">A.6 Hap-mers blob
 plot(ALLHiC)</h3>
 <p><img data-src="../images/allhic.blob.png"></p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>图S3 ALLHiC hap-mers圆圈图 <br> Fig. S3 ALLHiC hap-mers blob plots
 <br>
 从hap-mers圆圈图可以很明显的看出无论是k=8还是k=16，得到的基因组并没有很好的定相，下方两个图正是将其组装序列根据交换错误(switch
@@ -2272,7 +2272,7 @@ block)之后重新定相的结果，这也说明输入的基因组中含有两�
 <h3 id="a.7-allhick16与allhick8的点阵图">A.7
 ALLHiC(k=16)与ALLHiC(k=8)的点阵图</h3>
 <p><img data-src="../images/map_allhic-k8_to_allhic-k16.png"></p>
-<div style="text-align: center; font-size: 18px;">
+<div style="text-align: center; font-size: 85%;">
 <p>图S4 点阵图 <br> Fig. S4 Dot plot <br>
 横轴为ALLHiC(k=16)结果，纵轴为ALLHiC(k=8)结果</p>
 </div>
@@ -7211,8 +7211,8 @@ novo genome assemblies using Hi-C. <em>Nature communications</em>,
         <category>Bioinfo</category>
       </categories>
       <tags>
-        <tag>haplotype</tag>
         <tag>Falcon phase</tag>
+        <tag>haplotype</tag>
       </tags>
   </entry>
   <entry>

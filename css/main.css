@@ -3170,6 +3170,9 @@ code {
   .menu .menu-item a {
     font-size: 1em;
   }
+  .menu {
+    font-size: 1em;
+  }
   .use-motion .animated {
     margin-bottom: 10px;
     margin-left: 10px;
