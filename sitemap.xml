@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zerobio.github.io/guestbook/index.html</loc>
+    
+    <lastmod>2022-07-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://zerobio.github.io/archives/e2fa9743.html</loc>
     
     <lastmod>2022-07-17</lastmod>
@@ -48,15 +57,6 @@
   
   <url>
     <loc>https://zerobio.github.io/tags/index.html</loc>
-    
-    <lastmod>2022-06-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://zerobio.github.io/guestbook/index.html</loc>
     
     <lastmod>2022-06-07</lastmod>
     
@@ -641,13 +641,6 @@
 
   
   <url>
-    <loc>https://zerobio.github.io/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</loc>
-    <lastmod>2022-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/10x-Genomics/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -655,21 +648,14 @@
   </url>
   
   <url>
+    <loc>https://zerobio.github.io/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/</loc>
+    <lastmod>2022-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zerobio.github.io/tags/FALCON/</loc>
-    <lastmod>2022-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zerobio.github.io/tags/Django/</loc>
-    <lastmod>2022-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zerobio.github.io/tags/Python/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -690,7 +676,14 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/Dot-Plot/</loc>
+    <loc>https://zerobio.github.io/tags/Django/</loc>
+    <lastmod>2022-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/Python/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -705,6 +698,13 @@
   
   <url>
     <loc>https://zerobio.github.io/tags/theme/</loc>
+    <lastmod>2022-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/Dot-Plot/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -795,14 +795,14 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/top/</loc>
+    <loc>https://zerobio.github.io/tags/%E5%AE%A0%E7%89%A9/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/%E5%AE%A0%E7%89%A9/</loc>
+    <loc>https://zerobio.github.io/tags/top/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -858,13 +858,6 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/haplotype/</loc>
-    <lastmod>2022-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/busuanzi/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -879,6 +872,20 @@
   </url>
   
   <url>
+    <loc>https://zerobio.github.io/tags/haplotype/</loc>
+    <lastmod>2022-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/Gamete-binning/</loc>
+    <lastmod>2022-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zerobio.github.io/tags/%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -887,13 +894,6 @@
   
   <url>
     <loc>https://zerobio.github.io/tags/ALLHiC/</loc>
-    <lastmod>2022-07-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zerobio.github.io/tags/Gamete-binning/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -921,14 +921,14 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/%E6%96%87%E7%8C%AE%E7%BF%BB%E8%AF%91/</loc>
+    <loc>https://zerobio.github.io/tags/coverage/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/coverage/</loc>
+    <loc>https://zerobio.github.io/tags/%E6%96%87%E7%8C%AE%E7%BF%BB%E8%AF%91/</loc>
     <lastmod>2022-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
