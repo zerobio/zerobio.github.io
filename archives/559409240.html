@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="HiC-Pro 用于 HiC 数据处理的一种管道工具，是一款高效的 Hi-C 数据分析软件。最终 HiC-Pro 可以利用相位数据来构建 allele-specific contact maps。">
+    <meta name="description" content="HiC-Pro 用于 HiC 数据处理的一种管道工具，是一款高效的 Hi-C 数据分析软件。最终 HiC-Pro 可以利用相位数据来构建 allele-specific contact maps。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HiC-Pro --- 处理 HiC 数据的 Pipeline">
 <meta property="og:url" content="https://zerobio.github.io/archives/559409240.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="HiC-Pro 用于 HiC 数据处理的一种管道工具，是一款高效的 Hi-C 数据分析软件。最终 HiC-Pro 可以利用相位数据来构建 allele-specific contact maps。">
+<meta property="og:description" content="HiC-Pro 用于 HiC 数据处理的一种管道工具，是一款高效的 Hi-C 数据分析软件。最终 HiC-Pro 可以利用相位数据来构建 allele-specific contact maps。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-30T10:45:16.000Z">
 <meta property="article:modified_time" content="2022-06-07T13:12:17.960Z">
@@ -190,7 +190,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Install"><span class="nav-number">1.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">2.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#install"><span class="nav-number">1.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">2.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -729,28 +729,32 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>HiC-Pro</strong> 用于 HiC 数据处理的一种管道工具，是一款高效的 Hi-C 数据分析软件。最终 HiC-Pro 可以利用相位数据来构建 <a target="_blank" rel="noopener" href="https://github.com/nservant/HiC-Pro/blob/master/doc/AS.md"><code>allele-specific contact maps</code></a>。</p>
+        <p><strong>HiC-Pro</strong> 用于 HiC
+数据处理的一种管道工具，是一款高效的 Hi-C 数据分析软件。最终 HiC-Pro
+可以利用相位数据来构建 <a
+target="_blank" rel="noopener" href="https://github.com/nservant/HiC-Pro/blob/master/doc/AS.md"><code>allele-specific contact maps</code></a>。</p>
 <span id="more"></span>
-
-<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><p>这里介绍如何利用 <code>miniconda</code> 来安装 <code>HiC-Pro</code> 所需要的依赖。</p>
-<p>根据作者在 <code>Github</code> 中的介绍，首先需要下载 <code>Github</code> 仓库中的 <code>master</code> ，通过提供的 <code>environment.yml</code> 来安装依赖，最后再对 <code>HiC-Pro</code> 进行安装。</p>
+<h2 id="install">Install</h2>
+<p>这里介绍如何利用 <code>miniconda</code> 来安装 <code>HiC-Pro</code>
+所需要的依赖。</p>
+<p>根据作者在 <code>Github</code> 中的介绍，首先需要下载
+<code>Github</code> 仓库中的 <code>master</code> ，通过提供的
+<code>environment.yml</code> 来安装依赖，最后再对 <code>HiC-Pro</code>
+进行安装。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/nservant/HiC-Pro.git ./</span><br><span class="line"><span class="comment">## 或者通过网页端访问仓库并下载源码进行安装。https://github.com/nservant/HiC-Pro/releases/tag/v3.1.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## conda 创建环境并安装依赖</span></span><br><span class="line">conda <span class="built_in">env</span> create -f MY_INSTALL_PATH/HiC-Pro/environment.yml -p WHERE_TO_INSTALL_MY_ENV</span><br><span class="line">conda activate WHERE_TO_INSTALL_MY_ENV</span><br><span class="line"></span><br><span class="line"><span class="comment">## 编译</span></span><br><span class="line">tar -zxvf HiC-Pro-master.tar.gz</span><br><span class="line"><span class="built_in">cd</span> HiC-Pro-master</span><br><span class="line"><span class="comment">## Edit config-install.txt file if necessary</span></span><br><span class="line">make configure</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-
 <blockquote>
-<p>详细安装细节，访问：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL25zZXJ2YW50L0hpQy1Qcm8=">https://github.com/nservant/HiC-Pro<i class="fa fa-external-link-alt"></i></span></p>
+<p>详细安装细节，访问：https://github.com/nservant/HiC-Pro</p>
 </blockquote>
-<p>据悉，安装最新的 3.x 版本的 HiC-Pro 需要 root 权限，由于我的服务器并不具备 root 权限；所以我采用旧版本的 HiC-Pro，安装也更加方便些，可直接通过 conda 安装。</p>
+<p>据悉，安装最新的 3.x 版本的 HiC-Pro 需要 root
+权限，由于我的服务器并不具备 root 权限；所以我采用旧版本的
+HiC-Pro，安装也更加方便些，可直接通过 conda 安装。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n HiC-Pro -c davebx hicpro</span><br></pre></td></tr></table></figure>
-
-
-
-
-
 <blockquote>
 <p>搁置</p>
 </blockquote>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>[1] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL25zZXJ2YW50L0hpQy1Qcm8=">https://github.com/nservant/HiC-Pro<i class="fa fa-external-link-alt"></i></span></p>
-<p>[2] <span class="exturl" data-url="aHR0cHM6Ly9seHo5LmNvbS8yMDIxLzA3LzE4L0hpQy1Qcm8v">https://lxz9.com/2021/07/18/HiC-Pro/<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="参考链接">参考链接</h2>
+<p>[1] https://github.com/nservant/HiC-Pro</p>
+<p>[2] https://lxz9.com/2021/07/18/HiC-Pro/</p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
@@ -844,13 +848,13 @@ if(canvas.getContext){
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">254k</span>
+    <span title="站点总字数">266k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:51</span>
+    <span title="站点阅读时长">4:02</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="在我安装了 hexo-helper-live2d 插件配置了网页宠物之后，发现 busuanzi 统计功能失效了，那我们有必要重新将它开启。">
+    <meta name="description" content="在我安装了 hexo-helper-live2d 插件配置了网页宠物之后，发现 busuanzi 统计功能失效了，那我们有必要重新将它开启。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于 hexo-helper-live2d 与 busuanzi-count 冲突">
 <meta property="og:url" content="https://zerobio.github.io/archives/c9759728.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="在我安装了 hexo-helper-live2d 插件配置了网页宠物之后，发现 busuanzi 统计功能失效了，那我们有必要重新将它开启。">
+<meta property="og:description" content="在我安装了 hexo-helper-live2d 插件配置了网页宠物之后，发现 busuanzi 统计功能失效了，那我们有必要重新将它开启。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zerobio.github.io/images/image-20220312231832625.png">
 <meta property="article:published_time" content="2022-03-12T15:13:24.000Z">
@@ -732,37 +732,67 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>在我安装了 <code>hexo-helper-live2d</code> 插件配置了网页宠物之后，发现 <code>busuanzi</code> 统计功能失效了，那我们有必要重新将它开启。</p>
+        <p>在我安装了 <code>hexo-helper-live2d</code>
+插件配置了网页宠物之后，发现 <code>busuanzi</code>
+统计功能失效了，那我们有必要重新将它开启。</p>
 <span id="more"></span>
-
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>我的 <code>Next</code> 主题的 <code>version</code> 是 <code>8.10.1</code>；<code>Next</code> 主题关于 <code>live2d</code> 和 <code>busuanzi</code> 的不兼容性，官方也在 <code>Github issue</code> 上进行了讨论，但是也没有很好的解决办法。有兴趣的同学可以自行前往 <code>Github issue</code> 查看。</p>
-<p><code>Github issue: </code> <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0VZSE4vaGV4by1oZWxwZXItbGl2ZTJkL2lzc3Vlcy8xNjE=">https://github.com/EYHN/hexo-helper-live2d/issues/161<i class="fa fa-external-link-alt"></i></span></p>
-<div class="note danger"><p><code>https://boyinthesun.cn/post/error-live2d-busuanzi/</code> 我根据 <code>Github issue</code> 提供的解决办法，针对于 <code>Next-8.10.1</code> 失败，并没有解决我的问题，于是在 <code>https://boyinthesun.cn/post/error-live2d-busuanzi/</code> 基础上，终于通过下面的办法实现了这两个插件的共存。</p>
+<h2 id="问题">问题</h2>
+<p>我的 <code>Next</code> 主题的 <code>version</code> 是
+<code>8.10.1</code>；<code>Next</code> 主题关于 <code>live2d</code> 和
+<code>busuanzi</code> 的不兼容性，官方也在 <code>Github issue</code>
+上进行了讨论，但是也没有很好的解决办法。有兴趣的同学可以自行前往
+<code>Github issue</code> 查看。</p>
+<p><code>Github issue:</code>
+https://github.com/EYHN/hexo-helper-live2d/issues/161</p>
+<div class="note danger"><p><code>https://boyinthesun.cn/post/error-live2d-busuanzi/</code>
+我根据 <code>Github issue</code> 提供的解决办法，针对于
+<code>Next-8.10.1</code> 失败，并没有解决我的问题，于是在
+<code>https://boyinthesun.cn/post/error-live2d-busuanzi/</code>
+基础上，终于通过下面的办法实现了这两个插件的共存。</p>
 </div>
-
-<p>通过查看网页源码，发现在 <code>busuanzi</code> 插入的 <code>&lt;span&gt;</code> 标签中多了个 <code>style</code>。</p>
-<p><img data-src="/../images/image-20220312231832625.png"></p>
-<p><code>style=&quot;display: none;&quot;</code> 这个样式存在代表着这个区块将不会才页面中显示；而当我们将 <code>none</code> 修改成 <code>inline</code> 之后，会发现当前页面中的 <code>阅读次数：</code> 出现了，于是我们找到了问题所在。</p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>同 <code>https://boyinthesun.cn/post/error-live2d-busuanzi/</code> 帖子提到的办法，先将 <code>busuanzi.pure.mini.js</code> 下载到本地，并存放至 <code>&lt;hexo-site&gt;/node_modules/hexo-theme-next/source/js/</code> ；接着我们找到 <code>Next</code> 主题关于 <code>busuanzi</code> 的设置。对于新手来说，很难找到这个 <code>.njk</code>。于是我们可以在站点根目录下通过 <code>find</code> 命令来查找关键字。</p>
+<p>通过查看网页源码，发现在 <code>busuanzi</code> 插入的
+<code>&lt;span&gt;</code> 标签中多了个 <code>style</code>。</p>
+<p><img data-src="../images/image-20220312231832625.png" /></p>
+<p><code>style="display: none;"</code>
+这个样式存在代表着这个区块将不会才页面中显示；而当我们将
+<code>none</code> 修改成 <code>inline</code> 之后，会发现当前页面中的
+<code>阅读次数：</code> 出现了，于是我们找到了问题所在。</p>
+<h2 id="解决">解决</h2>
+<p>同 <code>https://boyinthesun.cn/post/error-live2d-busuanzi/</code>
+帖子提到的办法，先将 <code>busuanzi.pure.mini.js</code>
+下载到本地，并存放至
+<code>&lt;hexo-site&gt;/node_modules/hexo-theme-next/source/js/</code>
+；接着我们找到 <code>Next</code> 主题关于 <code>busuanzi</code>
+的设置。对于新手来说，很难找到这个
+<code>.njk</code>。于是我们可以在站点根目录下通过 <code>find</code>
+命令来查找关键字。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;hexo-site&gt;</span><br><span class="line">find ./ -name <span class="string">&quot;busuanzi*&quot;</span></span><br><span class="line"><span class="comment">## 输出结果</span></span><br><span class="line"><span class="comment">## ./node_modules/hexo-theme-next/layout/_third-party/statistics/busuanzi-counter.njk</span></span><br></pre></td></tr></table></figure>
-
-<p>于是我们找到了 <code>./node_modules/hexo-theme-next/layout/_third-party/statistics/busuanzi-counter.njk</code> 发现里面是这样的。</p>
+<p>于是我们找到了
+<code>./node_modules/hexo-theme-next/layout/_third-party/statistics/busuanzi-counter.njk</code>
+发现里面是这样的。</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;%- <span class="attribute">if</span> theme.busuanzi_count.enable %&#125;</span><br><span class="line">  &lt;script&#123;&#123; <span class="attribute">pjax</span> &#125;&#125; async src=<span class="string">&quot;https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&#123;%- <span class="attribute">endif</span> %&#125;</span><br></pre></td></tr></table></figure>
-
-<div class="note info"><p>这里是通过 <code>url</code> 插入 <code>busuanzi</code> 的，但是我们需要对这个 <code>js</code> 文件进行修改，于是我们需要将这个文件下载到本地</p>
+<div class="note info"><p>这里是通过 <code>url</code> 插入 <code>busuanzi</code>
+的，但是我们需要对这个 <code>js</code>
+文件进行修改，于是我们需要将这个文件下载到本地</p>
 </div>
-
-<p>将 <code>https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js</code> 下载至 <code>&lt;hexo-site&gt;/node_modules/hexo-theme-next/source/js/</code>，并将 <code>./node_modules/hexo-theme-next/layout/_third-party/statistics/busuanzi-counter.njk</code> 修改至下：</p>
+<p>将
+<code>https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js</code>
+下载至
+<code>&lt;hexo-site&gt;/node_modules/hexo-theme-next/source/js/</code>，并将
+<code>./node_modules/hexo-theme-next/layout/_third-party/statistics/busuanzi-counter.njk</code>
+修改至下：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;%- <span class="attribute">if</span> theme.busuanzi_count.enable %&#125;</span><br><span class="line">  &lt;script&#123;&#123; <span class="attribute">pjax</span> &#125;&#125; async src=<span class="string">&quot;/js/busuanzi.pure.mini.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&#123;%- <span class="attribute">endif</span> %&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对 <code>&lt;hexo-site&gt;/source/js/busuanzi.pure.mini.js</code> 修改如下：</p>
+<p>对 <code>&lt;hexo-site&gt;/source/js/busuanzi.pure.mini.js</code>
+修改如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bszCaller,bszTag;!<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="keyword">var</span> c,d,e,a=!<span class="number">1</span>,b=[];ready=<span class="keyword">function</span>(<span class="params">c</span>)&#123;<span class="keyword">return</span> a||<span class="string">&quot;interactive&quot;</span>===<span class="variable language_">document</span>.<span class="property">readyState</span>||<span class="string">&quot;complete&quot;</span>===<span class="variable language_">document</span>.<span class="property">readyState</span>?c.<span class="title function_">call</span>(<span class="variable language_">document</span>):b.<span class="title function_">push</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="keyword">return</span> c.<span class="title function_">call</span>(<span class="variable language_">this</span>)&#125;),<span class="variable language_">this</span>&#125;,d=<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="keyword">for</span>(<span class="keyword">var</span> a=<span class="number">0</span>,c=b.<span class="property">length</span>;c&gt;a;a++)b[a].<span class="title function_">apply</span>(<span class="variable language_">document</span>);b=[]&#125;,e=<span class="keyword">function</span>(<span class="params"></span>)&#123;a||(a=!<span class="number">0</span>,d.<span class="title function_">call</span>(<span class="variable language_">window</span>),<span class="variable language_">document</span>.<span class="property">removeEventListener</span>?<span class="variable language_">document</span>.<span class="title function_">removeEventListener</span>(<span class="string">&quot;DOMContentLoaded&quot;</span>,e,!<span class="number">1</span>):<span class="variable language_">document</span>.<span class="property">attachEvent</span>&amp;&amp;(<span class="variable language_">document</span>.<span class="title function_">detachEvent</span>(<span class="string">&quot;onreadystatechange&quot;</span>,e),<span class="variable language_">window</span>==<span class="variable language_">window</span>.<span class="property">top</span>&amp;&amp;(<span class="built_in">clearInterval</span>(c),c=<span class="literal">null</span>)))&#125;,<span class="variable language_">document</span>.<span class="property">addEventListener</span>?<span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;DOMContentLoaded&quot;</span>,e,!<span class="number">1</span>):<span class="variable language_">document</span>.<span class="property">attachEvent</span>&amp;&amp;(<span class="variable language_">document</span>.<span class="title function_">attachEvent</span>(<span class="string">&quot;onreadystatechange&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="regexp">/loaded|complete/</span>.<span class="title function_">test</span>(<span class="variable language_">document</span>.<span class="property">readyState</span>)&amp;&amp;<span class="title function_">e</span>()&#125;),<span class="variable language_">window</span>==<span class="variable language_">window</span>.<span class="property">top</span>&amp;&amp;(c=<span class="built_in">setInterval</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="keyword">try</span>&#123;a||<span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="title function_">doScroll</span>(<span class="string">&quot;left&quot;</span>)&#125;<span class="keyword">catch</span>(b)&#123;<span class="keyword">return</span>&#125;<span class="title function_">e</span>()&#125;,<span class="number">5</span>)))&#125;(),bszCaller=&#123;<span class="attr">fetch</span>:<span class="keyword">function</span>(<span class="params">a,b</span>)&#123;<span class="keyword">var</span> c=<span class="string">&quot;BusuanziCallback_&quot;</span>+<span class="title class_">Math</span>.<span class="title function_">floor</span>(<span class="number">1099511627776</span>*<span class="title class_">Math</span>.<span class="title function_">random</span>());<span class="variable language_">window</span>[c]=<span class="variable language_">this</span>.evalCall(b),a=a.<span class="title function_">replace</span>(<span class="string">&quot;=BusuanziCallback&quot;</span>,<span class="string">&quot;=&quot;</span>+c),scriptTag=<span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;SCRIPT&quot;</span>),scriptTag.<span class="property">type</span>=<span class="string">&quot;text/javascript&quot;</span>,scriptTag.<span class="property">defer</span>=!<span class="number">0</span>,scriptTag.<span class="property">src</span>=a,scriptTag.<span class="property">referrerPolicy</span>=<span class="string">&quot;no-referrer-when-downgrade&quot;</span>,<span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&quot;HEAD&quot;</span>)[<span class="number">0</span>].<span class="title function_">appendChild</span>(scriptTag)&#125;,<span class="attr">evalCall</span>:<span class="keyword">function</span>(<span class="params">a</span>)&#123;<span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">b</span>)&#123;<span class="title function_">ready</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="keyword">try</span>&#123;<span class="title function_">a</span>(b),scriptTag.<span class="property">parentElement</span>.<span class="title function_">removeChild</span>(scriptTag)&#125;<span class="keyword">catch</span>(c)&#123;bszTag.<span class="title function_">hides</span>()&#125;&#125;)&#125;&#125;&#125;,bszCaller.<span class="title function_">fetch</span>(<span class="string">&quot;//busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback&quot;</span>,<span class="keyword">function</span>(<span class="params">a</span>)&#123;bszTag.<span class="title function_">texts</span>(a),bszTag.<span class="title function_">shows</span>()&#125;),bszTag=&#123;<span class="attr">bszs</span>:[<span class="string">&quot;site_pv&quot;</span>,<span class="string">&quot;page_pv&quot;</span>,<span class="string">&quot;site_uv&quot;</span>],<span class="attr">texts</span>:<span class="keyword">function</span>(<span class="params">a</span>)&#123;<span class="variable language_">this</span>.<span class="property">bszs</span>.<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">b</span>)&#123;<span class="keyword">var</span> c=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;busuanzi_value_&quot;</span>+b);c&amp;&amp;(c.<span class="property">innerHTML</span>=a[b])&#125;)&#125;,<span class="attr">hides</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="variable language_">this</span>.<span class="property">bszs</span>.<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">a</span>)&#123;<span class="keyword">var</span> b=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;busuanzi_container_&quot;</span>+a);b&amp;&amp;(b.<span class="property">style</span>.<span class="property">display</span>=<span class="string">&quot;inline&quot;</span>)&#125;)&#125;,<span class="attr">shows</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="variable language_">this</span>.<span class="property">bszs</span>.<span class="title function_">map</span>(<span class="keyword">function</span>(<span class="params">a</span>)&#123;<span class="keyword">var</span> b=<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;busuanzi_container_&quot;</span>+a);b&amp;&amp;(b.<span class="property">style</span>.<span class="property">display</span>=<span class="string">&quot;inline&quot;</span>)&#125;)&#125;&#125;;</span><br></pre></td></tr></table></figure>
-
-<div class="note info"><p>你可以直接复制粘贴覆盖之前的 <code>busuanzi.pure.mini.js</code>，或者找到 <code>b.style.display=&quot;none&quot;</code> 修改为 <code>b.style.display=&quot;inline&quot;</code></p>
+<div class="note info"><p>你可以直接复制粘贴覆盖之前的
+<code>busuanzi.pure.mini.js</code>，或者找到
+<code>b.style.display="none"</code> 修改为
+<code>b.style.display="inline"</code></p>
 </div>
-
 <p>最后直接 <code>hexo clean &amp;&amp; hexo s</code> 重启服务即可。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>[1] <span class="exturl" data-url="aHR0cHM6Ly9ib3lpbnRoZXN1bi5jbi9wb3N0L2Vycm9yLWxpdmUyZC1idXN1YW56aS8=">https://boyinthesun.cn/post/error-live2d-busuanzi/<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="参考链接">参考链接</h2>
+<p>[1] https://boyinthesun.cn/post/error-live2d-busuanzi/</p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
@@ -857,13 +887,13 @@ if(canvas.getContext){
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">254k</span>
+    <span title="站点总字数">266k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:51</span>
+    <span title="站点阅读时长">4:02</span>
   </span>
 </div>
 <div class="busuanzi-count">

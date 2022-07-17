@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Background现今，大多数现有的比较组装的方法仅适用于已完成基因组的新组装，尚未充分考虑评估以前未测序的物种组合的问题。当前的测序技术和软件面临着许多阻碍完整染色体重建的复杂性，包括读取错误和基因组中的大量重复。不同的组装程序使用不同的启发式算法来应对这些挑战，从而导致它们输出的 contigs 存在许多差异。这也导致了如何评估组装质量以及如何比较不同组装的问题。">
+    <meta name="description" content="Background 现今，大多数现有的比较组装的方法仅适用于已完成基因组的新组装，尚未充分考虑评估以前未测序的物种组合的问题。当前的测序技术和软件面临着许多阻碍完整染色体重建的复杂性，包括读取错误和基因组中的大量重复。不同的组装程序使用不同的启发式算法来应对这些挑战，从而导致它们输出的 contigs 存在许多差异。这也导致了如何评估组装质量以及如何比较不同组装的问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基因组组装评估 --- QUAST">
 <meta property="og:url" content="https://zerobio.github.io/archives/306037846.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="Background现今，大多数现有的比较组装的方法仅适用于已完成基因组的新组装，尚未充分考虑评估以前未测序的物种组合的问题。当前的测序技术和软件面临着许多阻碍完整染色体重建的复杂性，包括读取错误和基因组中的大量重复。不同的组装程序使用不同的启发式算法来应对这些挑战，从而导致它们输出的 contigs 存在许多差异。这也导致了如何评估组装质量以及如何比较不同组装的问题。">
+<meta property="og:description" content="Background 现今，大多数现有的比较组装的方法仅适用于已完成基因组的新组装，尚未充分考虑评估以前未测序的物种组合的问题。当前的测序技术和软件面临着许多阻碍完整染色体重建的复杂性，包括读取错误和基因组中的大量重复。不同的组装程序使用不同的启发式算法来应对这些挑战，从而导致它们输出的 contigs 存在许多差异。这也导致了如何评估组装质量以及如何比较不同组装的问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-20T01:51:05.000Z">
 <meta property="article:modified_time" content="2022-06-07T13:12:18.153Z">
@@ -190,7 +190,11 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Background"><span class="nav-number">1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Metrics%EF%BC%88%E6%8C%87%E6%A0%87%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">Metrics（指标）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Contig-sizes"><span class="nav-number">3.1.</span> <span class="nav-text">Contig sizes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Misassemblies-and-structural-variations%EF%BC%88%E7%BB%84%E8%A3%85%E9%94%99%E8%AF%AF%E5%92%8C%E7%BB%93%E6%9E%84%E5%8F%98%E5%8C%96%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">Misassemblies and structural variations（组装错误和结构变化）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Genome-representation-and-its-functional-elements%EF%BC%88%E5%9F%BA%E5%9B%A0%E7%BB%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E5%85%B6%E5%8A%9F%E8%83%BD%E5%85%83%E4%BB%B6%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">Genome representation and its functional elements（基因组表示及其功能元件）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Variations-of-N50-based-on-aligned-blocks%EF%BC%88%E5%9F%BA%E4%BA%8E%E5%AF%B9%E9%BD%90%E5%9D%97%E7%9A%84-N50-%E5%8F%98%E5%8C%96%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">Variations of N50 based on aligned blocks（基于对齐块的 N50 变化）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visualization%EF%BC%88%E5%8F%AF%E8%A7%86%E5%8C%96%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">Visualization（可视化）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installation"><span class="nav-number">5.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Run"><span class="nav-number">6.</span> <span class="nav-text">Run</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Result"><span class="nav-number">7.</span> <span class="nav-text">Result</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">8.</span> <span class="nav-text">References</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#background"><span class="nav-number">1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">2.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#metrics%E6%8C%87%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">Metrics（指标）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#contig-sizes"><span class="nav-number">3.1.</span> <span class="nav-text">Contig sizes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#misassemblies-and-structural-variations%E7%BB%84%E8%A3%85%E9%94%99%E8%AF%AF%E5%92%8C%E7%BB%93%E6%9E%84%E5%8F%98%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">Misassemblies
+and structural variations（组装错误和结构变化）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#genome-representation-and-its-functional-elements%E5%9F%BA%E5%9B%A0%E7%BB%84%E8%A1%A8%E7%A4%BA%E5%8F%8A%E5%85%B6%E5%8A%9F%E8%83%BD%E5%85%83%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">Genome
+representation and its functional
+elements（基因组表示及其功能元件）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#variations-of-n50-based-on-aligned-blocks%E5%9F%BA%E4%BA%8E%E5%AF%B9%E9%BD%90%E5%9D%97%E7%9A%84-n50-%E5%8F%98%E5%8C%96"><span class="nav-number">3.4.</span> <span class="nav-text">Variations
+of N50 based on aligned blocks（基于对齐块的 N50 变化）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#visualization%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">Visualization（可视化）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#installation"><span class="nav-number">5.</span> <span class="nav-text">Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run"><span class="nav-number">6.</span> <span class="nav-text">Run</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#result"><span class="nav-number">7.</span> <span class="nav-text">Result</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references"><span class="nav-number">8.</span> <span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -729,185 +733,309 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>现今，大多数现有的比较组装的方法仅适用于已完成基因组的新组装，尚未充分考虑评估以前未测序的物种组合的问题。当前的测序技术和软件面临着许多阻碍完整染色体重建的复杂性，包括读取错误和基因组中的大量重复。不同的组装程序使用不同的启发式算法来应对这些挑战，从而导致它们输出的 <code>contigs</code> 存在许多差异。这也导致了如何评估组装质量以及如何比较不同组装的问题。</p>
+        <h2 id="background">Background</h2>
+<p>现今，大多数现有的比较组装的方法仅适用于已完成基因组的新组装，尚未充分考虑评估以前未测序的物种组合的问题。当前的测序技术和软件面临着许多阻碍完整染色体重建的复杂性，包括读取错误和基因组中的大量重复。不同的组装程序使用不同的启发式算法来应对这些挑战，从而导致它们输出的
+<code>contigs</code>
+存在许多差异。这也导致了如何评估组装质量以及如何比较不同组装的问题。</p>
 <span id="more"></span>
-
-<div class="note info"><p><code>contigs</code>：基因组组装软件将 <code>reads</code> 组装成更大的区域，便称为重叠群（contigs）。</p>
-<p><code>Plantagora</code>：是一个基于网络的平台，旨在帮助科学家查看最流行的植物基因组测序策略的特征（包括测序平台和组装软件）。[<span class="exturl" data-url="aHR0cHM6Ly93d3cubmNiaS5ubG0ubmloLmdvdi9wbWMvYXJ0aWNsZXMvUE1DMzIzNjE4My9d">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3236183/]<i class="fa fa-external-link-alt"></i></span></p>
-<p><code>Assemblathon competition</code>：该竞赛在超过100个评估指标上比较了41个 <code>de novo assemblies</code>；其评估脚本是免费提供的，但它们高度关注比赛中使用的基因组，普通用户很难将其应用于其他基因组。[<span class="exturl" data-url="aHR0cHM6Ly93d3cubmNiaS5ubG0ubmloLmdvdi9wbWMvYXJ0aWNsZXMvUE1DMzIyNzExMC9d">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3227110/]<i class="fa fa-external-link-alt"></i></span></p>
-<p><code>GAGE</code>: 被用来在四个数据集上评估几个领先的基因组组装工具，其评估一组指标，包括不同类型的错误组装（倒置，易位）[<span class="exturl" data-url="aHR0cHM6Ly93d3cubmNiaS5ubG0ubmloLmdvdi9wbWMvYXJ0aWNsZXMvUE1DMzI5MDc5MS9d">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3290791/]<i class="fa fa-external-link-alt"></i></span></p>
+<div class="note info"><p><code>contigs</code>：基因组组装软件将 <code>reads</code>
+组装成更大的区域，便称为重叠群（contigs）。</p>
+<p><code>Plantagora</code>：是一个基于网络的平台，旨在帮助科学家查看最流行的植物基因组测序策略的特征（包括测序平台和组装软件）。[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3236183/]</p>
+<p><code>Assemblathon competition</code>：该竞赛在超过100个评估指标上比较了41个
+<code>de novo assemblies</code>；其评估脚本是免费提供的，但它们高度关注比赛中使用的基因组，普通用户很难将其应用于其他基因组。[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3227110/]</p>
+<p><code>GAGE</code>:
+被用来在四个数据集上评估几个领先的基因组组装工具，其评估一组指标，包括不同类型的错误组装（倒置，易位）[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3290791/]</p>
 </div>
-
-<p>需要注意的是，<code>Plantagora </code> 和 <code>GAGE</code> 是基于已知参考基因组的数据对组装进行评估的，它们并不适用于以前未测序的基因组的组装。此外，<code>GAGE</code> 一次只能在一个数据集上运行，因此，要比较同一数据集上的多个组装，必须手动将不同 <code>GAGE</code> 报告的输出合并到一个表格中。</p>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><code>QUAST</code> 一种用于评估和比较基因组组装的质量评估工具；其可以使用参考基因组和不参考基因组的情况下对组装进行评估。<code>QUAST</code> 将会生成许多报告、汇总表和图表。此外，<code>QUAST</code> 在最耗时的步骤做了并行化，运行速度相当快。</p>
-<p><code>QUAST</code> 使用来自 <code>MUMmer v3.23</code> 的 <code>Nucmer</code> 比对工具将组装与参考基因组比对，并根据比对评估指标。</p>
-<h2 id="Metrics（指标）"><a href="#Metrics（指标）" class="headerlink" title="Metrics（指标）"></a>Metrics（指标）</h2><h3 id="Contig-sizes"><a href="#Contig-sizes" class="headerlink" title="Contig sizes"></a>Contig sizes</h3><blockquote>
-<p>可以在有或没有 <code>reference</code> 的情况下评估以下指标（除 NGx )。此外，Quast 可以对输入进行过滤，仅限于长度超过指定最小长度的 <code>contigs</code>，以排除可能没有多大用处的短重叠群。</p>
+<p>需要注意的是，<code>Plantagora</code> 和 <code>GAGE</code>
+是基于已知参考基因组的数据对组装进行评估的，它们并不适用于以前未测序的基因组的组装。此外，<code>GAGE</code>
+一次只能在一个数据集上运行，因此，要比较同一数据集上的多个组装，必须手动将不同
+<code>GAGE</code> 报告的输出合并到一个表格中。</p>
+<h2 id="introduction">Introduction</h2>
+<p><code>QUAST</code>
+一种用于评估和比较基因组组装的质量评估工具；其可以使用参考基因组和不参考基因组的情况下对组装进行评估。<code>QUAST</code>
+将会生成许多报告、汇总表和图表。此外，<code>QUAST</code>
+在最耗时的步骤做了并行化，运行速度相当快。</p>
+<p><code>QUAST</code> 使用来自 <code>MUMmer v3.23</code> 的
+<code>Nucmer</code>
+比对工具将组装与参考基因组比对，并根据比对评估指标。</p>
+<h2 id="metrics指标">Metrics（指标）</h2>
+<h3 id="contig-sizes">Contig sizes</h3>
+<blockquote>
+<p>可以在有或没有 <code>reference</code> 的情况下评估以下指标（除 NGx
+)。此外，Quast 可以对输入进行过滤，仅限于长度超过指定最小长度的
+<code>contigs</code>，以排除可能没有多大用处的短重叠群。</p>
 </blockquote>
 <ul>
 <li><em>No. of contigs</em>: 组装中的 <code>contigs</code> 总个数。</li>
 <li><em>Largest contig</em>: 最长 <code>contig</code> 的长度。</li>
 <li><em>Total length</em>: <code>assembly</code> 中的碱基总数。</li>
-<li><em>Nx (where</em> 0&lt;&#x3D;x&lt;&#x3D;100*)*: 最长长度的 <code>contigs</code> 占组装碱基的百分比。</li>
-<li><em>NGx, Genome Nx</em>: 相等或更长的重叠群产生参考基因组长度的 x% 的重叠群长度，而不是组装结果长度的 x%。</li>
+<li><em>Nx (where</em> 0&lt;=x&lt;=100<em>)</em>: 最长长度的
+<code>contigs</code> 占组装碱基的百分比。</li>
+<li><em>NGx, Genome Nx</em>: 相等或更长的重叠群产生参考基因组长度的 x%
+的重叠群长度，而不是组装结果长度的 x%。</li>
 </ul>
-<h3 id="Misassemblies-and-structural-variations（组装错误和结构变化）"><a href="#Misassemblies-and-structural-variations（组装错误和结构变化）" class="headerlink" title="Misassemblies and structural variations（组装错误和结构变化）"></a>Misassemblies and structural variations（组装错误和结构变化）</h3><blockquote>
-<p>该指标描述重叠群中的结构错误。<code>Quast</code> 只能根据已知的参考基因组对它们进行评估，如参考基因组与组装的数据集完全匹配，则差异可能归结于软件的错误组装或测序错误（如嵌合读取）。</p>
+<h3
+id="misassemblies-and-structural-variations组装错误和结构变化">Misassemblies
+and structural variations（组装错误和结构变化）</h3>
+<blockquote>
+<p>该指标描述重叠群中的结构错误。<code>Quast</code>
+只能根据已知的参考基因组对它们进行评估，如参考基因组与组装的数据集完全匹配，则差异可能归结于软件的错误组装或测序错误（如嵌合读取）。</p>
 </blockquote>
 <ul>
 <li><em>No. of misassemblies</em>: 组装错误的数量。</li>
-<li><em>No. of misassembled contigs</em>: 包含错误组装断点的 <code>contigs</code> 数量。</li>
-<li><em>Misassembled contigs length</em>: 在所有 <code>contig</code> 中包含一个或多个错配的碱基总数。</li>
-<li><em>No. of unaligned contigs</em>: 与参考序列没有对齐的 <code>contigs</code> 数量。</li>
-<li><em>No. of ambiguously mapped contigs</em>: 在参考基因组的多个位置具有相同质量的高得分参考比对的 <code>contigs</code> 数量。</li>
-<li>除了以上汇总统计数据之外，<code>Quast</code> 还生成包含每个 <code>contig</code> 详细信息的报告，包括 <code>ccontig</code> 是否未对齐、不明群映射、错误组装或正确。</li>
+<li><em>No. of misassembled contigs</em>: 包含错误组装断点的
+<code>contigs</code> 数量。</li>
+<li><em>Misassembled contigs length</em>: 在所有 <code>contig</code>
+中包含一个或多个错配的碱基总数。</li>
+<li><em>No. of unaligned contigs</em>: 与参考序列没有对齐的
+<code>contigs</code> 数量。</li>
+<li><em>No. of ambiguously mapped contigs</em>:
+在参考基因组的多个位置具有相同质量的高得分参考比对的
+<code>contigs</code> 数量。</li>
+<li>除了以上汇总统计数据之外，<code>Quast</code> 还生成包含每个
+<code>contig</code> 详细信息的报告，包括 <code>ccontig</code>
+是否未对齐、不明群映射、错误组装或正确。</li>
 </ul>
-<h3 id="Genome-representation-and-its-functional-elements（基因组表示及其功能元件）"><a href="#Genome-representation-and-its-functional-elements（基因组表示及其功能元件）" class="headerlink" title="Genome representation and its functional elements（基因组表示及其功能元件）"></a>Genome representation and its functional elements（基因组表示及其功能元件）</h3><blockquote>
+<h3
+id="genome-representation-and-its-functional-elements基因组表示及其功能元件">Genome
+representation and its functional
+elements（基因组表示及其功能元件）</h3>
+<blockquote>
 <p>评估重叠群中基因组表示的指标以及组装的功能元件的数量，如基因和操纵子。其中大多数需要参考基因组。</p>
 </blockquote>
 <ul>
-<li><em>Genome fraction (%)</em>: 参考中比对碱基的总数除以基因组大小。如果至少一个重叠群与该碱基具有至少一个比对，则参考基因组中的碱基被记为比对。来自重复区域的重叠群可能会映射到多个位置，因此可能会以这个数量计算多次。</li>
-<li><em>Duplication ratio</em>: 组装中对齐的碱基总数（即总长度减去未对齐的重叠群长度）除以参考中对齐的碱基总数。若组装包含许多覆盖参考相同区域的重叠群，则其重复率可能远大于 <code>1</code>。这可能是由于高估了重复多重性以及由于重叠群之间的 <code>small overlaps</code> 等原因而导致的。</li>
-<li><em>GC (%)</em>: 组装中的 <code>GC</code> 含量，组装中的 <code>G+C</code> 碱基含量除以总碱基数。</li>
-<li><em>No. of mismatches per 100 kb</em>: 每 <code>100,000</code> 个对齐碱基的平均错配数。该指标不区分单核苷酸多态性（组装基因组与参考基因组的真正差异）和单核苷酸错误（由于读取错误或组装算法错误）。</li>
-<li><em>No. of indels per 100 kb</em>: 每 <code>100,000</code> 个比对碱基的平均单核苷酸插入或缺失数量，此外还提供包含所有组件的插入缺失坐标的详细报告。</li>
-<li><em>No. of genes</em>: 组装结果中的基因数量（完整和部分），基于用户提供的参考基因组中基因位置的注释列表。</li>
-<li><em>No. of operons</em>: 使用用户提供的参考基因组中操纵子位置的注释列表，以与基因类似的方式计算完整和部分操纵子。</li>
-<li><em>No. of predicted genes</em>: <code>Quast</code> 的基因查找模块预测的组装中的基因数量，该模块基于原核生物的 <code>GeneMark.hmm</code> 和真核生物的 <code>GlimmerHMM</code>。</li>
+<li><em>Genome fraction (%)</em>:
+参考中比对碱基的总数除以基因组大小。如果至少一个重叠群与该碱基具有至少一个比对，则参考基因组中的碱基被记为比对。来自重复区域的重叠群可能会映射到多个位置，因此可能会以这个数量计算多次。</li>
+<li><em>Duplication ratio</em>:
+组装中对齐的碱基总数（即总长度减去未对齐的重叠群长度）除以参考中对齐的碱基总数。若组装包含许多覆盖参考相同区域的重叠群，则其重复率可能远大于
+<code>1</code>。这可能是由于高估了重复多重性以及由于重叠群之间的
+<code>small overlaps</code> 等原因而导致的。</li>
+<li><em>GC (%)</em>: 组装中的 <code>GC</code> 含量，组装中的
+<code>G+C</code> 碱基含量除以总碱基数。</li>
+<li><em>No. of mismatches per 100 kb</em>: 每 <code>100,000</code>
+个对齐碱基的平均错配数。该指标不区分单核苷酸多态性（组装基因组与参考基因组的真正差异）和单核苷酸错误（由于读取错误或组装算法错误）。</li>
+<li><em>No. of indels per 100 kb</em>: 每 <code>100,000</code>
+个比对碱基的平均单核苷酸插入或缺失数量，此外还提供包含所有组件的插入缺失坐标的详细报告。</li>
+<li><em>No. of genes</em>:
+组装结果中的基因数量（完整和部分），基于用户提供的参考基因组中基因位置的注释列表。</li>
+<li><em>No. of operons</em>:
+使用用户提供的参考基因组中操纵子位置的注释列表，以与基因类似的方式计算完整和部分操纵子。</li>
+<li><em>No. of predicted genes</em>: <code>Quast</code>
+的基因查找模块预测的组装中的基因数量，该模块基于原核生物的
+<code>GeneMark.hmm</code> 和真核生物的 <code>GlimmerHMM</code>。</li>
 </ul>
-<h3 id="Variations-of-N50-based-on-aligned-blocks（基于对齐块的-N50-变化）"><a href="#Variations-of-N50-based-on-aligned-blocks（基于对齐块的-N50-变化）" class="headerlink" title="Variations of N50 based on aligned blocks（基于对齐块的 N50 变化）"></a>Variations of N50 based on aligned blocks（基于对齐块的 N50 变化）</h3><blockquote>
+<h3
+id="variations-of-n50-based-on-aligned-blocks基于对齐块的-n50-变化">Variations
+of N50 based on aligned blocks（基于对齐块的 N50 变化）</h3>
+<blockquote>
 <p>新指标 <code>NAx</code> 和 <code>NGAx</code>。</p>
 <p>需要注意的是：这两个指标都需要参考基因组。如果参考基因组和正在组装的样本不同，一些断点和插入缺失可能代表真正的结构差异。</p>
 </blockquote>
 <ul>
-<li><em>NAx</em> (<em>A</em> stands for <em>aligned</em>; <em>x</em> ranges from 0–100): <code>Nx</code> 和 <code>Plantagora</code> 的错误组装数的组合。分两步计算；首先，我们将 <code>contigs</code> 分成对齐的 <code>blocks</code>。如果一个 <code>contig</code> 有错误组装断点，它会在这些断点处分成多个 <code>block</code>。此外，如果重叠群中有未对齐的区域，这些区域将被移除，并将重叠群分割成块。接着，我们计算这些 <code>blocks</code> 上的普通 <code>Nx</code> 统计量，而不是原始的 <code>contigs</code>。</li>
-<li><em>NGAx</em>: 按照 <code>NAx</code> 的描述将 <code>contigs</code> 分成对齐的 <code>blocks</code> ，然后计算这些 <code>blocks</code> 的 <code>NGx</code> 统计量（而不是 <code>Nx</code>）。</li>
+<li><em>NAx</em> (<em>A</em> stands for <em>aligned</em>; <em>x</em>
+ranges from 0–100): <code>Nx</code> 和 <code>Plantagora</code>
+的错误组装数的组合。分两步计算；首先，我们将 <code>contigs</code>
+分成对齐的 <code>blocks</code>。如果一个 <code>contig</code>
+有错误组装断点，它会在这些断点处分成多个
+<code>block</code>。此外，如果重叠群中有未对齐的区域，这些区域将被移除，并将重叠群分割成块。接着，我们计算这些
+<code>blocks</code> 上的普通 <code>Nx</code> 统计量，而不是原始的
+<code>contigs</code>。</li>
+<li><em>NGAx</em>: 按照 <code>NAx</code> 的描述将 <code>contigs</code>
+分成对齐的 <code>blocks</code> ，然后计算这些 <code>blocks</code> 的
+<code>NGx</code> 统计量（而不是 <code>Nx</code>）。</li>
 </ul>
-<h2 id="Visualization（可视化）"><a href="#Visualization（可视化）" class="headerlink" title="Visualization（可视化）"></a>Visualization（可视化）</h2><blockquote>
-<p><code>QUAST</code> 以图形形式呈现大量的统计数据，并支持 <code>SVG</code>、<code>PNG</code>、<code>PDF</code> 格式。</p>
+<h2 id="visualization可视化">Visualization（可视化）</h2>
+<blockquote>
+<p><code>QUAST</code> 以图形形式呈现大量的统计数据，并支持
+<code>SVG</code>、<code>PNG</code>、<code>PDF</code> 格式。</p>
 </blockquote>
 <ul>
-<li><em>Nx-like plots</em>: 显示随着 <code>x</code> 变化的 <code>Nx</code>、<code>NGx</code>、<code>NAx</code>、<code>NGAx</code> 指标的趋势，这比仅使用 <code>N50</code> 提供更多信息。</li>
-<li><em>Cumulative plots</em>: 对于所考虑的所有类型的累积图，重叠群按碱基数从最大到最小排列。累积长度图显示前 <code>x</code> 个 <code>contigs</code> 中的碱基数，因为 <code>x</code> 从零变化到 <code>contigs 的数量</code>。类似地计算完整基因的累积数量和完整操纵子的累积数量。</li>
-<li><em>GC content plots</em>: 显示重叠群中 <code>GC</code> 含量的分布。<code>x</code> 值显示 <code>Gc</code> 的百分比。<code>y</code> 值显示 <code>GC</code> 内容为 <code>x</code> 的非重叠 <code>100bp</code> 窗口的数量。这种分布通常是 <code>高斯分布</code>；但是如果存在具有不同 <code>GC</code> 含量的污染物，通常会出现多个 <code>高斯叠加</code>。</li>
-<li><em>Contig alignment plots</em>：显示重叠群与参考基因组的比对以及这些重叠群中错配的位置；颜色编码指示块边界何时由多个组件共享，并显示错误组装的块。可选轨道显示参考基因组的读取覆盖度。正确对齐的重叠群将显示为 <code>蓝色</code>，否则为 <code>绿色</code>。如果边界在至少一半的组件中一致，则具有错误组装的重叠群被分成块并涂成 <code>橙色</code>，否则是 <code>红色</code>。重叠群垂直交错并以不同的颜色深浅显示以区分单独的重叠群，包括小的重叠群。</li>
-<li>此外，<code>QUAST</code> 还制作了几个指标的比较直方图：完整基因的数量、完整的操纵子数量、基因组分数（%）。</li>
+<li><em>Nx-like plots</em>: 显示随着 <code>x</code> 变化的
+<code>Nx</code>、<code>NGx</code>、<code>NAx</code>、<code>NGAx</code>
+指标的趋势，这比仅使用 <code>N50</code> 提供更多信息。</li>
+<li><em>Cumulative plots</em>:
+对于所考虑的所有类型的累积图，重叠群按碱基数从最大到最小排列。累积长度图显示前
+<code>x</code> 个 <code>contigs</code> 中的碱基数，因为 <code>x</code>
+从零变化到
+<code>contigs 的数量</code>。类似地计算完整基因的累积数量和完整操纵子的累积数量。</li>
+<li><em>GC content plots</em>: 显示重叠群中 <code>GC</code>
+含量的分布。<code>x</code> 值显示 <code>Gc</code>
+的百分比。<code>y</code> 值显示 <code>GC</code> 内容为 <code>x</code>
+的非重叠 <code>100bp</code> 窗口的数量。这种分布通常是
+<code>高斯分布</code>；但是如果存在具有不同 <code>GC</code>
+含量的污染物，通常会出现多个 <code>高斯叠加</code>。</li>
+<li><em>Contig alignment
+plots</em>：显示重叠群与参考基因组的比对以及这些重叠群中错配的位置；颜色编码指示块边界何时由多个组件共享，并显示错误组装的块。可选轨道显示参考基因组的读取覆盖度。正确对齐的重叠群将显示为
+<code>蓝色</code>，否则为
+<code>绿色</code>。如果边界在至少一半的组件中一致，则具有错误组装的重叠群被分成块并涂成
+<code>橙色</code>，否则是
+<code>红色</code>。重叠群垂直交错并以不同的颜色深浅显示以区分单独的重叠群，包括小的重叠群。</li>
+<li>此外，<code>QUAST</code>
+还制作了几个指标的比较直方图：完整基因的数量、完整的操纵子数量、基因组分数（%）。</li>
 </ul>
-<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><blockquote>
-<p>关于生物的一系列工具安装，我们首先想到的应该是有无 <code>conda</code> 可以从对应的库下载安装。这将会减少许多其他不确定因素。</p>
+<h2 id="installation">Installation</h2>
+<blockquote>
+<p>关于生物的一系列工具安装，我们首先想到的应该是有无 <code>conda</code>
+可以从对应的库下载安装。这将会减少许多其他不确定因素。</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 通过 conda 直接安装 QUAST 在我的服务器上有点困难，于是我通过 conda 先创建一个 python 环境，再通过 pip 安装 QUAST。</span></span><br><span class="line">conda create -n Quast -c bioconda quast</span><br><span class="line"><span class="comment">## 创建一个环境：Quast ； 并安装 quast</span></span><br><span class="line"><span class="comment">## 目前最新的 Version ： v5.0.2</span></span><br><span class="line"><span class="comment">## 其他安装方法：http://quast.sourceforge.net/install.html</span></span><br><span class="line"></span><br><span class="line">conda create -n Quast python=3.6.7 -y</span><br><span class="line">pip install quast matplotlib</span><br><span class="line"><span class="comment">## matplotlib 是支持生成 PDF 图像文件的必须模块。</span></span><br><span class="line">conda activate Quast</span><br><span class="line">conda install -c bioconda bwa bedtools minimap2 -y  <span class="comment">## QUAST 的一些子模块需要用到这几个比对程序。</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h2><blockquote>
+<h2 id="run">Run</h2>
+<blockquote>
 <p>在命令行中运行，首先需要启用上面我们创建的环境 Quast</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda activate Quast</span><br><span class="line">quast.py [options] &lt;contig_file(s)&gt;</span><br></pre></td></tr></table></figure>
-
 <p><strong>Options</strong></p>
 <table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 71%" />
+</colgroup>
 <thead>
-<tr>
+<tr class="header">
 <th>参数</th>
-<th align="left">描述</th>
+<th style="text-align: left;">描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><code>-o</code></td>
-<td align="left">输出文件夹，默认为 quast_results&#x2F;results_<date_time></td>
+<td style="text-align: left;">输出文件夹，默认为
+quast_results/results_<date_time></td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>-r</code></td>
-<td align="left">参考基因组 <code>fasta</code> 文件，可压缩。若省略，则只产生在没有参考的情况下的评估</td>
+<td style="text-align: left;">参考基因组 <code>fasta</code>
+文件，可压缩。若省略，则只产生在没有参考的情况下的评估</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>-g</code></td>
-<td align="left">包含参考基因组中基因组特征位置的文件，即 GFF。</td>
+<td style="text-align: left;">包含参考基因组中基因组特征位置的文件，即
+GFF。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>-m</code></td>
-<td align="left"><code>contigs</code> 长度的最低阈值（bp 为单位）。默认为 <code>500bp</code>。不会考虑小于 <code>-m</code> 长度的 <code>contigs</code></td>
+<td style="text-align: left;"><code>contigs</code> 长度的最低阈值（bp
+为单位）。默认为 <code>500bp</code>。不会考虑小于 <code>-m</code> 长度的
+<code>contigs</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>-t</code></td>
-<td align="left">设置最大线程数，默认为所有可用 <code>CPU</code> 的 <code>25%</code>。</td>
+<td style="text-align: left;">设置最大线程数，默认为所有可用
+<code>CPU</code> 的 <code>25%</code>。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>-s</code></td>
-<td align="left">当组装不是 <code>contigs</code> ，而是 <code>scaffolds</code> 时，通过该参数进行拆分；<code>--split-scaffolds</code>。</td>
+<td style="text-align: left;">当组装不是 <code>contigs</code> ，而是
+<code>scaffolds</code>
+时，通过该参数进行拆分；<code>--split-scaffolds</code>。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>-l</code></td>
-<td align="left">标签，这里设置的 <code>names</code> 将被用于 <code>reports</code>、<code>plots</code>、<code>logs</code>。设置人类可读的组装名称（<code>assembly names</code>）</td>
+<td style="text-align: left;">标签，这里设置的 <code>names</code>
+将被用于
+<code>reports</code>、<code>plots</code>、<code>logs</code>。设置人类可读的组装名称（<code>assembly names</code>）</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>-L</code></td>
-<td align="left">从它们的父级目录中获取组装名称</td>
+<td style="text-align: left;">从它们的父级目录中获取组装名称</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>-e</code></td>
-<td align="left"><code>--eukaryote</code>；代表组装为真核生物，这将影响基因发现、保守同源物发现和重叠群比对；该选项表明基因组不是环状的。</td>
+<td
+style="text-align: left;"><code>--eukaryote</code>；代表组装为真核生物，这将影响基因发现、保守同源物发现和重叠群比对；该选项表明基因组不是环状的。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>--fungus</code></td>
-<td align="left">表明基因组为真菌。该选项表明基因组不是环状的。</td>
+<td
+style="text-align: left;">表明基因组为真菌。该选项表明基因组不是环状的。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>--large</code></td>
-<td align="left">基因组很大（<code>&gt; 100Mbp</code>），使用最佳参数评估大型基因组，这将影响分析速度和准确性。</td>
+<td
+style="text-align: left;">基因组很大（<code>&gt; 100Mbp</code>），使用最佳参数评估大型基因组，这将影响分析速度和准确性。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>-k</code></td>
-<td align="left"><code>--k-mer-stats</code>；计算基于 <code>k-mer</code> 的质量指标；推荐用于大型基因组，默认禁用。</td>
+<td style="text-align: left;"><code>--k-mer-stats</code>；计算基于
+<code>k-mer</code> 的质量指标；推荐用于大型基因组，默认禁用。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>--k-mer-size</code></td>
-<td align="left"><code>--k-mer-stats</code> 选项中使用的 <code>k</code> 的大小。默认值为 <code>101bp</code>。对于杂合度高的基因组使用较小的值。但是，需要注意的是，对于存在大量重复的基因组，非常小的 <code>k-mer</code> 可能会给出不相关的结果。</td>
+<td style="text-align: left;"><code>--k-mer-stats</code> 选项中使用的
+<code>k</code> 的大小。默认值为
+<code>101bp</code>。对于杂合度高的基因组使用较小的值。但是，需要注意的是，对于存在大量重复的基因组，非常小的
+<code>k-mer</code> 可能会给出不相关的结果。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>--circos</code></td>
-<td align="left">绘制 <code>lcarus contig</code> 对齐查看器的 <code>Circos</code> 图。<code>QUAST</code> 未嵌入 <code>Citcos</code> 程序，如未安装 <code>Circos</code> ，则只会创建 <code>Circos</code> 配置文件。</td>
+<td style="text-align: left;">绘制 <code>lcarus contig</code>
+对齐查看器的 <code>Circos</code> 图。<code>QUAST</code> 未嵌入
+<code>Citcos</code> 程序，如未安装 <code>Circos</code> ，则只会创建
+<code>Circos</code> 配置文件。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>-f</code></td>
-<td align="left"><code>--gene-finding</code>；启用基因查找功能。即预测组装基因组中的基因元件。</td>
+<td
+style="text-align: left;"><code>--gene-finding</code>；启用基因查找功能。即预测组装基因组中的基因元件。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>--min-identity</code></td>
-<td align="left">最小 <code>IDY%</code> 被视为正确对齐。 <code>IDY%</code> 比该值差的对齐将被过滤。默认值为 <code>95.0 %</code>。请注意，无论此阈值如何，<code>IDY%</code> 小于 <code>80.0%</code> 的所有对齐都将被过滤。</td>
+<td style="text-align: left;">最小 <code>IDY%</code> 被视为正确对齐。
+<code>IDY%</code> 比该值差的对齐将被过滤。默认值为
+<code>95.0 %</code>。请注意，无论此阈值如何，<code>IDY%</code> 小于
+<code>80.0%</code> 的所有对齐都将被过滤。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>-i</code></td>
-<td align="left"><code>--min-alignment</code>；对齐的最小长度（<code>bp</code>），低于该值的比对将被过滤，请注意，无论此阈值如何，所有短于 65 bp 的对齐都将被过滤。</td>
+<td
+style="text-align: left;"><code>--min-alignment</code>；对齐的最小长度（<code>bp</code>），低于该值的比对将被过滤，请注意，无论此阈值如何，所有短于
+65 bp 的对齐都将被过滤。</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>--plots-format</code></td>
-<td align="left">绘图的文件格式；支持的格式：emf、eps、pdf、png、ps、raw、rgba、svg、svgz。默认格式为 PDF。</td>
+<td
+style="text-align: left;">绘图的文件格式；支持的格式：emf、eps、pdf、png、ps、raw、rgba、svg、svgz。默认格式为
+PDF。</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>--no-sv</code></td>
-<td align="left">不要运行结构变异处理（仅在指定 <code>reads</code> 时才有意义）</td>
+<td style="text-align: left;">不要运行结构变异处理（仅在指定
+<code>reads</code> 时才有意义）</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>--upper-bound-assembly</code></td>
-<td align="left">根据参考基因组和给定的 <code>read sets</code> 模拟上限组装（需要 <code>Pacbio SMRT/Oxford Nanopore</code>）。可用于估计理论上可以通过组装工具从该特定 <code>read sets</code> 达到的完整性和连续性的上限。该概念基于以下事实：由于基因组重复长和覆盖区域少，参考基因组无法从原始 <code>reads</code> 中完全重建。[<span class="exturl" data-url="aHR0cDovL2R4LmRvaS5vcmcvMTAuMTA5My9iaW9pbmZvcm1hdGljcy9idHkyNjZdJUVGJUJDJTlCJUU4JThCJUE1JUU1JThGJUFBJUU2JTgzJUIzJUU1JUJFJTk3JUU1JTg4JUIwJUU0JUI4JThBJUU5JTk5JTkwJUVGJUJDJThDJUU1JThGJUFGJUU4JUFFJUJFJUU3JUJEJUFF">http://dx.doi.org/10.1093/bioinformatics/bty266]；若只想得到上限，可设置<i class="fa fa-external-link-alt"></i></span> <code>--no-sv</code> 和 <code>--no-read-stats</code> 来取消对应附加分析。</td>
+<td style="text-align: left;">根据参考基因组和给定的
+<code>read sets</code> 模拟上限组装（需要
+<code>Pacbio SMRT/Oxford Nanopore</code>）。可用于估计理论上可以通过组装工具从该特定
+<code>read sets</code>
+达到的完整性和连续性的上限。该概念基于以下事实：由于基因组重复长和覆盖区域少，参考基因组无法从原始
+<code>reads</code>
+中完全重建。[http://dx.doi.org/10.1093/bioinformatics/bty266]；若只想得到上限，可设置
+<code>--no-sv</code> 和 <code>--no-read-stats</code>
+来取消对应附加分析。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
-<p>以上参数只是一部分，更多参数设置请移步：<span class="exturl" data-url="aHR0cDovL3F1YXN0LnNvdXJjZWZvcmdlLm5ldC9kb2NzL21hbnVhbC5odG1s">http://quast.sourceforge.net/docs/manual.html<i class="fa fa-external-link-alt"></i></span></p>
+<p>以上参数只是一部分，更多参数设置请移步：http://quast.sourceforge.net/docs/manual.html</p>
 </blockquote>
-<div class="note success"><p>如果使用相同的输出目录重复运行，QUAST 会重用现有的对齐方式。因此，您可以在使用不同参数运行 QUAST 或将更多程序集添加到现有比较时有效地重用已计算的结果。</p>
+<div class="note success"><p>如果使用相同的输出目录重复运行，QUAST
+会重用现有的对齐方式。因此，您可以在使用不同参数运行 QUAST
+或将更多程序集添加到现有比较时有效地重用已计算的结果。</p>
 </div>
-
-
-
-<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><blockquote>
+<h2 id="result">Result</h2>
+<blockquote>
 <p>敬请期待！！！</p>
 </blockquote>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] Gurevich, A., Saveliev, V., Vyahhi, N., &amp; Tesler, G. (2013). QUAST: quality assessment tool for genome assemblies. <em>Bioinformatics (Oxford, England)</em>, <em>29</em>(8), 1072–1075. <span class="exturl" data-url="aHR0cHM6Ly9kb2kub3JnLzEwLjEwOTMvYmlvaW5mb3JtYXRpY3MvYnR0MDg2">https://doi.org/10.1093/bioinformatics/btt086<i class="fa fa-external-link-alt"></i></span></p>
-<p>[2] <span class="exturl" data-url="aHR0cDovL3F1YXN0LnNvdXJjZWZvcmdlLm5ldC9pbnN0YWxsLmh0bWw=">QUAST Installation<i class="fa fa-external-link-alt"></i></span></p>
-<p>[3] <span class="exturl" data-url="aHR0cDovL3F1YXN0LnNvdXJjZWZvcmdlLm5ldC9kb2NzL21hbnVhbC5odG1s">QUAST 5.0.2 manual<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="references">References</h2>
+<p>[1] Gurevich, A., Saveliev, V., Vyahhi, N., &amp; Tesler, G. (2013).
+QUAST: quality assessment tool for genome assemblies. <em>Bioinformatics
+(Oxford, England)</em>, <em>29</em>(8), 1072–1075.
+https://doi.org/10.1093/bioinformatics/btt086</p>
+<p>[2] <span class="exturl" data-url="aHR0cDovL3F1YXN0LnNvdXJjZWZvcmdlLm5ldC9pbnN0YWxsLmh0bWw=">QUAST
+Installation<i class="fa fa-external-link-alt"></i></span></p>
+<p>[3] <span class="exturl" data-url="aHR0cDovL3F1YXN0LnNvdXJjZWZvcmdlLm5ldC9kb2NzL21hbnVhbC5odG1s">QUAST
+5.0.2 manual<i class="fa fa-external-link-alt"></i></span></p>
 <p>[4] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FibGFiL3F1YXN0">Github<i class="fa fa-external-link-alt"></i></span></p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
@@ -1002,13 +1130,13 @@ if(canvas.getContext){
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">254k</span>
+    <span title="站点总字数">266k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:51</span>
+    <span title="站点阅读时长">4:02</span>
   </span>
 </div>
 <div class="busuanzi-count">

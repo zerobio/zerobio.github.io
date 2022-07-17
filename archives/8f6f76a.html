@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1、代码中 url 书写规范 绝对地址：  https:&#x2F;&#x2F;…   相对地址：  &#39;&#x2F;page&#x2F;1&#39;  - &#39;&#x2F;&#39; 开头的相对地址，浏览器会把当前地址栏例的 协议 、ip 和 端口 加上这个地址，作为最终访问地址 &#39;page&#x2F;1&#39; - 没有 &#39;&#x2F;&#39;开头的相对地址，浏览器会根据当前 url 的最后一个 &#x2F; 之前的内容加上该相对地址最为最">
+    <meta name="description" content="1、代码中 url 书写规范  绝对地址：  https:&#x2F;&#x2F;…  相对地址：  &#39;&#x2F;page&#x2F;1&#39; - &#39;&#x2F;&#39; 开头的相对地址，浏览器会把当前地址栏例的 协议 、ip 和 端口 加上这个地址，作为最终访问地址 &#39;page&#x2F;1&#39; - 没有 &#39;&#x2F;&#39;开头的相对地址，浏览器会根据当前 url 的最后一个 &#x2F; 之前的内容加上该相对地址最为最终访问地址，例如：当前地址栏地址为ht">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Django url 的反向解析">
 <meta property="og:url" content="https://zerobio.github.io/archives/8f6f76a.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="1、代码中 url 书写规范 绝对地址：  https:&#x2F;&#x2F;…   相对地址：  &#39;&#x2F;page&#x2F;1&#39;  - &#39;&#x2F;&#39; 开头的相对地址，浏览器会把当前地址栏例的 协议 、ip 和 端口 加上这个地址，作为最终访问地址 &#39;page&#x2F;1&#39; - 没有 &#39;&#x2F;&#39;开头的相对地址，浏览器会根据当前 url 的最后一个 &#x2F; 之前的内容加上该相对地址最为最">
+<meta property="og:description" content="1、代码中 url 书写规范  绝对地址：  https:&#x2F;&#x2F;…  相对地址：  &#39;&#x2F;page&#x2F;1&#39; - &#39;&#x2F;&#39; 开头的相对地址，浏览器会把当前地址栏例的 协议 、ip 和 端口 加上这个地址，作为最终访问地址 &#39;page&#x2F;1&#39; - 没有 &#39;&#x2F;&#39;开头的相对地址，浏览器会根据当前 url 的最后一个 &#x2F; 之前的内容加上该相对地址最为最终访问地址，例如：当前地址栏地址为ht">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-15T01:22:52.000Z">
 <meta property="article:modified_time" content="2022-06-07T13:12:18.070Z">
@@ -191,7 +191,8 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%BB%A3%E7%A0%81%E4%B8%AD-url-%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83"><span class="nav-number">1.</span> <span class="nav-text">1、代码中 url 书写规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81url-%E5%8F%8D%E5%90%91%E8%A7%A3%E6%9E%90-%E2%80%93-%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E8%A7%A3%E6%9E%90-url"><span class="nav-number">2.</span> <span class="nav-text">2、url 反向解析 – 实现动态解析 url</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E4%B8%AD-url-%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83"><span class="nav-number">1.</span> <span class="nav-text">1、代码中 url 书写规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#url-%E5%8F%8D%E5%90%91%E8%A7%A3%E6%9E%90----%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E8%A7%A3%E6%9E%90-url"><span class="nav-number">2.</span> <span class="nav-text">2、url 反向解析 --
+实现动态解析 url</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -712,7 +713,7 @@ if(canvas.getContext){
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>697</span>
+      <span>630</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -730,37 +731,49 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="1、代码中-url-书写规范"><a href="#1、代码中-url-书写规范" class="headerlink" title="1、代码中 url 书写规范"></a>1、代码中 url 书写规范</h2><ul>
-<li><p>绝对地址：</p>
+        <h2 id="代码中-url-书写规范">1、代码中 url 书写规范</h2>
+<ul>
+<li>绝对地址：
 <ul>
 <li><code>https://…</code></li>
-</ul>
-</li>
-<li><p>相对地址：</p>
+</ul></li>
+<li>相对地址：
 <ul>
-<li><code>&#39;/page/1&#39;</code>  - <code>&#39;/&#39;</code> 开头的相对地址，浏览器会把当前地址栏例的 协议 、<code>ip</code> 和 端口 加上这个地址，作为最终访问地址</li>
-<li><code>&#39;page/1&#39;</code> - 没有 <code>&#39;/&#39;</code>开头的相对地址，浏览器会根据当前 <code>url</code> 的最后一个 <code>/</code> 之前的内容加上该相对地址最为最终访问地址，例如：当前地址栏地址为<code>http://127.0.0.0.1:8000/topic/detail</code> ; 则该相对地址最终结果为 <code>http://127.0.0.1:8000/topic/ </code> + <code>page/1</code></li>
+<li><code>'/page/1'</code> - <code>'/'</code>
+开头的相对地址，浏览器会把当前地址栏例的 协议 、<code>ip</code> 和 端口
+加上这个地址，作为最终访问地址</li>
+<li><code>'page/1'</code> - 没有
+<code>'/'</code>开头的相对地址，浏览器会根据当前 <code>url</code>
+的最后一个 <code>/</code>
+之前的内容加上该相对地址最为最终访问地址，例如：当前地址栏地址为<code>http://127.0.0.0.1:8000/topic/detail</code>
+; 则该相对地址最终结果为 <code>http://127.0.0.1:8000/topic/</code> +
+<code>page/1</code></li>
+</ul></li>
 </ul>
-</li>
-</ul>
- <span id="more"></span>
-
-<h2 id="2、url-反向解析-–-实现动态解析-url"><a href="#2、url-反向解析-–-实现动态解析-url" class="headerlink" title="2、url 反向解析 – 实现动态解析 url"></a>2、url 反向解析 – 实现动态解析 url</h2><ul>
-<li>定义：<code>url</code> 反向解析是指在视图或模板中，用 <code>path</code> 定义的名称来动态查找或计算出相应的路由</li>
-<li><code>path</code> 函数的语法：<ul>
-<li><code>path(route, views, name=&quot;别名&quot;)</code></li>
-<li><code>path(&#39;page&#39;, views.page_view, name=&quot;page_url&quot;)</code></li>
-</ul>
-</li>
-<li>根据 <code>path</code> 中的 <code>&#39;name=&#39;</code> 关键字传参给 <code>url</code> 确定了个唯一确定的名字，在模板或视图中，可以通过这个名字反向推断出此 <code>url</code> 信息</li>
-<li>模板中通过 url 标签实现地址的反向解析<ul>
+<p><span id="more"></span></p>
+<h2 id="url-反向解析----实现动态解析-url">2、url 反向解析 --
+实现动态解析 url</h2>
+<ul>
+<li>定义：<code>url</code> 反向解析是指在视图或模板中，用
+<code>path</code> 定义的名称来动态查找或计算出相应的路由</li>
+<li><code>path</code> 函数的语法：
+<ul>
+<li><code>path(route, views, name="别名")</code></li>
+<li><code>path('page', views.page_view, name="page_url")</code></li>
+</ul></li>
+<li>根据 <code>path</code> 中的 <code>'name='</code> 关键字传参给
+<code>url</code>
+确定了个唯一确定的名字，在模板或视图中，可以通过这个名字反向推断出此
+<code>url</code> 信息</li>
+<li>模板中通过 url 标签实现地址的反向解析
+<ul>
 <li><code>&#123;% url '别名' %&#125;</code></li>
 <li><code>&#123;% url 'pagen'  '400' %&#125;</code></li>
 <li><code>&#123;% url '别名' 'value1' 'value2' %&#125;</code></li>
 <li><code>&#123;% url ‘person'  age='18' name='gxn' %&#125;</code></li>
-</ul>
-</li>
-<li>在视图函数中可调用 <code>django</code> 中的 <code>reverse</code> 方法进行反向解析</li>
+</ul></li>
+<li>在视图函数中可调用 <code>django</code> 中的 <code>reverse</code>
+方法进行反向解析</li>
 </ul>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
@@ -856,13 +869,13 @@ if(canvas.getContext){
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">254k</span>
+    <span title="站点总字数">266k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:51</span>
+    <span title="站点阅读时长">4:02</span>
   </span>
 </div>
 <div class="busuanzi-count">
