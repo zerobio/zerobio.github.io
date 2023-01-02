@@ -1,549 +1,595 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>单倍型基因组组装工具 --- ALLHic</title>
-    <url>/archives/f7e90e2b.html</url>
-    <content><![CDATA[<h2 id="背景">背景</h2>
-<p>单倍型基因组组装方法是针对于动植物基因组组装提出的更为精确的组装策略，二倍体基因组同时拥有来自父本与母本的基因型，存在复杂的等位基因变异，极大地提高了二倍型基因组的组装难度。也就是说我们如要完整组装二倍型基因组，需要将二倍型基因组进行两次单倍型基因组组装，从而精准的定位到染色体水平。目前，大多数二倍体基因组组装忽略了同源染色体之间的差异，从而将基因组组装成一个伪单倍体序列，这将会对之后基因注释产生很多不确定因素以及得到不准确的生物学解释。想要得到二倍体精确的单倍体基因组，从测序样本入手是一种常见的策略。我们可以通过不断近交以得到纯合双单倍体基因型，便可组装得到纯合基因组；又或者提供物种的配子进行测序，亦能得到准确的单倍型基因组；又或者在测序前分离单个染色体，从而实现单个单倍型基因组的测序和组装。</p>
+    <title>Welcome</title>
+    <url>/archives/f876582f.html</url>
+    <content><![CDATA[<center style="font-family:&quot;华文行楷&quot;;font-size: 40px;">
+There is no royal road to learning.
+</center>
 <span id="more"></span>
-<p>虽然通过各种技术想方设法从测序样本中得到单个染色体进行测序组装，能够满足部分需求；但是实验技术也存在诸多不确定的局限。如染色体分选局限于能否通过荧光强度或光散射区分特定染色体；单细胞技术
-Strand-seq
-局限于其数据获取困难。所以，将重心转移到二倍体基因组组装策略是一个不错的思路</p>
-<h3 id="认识染色体">认识染色体</h3>
-<p>在介绍组装工具之前，有必要先了解一下生物体内的染色体构成。就拿人染色体来讲，可以表示为
-<code>2n=2x=46</code> ；其中 <code>n</code>
-代表的是单倍体染色体数目，也就是我们今天提到的组装工具 ALLHiC
-的组装目标，<code>n</code> 是正常细胞的同源染色体的对数，则
-<code>2n</code> 就代表着生物体体细胞的染色体数目。<code>x</code>
-是有别于 <code>n</code>
-的概念，代表的是染色体基数，表示一套染色体组的染色体数量，其也决定了生物体基因组的倍性。如人类基因组就是二倍体，则表示为
-<code>2x=46</code> ；代表人类一套完整的染色体组包含 <code>23条</code>
-染色体；<code>2n=46</code>
-则代表着人类配子（精子/卵子）携带的染色体数量为 <code>23条</code>。</p>
-<blockquote>
-<p>染色体组：指形态、大小各不相同的一组染色体</p>
-<p>n：生物体配子体的染色体数量 = 体细胞同源染色体对数 =
-单倍体染色体数量</p>
-<p>x：生物体一个染色体组中染色体数量 =
-含有控制生物所有性状的一整套基因的染色体数量（一套染色体组中没有重复的基因，同时也没有缺失，即控制同一性状的基因只有一个，同时在一个染色体组中不存在等位基因）</p>
-</blockquote>
-<p>这里再举个四倍体的例子：<code>2n=4x=32</code>
-；那我们能得到的信息如下：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 该物种的染色体总数：<span class="code">`32`</span></span><br><span class="line"><span class="bullet">2.</span> 单倍体染色体条数：<span class="code">`16`</span>  --- 1n=2x=16；即来自亲本的配子有 <span class="code">`16`</span> 条。</span><br><span class="line"><span class="bullet">3.</span> 一个单倍体内有两套染色体组，四倍体内有四套染色体组，各来自两个亲本的两套。</span><br></pre></td></tr></table></figure>
-<p>今天主要是看二倍体基因组单倍体组装流程，采用的组装工具是
-<code>ALLHiC</code>
-；二倍体基因组是由两个同源的染色体拷贝组装的，两个亲本各有一个，而我们要得到的结果便是其中一个同源染色体拷贝，即具有一套完整染色体信息的单倍体基因组；通过
-<code>ALLHic</code> 组装，最终得到两组染色体水平的单倍型基因组。</p>
-<h2 id="allhic-的诞生">ALLHiC 的诞生</h2>
-<p>2019年8月5日，福建农林大学基因组中心张兴坦副教授和唐海宝教授研究组在<em>Nature
-Plants</em>杂志在线发表题为“<a
-href="https://www.nature.com/articles/s41477-019-0487-8">Assembly of
-allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C
-data</a>”的研究论文，开发了一种 <code>ALLHiC</code>
-算法，成功完成了同源四倍体和同源八倍体甘蔗染色体水平组装。<code>ALLHiC</code>
-可以从头组装获得单倍型染色体水平的多倍体基因组，分离每一个等位基因。<code>ALLHiC</code>
-同时适用于多倍体和杂合二倍体的单倍型染色体水平组装。</p>
-<p><strong>作者对 <code>ALLHiC</code> 所有代码进行开源</strong></p>
-<blockquote>
-<p>Github：<a
-href="https://github.com/tangerzhang/ALLHiC">tangerzhang/ALLHiC: ALLHiC:
-phasing and scaffolding polyploid genomes based on Hi-C data
-(github.com)</a></p>
-<p>Pipeline：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtp">Home ·
-tangerzhang/ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
-<h2 id="allhic-组装策略">ALLHiC 组装策略</h2>
-<p><img data-src="../images/image-20220323212351372.png" /></p>
-<blockquote>
-<p>Allelic contig table --- 等位基因重叠群表（通过参考基因组生成）</p>
-<p>BAM --- HiC 数据 mapping 的 BAM</p>
-<p>Prunning ---
-修剪；连续的红线表示折叠区域；紫色、蓝色和绿色的连续线表示假设的多倍体基因组中的不同单倍型。粉红色虚线表示等位基因间
-Hi-C 信号，而灰色虚线表示折叠区域和非折叠重叠群之间的 Hi-C 信号。</p>
-<p>Partitioning ---
-分区；彩色圆点表示在真实数据集中具有原始染色体分配的重叠群。</p>
-<p>Rescue ---
-救援（一个检查过程）；不同的颜色表示来自四种不同单倍型的重叠群，而红色实线表示折叠的重叠群。</p>
-<p>Optimization --- 优化；不同的颜色表示四种不同的单倍型。</p>
-<p>Building --- 构建；生成 group.asm.fasta，染色体水平的单倍体基因组</p>
-</blockquote>
-<div class="note info"><p>我们采用 canu 组装的伪单倍体 contigs 作为 ALLHiC 的输入。</p>
-<p>Allhic 在很大程度上依赖于初始 contigs
-组装的质量。单倍型之间序列高相似性会导致不明确的 reads
-比对，可能会导致大量的 HiC reads 在 ALLHiC
-管道中被删除，从而影响组装效果。</p>
-</div>
-<h2 id="allhic-组装二倍体">ALLHiC 组装二倍体</h2>
-<p>接下来我们就利用 <code>ALLHiC</code> 对杂合二倍体 <a
-href="https://www.ncbi.nlm.nih.gov/genome/?term=Prunus+armeniaca">Prunus
-armeniaca</a> 进行组装，以获得染色体水平的单倍型基因组。</p>
-<h3 id="环境搭建-程序安装">环境搭建 + 程序安装</h3>
-<p>首先，配置 <code>ALLHiC</code> 运行所需的依赖，我们利用
-<code>miniconda3</code> 来配置相关环境。</p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>碎碎念</category>
+        <category>时记</category>
+      </categories>
+      <tags>
+        <tag>碎碎念</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SGE 集群作业调度管理系统</title>
+    <url>/archives/f1d8a151.html</url>
+    <content><![CDATA[<h2 id="introduction">Introduction</h2>
+<p><strong><code>SGE(Sun Grid Engine)</code></strong> ，<strong>Sun
+网格引擎</strong> 是一种来自于SUN
+Microsystem的分布式资源管理和调度系统，它用来在基于UNIX的计算环境中优化软件和硬件资源的使用。SGE能用于查找资源池内的闲置资源并利用这些资源；它同样用于通常的一些事务中，例如管理和调度作业到可用资源中。</p>
+<span id="more"></span>
+<h2 id="getting-started">Getting Started</h2>
+<h4 id="提交命令-colorredqsub">1. 提交命令— <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="4.367ex" height="2.009ex" role="img" focusable="false" viewBox="0 -694 1930 888"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle" fill="red" stroke="red"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mi" transform="translate(460,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(929,0)"><path data-c="1D462" d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1501,0)"><path data-c="1D44F" d="M73 647Q73 657 77 670T89 683Q90 683 161 688T234 694Q246 694 246 685T212 542Q204 508 195 472T180 418L176 399Q176 396 182 402Q231 442 283 442Q345 442 383 396T422 280Q422 169 343 79T173 -11Q123 -11 82 27T40 150V159Q40 180 48 217T97 414Q147 611 147 623T109 637Q104 637 101 637H96Q86 637 83 637T76 640T73 647ZM336 325V331Q336 405 275 405Q258 405 240 397T207 376T181 352T163 330L157 322L136 236Q114 150 114 114Q114 66 138 42Q154 26 178 26Q211 26 245 58Q270 81 285 114T318 219Q336 291 336 325Z"></path></g></g></g></g></g></svg></mjx-container></span></h4>
 <ul>
-<li><span class="exturl" data-url="aHR0cDovL3NhbXRvb2xzLnNvdXJjZWZvcmdlLm5ldC8=">samtools v1.9+<i class="fa fa-external-link-alt"></i></span></li>
-<li><a
-href="http://bedtools.readthedocs.io/en/latest/">bedtools</a></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9tYXRwbG90bGliLm9yZy91c2Vycy9pbnN0YWxsaW5nLmh0bWw=">matplotlib
-v2.0+<i class="fa fa-external-link-alt"></i></span></li>
+<li><p>常用参数：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-cwd  ## 使用当前工作目录</span><br><span class="line">-binding  ## 将作业绑定到处理器核心</span><br><span class="line">-p  ## 定义工作的相对优先级，-1024 到 1024，默认为 0</span><br><span class="line">-q  ## 指定作业投递队列</span><br><span class="line">-l  ## 设置请求给定的计算资源，如-l arch=solaris64,h_vmem=750M,permas=1；-l vf=20G</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># vf--内存缩写；p--线程数缩写</span></span></span><br><span class="line">-l vf=20g,p=8  ## 设置作业运行资源。</span><br><span class="line">-V  ## 使用当前工作环境变量</span><br><span class="line">-S *.sh  ## 运行脚本</span><br></pre></td></tr></table></figure></li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda create -y -n allhic python=3.7 samtools bedtools matplotlib</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 下载二进制文件，解压之后可直接运行，无需编译</span></span></span><br><span class="line">wget https://github.com/tanghaibao/allhic/releases/download/v0.9.13/allhic_0.9.13_Linux_64-bit.tar.gz  </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 解压</span></span></span><br><span class="line">tar -zxvf allhic_0.9.13_Linux_64-bit.tar.gz</span><br><span class="line">./allhic --version  ## 查考 allhic 版本号</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># allhic version 0.9.13</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 文件结构</span></span></span><br><span class="line">tree</span><br><span class="line">.</span><br><span class="line">|-- LICENSE</span><br><span class="line">|-- README.md</span><br><span class="line">|-- allhic</span><br><span class="line">`-- allhic_0.9.13_Linux_64-bit.tar.gz</span><br><span class="line"></span><br><span class="line">0 directories, 4 files</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 上面的方法是直接下载 ALLHiC 的二进制文件，省去了编译的过程，在唐海宝教授的 Github 上的；但是我之前是根据张兴坦教授在 Github 留的 Pipline 进行组装的，所以下面记录一下另外一种运行 ALLHiC 的方法。</span></span></span><br><span class="line">git clone https://github.com/tangerzhang/ALLHiC</span><br><span class="line">cd ALLHiC</span><br><span class="line">chmod +x bin/*</span><br><span class="line">chmod +x scripts/*  </span><br><span class="line">export PATH=/your/path/to/ALLHiC/scripts/:/your/path/to/ALLHiC/bin/:$PATH</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 所需的依赖参照上面，利用 miniconda 进行配置</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="测序数据下载">测序数据下载</h3>
-<p><code>ALLHiC</code> 运行前的数据准备：</p>
+<h4 id="查看任务-colorredqstat">2. 查看任务— <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="4.932ex" height="1.855ex" role="img" focusable="false" viewBox="0 -626 2180 820"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle" fill="red" stroke="red"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mi" transform="translate(460,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mi" transform="translate(929,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(1290,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(1819,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g></g></g></g></svg></mjx-container></span></h4>
 <ul>
-<li>具有良好 <code>N50</code> 指标的 <code>contig</code>
-水平的目标基因组组装</li>
-<li>Hi-C reads</li>
+<li><p>常用命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">qstat -j jobid  ## 查看任务 jobid 的详细信息</span><br><span class="line">qstat -u username  ## 查看某个用户的任务</span><br><span class="line">qstat -u \*  ## 查看所有用户任务。</span><br><span class="line">qstat -q [queue] -u \*  ## 查看某个队列下的所有任务</span><br><span class="line">qstat -q [queue] -u \* ##查看某个队列的某一节点下的所有任务</span><br><span class="line">qstat -f  ## 查看用户在每个节点的任务情况</span><br></pre></td></tr></table></figure></li>
+<li><p>任务的状态码：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-qw  ## 等待状态</span><br><span class="line">-hqw  ## 任务挂起等待中，待依赖的任务完成后执行</span><br><span class="line">-Eqw  ## 任务投递错误</span><br><span class="line">-r  ## 正在运行</span><br><span class="line">-s  ## 暂时挂起</span><br><span class="line">-dr ## 节点挂了之后，删除任务就会出现这个状态，只有在节点重启之后，任务才会消失</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>我们通过 <code>Canu</code> 对 PacBio CLR 数据进行初步组装，从而得到
-<code>contig</code> 水平的基因组，首先，我们从 <a
-href="https://www.ebi.ac.uk/ena/browser/home">ENA</a> 数据库中下载需要的
-<code>PacBio</code> 原始测序数据。这里利用 <code>ascp</code>
-进行高速下载。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ascp -v -QT -l 400m -P33001 -k1 -i \</span><br><span class="line">                    ~/.aspera/connect/etc/asperaweb_id_dsa.openssh \</span><br><span class="line">                    --mode recv --host fasp.sra.ebi.ac.uk --user era-fasp \</span><br><span class="line">                    --file-list download.txt ./</span><br><span class="line">								</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># download.txt</span></span></span><br><span class="line">cat download.txt</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Hi-C Data</span></span></span><br><span class="line">vol1/run/ERR461/ERR4619488/4672_A_run658_ATCACGAT_S2_L005_R1_001.fastq.gz</span><br><span class="line">vol1/run/ERR461/ERR4619488/4672_A_run658_ATCACGAT_S2_L005_R2_001.fastq.gz</span><br><span class="line">vol1/run/ERR461/ERR4619489/4672_B_run658_GCCAATAT_S3_L005_R1_001.fastq.gz</span><br><span class="line">vol1/run/ERR461/ERR4619489/4672_B_run658_GCCAATAT_S3_L005_R2_001.fastq.gz</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># PacBio CLR Data</span></span></span><br><span class="line">vol1/run/ERR409/ERR4093216/m54124_180918_044155.subreads.bam</span><br><span class="line">vol1/run/ERR409/ERR4093217/m54124_180917_082648.subreads.bam</span><br><span class="line">vol1/run/ERR409/ERR4093218/m54124_180911_161116.subreads.bam</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 因为数据库提供了多次测序数据，所以我们需要将多个合并成一个进行下面的分析</span></span></span><br><span class="line">cat 4672_A_run658_ATCACGAT_S2_L005_R1_001.fastq.gz 4672_B_run658_GCCAATAT_S3_L005_R1_001.fastq.gz \</span><br><span class="line">                    &gt; hic_R1.fastq.gz</span><br><span class="line">cat 4672_A_run658_ATCACGAT_S2_L005_R2_001.fastq.gz 4672_B_run658_GCCAATAT_S3_L005_R2_001.fastq.gz \</span><br><span class="line">                    &gt; hic_R2.fastq.gz</span><br><span class="line">																			</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 合并 bam 文件</span></span></span><br><span class="line">samtools merge pacbio.clr.bam m54124_180911_161116.subreads.bam \</span><br><span class="line">                    m54124_180917_082648.subreads.bam m54124_180918_044155.subreads.bam</span><br></pre></td></tr></table></figure>
-<h3 id="初步组装">初步组装</h3>
-<p>下载好测序数据之后，我们就可以对 <code>PacBio CLR</code>
-进行初步组装，如下：</p>
-<blockquote>
-<p>我们利用 <code>Canu</code> 工具对 <code>PacBio</code>
-数据进行组装，从而得到 <code>contigs</code>；</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 上面我们从 ENA 数据库中下载的是 bam 文件，所以我们需要先对其格式转换成 fasta 序列</span></span></span><br><span class="line">name=pacbio.clr</span><br><span class="line">samtools bam2fq $&#123;name&#125;.bam &gt; $&#123;name&#125;.fastq</span><br><span class="line">awk &#x27;&#123;if(NR%4 == 1)&#123;print &quot;&gt;&quot; substr($0, 2)&#125;&#125;&#123;if(NR%4 == 2)&#123;print&#125;&#125;&#x27; $&#123;name&#125;.fastq &gt; $&#123;name&#125;.fasta</span><br><span class="line">canu -p preasm -d canu_result useGrid=false genomeSize=250000000 \</span><br><span class="line">                    corMhapSensitivity=high corMinCoverage=0 corOutCoverage=100 \</span><br><span class="line">                    correctedErrorRate=0.105 -pacbio-raw $&#123;name&#125;.fasta</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>Canu</code> 组装很耗时间，耐心等待之后，我们便得到了初步组装的
-<code>contigs</code> 序列。</p>
-</blockquote>
-<h3 id="allhic-以获得染色体水平基因组组装">ALLHiC
-以获得染色体水平基因组组装</h3>
-<ol type="1">
-<li><strong>Map Hi-C reads to draft assembly</strong></li>
-</ol>
-<blockquote>
-<p><code>draft.asm.fasta</code> 是我们上面利用 <code>Canu</code>
-组装得到的 <code>contigs</code></p>
-<p><code>reads_R*.fastq.gz</code> 是 <code>Hi-C</code> 的双端数据</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 建立索引</span></span></span><br><span class="line">bwa index -a bwtsw draft.asm.fasta  </span><br><span class="line">samtools faidx draft.asm.fasta  </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 将 Hi-C reads 比对到 contigs</span></span></span><br><span class="line">bwa aln -t 24 draft.asm.fasta reads_R1.fastq.gz &gt; sample_R1.sai  </span><br><span class="line">bwa aln -t 24 draft.asm.fasta reads_R2.fastq.gz &gt; sample_R2.sai  </span><br><span class="line">bwa sampe draft.asm.fasta sample_R1.sai sample_R2.sai reads_R1.fastq.gz reads_R2.fastq.gz \</span><br><span class="line">                    &gt; sample.bwa_aln.sam  </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 过滤 SAM 文件</span></span></span><br><span class="line">PreprocessSAMs.pl sample.bwa_aln.sam draft.asm.fasta MBOI</span><br><span class="line">(*)filterBAM_forHiC.pl sample.bwa_aln.REduced.paired_only.bam sample.clean.sam</span><br><span class="line">samtools view -bt draft.asm.fasta.fai sample.clean.sam &gt; sample.clean.bam</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># *Tip: skip this step if you are using bwa mem for alignment（如果上面的比对采用的是 bwa mem ； 则跳过这个步骤）</span></span></span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li><strong>Prune</strong></li>
-</ol>
-<blockquote>
-<p><code>Allele.ctg.table</code>
-为<strong>等位基因重叠群表</strong>；<code>Prune</code>
-步骤可以根据用于输入的 <code>Allele.ctg.table</code> 从 <code>bam</code>
-文件中删除等位基因 <code>contigs</code> 之间的 <code>Hi-C reads</code>
-，这这一步，仅保留折叠( <code>collapsed</code> )和分阶段重叠群(
-<code>phased contigs</code> )之间的最佳联系。</p>
-<p>识别等位基因群，从而消除质量不好的 <code>Hi-C</code> 信号。</p>
-<p>具体如何生成 <code>Allele.ctg.table</code>，请移步 ：<a
-href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-identify-allelic-contigs">ALLHiC:
-identify allelic contigs · tangerzhang/ALLHiC Wiki (github.com)</a></p>
-<p>若构建简单二倍体基因组的 <code>scaffolds</code>，可跳过这一步。</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_prune -i Allele.ctg.table -b sample.clean.bam -r draft.asm.fasta  </span><br><span class="line"></span><br><span class="line">Parameters:   </span><br><span class="line">          -h : help and usage  </span><br><span class="line">          -i : Allele.ctg.table  ## 等位基因重叠群表，内含等位基因对信息</span><br><span class="line">          -b : input bam file  </span><br><span class="line">          -r : draft.asm.fasta  </span><br><span class="line"></span><br><span class="line">Tips: Details on how to identify allelic contigs can be found in the following link: </span><br><span class="line">https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-identify-allelic-contigs</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li><strong>Partition</strong></li>
-</ol>
-<blockquote>
-<p>将 <code>contigs</code>
-分配到预定数量的组中，基于分层链接算法迭代合并并包含它们之间大量链接的
-<code>contigs</code> 。</p>
-<p>此外，这里的 <code>-K</code>
-值指的是目标物种的染色体数目，在最终结果中，每一个分组代表着一条染色体，所以我们最后得到的结果是染色体水平的
-<code>scaffolds</code></p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_partition -b prunning.bam -r draft.asm.fasta -e AAGCTT -k 16  </span><br><span class="line"></span><br><span class="line">Parameters: </span><br><span class="line">      -h : help and usage.</span><br><span class="line">      -b : prunned bam (optional, default prunning.bam)</span><br><span class="line">      -r : draft.sam.fasta</span><br><span class="line">      -e : enzyme_sites (HindIII: AAGCTT; MboI: GATC) ## 限制性酶切位点</span><br><span class="line">      -k : number of groups (user defined K value)    ## 可以设置多个 K 值，从而比较出最佳结果</span><br><span class="line">      -m : minimum number of restriction sites (default, 25)</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li><strong>Rescue</strong></li>
-</ol>
-<blockquote>
-<p>由于 <code>Hi-C</code> 信号较弱，在 <code>Partition</code>
-步骤中，可能得不到很多 <code>contigs</code>
-；于是，这一步主要是为了恢复这些 <code>contigs</code>。</p>
-<p>同时，进行进一步的排序和定向。</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_rescue -b sample.clean.bam -r draft.asm.fasta -c clusters.txt -i counts_RE.txt  </span><br><span class="line"></span><br><span class="line">Parameters:  </span><br><span class="line">      -h : help and usage.</span><br><span class="line">      -b : sample.clean.bam (unpruned bam)</span><br><span class="line">      -r : draft.sam.fasta</span><br><span class="line">      -c : clusters.txt</span><br><span class="line">      -i : counts_RE.txt</span><br><span class="line">      -m : minimum single density for rescuing contigs (optional, default 0.01)  ## 这里设置保留 contigs 的最小阈值，默认是 0.01</span><br><span class="line">Tips: </span><br><span class="line">    clusters.txt (-c) and counts_RE.txt (-i) can be generated by allhic extract.</span><br><span class="line">    The format of clusters.txt is like below:</span><br><span class="line">    #Group  nContigs    Contigs</span><br><span class="line">    48g1    506         tig0000150 tig0000151 tig0000152 </span><br><span class="line">    48g2    692         tig0000097 tig0000114 tig0000231 </span><br><span class="line">    48g3    683         tig0000015 tig0000035 tig0000235</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#  组别    该组含有的congtis个数	具体的 contigs 编号</span></span></span><br><span class="line">    The first column is group name. The second is number of</span><br><span class="line">    contigs anchored in the group and the third lists contigs </span><br><span class="line">    in the group.</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
-<li><strong>Optimize</strong></li>
-</ol>
-<blockquote>
-<p>优化每一个 <code>Group</code> 的排序，同时确定 <code>contig</code>
-的正负方向。</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">allhic extract sample.clean.bam draft.asm.fasta --RE AAGCTT  </span><br><span class="line">allhic optimize group1.txt sample.clean.clm</span><br><span class="line">allhic optimize group2.txt sample.clean.clm</span><br><span class="line">...</span><br><span class="line">allhic optimize group16.txt sample.clean.clm</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># optimize 需要运行 -k 16 次；故这里我们可以添加一个循环，以便自动运行 16 次</span></span></span><br><span class="line">groups=16</span><br><span class="line">for i in &#123;1..$gourps&#125;; do allhic optimize group$&#123;i&#125;.txt sample.clean.clm; done</span><br><span class="line"></span><br><span class="line">Parameters:  </span><br><span class="line"></span><br><span class="line">allhic extract  </span><br><span class="line">    Input files:  </span><br><span class="line">        bam file and contig-level assembly  ## bam 文件和 contig 水平的组装 fasta 文件</span><br><span class="line">    Options:</span><br><span class="line">        --RE value  Restriction site pattern (default: &quot;GATC&quot;)  ## 限制性酶切位点</span><br><span class="line"></span><br><span class="line">allhic optimize  </span><br><span class="line">    Input files: </span><br><span class="line">      **counts_RE.txt - counts of restriction sites for each  ## 在每组中对酶切位点的数量统计</span><br><span class="line">        contig in a clusterd group, which can be generated 	  ## 以及 contig 长度</span><br><span class="line">        by allhic extract. The format is like below:</span><br><span class="line">             #Contig     RECounts    Length</span><br><span class="line">             tig0000001      572     157863</span><br><span class="line">             tig0000002      143     33000</span><br><span class="line">             tig0000003      231     60910</span><br><span class="line">             tig0000004      3789    1044000</span><br><span class="line">             tig0000005      646     166098</span><br><span class="line">             tig0000006      67      15000</span><br><span class="line">             tig0000007      1094    319000</span><br><span class="line">      **clmfile -  The file records basic information of Hi-C  ## 该文件记录了两个 contigs 之间 Hi-C 链接的</span><br><span class="line">      links between two contigs, including potential ordering  ## 基本信息，包含顺序和方向</span><br><span class="line">      and orientation, number of supported reads and distance of ## 由 allhic extract 生成</span><br><span class="line">      paired-end reads. This file can be accessed by allhic</span><br><span class="line">      extract.</span><br><span class="line">    Options:</span><br><span class="line">           --skipGA       Skip GA step                   ## 跳过 GA 过程</span><br><span class="line">           --resume       Resume from existing tour file ## 从现有的 tour 文件中恢复</span><br><span class="line">           --seed value   Random seed (default: 42)      ## 随机种子？</span><br><span class="line">           --npop value   Population size (default: 100)</span><br><span class="line">           --ngen value   Number of generations for convergence (default: 5000)  ## 收敛代数</span><br><span class="line">           --mutpb value  Mutation prob in GA (default: 0.2)  ## 遗传算法（GA）中的突变概率</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ol start="6" type="1">
-<li><strong>Build</strong></li>
-</ol>
-<blockquote>
-<p>将 <code>tour</code> 格式的文件转换成 <code>fasta</code> 序列文件和
-<code>agp</code> 位置文件；从而得到染色体水平的 <code>scaffolds</code>
---- <code>groups.asm.fasta</code>。</p>
-<p><code>agp</code> 文件记录每个 <code>contig</code> 的位置和方向。</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_build draft.asm.fasta  </span><br><span class="line"></span><br><span class="line">Input file:</span><br><span class="line">    draft.asm.fasta - contig-level assmbly  ## contig 水平的组装</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>至此，我们已经从预组装的 <code>contigs</code> 得到最终染色体水平的
-<code>scaffolds</code> ；但是单倍型体现在哪里呢？</p>
-<p>在 <code>Hi-C</code> 质量高，预组装的 <code>contigs</code> 的
-<code>N50</code> 指标高，且 <code>-k</code>
-值的设置合理的情况下，<code>Build</code> 步骤输出的
-<code>groups.asm.fasta</code>
-文件就是我们最终得到的染色体水平的单倍型组装结果，也就是说我们能在
-<code>groups.asm.fasta</code>
-文件中获得我们需要的两个单倍型（二倍体）；只不过是需要通过与参考基因组绘制两者之间的<strong>点阵图</strong>来分析确定哪些染色体是同源的。</p>
-</blockquote>
-<ol start="7" type="1">
-<li><strong>Plot</strong></li>
-</ol>
-<blockquote>
-<p>我们将生成染色质接触矩阵来评估基因组支架</p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">samtools faidx groups.asm.fasta                        ## 创建索引</span><br><span class="line">cut -f1,2 groups.asm.fasta.fai|grep sample &gt; chrn.list ## 取出长度信息</span><br><span class="line"></span><br><span class="line">ALLHiC_plot sample.clean.bam groups.agp chrn.list 500k pdf</span><br><span class="line"></span><br><span class="line">Input files:</span><br><span class="line">   **bam file   - mapping bam file</span><br><span class="line">   **agp file   - Placement of contigs in each Hi-C groups,</span><br><span class="line">    which can be generated by ALLHiC_build</span><br><span class="line">   **chrn.list  - a list of group name and length. The </span><br><span class="line">    format of this file is like below:  ## 第一列为 组名，第二列为对应的长度</span><br><span class="line">        group1  125000</span><br><span class="line">        group2  159000</span><br><span class="line">    **bin size - heatmap bin size     ## 热图大小</span><br><span class="line">    **ext      - extension of plot figures, e.g. pdf  ## 输出格式</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>以上 <code>1-7</code> 是 <code>ALLHiC</code> 提供的从预组装的
-<code>contigs</code> 得到染色体水平的 <code>scaffolds</code>
-的流程，但并不是表示其可以适用于任何基因型组装。</p>
-<p>针对简单二倍体的 <code>scaffolds</code>
-组装，教授也给出了更适合的流程：<a
-href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-scaffolding-of-a-simple-diploid-genome">ALLHiC:
-scaffolding of a simple diploid genome · tangerzhang/ALLHiC Wiki
-(github.com)</a></p>
-<p>同时，教授还对简单二倍体基因组 <code>scaffolds</code>
-组装包装了一个脚本，可以更加方便的得到我们想要的单倍型基因组：<a
-href="https://github.com/tangerzhang/ALLHiC/blob/master/bin/ALLHiC_pip.sh">ALLHiC_pip.sh</a></p>
-</blockquote>
-<h3 id="allhic-作用于多倍体的单倍型组装">ALLHiC
-作用于多倍体的单倍型组装</h3>
-<blockquote>
-<p>针对多倍体的单倍型组装，我们可能遇到 <code>Hi-C</code>
-数据质量低的情况，从而导致最终用于评估 <code>scaffolds</code>
-的热图效果不好，这是我们可以利用 <code>ALLHIC_corrector</code> 根据
-<code>Hi-C</code> 信号检测并纠正错误连接的重叠群。它利用核心算法对
-<code>3D-DNA</code> 进行重叠群校正，但不包括迭代 <code>scaffolds</code>
-步骤，这为大基因组节省了大量时间。此外，<code>ALLHiC_corrector</code> 将
-<code>bam</code> 文件（来自 <code>bwa mem</code>）作为输入，不需要
-<code>juice box mapping</code> 。</p>
-<p>教授在 <code>Github issue</code> 中有讨论到这个问题：<a
-href="https://github.com/tangerzhang/ALLHiC/issues/86">haplotype
-assembly for a polyploid · Issue #86 · tangerzhang/ALLHiC
-(github.com)</a></p>
-</blockquote>
+<h4 id="删除任务colorredqdel">3. 删除任务—<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="3.946ex" height="2.009ex" role="img" focusable="false" viewBox="0 -694 1744 888"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle" fill="red" stroke="red"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mi" transform="translate(460,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mi" transform="translate(980,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(1446,0)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g></g></g></g></g></svg></mjx-container></span></h4>
+<ul>
+<li><p>常用命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">qdel $jobid   ## 删除任务 $jobid</span><br><span class="line">qdel -u $username  ## 删除用户 $username 下的所有任务</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="挂起任务colorredqhold">4. 挂起任务—<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="5.292ex" height="2.009ex" role="img" focusable="false" viewBox="0 -694 2339 888"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle" fill="red" stroke="red"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mi" transform="translate(460,0)"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(1036,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(1521,0)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g><g data-mml-node="mi" transform="translate(1819,0)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></g></g></svg></mjx-container></span></h4>
+<ul>
+<li><p>常用命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">qhold $jobid</span><br><span class="line">qhold -u \*</span><br><span class="line">qmod -sj $jobid  ## 挂起正在运行(running)的任务</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="释放任务colorredqrls">5. 释放任务—<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="3.796ex" height="2.009ex" role="img" focusable="false" viewBox="0 -694 1678 888"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle" fill="red" stroke="red"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mi" transform="translate(460,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(911,0)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g><g data-mml-node="mi" transform="translate(1209,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g></g></g></g></g></svg></mjx-container></span></h4>
+<ul>
+<li><p>常用命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">qrls $jobid</span><br><span class="line">qmod -usj $jobid  ## 恢复任务【由 `qmod -sj` 挂起的任务】</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="更改任务资源配置colorredqalter">6. 更改任务资源配置—<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="5.803ex" height="2.009ex" role="img" focusable="false" viewBox="0 -694 2565 888"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle" fill="red" stroke="red"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mi" transform="translate(460,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(989,0)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g><g data-mml-node="mi" transform="translate(1287,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(1648,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(2114,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g></g></g></svg></mjx-container></span></h4>
+<p><strong>很多参数同<code>qsub</code></strong></p>
 <h2 id="参考链接">参考链接</h2>
-<p>[1] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtp">Home ·
-tangerzhang/ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
-<p>[2] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdoYWliYW8vYWxsaGlj">tanghaibao/allhic:
-Genome scaffolding based on HiC data in heterozygous and high ploidy
-genomes (github.com)<i class="fa fa-external-link-alt"></i></span></p>
-<p>[3] <a
-href="https://www.nature.com/articles/s41477-019-0487-8">Assembly of
-allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C data
-| Nature Plants</a></p>
-<p>[4] <a
-href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-scaffolding-of-a-simple-diploid-genome">ALLHiC:
-scaffolding of a simple diploid genome · tangerzhang/ALLHiC Wiki
-(github.com)</a></p>
-<p>[5] <a
-href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-scaffolding-an-auto-polyploid-sugarcane-genome">ALLHiC:
-scaffolding an auto polyploid sugarcane genome · tangerzhang/ALLHiC Wiki
-(github.com)</a></p>
-<p>[6] <a
-href="https://github.com/tangerzhang/ALLHiC/issues/94">Question about
-pruning step and input/output files · Issue #94 · tangerzhang/ALLHiC
-(github.com)</a></p>
-<p>[7] <a
-href="https://github.com/tangerzhang/ALLHiC/issues/86">haplotype
-assembly for a polyploid · Issue #86 · tangerzhang/ALLHiC
-(github.com)</a></p>
+<p>[1] https://www.jianshu.com/p/744c01f75637</p>
+<p>[2] https://www.jianshu.com/p/3f57296a497f</p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Learn</category>
+        <category>Shell</category>
+      </categories>
+      <tags>
+        <tag>SGE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Samtools 的使用</title>
+    <url>/archives/7a8413f2.html</url>
+    <content><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>用于查看和处理 SAM 和 BAM 文件；SAM 文件较 BAM 文件大，BAM 文件是 SAM
+文件的二进制格式文件，空间占用小，且用于计算时的速度也会大大提升。</p>
+<p>SAM 文件可以保留 reads
+到参考基因组序列的比对信息；主要由两部分组成：头部（header
+section）和比对结果部分（alignment section）</p>
+<span id="more"></span>
+<p><strong>没有 header 的 SAM 文件并不能转换成 BAM 文件</strong></p>
+<h2 id="getting-started">Getting Started</h2>
+<h4 id="查看-bam-文件头部">1. 查看 bam 文件头部</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">samtools view -h test.bam | <span class="built_in">head</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output</span></span></span><br><span class="line">@HD	VN:1.6	SO:coordinate</span><br><span class="line">@SQ	SN:chrM	LN:16571</span><br><span class="line">@SQ	SN:chr1	LN:249250621</span><br><span class="line">@SQ	SN:chr2	LN:243199373</span><br><span class="line">.......</span><br><span class="line">@RG	ID:BJ22CM016576_T	PL:Illumina	LB:lib	SM:BJ22CM016576_T   ## bwa -R 给定的参数；如：/software/bwa/bwa-0.7.17/bwa mem -t 4 -M -k 30 -R &#x27;@RG\tID:BJ22CM016576_T\tPL:Illumina\tLB:lib\tSM:BJ22CM016576_T&#x27; ....</span><br><span class="line">@PG	ID:bwa	PN:bwa	......</span><br></pre></td></tr></table></figure>
+<ul>
+<li>解释：
+<ul>
+<li>HD：VN-版本号；SO-排列方式</li>
+<li>SQ：SN-参考序列序号；LN-长度</li>
+<li>RG：ID-样本信息；</li>
+<li>PG：ID-比对工具；以及比对时运行的命令</li>
+</ul></li>
+</ul>
+<h4 id="参考链接">参考链接</h4>
+<p>[1] https://www.jianshu.com/p/68f6e35fa4a2</p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
       <categories>
         <category>Learn</category>
         <category>Bioinfo</category>
       </categories>
       <tags>
-        <tag>单倍型组装</tag>
-        <tag>ALLHiC</tag>
+        <tag>Samtools</tag>
       </tags>
   </entry>
   <entry>
-    <title>Next 标签汇总</title>
-    <url>/archives/5cf7090.html</url>
-    <content><![CDATA[<p>反观前几篇博客，内容单调，样式简单，一眼望过去，除了文字还是文字（<code>好像也没啥问题</code>）。但是我们可以通过
-<code>Next</code> 主题内置或者第三方的标签插件让博客内容更好看，样式更加
-<code>花里胡哨</code> ^_^</p>
+    <title>Python3 代码编写习惯-1</title>
+    <url>/archives/b448936e.html</url>
+    <content><![CDATA[<h2 id="introduction">Introduction</h2>
+<blockquote>
+<p>主要记录关于编程语言 <code>python</code>
+的一些快捷的代码编写习惯，方便后期查询，这里做个记录</p>
+</blockquote>
 <span id="more"></span>
-<h2 id="开始">开始</h2>
-<p>关于 <code>Next</code> 主题的内置标签，仅适用于 <code>Next</code>
-主题，如果切换到其他主题，可能会出现不兼容的现象，所以根据自己需要与
-<code>Theme</code> 进行编辑 <code>Blog</code></p>
-<p>由于 <code>Next</code>
-主题内置标签有很多，很难将所有的标签都记录在这里（<code>况且也不是所有的标签都能用得到</code>），所以更多的标签介绍请查看官方文档：<a
-href="https://hexo.io/docs/tag-plugins.html">Tag Plugins | Hexo</a>
-；当然也有中文文档： <a
-href="https://hexo.io/zh-cn/docs/tag-plugins.html">标签插件（Tag
-Plugins） | Hexo</a>。</p>
-<h3 id="代码块">代码块</h3>
-<div class="note info"><p>参考链接：<a
-href="https://hexo.io/zh-cn/docs/tag-plugins.html">标签插件（Tag
-Plugins） | Hexo</a></p>
-</div>
-<ul>
-<li>用法</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock [title] [lang:language] [url] [link text] [additional options] %&#125;</span><br><span class="line">code snippet</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>实例 --- 附加说明与引用网址</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock <span class="emphasis">_.compact http://underscorejs.org/#compact Underscore.js %&#125;</span></span><br><span class="line"><span class="emphasis">_</span>.compact([0, 1, false, 2, &#x27;&#x27;, 3]);</span><br><span class="line">=&gt; [1, 2, 3]</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><figcaption><span>_.compact</span><span class="exturl" data-url="aHR0cDovL3VuZGVyc2NvcmVqcy5vcmcvI2NvbXBhY3Q=">Underscore.js<i class="fa fa-external-link-alt"></i></span></figcaption><table><tr><td class="code"><pre><span class="line">_.compact([0, 1, false, 2, &#x27;&#x27;, 3]);</span><br><span class="line">=&gt; [1, 2, 3]</span><br></pre></td></tr></table></figure>
-<h3 id="引用">引用</h3>
-<p>此标记将生成一个引号，其前后有两行，并且引用的文本将居中。使用居中引号时，如果我们有多行文本，并且每行都有不同的长度，则引号不会是对称的，因此建议在只有单行文本时使用。例如，在文章之前所有文章之后都做一个总结。</p>
-<div class="note info"><p>参考链接：<a
-href="https://theme-next.js.org/docs/tag-plugins/#Centered-Quote">Tag
-Plugins | NexT (theme-next.js.org)</a></p>
-</div>
-<ul>
-<li>用法</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% centerquote %&#125;Something&#123;% endcenterquote %&#125;</span><br><span class="line"><span class="section">## 或者</span></span><br><span class="line">&#123;% cq %&#125;Something&#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>实例 --- 居中引用</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% cq %&#125; 居中引用 &#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
-<blockquote class="blockquote-center">
-<p>居中引用</p>
-
-</blockquote>
-<h3 id="视频">视频</h3>
-<p>将 <code>url</code> 或者本地视频导入</p>
-<div class="note info"><p>参考链接：<a
-href="https://theme-next.js.org/docs/tag-plugins/#Video">Tag Plugins |
-NexT (theme-next.js.org)</a></p>
-</div>
-<ul>
-<li>用法</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% video url %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>实例 --- url / 本地插入视频</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% video https://example.com/sample.mp4 %&#125;</span><br><span class="line">&#123;% video /path/to/your/video.mp4 %&#125;</span><br><span class="line"><span class="section">## 暂时没有找到合适的视频，如未插入视频</span></span><br></pre></td></tr></table></figure>
-<h3 id="图片合集">图片合集</h3>
-<p>可以对插入的图片按照规定的排版进行摆放。</p>
-<div class="note info"><p>参考链接：<a
-href="https://theme-next.js.org/docs/tag-plugins/group-pictures.html">Group
-Pictures | NexT (theme-next.js.org)</a></p>
-</div>
-<ul>
-<li>用法</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% grouppicture [number]-[layout] %&#125;</span><br><span class="line">&#123;% endgrouppicture %&#125;</span><br><span class="line"><span class="section">## 或者</span></span><br><span class="line">&#123;% gp [number]-[layout] %&#125;</span><br><span class="line">&#123;% endgp %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>[number]</code>：<em>可选参数。</em>要添加到组图片中的图片总数。</li>
-<li><code>[layout]</code>：<em>可选参数。</em>布局的索引，可以根据下图获得。例如，如果要将第二个布局应用于
-4 张图片，则使用</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% grouppicture 4-2 %&#125;&#123;% endgrouppicture %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="lambda-----匿名函数">1. lambda --- 匿名函数</h3>
 <blockquote>
-<p>注意：请在安装了 <code>Fancybox</code>
-插件的前提下使用这里的标签插件。</p>
-</blockquote>
-<ul>
-<li>实例 --- 3 - 3</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% grouppicture 3-3 %&#125;</span><br><span class="line">![](<span class="link">/images/background.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background1.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background2.jpg</span>)</span><br><span class="line">&#123;% endgrouppicture %&#125;</span><br></pre></td></tr></table></figure>
-<div class="group-picture"><div class="group-picture-row"><div class="group-picture-column"><img data-src="/images/background.jpg" /></div><div class="group-picture-column"><img
-src="/images/background1.jpg" /></div><div class="group-picture-column"><img
-src="/images/background2.jpg" /></div></div></div>
-<ul>
-<li>实例 --- 4 - 2</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% grouppicture 4-2 %&#125;</span><br><span class="line">![](<span class="link">/images/background4.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background5.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background6.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background7.jpg</span>)</span><br><span class="line">&#123;% endgrouppicture %&#125;</span><br></pre></td></tr></table></figure>
-<div class="group-picture"><div class="group-picture-row"><div class="group-picture-column"><img data-src="/images/background4.jpg" /></div></div><div class="group-picture-row"><div class="group-picture-column"><img
-src="/images/background5.jpg" /></div><div class="group-picture-column"><img data-src="/images/background6.jpg" /></div><div class="group-picture-column"><img data-src="/images/background7.jpg" /></div></div></div>
-<h3 id="对文本进行标识">对文本进行标识</h3>
-<p>可以对一段文件进行颜色管理。</p>
-<div class="note info"><p>参考链接：<a
-href="https://theme-next.js.org/docs/tag-plugins/label.html">Label |
-NexT (theme-next.js.org)</a></p>
-</div>
-<ul>
-<li>用法</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label [class]@text %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>[class]</code>：<em>可选参数。</em>支持的值：| | | | |
-；如果未指定，则将使用浏览器的默认样式，该样式在不同的浏览器中可能会有所不同</p></li>
-<li><p><code>text</code>：可以指定带或不带空格。</p></li>
-<li><p>实例</p></li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Lorem &#123;% label @ipsum %&#125; &#123;% label primary@dolor sit %&#125; amet, consectetur &#123;% label success@adipiscing elit, %&#125; sed &#123;% label info@do eiusmod %&#125; tempor incididunt ut labore et dolore magna aliqua.</span><br><span class="line"></span><br><span class="line">Ut enim <span class="emphasis">*&#123;% label warning @ad %&#125;*</span> minim veniam, quis <span class="strong">**&#123;% label danger@nostrud %&#125;**</span> exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span><br><span class="line"></span><br><span class="line">Duis aute irure dolor in reprehenderit in voluptate ~~&#123;% label default @velit %&#125;~~ <span class="language-xml"><span class="tag">&lt;<span class="name">mark</span>&gt;</span></span>esse<span class="language-xml"><span class="tag">&lt;/<span class="name">mark</span>&gt;</span></span> cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>Lorem <mark class="label ">ipsum</mark> <mark class="label primary">dolor sit</mark> amet, consectetur <mark class="label success">adipiscing elit,</mark>
-sed <mark class="label info">do eiusmod</mark> tempor incididunt ut labore et dolore magna
-aliqua.</p>
-<p>Ut enim <em><mark class="label warning">ad</mark></em> minim veniam, quis
-<strong><mark class="label danger">nostrud</mark></strong> exercitation ullamco laboris nisi ut
-aliquip ex ea commodo consequat.</p>
-<p>Duis aute irure dolor in reprehenderit in voluptate
-<del><mark class="label default">velit</mark></del> <mark>esse</mark> cillum dolore eu fugiat
-nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-culpa qui officia deserunt mollit anim id est laborum.</p>
-<h3 id="引导标注">引导标注</h3>
-<p><code>Next</code>
-主题针对这一系列标签还有多个样式可供选择，需要在主题配置文件
-<code>_config.next.yml</code> 中修改启用。</p>
-<div class="note info"><p>参考链接：<a
-href="https://theme-next.js.org/docs/tag-plugins/note.html">Note
-(Bootstrap Callout) | NexT (theme-next.js.org)</a></p>
-</div>
-<ul>
-<li>_config.next.yml</li>
-</ul>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Note tag (bootstrap callout)</span></span><br><span class="line"><span class="attr">note:</span></span><br><span class="line">  <span class="comment"># Note tag style values:</span></span><br><span class="line">  <span class="comment">#  - simple    bootstrap callout old alert style. Default.</span></span><br><span class="line">  <span class="comment">#  - modern    bootstrap callout new (v2-v3) alert style.</span></span><br><span class="line">  <span class="comment">#  - flat      flat callout style with background, like on Mozilla or StackOverflow.</span></span><br><span class="line">  <span class="comment">#  - disabled  disable all CSS styles import of note tag.</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">simple</span></span><br><span class="line">  <span class="attr">icons:</span> <span class="literal">true</span>   <span class="comment">## 显示图标</span></span><br><span class="line">  <span class="comment"># Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).</span></span><br><span class="line">  <span class="comment"># Offset also applied to label tag variables. This option can work with disabled note tag.</span></span><br><span class="line">  <span class="attr">light_bg_offset:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>用法</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class] [no-icon] [summary] %&#125;</span><br><span class="line">Any content (support inline tags too).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><code>[class]</code>：<em>可选参数。</em>支持的值：默认|主要|成功|信息|警告|危险。</p></li>
-<li><p><code>[no-icon]</code>：<em>可选参数。</em>禁用注释中的图标。</p></li>
-<li><p><code>[summary]</code>：<em>可选参数。</em>注释的可选摘要</p></li>
-</ul>
-<blockquote>
-<p>注意：所有参数都是可选的。</p>
-</blockquote>
-<ul>
-<li>实例 --- 页眉</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note %&#125;</span><br><span class="line">#### Header</span><br><span class="line">(without define class style)</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
-<div class="note "><h4 id="页眉">页眉</h4>
-<p>(不带定义类样式)</p>
-</div>
-<ul>
-<li>实例 --- 其他标头</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section">## 默认标头</span></span><br><span class="line">&#123;% note default %&#125;</span><br><span class="line"><span class="section">#### Default Header</span></span><br><span class="line">Welcome to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 主标头</span></span><br><span class="line">&#123;% note primary %&#125;</span><br><span class="line"><span class="section">#### Primary Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 信息标头</span></span><br><span class="line">&#123;% note info %&#125;</span><br><span class="line"><span class="section">#### Info Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 成功标头</span></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line"><span class="section">#### Success Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 警告标头</span></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line"><span class="section">#### Warning Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 危险标头</span></span><br><span class="line">&#123;% note danger %&#125;</span><br><span class="line"><span class="section">#### Danger Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 无图标标头</span></span><br><span class="line">&#123;% note info no-icon %&#125;</span><br><span class="line"><span class="section">#### No icon note</span></span><br><span class="line">Note <span class="strong">**without**</span> icon: <span class="code">`note info no-icon`</span></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 详细信息和摘要</span></span><br><span class="line">&#123;% note primary This is a summary %&#125;</span><br><span class="line"><span class="section">#### Details and summary</span></span><br><span class="line">Note with summary: <span class="code">`note primary This is a summary`</span></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 详细信息和摘要（无图标）</span></span><br><span class="line">&#123;% note info no-icon This is a summary %&#125;</span><br><span class="line"><span class="section">#### Details and summary (No icon)</span></span><br><span class="line">Note with summary: <span class="code">`note info no-icon This is a summary`</span></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 注释中的代码块</span></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line"><span class="section">#### Codeblock in note</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"><span class="code">code block in note tag</span></span><br><span class="line"><span class="code">code block in note tag</span></span><br><span class="line"><span class="code">code block in note tag</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 注释中的列表</span></span><br><span class="line">&#123;% note default %&#125;</span><br><span class="line"><span class="section">#### Lists in note</span></span><br><span class="line"><span class="bullet">*</span> ul</span><br><span class="line"><span class="bullet">*</span> ul</span><br><span class="line"><span class="bullet">    *</span> ul</span><br><span class="line"><span class="bullet">    *</span> ul</span><br><span class="line"><span class="bullet">*</span> ul</span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> ol</span><br><span class="line"><span class="bullet">2.</span> ol</span><br><span class="line"><span class="bullet">    1.</span> ol</span><br><span class="line"><span class="bullet">    2.</span> ol</span><br><span class="line"><span class="bullet">3.</span> ol</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 附注表格</span></span><br><span class="line"><span class="section">#### Table in Note</span></span><br><span class="line">&#123;% note default %&#125;</span><br><span class="line">| 1 | 2 |</span><br><span class="line">| - | - |</span><br><span class="line">| 3 | 4 |</span><br><span class="line">| 5 | 6 |</span><br><span class="line">| 7 | 8 |</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<div class="note default"><h4 id="default-header">Default Header</h4>
-<p>Welcome to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
-</div>
-<hr />
-<div class="note primary"><h4 id="primary-header">Primary Header</h4>
-<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
-</div>
-<hr />
-<div class="note info"><h4 id="info-header">Info Header</h4>
-<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
-</div>
-<hr />
-<div class="note success"><h4 id="success-header">Success Header</h4>
-<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
-</div>
-<hr />
-<div class="note warning"><h4 id="warning-header">Warning Header</h4>
-<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
-</div>
-<hr />
-<div class="note danger"><h4 id="danger-header">Danger Header</h4>
-<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
-</div>
-<hr />
-<div class="note info no-icon"><h4 id="no-icon-note">No icon note</h4>
-<p>Note <strong>without</strong> icon:
-<code>note info no-icon</code></p>
-</div>
-<hr />
-<details class="note primary"><summary><p>This is a summary</p>
-</summary>
-<h4 id="details-and-summary">Details and summary</h4>
-<p>Note with summary: <code>note primary This is a summary</code></p>
-
-</details>
-<hr />
-<details class="note info no-icon"><summary><p>This is a summary</p>
-</summary>
-<h4 id="details-and-summary-no-icon">Details and summary (No icon)</h4>
-<p>Note with summary:
-<code>note info no-icon This is a summary</code></p>
-
-</details>
-<hr />
-<div class="note success"><h4 id="codeblock-in-note">Codeblock in note</h4>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">code block in note tag</span><br><span class="line">code block in note tag</span><br><span class="line">code block in note tag</span><br></pre></td></tr></table></figure>
-</div>
-<hr />
-<div class="note default"><h4 id="lists-in-note">Lists in note</h4>
-<ul>
-<li>ul</li>
-<li>ul
-<ul>
-<li>ul</li>
-<li>ul</li>
-</ul></li>
-<li>ul</li>
-</ul>
+<p>场景：现在需要生成一个以某个 list 为键，值均为空 list 即 []
+的字典</p>
+<p>方案：</p>
 <ol type="1">
-<li><p>ol</p></li>
-<li><p>ol</p>
-<ol type="1">
-<li>ol</li>
-<li>ol</li>
-</ol></li>
-<li><p>ol</p></li>
+<li>for 循环</li>
+<li>lambda 匿名函数</li>
 </ol>
-</div>
-<hr />
-<h4 id="table-in-note">Table in Note</h4>
-<div class="note default"><table>
-<thead>
-<tr class="header">
-<th>1</th>
-<th>2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>3</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td>5</td>
-<td>6</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>8</td>
-</tr>
-</tbody>
-</table>
-</div>
-<hr />
-<h3 id="其他">其他</h3>
-<p>关于其他标签，可以仔细查看官方文档，主要是严格遵守 <code>Next</code>
-的标签语法规则，就可以实现相应的效果。</p>
-<ul>
-<li>设置多个选项框：<a
-href="https://theme-next.js.org/docs/tag-plugins/tabs.html">Tabs | NexT
-(theme-next.js.org)</a></li>
-<li>设置 PDF 文件下载：<a
-href="https://theme-next.js.org/docs/tag-plugins/pdf.html">PDF | NexT
-(theme-next.js.org)</a></li>
-<li>绘制流程图或图表：<a
-href="https://theme-next.js.org/docs/tag-plugins/mermaid.html">Mermaid |
-NexT (theme-next.js.org)</a></li>
-<li>给图片添加链接重定向：<a
-href="https://theme-next.js.org/docs/tag-plugins/link-grid.html">Link
-Grid | NexT (theme-next.js.org)</a></li>
-<li>设置自定义按钮：<a
-href="https://theme-next.js.org/docs/tag-plugins/button.html">Button |
-NexT (theme-next.js.org)</a></li>
-</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">### 利用 for 循环</span></span><br><span class="line">list_test = <span class="built_in">list</span>(...)</span><br><span class="line">dict_list = <span class="built_in">dict</span>([(key, []) <span class="keyword">for</span> key <span class="keyword">in</span> list_test])</span><br><span class="line"></span><br><span class="line"><span class="comment">### 利用 lambda 函数</span></span><br><span class="line">dict_list = <span class="built_in">dict</span>(<span class="built_in">map</span>(<span class="keyword">lambda</span> key: (key, []), list_test))</span><br></pre></td></tr></table></figure>
+<h3 id="判断字典是否含有某个键">2. 判断字典是否含有某个键</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">dict</span>.__contains__(ksy)  <span class="comment">## 若有，则返回 True；反之，返回 False</span></span><br></pre></td></tr></table></figure>
+<h3 id="判断某个列表是否为另一个列表的子列表">3.
+判断某个列表是否为另一个列表的子列表</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ls1 = <span class="built_in">list</span>(...)</span><br><span class="line">ls2 = <span class="built_in">list</span>(...)</span><br><span class="line"><span class="built_in">set</span>(ls1).issubset(<span class="built_in">set</span>(ls2))  <span class="comment">## 返回 bool 值，利用集合的包含原理</span></span><br></pre></td></tr></table></figure>
+<h3 id="合并-list">4. 合并 list</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 直接相加</span></span><br><span class="line">ls1 = <span class="built_in">list</span>(...)</span><br><span class="line">ls2 = <span class="built_in">list</span>(...)</span><br><span class="line">ls3 = ls1 + ls2</span><br><span class="line"><span class="comment">## extend()</span></span><br><span class="line">ls3 = ls1.extend(ls2)</span><br><span class="line"><span class="comment">## 使用切片</span></span><br><span class="line">ls2[<span class="built_in">len</span>(ls2):<span class="built_in">len</span>(ls2)] = ls1 <span class="comment">## 在列表 ls2 的最后插入列表 ls1</span></span><br></pre></td></tr></table></figure>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
       <categories>
-        <category>Blog</category>
-        <category>Next</category>
+        <category>Learn</category>
+        <category>Python3</category>
       </categories>
       <tags>
-        <tag>Next</tag>
-        <tag>tags</tag>
+        <tag>Python3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux-Shell 编程技巧学习-1</title>
+    <url>/archives/f0c34651.html</url>
+    <content><![CDATA[<h2 id="introduction">Introduction</h2>
+<blockquote>
+<p>主要记录关于 <code>shell</code> 编程的一些技巧性编写方式</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="getting-started">Getting Started</h2>
+<blockquote>
+<p><strong>注意：</strong>
+可以考虑通过终端命令生成所需要运行的脚本，之后再运行脚本实现想要的功能，这样也方便检查命令运行的准确性。</p>
+<p>注意： Linux
+下的管道符相当于另开一个子进程来运行管道符后面的命令，退出管道符之后，管道符内的变量便不存在了；如
+<code>while read</code> 下的管道符使用。</p>
+</blockquote>
+<h4 id="变量的字符串替换">1. 变量的字符串替换</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">shell_path=/bak/data8/fass1/project_1123/shell</span><br><span class="line">panel=$&#123;shell_path#*fass1&#125;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 输出结果：/project_1123/shell</span></span></span><br><span class="line">panel=$&#123;panel///shell/&#125;  ## 这里的 // 意思是将匹配到的所有 shell/ 删除；若只有 / 则只对匹配到的第一个字符进行操作</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 输出结果：/project_1123</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="判断读入的参数个数">2. 判断读入的参数个数</h4>
+<blockquote>
+<p>通过识别传入脚本的参数个数来判断脚本是否被正确执行</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">if [ $# != 1 ];then</span><br><span class="line">        echo -e &quot;USAGE: $ sh $0 month&quot;</span><br><span class="line">        exit 1;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>shell
+脚本从外读取参数时，如何获取参数的相关信息，如个数，是否执行成功等</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">0 --- 当前执行shell脚本的程序名</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash"><span class="comment"># --- 一共传入的参数个数</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">* --- 所有位置变量的值；即表示所有变量</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">? --- 判断上一条命令是否执行成功，0 为成功；非0 为失败</span></span><br></pre></td></tr></table></figure>
+<h4 id="指定脚本执行之后输出内容的存放路径">3.
+指定脚本执行之后，输出内容的存放路径</h4>
+<blockquote>
+<p>一般情况下，<code>shell</code>
+脚本被执行之后，输出内容直接打印在终端，这样不方便后期查看
+<code>log</code>
+信息；故，我们可以考虑将脚本运行之后的打印信息输出到指定文件中</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">logfile=./log/log.txt</span><br><span class="line">exec &gt;&gt; $logfile 2&gt;&amp;1</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 在脚本的开头加上 exec 命令，则会将脚本打印内容自动输出至给定的 log 文件</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="if-语句的判断方式">4. if 语句的判断方式</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 字符串比较</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># = / ！= / -n / -z / str1</span></span></span><br><span class="line">=   ## 字符串相等的情况下为真</span><br><span class="line">!=  ## 不等为真</span><br><span class="line">-n  ## 字符串非空为真</span><br><span class="line">-z  ## 空字符串为真</span><br><span class="line">if [[ $str1 ]]; then...   ## 当直接给一个字符串时，当给定的字符串非空为真</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 数字比较</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># -eq / -ne / -gt / -ge / -lt / -le</span></span> </span><br><span class="line">-eq  ## 相等</span><br><span class="line">-ne  ## 不等</span><br><span class="line">-gt  ## 大于</span><br><span class="line">-ge  ## 大于等于</span><br><span class="line">-lt  ## 小于</span><br><span class="line">-le  ## 小于等于</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 文件比较</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># -r / -w / -x / -f / -d / -c / -b / -s / -t</span></span> </span><br><span class="line">-r  ## 可读 为真</span><br><span class="line">-w  ## 可写 为真</span><br><span class="line">-x  ## 可执行 为真</span><br><span class="line">-f  ## 文件存在 为真</span><br><span class="line">-d  ## 目录存在 为真</span><br><span class="line">-c  ## 文件字符特殊文件 为真</span><br><span class="line">-b  ## 文件为块特殊文件 为真</span><br><span class="line">-s  ## 文件大小非 0 为真</span><br><span class="line">-t  ## 当文件描述符（默认为 1 ）指定的设备为终端时 为真</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 复杂逻辑判断</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># -a / -o / !</span></span></span><br><span class="line">-a or &amp;&amp; ## 与</span><br><span class="line">-o or || ## 或</span><br><span class="line">！  ## 非</span><br></pre></td></tr></table></figure>
+<h4 id="for-循环的并行操作">5. for 循环的并行操作</h4>
+<blockquote>
+<p>在原有的基础上加上 &amp; 符号， 实现并行效果</p>
+<p>但是问题来了，要是需要循环的次数太多，那就会同时运行很多任务，这难免占用大量运算资源，所以我们可以考虑控制每个并行任务的执行次数，这样可以减少并行负担</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">for sample in &#123;aa,dd,cc&#125;; do</span><br><span class="line">&#123;</span><br><span class="line">	./xxx $sample;</span><br><span class="line">&#125;&amp;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>==注意== <code>&#123;&#125;</code>
+内的代码是执行并行的部分，外面也可以有其他不用并行的语句</p>
+<h4 id="awk-单引号内引用外置变量">6. awk 单引号内引用外置变量</h4>
+<blockquote>
+<p>只能单引号内套双引号带正常的变量名引用。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">message=&quot;hello world&quot;</span><br><span class="line">awk -F&#x27;\t&#x27; &#x27;&#123;print &quot;&#x27;&quot;$message&quot;&#x27;&quot;&#125;&#x27; aaa.txt</span><br></pre></td></tr></table></figure>
+<h4 id="linux-下的计划任务执行">7. Linux 下的计划任务执行</h4>
+<blockquote>
+<p>通过 <code>at</code>、<code>crontab</code>
+等命令可以实现在规定时间、规定周期内执行一定的指定任务...</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">crontab -e <span class="comment">## 进入编辑模式</span></span></span><br><span class="line">*/10  * * * * [cmd...]  ## 表示每隔10min执行一次[cmd...]</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 分钟[0-59] 小时[0-23] 日期[1-31] 月份[1-12] 星期[0-7](其中0/7均表示星期天)</span></span></span><br><span class="line">25 3 * * 1,5 [cmd...]   ## 表示每周1和周5的3:25分执行[cmd]</span><br></pre></td></tr></table></figure>
+<hr />
+<hr />
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 寻找满足条件的 bcl 路径</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># find /data5/Rawdata/Sequencer/bcl/* -maxdepth 0 -type d -ctime -7 -cmin -30</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># find /data5/Rawdata/Sequencer/bcl/* -maxdepth 0 -type d -ctime -7 -exec grep -c &quot;&#123;&#125;&quot; bcl_names.txt \;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># find -exec 嵌入管道符</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#find /data5/Rawdata/Sequencer/bcl/* -maxdepth 0 -type d -ctime -7 -exec sh -c &quot;echo &#123;&#125; \| awk &#x27;&#123;print $0&#125;&#x27;&quot; \; -print</span></span></span><br></pre></td></tr></table></figure>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Learn</category>
+        <category>Shell</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 快捷命令学习</title>
+    <url>/archives/c4f79a3b.html</url>
+    <content><![CDATA[<h2 id="introduction">Introduction</h2>
+<p><code>Linux</code>
+对于开发人员来讲，是一款必学的操作系统。且现服务器端基本都是部署于<code>Linux</code>；常见的有<code>Red Hat</code>、<code>CentOS</code>、<code>Ubuntu</code>......</p>
+<p>熟悉<code>Linux</code>系统下诸多命令的常用用法，在服务器端进行生产时，将会事半功倍；往往一个简单的操作，可以使用很多自己熟悉的方式进行实现；<code>Python</code>、<code>Perl</code>、<code>R</code>可能都可以实现，但是在<code>Linux</code>操作系统下，其配套的<code>shell</code>不会更香吗？<code>Shell</code>一行代码能解决的事情，<code>Python</code>却要一个脚本，怎么想都差点意思。</p>
+<span id="more"></span>
+<blockquote>
+<p>这里主要是记录一些常用的文本处理涉及到的<code>shell</code>命令。</p>
+</blockquote>
+<h2 id="getting-started">Getting started</h2>
+<blockquote>
+<p>可惜的是没有对各种命令进行整理，后续有时间可以归纳分类一下。</p>
+</blockquote>
+<h3 id="find">1. find</h3>
+<p>1.1 查找某个目录下的某个文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find ./ -name <span class="string">&quot;**&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find ./ -<span class="built_in">type</span> f <span class="comment">## 打印出当前目录下的所有文件；file</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find ./ -<span class="built_in">type</span> d <span class="comment">## 打印出当前目录下的所有文件夹；</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find . -maxdepth 1 -name <span class="string">&quot;*.sh&quot;</span>  <span class="comment">## 只在当前一级目录下查找</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find -L -name <span class="string">&quot;cxd&quot;</span>  <span class="comment">## -L 参数是对当前目录下的所有文件递归查找，包括在该路径下的软链接目录</span></span></span><br></pre></td></tr></table></figure>
+<p>1.2 对查找得到的文件进行某项操作</p>
+<blockquote>
+<p>后面的 <code>占位符&#123;&#125;</code> 用来表示 find 到的文件名。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find <span class="built_in">dir</span> -<span class="built_in">exec</span> cmd &#123;&#125; \;  <span class="comment">## 每 find 到一个文件就会执行一次 cmd 命令</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find <span class="built_in">dir</span> -<span class="built_in">exec</span> cmd &#123;&#125; +   <span class="comment">## 当 find 到所有满足条件的文件之后，一次性执行 cmd 命令</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find ./ -<span class="built_in">type</span> f -<span class="built_in">exec</span> <span class="built_in">chmod</span> 644 &#123;&#125; \; <span class="comment">## 对当前目录下的所有 file 赋予 644 权限（拥有者可读可写，其他群组或其他用户只可读）</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 扩展---【-ok】</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 参数 -ok 的作用与 -exec 类似；但多个用户确认的环节；适合的使用场景为需要对查找的文件进行删除操作时，使用 -ok；可实现进一步的确认是否删除，从而提高删除操作的an&#x27;quan&#x27;xin</span></span></span><br></pre></td></tr></table></figure>
+<p>1.3 按创建时间，修改时间查找文件</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find <span class="built_in">dir</span> -ctime -7 -amin -30</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查找 7天 内被修改过，且 30 分钟 内又被读取过的文件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">【-mtime】修改时间（Modification time）：最后一次文件内容有过更改的时间点</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">【-atime】访问时间（Access time）：最后一次文件有被读取过的时间点</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">【-ctime】变更时间（Change time）：最后一次文件有被变更过的时间点（如内容被修改，或权限等 metadata 被修改）</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">### 表现方式</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-mtime 2：该文件 2 天前被修改过</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-mtime -2：该文件 2 天以内被修改过</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-mtime +2：该文件距离上次修改已经超过 2 天时间</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">### 同理还有分钟级别的查找；【-mmin, -amin, -cmin】；相同的前缀，不同的只有后面的time改成min</span></span></span><br></pre></td></tr></table></figure>
+<p>1.4 -exec 的花样使用</p>
+<blockquote>
+<p>使用了一段时间的 find -exec 参数，就会发现，参数 -exec
+只能支持linux系统的原生终端命令；一些通过alias改写的快捷命令并不能使用，且还不支持管道符
+|</p>
+<p>当我们需要对查找到的文件路径进行复杂操作时，-exec的用法就有点鸡肋了；于是我们能不能通过占位符
+‘{}’ 来进行传参并通过管道符 ‘|’ 来完成一系列的操作呢？？？</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 首先，必须了解的另一种用法</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;echo &quot;</span>hello<span class="string">&quot;&quot;</span>               <span class="comment">## output: echo hello</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sh -c <span class="string">&#x27;echo -e &quot;echo &quot;hello&quot;&quot;&#x27;</span>	   <span class="comment">## output: echo hello</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;echo &quot;</span>hello<span class="string">&quot;&quot;</span> | sh          <span class="comment">## output: hello  ## 这里就很好的解释了管道符 &#x27;|&#x27; 的作用，就是将前面echo打印出的 &quot;echo &quot;hello&quot;&quot;（即标准输出） 传入 sh 命令并运行命令，最终便打印出 hello（&#x27;echo &quot;hello&quot;&#x27; 命令的运行结果）</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sh -c <span class="string">&#x27;echo -e &quot;echo &quot;hello&quot;&quot; | sh&#x27;</span>  <span class="comment">## output: hello  ## sh -c 命令便是解决 -exec 参数不能使用管道符的限制，可以尝试以下哈</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># find /data5/Rawdata/Sequencer/bcl/* -maxdepth 0 -type d -ctime -7 -exec sh -c &#x27;echo &#123;&#125; | awk &#x27;\&#x27;&#x27;&#123;print &quot;==&quot;$0&#125;&#x27;\&#x27;&#x27;&#x27; \;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="du">2. du</h3>
+<p>2.1 查询当前目录下文件的大小</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">du</span> -h --max-depth=1</span></span><br></pre></td></tr></table></figure>
+<p>2.2 计算文件大小，单位 Mb</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">du</span> -sm test.fq.gz  <span class="comment">## 以 Mb 为单位输出文件 test.fq.gz 的文件大小</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 3066    test.fq.gz  ## 说明 test.fq.gz 的文件大小为 3066Mbp</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="grep">3. grep</h3>
+<p>3.1 匹配多个字符</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep <span class="string">&quot;ins\|del&quot;</span> annot.xls  <span class="comment">## 打印出含有 ins 或 del 字符的行</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># or</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -E <span class="string">&quot;ins|del&quot;</span> annot.xls</span></span><br></pre></td></tr></table></figure>
+<p>3.2 只匹配整个单词</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -w on ddd.txt   <span class="comment">## 这只会匹配完整单词 on，而不会匹配含有 on 的单词，如不会匹配 only</span></span></span><br></pre></td></tr></table></figure>
+<p>3.3 同时匹配多个字符</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -E <span class="string">&quot;EML4.*ALK&quot;</span> ddd.txt  <span class="comment">## 打印出同时含有 EML4 和 ALK 的行</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -El <span class="string">&quot;BCR|RUNX1&quot;</span> *  <span class="comment">## 打印出当前目录下满足</span></span></span><br></pre></td></tr></table></figure>
+<p>3.4 去除空行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -v <span class="string">&#x27;^$&#x27;</span> ddd.txt <span class="comment">## 打印除了空行以外的所有</span></span></span><br></pre></td></tr></table></figure>
+<p>3.5 取匹配的前3行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -B 3 str xxx.txt</span></span><br></pre></td></tr></table></figure>
+<p>3.6 取匹配的后3行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -A 3 str xxx.txt</span></span><br></pre></td></tr></table></figure>
+<p>3.7 取匹配的前后3行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -C 3 str xxx.txt</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># or</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -3 str xxx.txt</span></span><br></pre></td></tr></table></figure>
+<h3 id="sed">4. sed</h3>
+<p>4.1 替换前 n 个字符</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;s/^.\&#123;15\&#125;//g&#x27;</span> ddd.txt  <span class="comment">## 替换前 15 个字符</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;s/^.\&#123;n\&#125;//g&#x27;</span> ddd.txt  <span class="comment">## 替换前 n 个字符</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;s/^.//g&#x27;</span> ddd.txt  <span class="comment">## 替换第一个字符</span></span></span><br></pre></td></tr></table></figure>
+<p>4.2 替换某一行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;1c str&#x27;</span> ddd.txt  <span class="comment">## 替换文件 ddd.txt 的第一行为 &quot;str&quot;</span></span></span><br></pre></td></tr></table></figure>
+<p>4.3 删除某一行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;1d&#x27;</span> ddd.txt  <span class="comment">## 删除文件 ddd.txt 的di</span></span></span><br></pre></td></tr></table></figure>
+<p>4.4 某一行前插入一行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed -i <span class="string">&quot;1i##charu&quot;</span> ddd.txt  <span class="comment">## 在文件 ddd.txt 的第一行插入 ##charu</span></span></span><br></pre></td></tr></table></figure>
+<p>4.5 替换换行符<code>\n</code></p>
+<blockquote>
+<p>正常情况下，<code>sed</code> 并不能替换 <code>\n</code>，
+需要额外添加参数</p>
+<p>那 <code>sed</code> 为什么不能直接替换换行符 <code>\n</code> 呢？</p>
+<p>原因在于 <code>sed</code>
+是逐行处理替换操作的，且在每进行一次替换之后，都会在行尾自动添加
+<code>trailing newline</code>，即行的分隔符，即换行符，于是常规的替换是无法将换行符替换成其他分隔符的；于是，我们可以对每两行或以上的行进行换行符的替换，这样中间的换行符就能被替换，而最后的换行符保留。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&quot;:a;N;s/\n/|/g;ta&quot;</span> ddd.txt  <span class="comment">## 替换 ddd.txt 文件的换行符为 |</span></span></span><br></pre></td></tr></table></figure>
+<p>在利用 <code>sed</code> 替换换行符 <code>\n</code>
+时，上面的命令有点复杂，故这里做个说明：</p>
+<ul>
+<li>首先提供一个通用写法：<code>sed ":label;N;s/\n/|/g;t label"</code>;
+or <code>sed ":label;N;s/\n/|/g;b label"</code></li>
+<li><code>:label;</code> ---
+这是一个标签，用来实现跳转处理，名字可任意取，如上上面的
+<code>:label</code> 就是 <code>a</code>；只不过需要注意的就是，前后的
+<code>label</code> 值需要保持一致</li>
+<li><code>N;</code> --- 是 <code>sed</code>
+的一个处理命令，追加文本流中的下一行到模式空间进行合并处理，也就以换行符
+<code>\n</code> 分隔（我是这么理解的），这样 <code>sed</code>
+替换的时候就可以识别到 <code>\n</code> 字符，从而实现替换</li>
+<li><code>;t</code> --- 即 <code>test</code>，测试的意思，与
+<code>label</code> 搭配使用，实现跳转处理，跳转到指定的标签处</li>
+<li><code>;b</code> --- 即 <code>branch</code>，分支的意思，功能同
+<code>;t</code>；只不过是所代表的含义不同；</li>
+<li><code>branch</code> 是循环到文本结束；而 <code>test</code>
+可以根据替换命令的完成是否成功来决定是否跳转</li>
+</ul>
+<p>4.6 替换每一行第一个匹配值</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;s/dd/aa/&#x27;</span> a.txt</span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 也就是去掉 /g</span></span></span><br></pre></td></tr></table></figure>
+<p>4.7 替换第一行的第一个匹配值</p>
+<blockquote>
+<p>当我们只需要替换匹配到的第一个匹配值时，就不能用 <code>4.6</code>
+的方法了，因为这会将每一行的第一个匹配值进行替换，于是有了下面的方法</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 【0,/待替换内容/s/待替换内容/替换内容/】</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&quot;0,/:/s/:/null/&quot;</span>  a.txt</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 这里只会替换整个文件匹配到的第一个匹配值</span></span></span><br></pre></td></tr></table></figure>
+<p>4.8 删除匹配行</p>
+<blockquote>
+<p>查找匹配含有特定字符的行，并删除</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;/str/d&#x27;</span> aaa.txt</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 删除文件 aaa.txt 中含有 str zi&#x27;fu&#x27;chu&#x27;a</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 待整理</span></span></span><br><span class="line">sed &#x27;s/[A-Z]*\([0-9]\)\([0-9A-Za-z]\)/\1\2/g&#x27;</span><br></pre></td></tr></table></figure>
+<h3 id="bc">5. bc</h3>
+<blockquote>
+<p>bc 命令是任意精度计算器语言，通常在 Linux
+下当计算器使用；类似基本的计算器，使用这个计算器可以做基本的数学运算</p>
+</blockquote>
+<blockquote>
+<p>==采用 <code>expr</code> 计算数值或者字符串长度，获取更加合适==</p>
+</blockquote>
+<p>==参数介绍==</p>
+<ul>
+<li>-i：强制进入交互模式</li>
+<li>-l：定义使用的标准数学库</li>
+<li>-w：对 POSIX bc 的扩展给出警告信息</li>
+<li>-q：不打印正常的 GNU bc 环境信息</li>
+<li>-v：显示指令版本信息</li>
+<li>-h：显示指令的帮助信息</li>
+</ul>
+<p>5.1 通过管道符进行计算</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;scale=2; 3066/1024&quot;</span>| bc <span class="comment">## scale 用来设定小数位</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># out：2.99</span></span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 但是计算出来的值小于 1；则以 .* 表示；如 .9 == 0.9</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 所以可以替换一下</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;scale=2; 3066/1024&quot;</span>| bc | sed <span class="string">&#x27;s/^\./0./g&#x27;</span>  <span class="comment">## 可以避免出现没有 0 的qing&#x27;kaun</span></span></span><br></pre></td></tr></table></figure>
+<p>5.2 进行其他进制的计算</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;ibase=2; 111&quot;</span> | bc  <span class="comment">## ibase 用来指定进制</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># out：7</span></span></span><br></pre></td></tr></table></figure>
+<p>5.3 进制转换</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">abc=192 </span><br><span class="line">echo &quot;obase=2;$abc&quot; | bc  ## 将 10 进制转换成 2 进制</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># out：11000000</span></span></span><br><span class="line"></span><br><span class="line">abc=11000000 </span><br><span class="line">echo &quot;obase=10;ibase=2;$abc&quot; | bc  ## 将 2 进制转换成 10 进制</span><br></pre></td></tr></table></figure>
+<p>5.4 计算平方与平方根</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;10^10&quot;</span> | bc</span> </span><br><span class="line">10000000000</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;sqrt(100)&quot;</span> | bc</span></span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<h3 id="sort">6. Sort</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sort -k1 aaa.txt  ## 对文件 aaa.txt 的第一列进行重排；默认是升序（以 ASCII 码的次序进行排列）</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-n 表示按照数值的大小进行排序</span></span><br></pre></td></tr></table></figure>
+<h3 id="查询后台任务的运行绝对路径">7. 查询后台任务的运行绝对路径</h3>
+<blockquote>
+<p>通常我们通过 <code>ps</code> 或 <code>top</code>
+命令来查看后台任务的部分信息，却查不到进程的详细信息，比如
+<code>运行进程的绝对路径</code> 等，<code>top</code> 命令可以使用
+<code>c</code>
+来查看运行时投递的具体信息，但也没有运行进程所在的绝对路径</p>
+</blockquote>
+<p>此外，我们需要知道的是 <code>Linux</code> 在启动一个进程时，系统会在
+<code>/proc</code> 目录下创建一个以 <code>PID</code>
+命名的文件夹，在该目录下会有我们创建进程的详细信息，其中：</p>
+<ul>
+<li><code>cwd</code>：链接的是进程运行目录</li>
+<li><code>exe</code>：链接的是执行程序的绝对路径</li>
+<li><code>cmdline</code>：程序运行时输入的命令</li>
+<li><code>environ</code>：记录了进程运行时的环境变量</li>
+<li><code>fd</code>：目录下为进程打开或使用的文件的符号链接</li>
+</ul>
+<h3 id="获取操作系统名称">8. 获取操作系统名称</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">uname</span> -s</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Linux</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>8.1 获取所有用户的登录情况</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">who</span> -uH</span></span><br></pre></td></tr></table></figure>
+<h3 id="ps">9. ps</h3>
+<blockquote>
+<p>获取后台任务的详细信息</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ps -ef | grep <span class="variable">$yourname</span>  <span class="comment">## 查询指定用户的所有后台任务</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查询进程打开的文件</span></span></span><br><span class="line">lsof -p [PID]</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查询内存分配</span></span></span><br><span class="line">lcat /proc/[PID]/maps  ## 没有权限，非 root 用户</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查询后台任务的运行详情</span></span></span><br><span class="line">ll /proc/[PID]  ## 其中 cwd --- 链接的是进程运行目录；exe --- 执行程序的绝对路径；cmdline --- 程序执行时输入的命令行命令；environ --- 记录了进程运行时的环境变量；fd --- 目录下是进程打开或使用的文件的符号链接</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查看当前的后台任务</span></span></span><br><span class="line">jobs</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 把后台任务拉到前台运行</span></span></span><br><span class="line">fg %任务号  ## 默认为任务1</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 使用 CTRL+Z 是将任务暂停并挂载到后台</span></span></span><br><span class="line">bg %任务号 ## 使暂停的任务在后台运行</span><br></pre></td></tr></table></figure>
+<p>==注意==</p>
+<ul>
+<li>后台任务的信息查询便捷命令</li>
+<li><ol type="1">
+<li>首先获得后台任务的<code>[PID]</code></li>
+<li><code>pwdx [PID]</code> --- 获取对应进程的运行路径</li>
+<li><code>pgrep [进程名]</code> --- 这命令可以列出对应进程名的所有进程id
+- <code>[PID]</code>，</li>
+</ol></li>
+</ul>
+<h3 id="top">10. top</h3>
+<blockquote>
+<p>查询系统的详细信息，如内存，CPU，IO等</p>
+</blockquote>
+<figure>
+<img data-src="../images/image-20220907102938349.png"
+alt="image-20220907102938349" />
+<figcaption aria-hidden="true">image-20220907102938349</figcaption>
+</figure>
+<p>==如上==</p>
+<ul>
+<li>第一行（<code>top -</code>）：系统当前时间 <code>up</code>
+系统到目前为止运行的时间 <code>，</code>
+当前登录系统的用户数量（<code>users</code>），<code>load average：</code>
+后面的 3 个数字分别标识距离现在 1min、5min、15min 的负载情况 ---
+这行的信息与命令 <code>uptime</code> 的输出结果一致</li>
+<li>第二行（<code>Tasks：</code>）：<code>Tasks</code>
+表示任务（进程），<code>total</code> 表示总进程数，<code>running</code>
+正在运行，<code>sleeping</code>
+休眠（挂起）的任务数量，<code>stopped</code>
+任务状态为暂停的数量，<code>zombie</code> 表示僵尸进程的数量</li>
+<li>第三行（<code>%Cpu(s)：</code>）：表示 <code>CPU</code>
+的状态，<code>us(user)</code>
+用户空间占用cpu的百分比；<code>sy(system)</code>
+内核空间占用cpu的百分比；<code>ni(niced)</code>
+改变过优先级的进程占用cpu的百分比；<code>id</code>
+空闲CPU百分比；<code>wa(IO wait)</code> IO
+等待占用cpu的百分比；<code>hi(hardware IO)</code>
+硬中断占用cpu的百分比；<code>si(software interrupts)</code>
+软中断占用cpu的百分比</li>
+<li>第四行（<code>KiB Mem：</code>）：内存状态，依次为物理内存总量，空闲内存总量，使用中的内存总量，缓冲内存量</li>
+<li>第五行（<code>KiB Swap：</code>）：swap
+交换分区，依次为交换区总量，空闲交换区总量，使用中的交换区总量，可用交换区总量</li>
+</ul>
+<p>（<code>对于内存监控，在 top 里，我们要时刻关注 swap 交换分区中的 used，如果这个数值在不同的变换，说明内核在不断进行内存和交换区的数据交换，预示着内存不够用</code>）</p>
+<ul>
+<li>第六行：空行</li>
+<li>第七行：各进程的监控
+<ul>
+<li><code>PID</code>：进程 id</li>
+<li><code>USER</code>：进程所有者</li>
+<li><code>PR</code>：进程优先级</li>
+<li><code>NI</code>：nice值，负值表示高优先级，正值表示低优先级</li>
+<li><code>VIRT</code>：进程使用的虚拟内存总量，单位 kb；<span
+class="math inline">\({VIRT = SWAP + RES}\)</span></li>
+<li><code>RES</code>：进程使用的、未被换出的物理内存大小，单位 kb；<span
+class="math inline">\({RES = CODE + DATA}\)</span></li>
+<li><code>SHR</code>：共享内存大小，单位 kb</li>
+<li><code>S</code>：进程状态；<code>D</code> -
+不可中断的休眠状态；<code>R</code> - 运行； <code>S</code> - 休眠；
+<code>T</code> - 跟踪/停止；<code>Z</code> - 僵尸进程</li>
+<li><code>%CPU</code>：上次更新到现在的cpu占用百分比</li>
+<li><code>%MEM</code>：进程使用的物理内存百分比</li>
+<li><code>TIME+</code>：进程所用的cpu时间总计，单位 0.01 秒</li>
+<li><code>COMMAND</code>：进程名称（<code>top</code> 命令运行中，键入
+<code>c</code>，可以显示进程的详细信息）</li>
+</ul></li>
+</ul>
+<h3 id="watch">11. watch</h3>
+<blockquote>
+<p>检测一些重复的操作，<code>-n</code>
+参数指定间隔多长时间重新运行某个命令</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">watch --differences=permanent -n10 [cmd]</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 对发生变化的部分进行高亮</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 每隔 10s 运行后面的 cmd</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="xargs">12. xargs</h3>
+<blockquote>
+<p>这是个功能非常强大的命令，可以将标准输出作为参数传入某个命令中运行；特别是对于不能接收标准输入为参数的命令；如
+echo（不能接受管道传递的标准输出为参数）</p>
+</blockquote>
+<blockquote>
+<p>Link: https://ruanyifeng.com/blog/2019/08/xargs-tutorial.html</p>
+</blockquote>
+<p>12.1 将标准输出通过管道符传递给某个命令作为参数运行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># echo 便是一个不能将标准输出通过管道符作为参数进入下一个命令的命令</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span>              <span class="comment">## output: hello world</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> | <span class="built_in">echo</span>		  <span class="comment">## output: null  ## 空行</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> | xargs <span class="built_in">echo</span> <span class="comment">## output: hello world</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 说明 xargs 的功能</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 此外还有一些命令需要 xargs 的辅助才能实现参数的读入</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 如：rm, mkdir, ls 等等</span></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明 xargs 的功能，便是为那些不能从管道符获取参数的命令服务的；但是
+xargs 开发初衷是为 find 服务，所以更多便捷的使用，都可以从 find
+中找到</p>
+</blockquote>
+<p>12.2 默认分隔符</p>
+<blockquote>
+<p>【<code>-d</code>】xargs
+默认的分隔符是换行符和空格，从而将标准输入分隔成多个参数进行读取；同时也支持
+<code>-d</code> 参数指定分隔符</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\tworld&quot;</span> | xargs -d <span class="string">&#x27;\t&#x27;</span> <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output: hello world</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 等效于： $ echo hello world</span></span></span><br></pre></td></tr></table></figure>
+<p>12.3 打印最终执行的命令</p>
+<blockquote>
+<p>【<code>-p | -t</code>】当我们不知道参数是否传递正确的情况下，可以通过这两个参数来确认；<code>-t</code>
+参数便是将接下来需要执行的命令打印并输出标准输出结果；<code>-p</code>
+参数则是在 <code>-t</code>
+的基础上增加了一个询问功能，打印执行命令之后，会有一个
+<code>yes or no</code> 的选择，需要用户键入 <code>y or n</code>
+，大小写无所谓，来确认是否执行该命令；这种参数在设置敏感数据删除
+<code>rm</code>
+的情况下非常重要，防止命令参数的传入失误导致数据误删。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\tworld&quot;</span> | xargs -d <span class="string">&#x27;\t&#x27;</span> -t <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">echo hello world</span><br><span class="line"> </span><br><span class="line">hello world</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 以上四行均为输出，但不清楚什么会有两个空行，</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 目前的猜测是 xargs 在存在参数 &#x27;-d&#x27; 的情况下，换行符 &#x27;\n&#x27; 保留; 而在打印时，本身就会自动添加换行符，所以这里就多了两个空行</span></span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 所以上面的传参应该是 $ echo hello world&#x27;\n&#x27;</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\nworld dd&quot;</span> | xargs -d <span class="string">&#x27; &#x27;</span> -t <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">echo hello</span><br><span class="line">world dd</span><br><span class="line"> </span><br><span class="line">hello</span><br><span class="line">world dd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\tworld&quot;</span> | xargs -d <span class="string">&#x27;\n&#x27;</span> -p <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">echo hello	world ?...y</span><br><span class="line">hello	world</span><br></pre></td></tr></table></figure>
+<p>12.4 指定传入几行数据传入参数</p>
+<blockquote>
+<p>【<code>-L</code>】若标准输入包含多行，<code>-L</code>
+参数指定多少行作为一个命令行参数</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">xargs -L 1 find -name</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output: ## -L 1 指定每次传入一行作为参数</span></span></span><br><span class="line">&quot;*.txt&quot;</span><br><span class="line">./foo.txt</span><br><span class="line">./hello.txt</span><br><span class="line">&quot;*.md&quot;</span><br><span class="line">./README.md</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 再如</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\nworld&quot;</span>| xargs -t <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 这里 -L 参数，故直接默认换行符作为分隔符同时传入两个参数</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">echo hello world </span><br><span class="line">hello world</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\nworld&quot;</span>| xargs -L 1 -t <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 添加了 -L 参数，便每次只传入一行的数据进行参数传递；针对对每一行进行相同处理极为方便</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">echo hello </span><br><span class="line">hello</span><br><span class="line">echo world </span><br><span class="line">world</span><br></pre></td></tr></table></figure>
+<p>12.5 指定传入几列数据作为参数</p>
+<blockquote>
+<p>【<code>-n</code>】作用与 <code>-L</code>
+类似，但是其是横向选定，在用户同一行键入多项时，需要利用 <code>-n</code>
+参数指定每次传入多少项，作为命令行参数</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">xargs -t -n 1 find -name</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 上面命令指定将每一项（-n 1）标准输入作为命令行参数，分别执行一次命令（find -name）</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">&quot;*.txt&quot; &quot;*.md&quot;</span><br><span class="line">find -name &quot;*.txt&quot;</span><br><span class="line">./foo.txt</span><br><span class="line">./hello.txt</span><br><span class="line">find -name &quot;*.md&quot;</span><br><span class="line">./README.md</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 再如</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> &#123;0..9&#125; | xargs -n 2 <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 每次传入 -n 2 个参数；便循环了 5 次 echo 输出</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">0 1</span><br><span class="line">2 3</span><br><span class="line">4 5</span><br><span class="line">6 7</span><br><span class="line">8 9</span><br></pre></td></tr></table></figure>
+<p>12.6 将命令行参数传递给多个命令</p>
+<blockquote>
+<p>【<code>-I</code>】前面默认的都是在 <code>xargs</code>
+后面的命令后直接添加参数，但是当我们需要向多个命令传递参数时，就需要用到
+<code>-I</code> 参数，指定需要传递的参数</p>
+<p><code>-I</code> 指定每一项命令行参数的替代字符串</p>
+<p><code>-i</code> 同 <code>-I</code>，只不过是默认以占位符
+<code>&#123;&#125;</code> 代替变量</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;one\ntwo\nthree&quot;</span> | xargs -I num sh -c <span class="string">&#x27;echo num; echo --num--&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># -I 参数对传入的参数重命名；也就是对传入的参数创建对应的变量</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">one</span><br><span class="line">--one--</span><br><span class="line">two</span><br><span class="line">--two--</span><br><span class="line">three</span><br><span class="line">--three--</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 再如</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;one\ntwo\nthree&quot;</span> | xargs -t -I &#123;&#125; sh -c <span class="string">&#x27;echo &#123;&#125;; echo --&#123;&#125;--&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">sh -c echo one; echo --one--   ## 正常运行应该是 sh -c &#x27;echo one; echo --one--&#x27;</span><br><span class="line">one</span><br><span class="line">--one--</span><br><span class="line">sh -c echo two; echo --two-- </span><br><span class="line">two</span><br><span class="line">--two--</span><br><span class="line">sh -c echo three; echo --three-- </span><br><span class="line">three</span><br><span class="line">--three--</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#</span></span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 需要注意的是，在给 sh -c 进行传参时，&#x27;$&#x27; 符号需要进行转义；即书写成 &#x27;\$1....&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;3\n17&quot;</span> | xargs -t -L 2 sh -c <span class="string">&quot;echo exon\$0-exon\$1&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 注意 sh -c chuan&#x27;can</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">sh -c echo exon$0-exon$1 3 17 </span><br><span class="line">exon3-exon17</span><br></pre></td></tr></table></figure>
+<p>12.7 多进程执行命令</p>
+<blockquote>
+<p>【<code>--max-procs</code>】xargs
+命令默认只用一个进程执行命令，只有当执行结束上一个命令，才能执行下一个命令；当需要循环执行命令，且相互之间没有依赖关系的情况下，各个循环可独立运行，故这里可以采用参数
+<code>--max-procs</code> 命令指定调用的进程数，从而实现同时进行 n
+次命令执行；</p>
+<p><code>--max-procs</code> 参数指定同时调用多少个进行并执行命令；</p>
+<p><code>--max-procs 2</code> -- 表示同时最多调用两个进程</p>
+<p><code>--max-procs 0</code> -- 表示不限制进程数</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker ps -q | xargs -n 1 --max-procs 0 docker <span class="built_in">kill</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 同时关闭尽可能多的 Docker 容器，这样运行速度会快很多；不懂</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 再如</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;sleep 30 &amp;&amp; echo hello\nsleep 10 &amp;&amp; echo world&quot;</span> | xargs -t -I &#123;&#125; sh -c <span class="string">&quot;&#123;&#125;&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 单进程的情况下，只有在前一个命令执行结束之后，才能运行下一条命令；故这里先输出 hello；而后才能打印 world</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span> </span><br><span class="line">sh -c sleep 30 &amp;&amp; echo hello </span><br><span class="line">hello</span><br><span class="line">sh -c sleep 10 &amp;&amp; echo world </span><br><span class="line">world</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 那提供两个进程呢？？？</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;sleep 30 &amp;&amp; echo hello\nsleep 10 &amp;&amp; echo world&quot;</span> | xargs --max-procs 2 -t -I &#123;&#125; sh -c <span class="string">&quot;&#123;&#125;&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 这里由于提供了两个进程，于是，同时执行 echo hello 和 echo world 两条命令，但是因为 world 的睡眠时间较短，提前打印出来，而后才打印 hello</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">sh -c sleep 30 &amp;&amp; echo hello </span><br><span class="line">sh -c sleep 10 &amp;&amp; echo world </span><br><span class="line">world</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>12.8 <code>xargs</code> 与 <code>find</code> 的搭伙</p>
+<blockquote>
+<p>【<code>-0</code>】<code>xargs</code>
+默认是将空格作为分隔符，在处理文件名时，若文件名中存在空格，则不会太方便；</p>
+<p><code>find</code> 命令有个特别的参数 <code>-print0</code>
+，指定输出的文件列表以 <code>null</code> 分隔，而 <code>xargs</code> 的
+<code>-0</code> 参数表示用 <code>null</code> 当作分隔符</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find /path -<span class="built_in">type</span> f -print0 | xargs -0 <span class="built_in">rm</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 删除 /path 路径下的所有文件；由于分隔符是 null ，所以处理含有空格的文件名，也不会报错</span></span></span><br></pre></td></tr></table></figure>
+<p>还有一个原因，使得<code>xargs</code>特别适合<code>find</code>命令。有些命令（比如<code>rm</code>）一旦参数过多会报错"参数列表过长"，而无法执行，改用<code>xargs</code>就没有这个问题，因为它对每个参数执行一次命令。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find . -name <span class="string">&quot;*.txt&quot;</span> | xargs grep <span class="string">&quot;abc&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 找出所有 TXT 文件以后，对每个文件搜索一次是否包含字符串abc。</span></span></span><br></pre></td></tr></table></figure>
+<p>12.9 <code>xargs</code> 与 <code>sed</code> 搭配</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;MSFVAGVIRRLDETVVNRIAAGEVIQRPANAIKEMIENCLDAKSTSIQVIVKEGGLKLIQIQDNGTGIRKEDLDIVCERFTTSKLQSFEDLASISTYGFRGEALASISHVAHVTITTKTADGKCAYRASYSDGKLKAPPKPCAGNQGTQITVEDLFYNIATRRKALKNPSEEYGKILEVVGRYSVHNAGISFSVKKQGETVADVRTLPNASTVDNIRSIFGNAVSRELIEIGCEDKTLAFKMNGYISNANYSVKKCIFLLFINHRLVESTSLRKAIETVYAAYLPKNTHPFLYLSLEISPQNVDVNVHPTKHEVHFLHEESILERVQQHIESKLIAMTNT*&quot;</span> | sed <span class="string">&quot;s/.\&#123;10\&#125;/&amp; /g&quot;</span> | xargs -d <span class="string">&#x27; &#x27;</span> -n 6 <span class="built_in">echo</span> -e</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 作用，便是将长字符串以固定长度【10bp】空格分隔，方便查看</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">MSFVAGVIRR LDETVVNRIA AGEVIQRPAN AIKEMIENCL DAKSTSIQVI VKEGGLKLIQ</span><br><span class="line">IQDNGTGIRK EDLDIVCERF TTSKLQSFED LASISTYGFR GEALASISHV AHVTITTKTA</span><br><span class="line">DGKCAYRASY SDGKLKAPPK PCAGNQGTQI TVEDLFYNIA TRRKALKNPS EEYGKILEVV</span><br><span class="line">GRYSVHNAGI SFSVKKQGET VADVRTLPNA STVDNIRSIF GNAVSRELIE IGCEDKTLAF</span><br><span class="line">KMNGYISNAN YSVKKCIFLL FINHRLVEST SLRKAIETVY AAYLPKNTHP FLYLSLEISP</span><br><span class="line">QNVDVNVHPT KHEVHFLHEE SILERVQQHI ESKLIAMTNT *</span><br></pre></td></tr></table></figure>
+<h3 id="jobs">13. jobs</h3>
+<blockquote>
+<p>查看当前环境的后台任务</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">jobs</span> -l <span class="comment">## 同时查看后台任务的 PID 号</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="ping">14. ping</h3>
+<blockquote>
+<p>待整理</p>
+</blockquote>
+<h3 id="用户输入传参">15. 用户输入传参</h3>
+<blockquote>
+<p>当我们需要通过用户输入进行传参，这里有两种可选方案：read 和 xargs</p>
+</blockquote>
+<h4 id="read---是常规用到的通过用户键入字符读取参数">15.1 read -
+是常规用到的，通过用户键入字符读取参数</h4>
+<p>。。。。。【待整理】</p>
+<h4 id="xargs---其单独使用的情况下默认是-echo-的效果">15.2 xargs -
+其单独使用的情况下，默认是 <code>echo</code> 的效果；</h4>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">xargs find -name</span></span><br><span class="line">&quot;*.txt&quot; (用户键入，并 Ctrl+d 退出)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 等效于</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find -name <span class="string">&quot;*.txt&quot;</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="tr">16. tr</h3>
+<blockquote>
+<p>用户转换或删除给定字符串中的某个字符</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> a.txt | <span class="built_in">tr</span> [:lower:] [:upper:]</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 将所有的小写字母替换成大写字母</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># link：https://linux.cn/article-11983-1.html</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="printf">17. printf</h3>
+<blockquote>
+<p><code>printf</code> 作用同
+<code>echo</code>，但可以有更多花样可以玩；这还得多多尝试</p>
+<p>比如，当我们需要输出打印 <code>n</code>
+个相同字符时，总不能自己数数吧？？？当然是通过一定的语法来输出，如下：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">printf</span> %.s<span class="string">&quot;-&quot;</span> &#123;1..100&#125;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：【默认不断行】</span></span></span><br><span class="line">----------------------------------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h3 id="jq">18. jq</h3>
+<blockquote>
+<p>一个轻量级的命令行 JSON 处理器</p>
+<p>link1：https://linux.cmsblogs.cn/c/jq.html</p>
+<p>link2：https://cloud.tencent.com/developer/article/1614025</p>
+<p>link3：https://www.cnblogs.com/kevingrace/p/7565371.html</p>
+</blockquote>
+<h3 id="toilet-figlet">19. toilet &amp;&amp; figlet</h3>
+<blockquote>
+<p>一对在 <code>Linux</code> 终端整花活的难兄难弟。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date &#x27;+%D %T&#x27; | toilet -f term -F border --gay)</span>&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 彩色时钟打印</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="loginctl">20. loginctl</h3>
+<blockquote>
+<p>返回当前登录情况</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">loginctl list-sessions</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 列出当前 sessions</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">loginctl list-users</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 列出当前登录用户</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">loginctl show-user majunwei</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 显示指定用户的信息</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="eval">21. eval</h3>
+<blockquote>
+<p>了解指定的参数在一起成为一个单一的可执行命令</p>
+<p>对后面的命令进行两次扫描；简单来说就是对输出的变量进行执行，具体看下面的示例</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">test</span>=<span class="string">&#x27;echo &quot;hello&quot;&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="variable">$test</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output</span></span></span><br><span class="line">echo &quot;hello&quot;</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">eval</span> <span class="variable">$test</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output</span></span></span><br><span class="line">hello</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 不难发现的是，eval $变量 的作用便是将变量当成ming&#x27;lin</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="set">22. set</h3>
+<blockquote>
+<p><code>set</code>
+命令可显示打印出当前用户所设置的所有变量名与对应的值</p>
+</blockquote>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Learn</category>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -7302,8 +7348,8 @@ novo genome assemblies using Hi-C. <em>Nature communications</em>,
         <category>Bioinfo</category>
       </categories>
       <tags>
-        <tag>Falcon phase</tag>
         <tag>haplotype</tag>
+        <tag>Falcon phase</tag>
       </tags>
   </entry>
   <entry>
@@ -8987,6 +9033,288 @@ Dotplot large Genomes in an Interactive, Efficient and Simple way
       </tags>
   </entry>
   <entry>
+    <title>Next 标签汇总</title>
+    <url>/archives/5cf7090.html</url>
+    <content><![CDATA[<p>反观前几篇博客，内容单调，样式简单，一眼望过去，除了文字还是文字（<code>好像也没啥问题</code>）。但是我们可以通过
+<code>Next</code> 主题内置或者第三方的标签插件让博客内容更好看，样式更加
+<code>花里胡哨</code> ^_^</p>
+<span id="more"></span>
+<h2 id="开始">开始</h2>
+<p>关于 <code>Next</code> 主题的内置标签，仅适用于 <code>Next</code>
+主题，如果切换到其他主题，可能会出现不兼容的现象，所以根据自己需要与
+<code>Theme</code> 进行编辑 <code>Blog</code></p>
+<p>由于 <code>Next</code>
+主题内置标签有很多，很难将所有的标签都记录在这里（<code>况且也不是所有的标签都能用得到</code>），所以更多的标签介绍请查看官方文档：<a
+href="https://hexo.io/docs/tag-plugins.html">Tag Plugins | Hexo</a>
+；当然也有中文文档： <a
+href="https://hexo.io/zh-cn/docs/tag-plugins.html">标签插件（Tag
+Plugins） | Hexo</a>。</p>
+<h3 id="代码块">代码块</h3>
+<div class="note info"><p>参考链接：<a
+href="https://hexo.io/zh-cn/docs/tag-plugins.html">标签插件（Tag
+Plugins） | Hexo</a></p>
+</div>
+<ul>
+<li>用法</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock [title] [lang:language] [url] [link text] [additional options] %&#125;</span><br><span class="line">code snippet</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实例 --- 附加说明与引用网址</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% codeblock <span class="emphasis">_.compact http://underscorejs.org/#compact Underscore.js %&#125;</span></span><br><span class="line"><span class="emphasis">_</span>.compact([0, 1, false, 2, &#x27;&#x27;, 3]);</span><br><span class="line">=&gt; [1, 2, 3]</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>_.compact</span><span class="exturl" data-url="aHR0cDovL3VuZGVyc2NvcmVqcy5vcmcvI2NvbXBhY3Q=">Underscore.js<i class="fa fa-external-link-alt"></i></span></figcaption><table><tr><td class="code"><pre><span class="line">_.compact([0, 1, false, 2, &#x27;&#x27;, 3]);</span><br><span class="line">=&gt; [1, 2, 3]</span><br></pre></td></tr></table></figure>
+<h3 id="引用">引用</h3>
+<p>此标记将生成一个引号，其前后有两行，并且引用的文本将居中。使用居中引号时，如果我们有多行文本，并且每行都有不同的长度，则引号不会是对称的，因此建议在只有单行文本时使用。例如，在文章之前所有文章之后都做一个总结。</p>
+<div class="note info"><p>参考链接：<a
+href="https://theme-next.js.org/docs/tag-plugins/#Centered-Quote">Tag
+Plugins | NexT (theme-next.js.org)</a></p>
+</div>
+<ul>
+<li>用法</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% centerquote %&#125;Something&#123;% endcenterquote %&#125;</span><br><span class="line"><span class="section">## 或者</span></span><br><span class="line">&#123;% cq %&#125;Something&#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实例 --- 居中引用</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% cq %&#125; 居中引用 &#123;% endcq %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote class="blockquote-center">
+<p>居中引用</p>
+
+</blockquote>
+<h3 id="视频">视频</h3>
+<p>将 <code>url</code> 或者本地视频导入</p>
+<div class="note info"><p>参考链接：<a
+href="https://theme-next.js.org/docs/tag-plugins/#Video">Tag Plugins |
+NexT (theme-next.js.org)</a></p>
+</div>
+<ul>
+<li>用法</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% video url %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实例 --- url / 本地插入视频</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% video https://example.com/sample.mp4 %&#125;</span><br><span class="line">&#123;% video /path/to/your/video.mp4 %&#125;</span><br><span class="line"><span class="section">## 暂时没有找到合适的视频，如未插入视频</span></span><br></pre></td></tr></table></figure>
+<h3 id="图片合集">图片合集</h3>
+<p>可以对插入的图片按照规定的排版进行摆放。</p>
+<div class="note info"><p>参考链接：<a
+href="https://theme-next.js.org/docs/tag-plugins/group-pictures.html">Group
+Pictures | NexT (theme-next.js.org)</a></p>
+</div>
+<ul>
+<li>用法</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% grouppicture [number]-[layout] %&#125;</span><br><span class="line">&#123;% endgrouppicture %&#125;</span><br><span class="line"><span class="section">## 或者</span></span><br><span class="line">&#123;% gp [number]-[layout] %&#125;</span><br><span class="line">&#123;% endgp %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>[number]</code>：<em>可选参数。</em>要添加到组图片中的图片总数。</li>
+<li><code>[layout]</code>：<em>可选参数。</em>布局的索引，可以根据下图获得。例如，如果要将第二个布局应用于
+4 张图片，则使用</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% grouppicture 4-2 %&#125;&#123;% endgrouppicture %&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：请在安装了 <code>Fancybox</code>
+插件的前提下使用这里的标签插件。</p>
+</blockquote>
+<ul>
+<li>实例 --- 3 - 3</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% grouppicture 3-3 %&#125;</span><br><span class="line">![](<span class="link">/images/background.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background1.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background2.jpg</span>)</span><br><span class="line">&#123;% endgrouppicture %&#125;</span><br></pre></td></tr></table></figure>
+<div class="group-picture"><div class="group-picture-row"><div class="group-picture-column"><img data-src="/images/background.jpg" /></div><div class="group-picture-column"><img
+src="/images/background1.jpg" /></div><div class="group-picture-column"><img
+src="/images/background2.jpg" /></div></div></div>
+<ul>
+<li>实例 --- 4 - 2</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% grouppicture 4-2 %&#125;</span><br><span class="line">![](<span class="link">/images/background4.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background5.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background6.jpg</span>)</span><br><span class="line">![](<span class="link">/images/background7.jpg</span>)</span><br><span class="line">&#123;% endgrouppicture %&#125;</span><br></pre></td></tr></table></figure>
+<div class="group-picture"><div class="group-picture-row"><div class="group-picture-column"><img data-src="/images/background4.jpg" /></div></div><div class="group-picture-row"><div class="group-picture-column"><img
+src="/images/background5.jpg" /></div><div class="group-picture-column"><img data-src="/images/background6.jpg" /></div><div class="group-picture-column"><img data-src="/images/background7.jpg" /></div></div></div>
+<h3 id="对文本进行标识">对文本进行标识</h3>
+<p>可以对一段文件进行颜色管理。</p>
+<div class="note info"><p>参考链接：<a
+href="https://theme-next.js.org/docs/tag-plugins/label.html">Label |
+NexT (theme-next.js.org)</a></p>
+</div>
+<ul>
+<li>用法</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% label [class]@text %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>[class]</code>：<em>可选参数。</em>支持的值：| | | | |
+；如果未指定，则将使用浏览器的默认样式，该样式在不同的浏览器中可能会有所不同</p></li>
+<li><p><code>text</code>：可以指定带或不带空格。</p></li>
+<li><p>实例</p></li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">Lorem &#123;% label @ipsum %&#125; &#123;% label primary@dolor sit %&#125; amet, consectetur &#123;% label success@adipiscing elit, %&#125; sed &#123;% label info@do eiusmod %&#125; tempor incididunt ut labore et dolore magna aliqua.</span><br><span class="line"></span><br><span class="line">Ut enim <span class="emphasis">*&#123;% label warning @ad %&#125;*</span> minim veniam, quis <span class="strong">**&#123;% label danger@nostrud %&#125;**</span> exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span><br><span class="line"></span><br><span class="line">Duis aute irure dolor in reprehenderit in voluptate ~~&#123;% label default @velit %&#125;~~ <span class="language-xml"><span class="tag">&lt;<span class="name">mark</span>&gt;</span></span>esse<span class="language-xml"><span class="tag">&lt;/<span class="name">mark</span>&gt;</span></span> cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Lorem <mark class="label ">ipsum</mark> <mark class="label primary">dolor sit</mark> amet, consectetur <mark class="label success">adipiscing elit,</mark>
+sed <mark class="label info">do eiusmod</mark> tempor incididunt ut labore et dolore magna
+aliqua.</p>
+<p>Ut enim <em><mark class="label warning">ad</mark></em> minim veniam, quis
+<strong><mark class="label danger">nostrud</mark></strong> exercitation ullamco laboris nisi ut
+aliquip ex ea commodo consequat.</p>
+<p>Duis aute irure dolor in reprehenderit in voluptate
+<del><mark class="label default">velit</mark></del> <mark>esse</mark> cillum dolore eu fugiat
+nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+culpa qui officia deserunt mollit anim id est laborum.</p>
+<h3 id="引导标注">引导标注</h3>
+<p><code>Next</code>
+主题针对这一系列标签还有多个样式可供选择，需要在主题配置文件
+<code>_config.next.yml</code> 中修改启用。</p>
+<div class="note info"><p>参考链接：<a
+href="https://theme-next.js.org/docs/tag-plugins/note.html">Note
+(Bootstrap Callout) | NexT (theme-next.js.org)</a></p>
+</div>
+<ul>
+<li>_config.next.yml</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Note tag (bootstrap callout)</span></span><br><span class="line"><span class="attr">note:</span></span><br><span class="line">  <span class="comment"># Note tag style values:</span></span><br><span class="line">  <span class="comment">#  - simple    bootstrap callout old alert style. Default.</span></span><br><span class="line">  <span class="comment">#  - modern    bootstrap callout new (v2-v3) alert style.</span></span><br><span class="line">  <span class="comment">#  - flat      flat callout style with background, like on Mozilla or StackOverflow.</span></span><br><span class="line">  <span class="comment">#  - disabled  disable all CSS styles import of note tag.</span></span><br><span class="line">  <span class="attr">style:</span> <span class="string">simple</span></span><br><span class="line">  <span class="attr">icons:</span> <span class="literal">true</span>   <span class="comment">## 显示图标</span></span><br><span class="line">  <span class="comment"># Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).</span></span><br><span class="line">  <span class="comment"># Offset also applied to label tag variables. This option can work with disabled note tag.</span></span><br><span class="line">  <span class="attr">light_bg_offset:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>用法</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">&#123;% note [class] [no-icon] [summary] %&#125;</span><br><span class="line">Any content (support inline tags too).</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><code>[class]</code>：<em>可选参数。</em>支持的值：默认|主要|成功|信息|警告|危险。</p></li>
+<li><p><code>[no-icon]</code>：<em>可选参数。</em>禁用注释中的图标。</p></li>
+<li><p><code>[summary]</code>：<em>可选参数。</em>注释的可选摘要</p></li>
+</ul>
+<blockquote>
+<p>注意：所有参数都是可选的。</p>
+</blockquote>
+<ul>
+<li>实例 --- 页眉</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% note %&#125;</span><br><span class="line">#### Header</span><br><span class="line">(without define class style)</span><br><span class="line">&#123;% endnote %&#125;</span><br></pre></td></tr></table></figure>
+<div class="note "><h4 id="页眉">页眉</h4>
+<p>(不带定义类样式)</p>
+</div>
+<ul>
+<li>实例 --- 其他标头</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section">## 默认标头</span></span><br><span class="line">&#123;% note default %&#125;</span><br><span class="line"><span class="section">#### Default Header</span></span><br><span class="line">Welcome to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 主标头</span></span><br><span class="line">&#123;% note primary %&#125;</span><br><span class="line"><span class="section">#### Primary Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 信息标头</span></span><br><span class="line">&#123;% note info %&#125;</span><br><span class="line"><span class="section">#### Info Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 成功标头</span></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line"><span class="section">#### Success Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 警告标头</span></span><br><span class="line">&#123;% note warning %&#125;</span><br><span class="line"><span class="section">#### Warning Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 危险标头</span></span><br><span class="line">&#123;% note danger %&#125;</span><br><span class="line"><span class="section">#### Danger Header</span></span><br><span class="line"><span class="strong">**Welcome**</span> to [<span class="string">Hexo!</span>](<span class="link">https://hexo.io</span>)</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 无图标标头</span></span><br><span class="line">&#123;% note info no-icon %&#125;</span><br><span class="line"><span class="section">#### No icon note</span></span><br><span class="line">Note <span class="strong">**without**</span> icon: <span class="code">`note info no-icon`</span></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 详细信息和摘要</span></span><br><span class="line">&#123;% note primary This is a summary %&#125;</span><br><span class="line"><span class="section">#### Details and summary</span></span><br><span class="line">Note with summary: <span class="code">`note primary This is a summary`</span></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 详细信息和摘要（无图标）</span></span><br><span class="line">&#123;% note info no-icon This is a summary %&#125;</span><br><span class="line"><span class="section">#### Details and summary (No icon)</span></span><br><span class="line">Note with summary: <span class="code">`note info no-icon This is a summary`</span></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 注释中的代码块</span></span><br><span class="line">&#123;% note success %&#125;</span><br><span class="line"><span class="section">#### Codeblock in note</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line"><span class="code">code block in note tag</span></span><br><span class="line"><span class="code">code block in note tag</span></span><br><span class="line"><span class="code">code block in note tag</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 注释中的列表</span></span><br><span class="line">&#123;% note default %&#125;</span><br><span class="line"><span class="section">#### Lists in note</span></span><br><span class="line"><span class="bullet">*</span> ul</span><br><span class="line"><span class="bullet">*</span> ul</span><br><span class="line"><span class="bullet">    *</span> ul</span><br><span class="line"><span class="bullet">    *</span> ul</span><br><span class="line"><span class="bullet">*</span> ul</span><br><span class="line"></span><br><span class="line"><span class="bullet">1.</span> ol</span><br><span class="line"><span class="bullet">2.</span> ol</span><br><span class="line"><span class="bullet">    1.</span> ol</span><br><span class="line"><span class="bullet">    2.</span> ol</span><br><span class="line"><span class="bullet">3.</span> ol</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">## 附注表格</span></span><br><span class="line"><span class="section">#### Table in Note</span></span><br><span class="line">&#123;% note default %&#125;</span><br><span class="line">| 1 | 2 |</span><br><span class="line">| - | - |</span><br><span class="line">| 3 | 4 |</span><br><span class="line">| 5 | 6 |</span><br><span class="line">| 7 | 8 |</span><br><span class="line">&#123;% endnote %&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div class="note default"><h4 id="default-header">Default Header</h4>
+<p>Welcome to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
+</div>
+<hr />
+<div class="note primary"><h4 id="primary-header">Primary Header</h4>
+<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
+</div>
+<hr />
+<div class="note info"><h4 id="info-header">Info Header</h4>
+<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
+</div>
+<hr />
+<div class="note success"><h4 id="success-header">Success Header</h4>
+<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
+</div>
+<hr />
+<div class="note warning"><h4 id="warning-header">Warning Header</h4>
+<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
+</div>
+<hr />
+<div class="note danger"><h4 id="danger-header">Danger Header</h4>
+<p><strong>Welcome</strong> to <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo!<i class="fa fa-external-link-alt"></i></span></p>
+</div>
+<hr />
+<div class="note info no-icon"><h4 id="no-icon-note">No icon note</h4>
+<p>Note <strong>without</strong> icon:
+<code>note info no-icon</code></p>
+</div>
+<hr />
+<details class="note primary"><summary><p>This is a summary</p>
+</summary>
+<h4 id="details-and-summary">Details and summary</h4>
+<p>Note with summary: <code>note primary This is a summary</code></p>
+
+</details>
+<hr />
+<details class="note info no-icon"><summary><p>This is a summary</p>
+</summary>
+<h4 id="details-and-summary-no-icon">Details and summary (No icon)</h4>
+<p>Note with summary:
+<code>note info no-icon This is a summary</code></p>
+
+</details>
+<hr />
+<div class="note success"><h4 id="codeblock-in-note">Codeblock in note</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">code block in note tag</span><br><span class="line">code block in note tag</span><br><span class="line">code block in note tag</span><br></pre></td></tr></table></figure>
+</div>
+<hr />
+<div class="note default"><h4 id="lists-in-note">Lists in note</h4>
+<ul>
+<li>ul</li>
+<li>ul
+<ul>
+<li>ul</li>
+<li>ul</li>
+</ul></li>
+<li>ul</li>
+</ul>
+<ol type="1">
+<li><p>ol</p></li>
+<li><p>ol</p>
+<ol type="1">
+<li>ol</li>
+<li>ol</li>
+</ol></li>
+<li><p>ol</p></li>
+</ol>
+</div>
+<hr />
+<h4 id="table-in-note">Table in Note</h4>
+<div class="note default"><table>
+<thead>
+<tr class="header">
+<th>1</th>
+<th>2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<h3 id="其他">其他</h3>
+<p>关于其他标签，可以仔细查看官方文档，主要是严格遵守 <code>Next</code>
+的标签语法规则，就可以实现相应的效果。</p>
+<ul>
+<li>设置多个选项框：<a
+href="https://theme-next.js.org/docs/tag-plugins/tabs.html">Tabs | NexT
+(theme-next.js.org)</a></li>
+<li>设置 PDF 文件下载：<a
+href="https://theme-next.js.org/docs/tag-plugins/pdf.html">PDF | NexT
+(theme-next.js.org)</a></li>
+<li>绘制流程图或图表：<a
+href="https://theme-next.js.org/docs/tag-plugins/mermaid.html">Mermaid |
+NexT (theme-next.js.org)</a></li>
+<li>给图片添加链接重定向：<a
+href="https://theme-next.js.org/docs/tag-plugins/link-grid.html">Link
+Grid | NexT (theme-next.js.org)</a></li>
+<li>设置自定义按钮：<a
+href="https://theme-next.js.org/docs/tag-plugins/button.html">Button |
+NexT (theme-next.js.org)</a></li>
+</ul>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Blog</category>
+        <category>Next</category>
+      </categories>
+      <tags>
+        <tag>Next</tag>
+        <tag>tags</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Next 网页自定义添加宠物</title>
     <url>/archives/c03b7d36.html</url>
     <content><![CDATA[<p>今天在逛别人博客的时候，发现一个很好看的动态的模型，有人形的也有次元风的；不过我还是喜欢下面的小狗狗，于是我也希望自己的博客能有它的加入。</p>
@@ -9394,6 +9722,270 @@ Settings | NexT (theme-next.js.org)<i class="fa fa-external-link-alt"></i></span
       <tags>
         <tag>Hexo</tag>
         <tag>theme</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单倍型基因组组装工具 --- ALLHic</title>
+    <url>/archives/f7e90e2b.html</url>
+    <content><![CDATA[<h2 id="背景">背景</h2>
+<p>单倍型基因组组装方法是针对于动植物基因组组装提出的更为精确的组装策略，二倍体基因组同时拥有来自父本与母本的基因型，存在复杂的等位基因变异，极大地提高了二倍型基因组的组装难度。也就是说我们如要完整组装二倍型基因组，需要将二倍型基因组进行两次单倍型基因组组装，从而精准的定位到染色体水平。目前，大多数二倍体基因组组装忽略了同源染色体之间的差异，从而将基因组组装成一个伪单倍体序列，这将会对之后基因注释产生很多不确定因素以及得到不准确的生物学解释。想要得到二倍体精确的单倍体基因组，从测序样本入手是一种常见的策略。我们可以通过不断近交以得到纯合双单倍体基因型，便可组装得到纯合基因组；又或者提供物种的配子进行测序，亦能得到准确的单倍型基因组；又或者在测序前分离单个染色体，从而实现单个单倍型基因组的测序和组装。</p>
+<span id="more"></span>
+<p>虽然通过各种技术想方设法从测序样本中得到单个染色体进行测序组装，能够满足部分需求；但是实验技术也存在诸多不确定的局限。如染色体分选局限于能否通过荧光强度或光散射区分特定染色体；单细胞技术
+Strand-seq
+局限于其数据获取困难。所以，将重心转移到二倍体基因组组装策略是一个不错的思路</p>
+<h3 id="认识染色体">认识染色体</h3>
+<p>在介绍组装工具之前，有必要先了解一下生物体内的染色体构成。就拿人染色体来讲，可以表示为
+<code>2n=2x=46</code> ；其中 <code>n</code>
+代表的是单倍体染色体数目，也就是我们今天提到的组装工具 ALLHiC
+的组装目标，<code>n</code> 是正常细胞的同源染色体的对数，则
+<code>2n</code> 就代表着生物体体细胞的染色体数目。<code>x</code>
+是有别于 <code>n</code>
+的概念，代表的是染色体基数，表示一套染色体组的染色体数量，其也决定了生物体基因组的倍性。如人类基因组就是二倍体，则表示为
+<code>2x=46</code> ；代表人类一套完整的染色体组包含 <code>23条</code>
+染色体；<code>2n=46</code>
+则代表着人类配子（精子/卵子）携带的染色体数量为 <code>23条</code>。</p>
+<blockquote>
+<p>染色体组：指形态、大小各不相同的一组染色体</p>
+<p>n：生物体配子体的染色体数量 = 体细胞同源染色体对数 =
+单倍体染色体数量</p>
+<p>x：生物体一个染色体组中染色体数量 =
+含有控制生物所有性状的一整套基因的染色体数量（一套染色体组中没有重复的基因，同时也没有缺失，即控制同一性状的基因只有一个，同时在一个染色体组中不存在等位基因）</p>
+</blockquote>
+<p>这里再举个四倍体的例子：<code>2n=4x=32</code>
+；那我们能得到的信息如下：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="bullet">1.</span> 该物种的染色体总数：<span class="code">`32`</span></span><br><span class="line"><span class="bullet">2.</span> 单倍体染色体条数：<span class="code">`16`</span>  --- 1n=2x=16；即来自亲本的配子有 <span class="code">`16`</span> 条。</span><br><span class="line"><span class="bullet">3.</span> 一个单倍体内有两套染色体组，四倍体内有四套染色体组，各来自两个亲本的两套。</span><br></pre></td></tr></table></figure>
+<p>今天主要是看二倍体基因组单倍体组装流程，采用的组装工具是
+<code>ALLHiC</code>
+；二倍体基因组是由两个同源的染色体拷贝组装的，两个亲本各有一个，而我们要得到的结果便是其中一个同源染色体拷贝，即具有一套完整染色体信息的单倍体基因组；通过
+<code>ALLHic</code> 组装，最终得到两组染色体水平的单倍型基因组。</p>
+<h2 id="allhic-的诞生">ALLHiC 的诞生</h2>
+<p>2019年8月5日，福建农林大学基因组中心张兴坦副教授和唐海宝教授研究组在<em>Nature
+Plants</em>杂志在线发表题为“<a
+href="https://www.nature.com/articles/s41477-019-0487-8">Assembly of
+allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C
+data</a>”的研究论文，开发了一种 <code>ALLHiC</code>
+算法，成功完成了同源四倍体和同源八倍体甘蔗染色体水平组装。<code>ALLHiC</code>
+可以从头组装获得单倍型染色体水平的多倍体基因组，分离每一个等位基因。<code>ALLHiC</code>
+同时适用于多倍体和杂合二倍体的单倍型染色体水平组装。</p>
+<p><strong>作者对 <code>ALLHiC</code> 所有代码进行开源</strong></p>
+<blockquote>
+<p>Github：<a
+href="https://github.com/tangerzhang/ALLHiC">tangerzhang/ALLHiC: ALLHiC:
+phasing and scaffolding polyploid genomes based on Hi-C data
+(github.com)</a></p>
+<p>Pipeline：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtp">Home ·
+tangerzhang/ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+</blockquote>
+<h2 id="allhic-组装策略">ALLHiC 组装策略</h2>
+<p><img data-src="../images/image-20220323212351372.png" /></p>
+<blockquote>
+<p>Allelic contig table --- 等位基因重叠群表（通过参考基因组生成）</p>
+<p>BAM --- HiC 数据 mapping 的 BAM</p>
+<p>Prunning ---
+修剪；连续的红线表示折叠区域；紫色、蓝色和绿色的连续线表示假设的多倍体基因组中的不同单倍型。粉红色虚线表示等位基因间
+Hi-C 信号，而灰色虚线表示折叠区域和非折叠重叠群之间的 Hi-C 信号。</p>
+<p>Partitioning ---
+分区；彩色圆点表示在真实数据集中具有原始染色体分配的重叠群。</p>
+<p>Rescue ---
+救援（一个检查过程）；不同的颜色表示来自四种不同单倍型的重叠群，而红色实线表示折叠的重叠群。</p>
+<p>Optimization --- 优化；不同的颜色表示四种不同的单倍型。</p>
+<p>Building --- 构建；生成 group.asm.fasta，染色体水平的单倍体基因组</p>
+</blockquote>
+<div class="note info"><p>我们采用 canu 组装的伪单倍体 contigs 作为 ALLHiC 的输入。</p>
+<p>Allhic 在很大程度上依赖于初始 contigs
+组装的质量。单倍型之间序列高相似性会导致不明确的 reads
+比对，可能会导致大量的 HiC reads 在 ALLHiC
+管道中被删除，从而影响组装效果。</p>
+</div>
+<h2 id="allhic-组装二倍体">ALLHiC 组装二倍体</h2>
+<p>接下来我们就利用 <code>ALLHiC</code> 对杂合二倍体 <a
+href="https://www.ncbi.nlm.nih.gov/genome/?term=Prunus+armeniaca">Prunus
+armeniaca</a> 进行组装，以获得染色体水平的单倍型基因组。</p>
+<h3 id="环境搭建-程序安装">环境搭建 + 程序安装</h3>
+<p>首先，配置 <code>ALLHiC</code> 运行所需的依赖，我们利用
+<code>miniconda3</code> 来配置相关环境。</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cDovL3NhbXRvb2xzLnNvdXJjZWZvcmdlLm5ldC8=">samtools v1.9+<i class="fa fa-external-link-alt"></i></span></li>
+<li><a
+href="http://bedtools.readthedocs.io/en/latest/">bedtools</a></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9tYXRwbG90bGliLm9yZy91c2Vycy9pbnN0YWxsaW5nLmh0bWw=">matplotlib
+v2.0+<i class="fa fa-external-link-alt"></i></span></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">conda create -y -n allhic python=3.7 samtools bedtools matplotlib</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 下载二进制文件，解压之后可直接运行，无需编译</span></span></span><br><span class="line">wget https://github.com/tanghaibao/allhic/releases/download/v0.9.13/allhic_0.9.13_Linux_64-bit.tar.gz  </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 解压</span></span></span><br><span class="line">tar -zxvf allhic_0.9.13_Linux_64-bit.tar.gz</span><br><span class="line">./allhic --version  ## 查考 allhic 版本号</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># allhic version 0.9.13</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 文件结构</span></span></span><br><span class="line">tree</span><br><span class="line">.</span><br><span class="line">|-- LICENSE</span><br><span class="line">|-- README.md</span><br><span class="line">|-- allhic</span><br><span class="line">`-- allhic_0.9.13_Linux_64-bit.tar.gz</span><br><span class="line"></span><br><span class="line">0 directories, 4 files</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 上面的方法是直接下载 ALLHiC 的二进制文件，省去了编译的过程，在唐海宝教授的 Github 上的；但是我之前是根据张兴坦教授在 Github 留的 Pipline 进行组装的，所以下面记录一下另外一种运行 ALLHiC 的方法。</span></span></span><br><span class="line">git clone https://github.com/tangerzhang/ALLHiC</span><br><span class="line">cd ALLHiC</span><br><span class="line">chmod +x bin/*</span><br><span class="line">chmod +x scripts/*  </span><br><span class="line">export PATH=/your/path/to/ALLHiC/scripts/:/your/path/to/ALLHiC/bin/:$PATH</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 所需的依赖参照上面，利用 miniconda 进行配置</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="测序数据下载">测序数据下载</h3>
+<p><code>ALLHiC</code> 运行前的数据准备：</p>
+<ul>
+<li>具有良好 <code>N50</code> 指标的 <code>contig</code>
+水平的目标基因组组装</li>
+<li>Hi-C reads</li>
+</ul>
+<p>我们通过 <code>Canu</code> 对 PacBio CLR 数据进行初步组装，从而得到
+<code>contig</code> 水平的基因组，首先，我们从 <a
+href="https://www.ebi.ac.uk/ena/browser/home">ENA</a> 数据库中下载需要的
+<code>PacBio</code> 原始测序数据。这里利用 <code>ascp</code>
+进行高速下载。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ascp -v -QT -l 400m -P33001 -k1 -i \</span><br><span class="line">                    ~/.aspera/connect/etc/asperaweb_id_dsa.openssh \</span><br><span class="line">                    --mode recv --host fasp.sra.ebi.ac.uk --user era-fasp \</span><br><span class="line">                    --file-list download.txt ./</span><br><span class="line">								</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># download.txt</span></span></span><br><span class="line">cat download.txt</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Hi-C Data</span></span></span><br><span class="line">vol1/run/ERR461/ERR4619488/4672_A_run658_ATCACGAT_S2_L005_R1_001.fastq.gz</span><br><span class="line">vol1/run/ERR461/ERR4619488/4672_A_run658_ATCACGAT_S2_L005_R2_001.fastq.gz</span><br><span class="line">vol1/run/ERR461/ERR4619489/4672_B_run658_GCCAATAT_S3_L005_R1_001.fastq.gz</span><br><span class="line">vol1/run/ERR461/ERR4619489/4672_B_run658_GCCAATAT_S3_L005_R2_001.fastq.gz</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># PacBio CLR Data</span></span></span><br><span class="line">vol1/run/ERR409/ERR4093216/m54124_180918_044155.subreads.bam</span><br><span class="line">vol1/run/ERR409/ERR4093217/m54124_180917_082648.subreads.bam</span><br><span class="line">vol1/run/ERR409/ERR4093218/m54124_180911_161116.subreads.bam</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 因为数据库提供了多次测序数据，所以我们需要将多个合并成一个进行下面的分析</span></span></span><br><span class="line">cat 4672_A_run658_ATCACGAT_S2_L005_R1_001.fastq.gz 4672_B_run658_GCCAATAT_S3_L005_R1_001.fastq.gz \</span><br><span class="line">                    &gt; hic_R1.fastq.gz</span><br><span class="line">cat 4672_A_run658_ATCACGAT_S2_L005_R2_001.fastq.gz 4672_B_run658_GCCAATAT_S3_L005_R2_001.fastq.gz \</span><br><span class="line">                    &gt; hic_R2.fastq.gz</span><br><span class="line">																			</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 合并 bam 文件</span></span></span><br><span class="line">samtools merge pacbio.clr.bam m54124_180911_161116.subreads.bam \</span><br><span class="line">                    m54124_180917_082648.subreads.bam m54124_180918_044155.subreads.bam</span><br></pre></td></tr></table></figure>
+<h3 id="初步组装">初步组装</h3>
+<p>下载好测序数据之后，我们就可以对 <code>PacBio CLR</code>
+进行初步组装，如下：</p>
+<blockquote>
+<p>我们利用 <code>Canu</code> 工具对 <code>PacBio</code>
+数据进行组装，从而得到 <code>contigs</code>；</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 上面我们从 ENA 数据库中下载的是 bam 文件，所以我们需要先对其格式转换成 fasta 序列</span></span></span><br><span class="line">name=pacbio.clr</span><br><span class="line">samtools bam2fq $&#123;name&#125;.bam &gt; $&#123;name&#125;.fastq</span><br><span class="line">awk &#x27;&#123;if(NR%4 == 1)&#123;print &quot;&gt;&quot; substr($0, 2)&#125;&#125;&#123;if(NR%4 == 2)&#123;print&#125;&#125;&#x27; $&#123;name&#125;.fastq &gt; $&#123;name&#125;.fasta</span><br><span class="line">canu -p preasm -d canu_result useGrid=false genomeSize=250000000 \</span><br><span class="line">                    corMhapSensitivity=high corMinCoverage=0 corOutCoverage=100 \</span><br><span class="line">                    correctedErrorRate=0.105 -pacbio-raw $&#123;name&#125;.fasta</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>Canu</code> 组装很耗时间，耐心等待之后，我们便得到了初步组装的
+<code>contigs</code> 序列。</p>
+</blockquote>
+<h3 id="allhic-以获得染色体水平基因组组装">ALLHiC
+以获得染色体水平基因组组装</h3>
+<ol type="1">
+<li><strong>Map Hi-C reads to draft assembly</strong></li>
+</ol>
+<blockquote>
+<p><code>draft.asm.fasta</code> 是我们上面利用 <code>Canu</code>
+组装得到的 <code>contigs</code></p>
+<p><code>reads_R*.fastq.gz</code> 是 <code>Hi-C</code> 的双端数据</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 建立索引</span></span></span><br><span class="line">bwa index -a bwtsw draft.asm.fasta  </span><br><span class="line">samtools faidx draft.asm.fasta  </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 将 Hi-C reads 比对到 contigs</span></span></span><br><span class="line">bwa aln -t 24 draft.asm.fasta reads_R1.fastq.gz &gt; sample_R1.sai  </span><br><span class="line">bwa aln -t 24 draft.asm.fasta reads_R2.fastq.gz &gt; sample_R2.sai  </span><br><span class="line">bwa sampe draft.asm.fasta sample_R1.sai sample_R2.sai reads_R1.fastq.gz reads_R2.fastq.gz \</span><br><span class="line">                    &gt; sample.bwa_aln.sam  </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 过滤 SAM 文件</span></span></span><br><span class="line">PreprocessSAMs.pl sample.bwa_aln.sam draft.asm.fasta MBOI</span><br><span class="line">(*)filterBAM_forHiC.pl sample.bwa_aln.REduced.paired_only.bam sample.clean.sam</span><br><span class="line">samtools view -bt draft.asm.fasta.fai sample.clean.sam &gt; sample.clean.bam</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># *Tip: skip this step if you are using bwa mem for alignment（如果上面的比对采用的是 bwa mem ； 则跳过这个步骤）</span></span></span><br></pre></td></tr></table></figure>
+<ol start="2" type="1">
+<li><strong>Prune</strong></li>
+</ol>
+<blockquote>
+<p><code>Allele.ctg.table</code>
+为<strong>等位基因重叠群表</strong>；<code>Prune</code>
+步骤可以根据用于输入的 <code>Allele.ctg.table</code> 从 <code>bam</code>
+文件中删除等位基因 <code>contigs</code> 之间的 <code>Hi-C reads</code>
+，这这一步，仅保留折叠( <code>collapsed</code> )和分阶段重叠群(
+<code>phased contigs</code> )之间的最佳联系。</p>
+<p>识别等位基因群，从而消除质量不好的 <code>Hi-C</code> 信号。</p>
+<p>具体如何生成 <code>Allele.ctg.table</code>，请移步 ：<a
+href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-identify-allelic-contigs">ALLHiC:
+identify allelic contigs · tangerzhang/ALLHiC Wiki (github.com)</a></p>
+<p>若构建简单二倍体基因组的 <code>scaffolds</code>，可跳过这一步。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_prune -i Allele.ctg.table -b sample.clean.bam -r draft.asm.fasta  </span><br><span class="line"></span><br><span class="line">Parameters:   </span><br><span class="line">          -h : help and usage  </span><br><span class="line">          -i : Allele.ctg.table  ## 等位基因重叠群表，内含等位基因对信息</span><br><span class="line">          -b : input bam file  </span><br><span class="line">          -r : draft.asm.fasta  </span><br><span class="line"></span><br><span class="line">Tips: Details on how to identify allelic contigs can be found in the following link: </span><br><span class="line">https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-identify-allelic-contigs</span><br></pre></td></tr></table></figure>
+<ol start="3" type="1">
+<li><strong>Partition</strong></li>
+</ol>
+<blockquote>
+<p>将 <code>contigs</code>
+分配到预定数量的组中，基于分层链接算法迭代合并并包含它们之间大量链接的
+<code>contigs</code> 。</p>
+<p>此外，这里的 <code>-K</code>
+值指的是目标物种的染色体数目，在最终结果中，每一个分组代表着一条染色体，所以我们最后得到的结果是染色体水平的
+<code>scaffolds</code></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_partition -b prunning.bam -r draft.asm.fasta -e AAGCTT -k 16  </span><br><span class="line"></span><br><span class="line">Parameters: </span><br><span class="line">      -h : help and usage.</span><br><span class="line">      -b : prunned bam (optional, default prunning.bam)</span><br><span class="line">      -r : draft.sam.fasta</span><br><span class="line">      -e : enzyme_sites (HindIII: AAGCTT; MboI: GATC) ## 限制性酶切位点</span><br><span class="line">      -k : number of groups (user defined K value)    ## 可以设置多个 K 值，从而比较出最佳结果</span><br><span class="line">      -m : minimum number of restriction sites (default, 25)</span><br></pre></td></tr></table></figure>
+<ol start="4" type="1">
+<li><strong>Rescue</strong></li>
+</ol>
+<blockquote>
+<p>由于 <code>Hi-C</code> 信号较弱，在 <code>Partition</code>
+步骤中，可能得不到很多 <code>contigs</code>
+；于是，这一步主要是为了恢复这些 <code>contigs</code>。</p>
+<p>同时，进行进一步的排序和定向。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_rescue -b sample.clean.bam -r draft.asm.fasta -c clusters.txt -i counts_RE.txt  </span><br><span class="line"></span><br><span class="line">Parameters:  </span><br><span class="line">      -h : help and usage.</span><br><span class="line">      -b : sample.clean.bam (unpruned bam)</span><br><span class="line">      -r : draft.sam.fasta</span><br><span class="line">      -c : clusters.txt</span><br><span class="line">      -i : counts_RE.txt</span><br><span class="line">      -m : minimum single density for rescuing contigs (optional, default 0.01)  ## 这里设置保留 contigs 的最小阈值，默认是 0.01</span><br><span class="line">Tips: </span><br><span class="line">    clusters.txt (-c) and counts_RE.txt (-i) can be generated by allhic extract.</span><br><span class="line">    The format of clusters.txt is like below:</span><br><span class="line">    #Group  nContigs    Contigs</span><br><span class="line">    48g1    506         tig0000150 tig0000151 tig0000152 </span><br><span class="line">    48g2    692         tig0000097 tig0000114 tig0000231 </span><br><span class="line">    48g3    683         tig0000015 tig0000035 tig0000235</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#  组别    该组含有的congtis个数	具体的 contigs 编号</span></span></span><br><span class="line">    The first column is group name. The second is number of</span><br><span class="line">    contigs anchored in the group and the third lists contigs </span><br><span class="line">    in the group.</span><br></pre></td></tr></table></figure>
+<ol start="5" type="1">
+<li><strong>Optimize</strong></li>
+</ol>
+<blockquote>
+<p>优化每一个 <code>Group</code> 的排序，同时确定 <code>contig</code>
+的正负方向。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">allhic extract sample.clean.bam draft.asm.fasta --RE AAGCTT  </span><br><span class="line">allhic optimize group1.txt sample.clean.clm</span><br><span class="line">allhic optimize group2.txt sample.clean.clm</span><br><span class="line">...</span><br><span class="line">allhic optimize group16.txt sample.clean.clm</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># optimize 需要运行 -k 16 次；故这里我们可以添加一个循环，以便自动运行 16 次</span></span></span><br><span class="line">groups=16</span><br><span class="line">for i in &#123;1..$gourps&#125;; do allhic optimize group$&#123;i&#125;.txt sample.clean.clm; done</span><br><span class="line"></span><br><span class="line">Parameters:  </span><br><span class="line"></span><br><span class="line">allhic extract  </span><br><span class="line">    Input files:  </span><br><span class="line">        bam file and contig-level assembly  ## bam 文件和 contig 水平的组装 fasta 文件</span><br><span class="line">    Options:</span><br><span class="line">        --RE value  Restriction site pattern (default: &quot;GATC&quot;)  ## 限制性酶切位点</span><br><span class="line"></span><br><span class="line">allhic optimize  </span><br><span class="line">    Input files: </span><br><span class="line">      **counts_RE.txt - counts of restriction sites for each  ## 在每组中对酶切位点的数量统计</span><br><span class="line">        contig in a clusterd group, which can be generated 	  ## 以及 contig 长度</span><br><span class="line">        by allhic extract. The format is like below:</span><br><span class="line">             #Contig     RECounts    Length</span><br><span class="line">             tig0000001      572     157863</span><br><span class="line">             tig0000002      143     33000</span><br><span class="line">             tig0000003      231     60910</span><br><span class="line">             tig0000004      3789    1044000</span><br><span class="line">             tig0000005      646     166098</span><br><span class="line">             tig0000006      67      15000</span><br><span class="line">             tig0000007      1094    319000</span><br><span class="line">      **clmfile -  The file records basic information of Hi-C  ## 该文件记录了两个 contigs 之间 Hi-C 链接的</span><br><span class="line">      links between two contigs, including potential ordering  ## 基本信息，包含顺序和方向</span><br><span class="line">      and orientation, number of supported reads and distance of ## 由 allhic extract 生成</span><br><span class="line">      paired-end reads. This file can be accessed by allhic</span><br><span class="line">      extract.</span><br><span class="line">    Options:</span><br><span class="line">           --skipGA       Skip GA step                   ## 跳过 GA 过程</span><br><span class="line">           --resume       Resume from existing tour file ## 从现有的 tour 文件中恢复</span><br><span class="line">           --seed value   Random seed (default: 42)      ## 随机种子？</span><br><span class="line">           --npop value   Population size (default: 100)</span><br><span class="line">           --ngen value   Number of generations for convergence (default: 5000)  ## 收敛代数</span><br><span class="line">           --mutpb value  Mutation prob in GA (default: 0.2)  ## 遗传算法（GA）中的突变概率</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="6" type="1">
+<li><strong>Build</strong></li>
+</ol>
+<blockquote>
+<p>将 <code>tour</code> 格式的文件转换成 <code>fasta</code> 序列文件和
+<code>agp</code> 位置文件；从而得到染色体水平的 <code>scaffolds</code>
+--- <code>groups.asm.fasta</code>。</p>
+<p><code>agp</code> 文件记录每个 <code>contig</code> 的位置和方向。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_build draft.asm.fasta  </span><br><span class="line"></span><br><span class="line">Input file:</span><br><span class="line">    draft.asm.fasta - contig-level assmbly  ## contig 水平的组装</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>至此，我们已经从预组装的 <code>contigs</code> 得到最终染色体水平的
+<code>scaffolds</code> ；但是单倍型体现在哪里呢？</p>
+<p>在 <code>Hi-C</code> 质量高，预组装的 <code>contigs</code> 的
+<code>N50</code> 指标高，且 <code>-k</code>
+值的设置合理的情况下，<code>Build</code> 步骤输出的
+<code>groups.asm.fasta</code>
+文件就是我们最终得到的染色体水平的单倍型组装结果，也就是说我们能在
+<code>groups.asm.fasta</code>
+文件中获得我们需要的两个单倍型（二倍体）；只不过是需要通过与参考基因组绘制两者之间的<strong>点阵图</strong>来分析确定哪些染色体是同源的。</p>
+</blockquote>
+<ol start="7" type="1">
+<li><strong>Plot</strong></li>
+</ol>
+<blockquote>
+<p>我们将生成染色质接触矩阵来评估基因组支架</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">samtools faidx groups.asm.fasta                        ## 创建索引</span><br><span class="line">cut -f1,2 groups.asm.fasta.fai|grep sample &gt; chrn.list ## 取出长度信息</span><br><span class="line"></span><br><span class="line">ALLHiC_plot sample.clean.bam groups.agp chrn.list 500k pdf</span><br><span class="line"></span><br><span class="line">Input files:</span><br><span class="line">   **bam file   - mapping bam file</span><br><span class="line">   **agp file   - Placement of contigs in each Hi-C groups,</span><br><span class="line">    which can be generated by ALLHiC_build</span><br><span class="line">   **chrn.list  - a list of group name and length. The </span><br><span class="line">    format of this file is like below:  ## 第一列为 组名，第二列为对应的长度</span><br><span class="line">        group1  125000</span><br><span class="line">        group2  159000</span><br><span class="line">    **bin size - heatmap bin size     ## 热图大小</span><br><span class="line">    **ext      - extension of plot figures, e.g. pdf  ## 输出格式</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>以上 <code>1-7</code> 是 <code>ALLHiC</code> 提供的从预组装的
+<code>contigs</code> 得到染色体水平的 <code>scaffolds</code>
+的流程，但并不是表示其可以适用于任何基因型组装。</p>
+<p>针对简单二倍体的 <code>scaffolds</code>
+组装，教授也给出了更适合的流程：<a
+href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-scaffolding-of-a-simple-diploid-genome">ALLHiC:
+scaffolding of a simple diploid genome · tangerzhang/ALLHiC Wiki
+(github.com)</a></p>
+<p>同时，教授还对简单二倍体基因组 <code>scaffolds</code>
+组装包装了一个脚本，可以更加方便的得到我们想要的单倍型基因组：<a
+href="https://github.com/tangerzhang/ALLHiC/blob/master/bin/ALLHiC_pip.sh">ALLHiC_pip.sh</a></p>
+</blockquote>
+<h3 id="allhic-作用于多倍体的单倍型组装">ALLHiC
+作用于多倍体的单倍型组装</h3>
+<blockquote>
+<p>针对多倍体的单倍型组装，我们可能遇到 <code>Hi-C</code>
+数据质量低的情况，从而导致最终用于评估 <code>scaffolds</code>
+的热图效果不好，这是我们可以利用 <code>ALLHIC_corrector</code> 根据
+<code>Hi-C</code> 信号检测并纠正错误连接的重叠群。它利用核心算法对
+<code>3D-DNA</code> 进行重叠群校正，但不包括迭代 <code>scaffolds</code>
+步骤，这为大基因组节省了大量时间。此外，<code>ALLHiC_corrector</code> 将
+<code>bam</code> 文件（来自 <code>bwa mem</code>）作为输入，不需要
+<code>juice box mapping</code> 。</p>
+<p>教授在 <code>Github issue</code> 中有讨论到这个问题：<a
+href="https://github.com/tangerzhang/ALLHiC/issues/86">haplotype
+assembly for a polyploid · Issue #86 · tangerzhang/ALLHiC
+(github.com)</a></p>
+</blockquote>
+<h2 id="参考链接">参考链接</h2>
+<p>[1] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtp">Home ·
+tangerzhang/ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>[2] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdoYWliYW8vYWxsaGlj">tanghaibao/allhic:
+Genome scaffolding based on HiC data in heterozygous and high ploidy
+genomes (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>[3] <a
+href="https://www.nature.com/articles/s41477-019-0487-8">Assembly of
+allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C data
+| Nature Plants</a></p>
+<p>[4] <a
+href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-scaffolding-of-a-simple-diploid-genome">ALLHiC:
+scaffolding of a simple diploid genome · tangerzhang/ALLHiC Wiki
+(github.com)</a></p>
+<p>[5] <a
+href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-scaffolding-an-auto-polyploid-sugarcane-genome">ALLHiC:
+scaffolding an auto polyploid sugarcane genome · tangerzhang/ALLHiC Wiki
+(github.com)</a></p>
+<p>[6] <a
+href="https://github.com/tangerzhang/ALLHiC/issues/94">Question about
+pruning step and input/output files · Issue #94 · tangerzhang/ALLHiC
+(github.com)</a></p>
+<p>[7] <a
+href="https://github.com/tangerzhang/ALLHiC/issues/86">haplotype
+assembly for a polyploid · Issue #86 · tangerzhang/ALLHiC
+(github.com)</a></p>
+<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">]]></content>
+      <categories>
+        <category>Learn</category>
+        <category>Bioinfo</category>
+      </categories>
+      <tags>
+        <tag>单倍型组装</tag>
+        <tag>ALLHiC</tag>
       </tags>
   </entry>
   <entry>
