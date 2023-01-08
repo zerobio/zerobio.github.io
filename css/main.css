@@ -2997,13 +2997,13 @@ mjx-container[display='true'] + br {
   background-position: 50% 50%;
 }
 .post-body h1,
-.post-body h2,
-.post-body h3 {
+.post-body h2 {
   font-family: Times New Roman, cursive, Trebuchet MS, Times New Roman, Lato, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   border-bottom-color: #0c302e;
   background: url("/images/feather-alt-solid.svg") no-repeat;
   padding-left: 48px;
 }
+.post-body h3,
 .post-body h4,
 .post-body h5,
 .post-body h6 {
