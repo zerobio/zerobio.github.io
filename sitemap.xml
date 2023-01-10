@@ -711,13 +711,6 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/10x-Genomics/</loc>
-    <lastmod>2023-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/FALCON/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -733,6 +726,13 @@
   
   <url>
     <loc>https://zerobio.github.io/tags/3D-DNA/</loc>
+    <lastmod>2023-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/10x-Genomics/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -767,6 +767,13 @@
   </url>
   
   <url>
+    <loc>https://zerobio.github.io/tags/theme/</loc>
+    <lastmod>2023-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zerobio.github.io/tags/hexo-theme-next/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -788,13 +795,6 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/theme/</loc>
-    <lastmod>2023-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/Jellfish/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -809,13 +809,6 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/Linux/</loc>
-    <lastmod>2023-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/Blog/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -824,6 +817,13 @@
   
   <url>
     <loc>https://zerobio.github.io/tags/Markdown/</loc>
+    <lastmod>2023-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/Linux/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -886,7 +886,14 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/SGE/</loc>
+    <loc>https://zerobio.github.io/tags/Purge-Haplotigs/</loc>
+    <lastmod>2023-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/Haplotype/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -900,21 +907,14 @@
   </url>
   
   <url>
+    <loc>https://zerobio.github.io/tags/SGE/</loc>
+    <lastmod>2023-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zerobio.github.io/tags/Samtools/</loc>
-    <lastmod>2023-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zerobio.github.io/tags/Purge-Haplotigs/</loc>
-    <lastmod>2023-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zerobio.github.io/tags/Haplotype/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -949,21 +949,7 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/tags/Falcon-phase/</loc>
-    <lastmod>2023-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://zerobio.github.io/tags/haplotype/</loc>
-    <lastmod>2023-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zerobio.github.io/tags/Gamete-binning/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -984,7 +970,28 @@
   </url>
   
   <url>
+    <loc>https://zerobio.github.io/tags/Falcon-phase/</loc>
+    <lastmod>2023-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/Gamete-binning/</loc>
+    <lastmod>2023-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://zerobio.github.io/tags/Merquery/</loc>
+    <lastmod>2023-01-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://zerobio.github.io/tags/Quast/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -999,13 +1006,6 @@
   
   <url>
     <loc>https://zerobio.github.io/tags/%E6%96%87%E7%8C%AE%E7%BF%BB%E8%AF%91/</loc>
-    <lastmod>2023-01-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://zerobio.github.io/tags/Quast/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1056,14 +1056,14 @@
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/categories/Learn/Shell/</loc>
+    <loc>https://zerobio.github.io/categories/Learn/Markdown/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://zerobio.github.io/categories/Learn/Markdown/</loc>
+    <loc>https://zerobio.github.io/categories/Learn/Shell/</loc>
     <lastmod>2023-01-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
