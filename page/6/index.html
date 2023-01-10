@@ -829,13 +829,7 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="background">Background</h2>
-<p><code>Gamete binning</code>
-是一种基于单倍体配子的单细胞测序的基因组组装方法，能够将全基因组测序
-<code>reads</code> 分离成单倍体特异性
-<code>reads</code>，在组装每个单倍体的 <code>reads</code>
-后，使用源自配子的遗传图谱将 <code>contigs</code>
-搭建到染色体水平。为了获得单倍型基因组组装，一种常见的策略是近交或产生双单倍体基因型以实现纯合基因组的组装。</p>  
+          <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p><code>Gamete binning</code> 是一种基于单倍体配子的单细胞测序的基因组组装方法，能够将全基因组测序 <code>reads</code> 分离成单倍体特异性 <code>reads</code>，在组装每个单倍体的 <code>reads</code> 后，使用源自配子的遗传图谱将 <code>contigs</code> 搭建到染色体水平。为了获得单倍型基因组组装，一种常见的策略是近交或产生双单倍体基因型以实现纯合基因组的组装。</p>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/477883408.html" rel="contents">
@@ -949,17 +943,7 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="background">Background</h2>
-<p>如今通常使用 <code>Illumina reads</code> 进行与
-<code>assembly genome</code>
-比对，以评估推断基本水平的准确性，然而对齐短 <code>reads</code>
-时，一致性的碱基很容易被检测为变异（<code>SNP</code>
-或小插入缺失）；此外，这种方法严重依赖于短 <code>reads</code>
-比对。单拷贝直系同源物（<code>BUSCO</code>）被广泛应用于评估组装的基因含量，用于测量组装完整性和错误重复。但是
-<code>BUSCO</code>
-局限于已被广泛研究的物种，而对于新组装的基因组，分析可能不准确，毕竟
-<code>BUSCO</code> 是基于目标物种同源基因。此外，<code>BUSCO</code>
-只检查保守的单拷贝基因，而未能评估基因组中最难组装的区域。</p>  
+          <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>如今通常使用 <code>Illumina reads</code> 进行与 <code>assembly genome</code> 比对，以评估推断基本水平的准确性，然而对齐短 <code>reads</code> 时，一致性的碱基很容易被检测为变异（<code>SNP</code> 或小插入缺失）；此外，这种方法严重依赖于短 <code>reads</code> 比对。单拷贝直系同源物（<code>BUSCO</code>）被广泛应用于评估组装的基因含量，用于测量组装完整性和错误重复。但是 <code>BUSCO</code> 局限于已被广泛研究的物种，而对于新组装的基因组，分析可能不准确，毕竟 <code>BUSCO</code> 是基于目标物种同源基因。此外，<code>BUSCO</code> 只检查保守的单拷贝基因，而未能评估基因组中最难组装的区域。</p>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/1959810678.html" rel="contents">
@@ -1073,9 +1057,7 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Next
-主题如何在首页设置文章置顶？当我们需要将某些文章始终保持在首页的最上端，则需要额外添加插件来实现这一功能。下面将记录如何添加与配置
-<code>top</code> 插件：<code>hexo-generator-index-pin-top</code></p>  
+          <p>Next 主题如何在首页设置文章置顶？当我们需要将某些文章始终保持在首页的最上端，则需要额外添加插件来实现这一功能。下面将记录如何添加与配置 <code>top</code> 插件：<code>hexo-generator-index-pin-top</code></p>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/5c4c93e2.html" rel="contents">
@@ -1171,7 +1153,7 @@ if(canvas.getContext){
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>630</span>
+      <span>697</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1189,26 +1171,19 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="代码中-url-书写规范">1、代码中 url 书写规范</h2>
-<ul>
-<li>绝对地址：
+          <h2 id="1、代码中-url-书写规范"><a href="#1、代码中-url-书写规范" class="headerlink" title="1、代码中 url 书写规范"></a>1、代码中 url 书写规范</h2><ul>
+<li><p>绝对地址：</p>
 <ul>
 <li><code>https://…</code></li>
-</ul></li>
-<li>相对地址：
-<ul>
-<li><code>'/page/1'</code> - <code>'/'</code>
-开头的相对地址，浏览器会把当前地址栏例的 协议 、<code>ip</code> 和 端口
-加上这个地址，作为最终访问地址</li>
-<li><code>'page/1'</code> - 没有
-<code>'/'</code>开头的相对地址，浏览器会根据当前 <code>url</code>
-的最后一个 <code>/</code>
-之前的内容加上该相对地址最为最终访问地址，例如：当前地址栏地址为<code>http://127.0.0.0.1:8000/topic/detail</code>
-; 则该相对地址最终结果为 <code>http://127.0.0.1:8000/topic/</code> +
-<code>page/1</code></li>
-</ul></li>
 </ul>
-<p>  
+</li>
+<li><p>相对地址：</p>
+<ul>
+<li><code>&#39;/page/1&#39;</code>  - <code>&#39;/&#39;</code> 开头的相对地址，浏览器会把当前地址栏例的 协议 、<code>ip</code> 和 端口 加上这个地址，作为最终访问地址</li>
+<li><code>&#39;page/1&#39;</code> - 没有 <code>&#39;/&#39;</code>开头的相对地址，浏览器会根据当前 <code>url</code> 的最后一个 <code>/</code> 之前的内容加上该相对地址最为最终访问地址，例如：当前地址栏地址为<code>http://127.0.0.0.1:8000/topic/detail</code> ; 则该相对地址最终结果为 <code>http://127.0.0.1:8000/topic/ </code> + <code>page/1</code></li>
+</ul>
+</li>
+</ul>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/8f6f76a.html" rel="contents">
@@ -1322,17 +1297,13 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="一mvc-和-mtv">一、MVC 和 MTV</h2>
-<h4 id="mvc传统">1、MVC（传统）</h4>
-<ul>
+          <h2 id="一、MVC-和-MTV"><a href="#一、MVC-和-MTV" class="headerlink" title="一、MVC 和 MTV"></a>一、MVC 和 MTV</h2><h4 id="1、MVC（传统）"><a href="#1、MVC（传统）" class="headerlink" title="1、MVC（传统）"></a>1、MVC（传统）</h4><ul>
 <li><code>Model-View-Controller</code>（模型-视图-控制器）模式；【<code>M</code>】-主要用于对数据库层的封装；【<code>V</code>】-用于向用户展示结果（<code>What+How</code>）；【<code>C</code>】-用于处理请求、获取数据、返回结果（<code>重要</code>）</li>
 <li>作用：降低模块间的耦合度（<code>解耦</code>）</li>
 </ul>
-<h4 id="mtvdjango">2、MTV（Django）</h4>
-<ul>
+<h4 id="2、MTV（Django）"><a href="#2、MTV（Django）" class="headerlink" title="2、MTV（Django）"></a>2、MTV（Django）</h4><ul>
 <li><code>Model-Template-View</code>（模型-模板-视图）模式；【<code>M</code>】-负责与数据库交互；【<code>T</code>】-负责呈现内容到浏览器（<code>How</code>）；【<code>V</code>】-是核心，负责接收请求、获取数据、返回结果（<code>What</code>）</li>
-</ul>
-<p>  
+</ul>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/d20d07e0.html" rel="contents">
@@ -1428,7 +1399,7 @@ if(canvas.getContext){
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1446,12 +1417,7 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="一http-协议的请求和响应">一、HTTP 协议的请求和响应：</h2>
-<h4
-id="定义请求是指浏览器端通过-http-协议发送给服务器端的数据-响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据">1、定义：请求是指浏览器端通过
-HTTP 协议发送给服务器端的数据；
-响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据</h4>
-<p>  
+          <h2 id="一、HTTP-协议的请求和响应："><a href="#一、HTTP-协议的请求和响应：" class="headerlink" title="一、HTTP 协议的请求和响应："></a>一、HTTP 协议的请求和响应：</h2><h4 id="1、定义：请求是指浏览器端通过-HTTP-协议发送给服务器端的数据；-响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据"><a href="#1、定义：请求是指浏览器端通过-HTTP-协议发送给服务器端的数据；-响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据" class="headerlink" title="1、定义：请求是指浏览器端通过 HTTP 协议发送给服务器端的数据； 响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据"></a>1、定义：请求是指浏览器端通过 HTTP 协议发送给服务器端的数据； 响应是指服务器端接受到请求后做相应的处理后再回复给浏览器端的数据</h4>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/8cb7fcff.html" rel="contents">
@@ -1547,7 +1513,7 @@ HTTP 协议发送给服务器端的数据；
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.8k</span>
+      <span>2.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1565,9 +1531,7 @@ HTTP 协议发送给服务器端的数据；
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="一创建项目">一、创建项目</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ django-admin startproject mysite       <span class="comment">## 创建项目名为 mysite 的文件夹</span></span><br></pre></td></tr></table></figure>
-<p>  
+          <h2 id="一、创建项目"><a href="#一、创建项目" class="headerlink" title="一、创建项目"></a>一、创建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ django-admin startproject mysite       <span class="comment">## 创建项目名为 mysite 的文件夹</span></span><br></pre></td></tr></table></figure>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/719cea91.html" rel="contents">
@@ -1663,7 +1627,7 @@ HTTP 协议发送给服务器端的数据；
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>277</span>
+      <span>301</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1681,10 +1645,11 @@ HTTP 协议发送给服务器端的数据；
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="一介绍">一、介绍</h2>
-<ul>
-<li><p>Python 语言编写的开源 Web 框架</p></li>
-<li><p>重量级的 Python Web 框架，Django 配备了常用的大部分组件</p></li>
+          <h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><ul>
+<li><p>Python 语言编写的开源 Web 框架</p>
+</li>
+<li><p>重量级的 Python Web 框架，Django 配备了常用的大部分组件</p>
+</li>
 <li><p>早期 Django 主要做新闻和内容管理</p>  
           <!--noindex-->
             <div class="post-button">
@@ -1799,9 +1764,7 @@ HTTP 协议发送给服务器端的数据；
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>在我安装了 <code>hexo-helper-live2d</code>
-插件配置了网页宠物之后，发现 <code>busuanzi</code>
-统计功能失效了，那我们有必要重新将它开启。</p>  
+          <p>在我安装了 <code>hexo-helper-live2d</code> 插件配置了网页宠物之后，发现 <code>busuanzi</code> 统计功能失效了，那我们有必要重新将它开启。</p>  
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/archives/c9759728.html" rel="contents">
@@ -1897,7 +1860,7 @@ HTTP 协议发送给服务器端的数据；
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1966,13 +1929,13 @@ HTTP 协议发送给服务器端的数据；
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">286k</span>
+    <span title="站点总字数">287k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:20</span>
+    <span title="站点阅读时长">4:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

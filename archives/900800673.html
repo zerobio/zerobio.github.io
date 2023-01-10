@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="简单介绍 3D-DNA 一种从头组装管道，从一系列迭代开始，其目标是消除输入 scaffolds 中的错误连接。每个步骤都从一个 scaffolds 池开始（最初，这个池是一组输入 scaffold 本身）。scaffold 算法用于对这些 scaffold 进行排序和定相。接着应用错误连接校正算法来检测 scaffold 池中的错误，从而创建一个编辑后的 scaffold 池。最后，">
+    <meta name="description" content="简单介绍3D-DNA 一种从头组装管道，从一系列迭代开始，其目标是消除输入 scaffolds 中的错误连接。每个步骤都从一个 scaffolds 池开始（最初，这个池是一组输入 scaffold 本身）。scaffold 算法用于对这些 scaffold 进行排序和定相。接着应用错误连接校正算法来检测 scaffold 池中的错误，从而创建一个编辑后的 scaffold 池。最后，将编辑后的 s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Denove assembly pipeline --- 3D-DNA">
 <meta property="og:url" content="https://zerobio.github.io/archives/900800673.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="简单介绍 3D-DNA 一种从头组装管道，从一系列迭代开始，其目标是消除输入 scaffolds 中的错误连接。每个步骤都从一个 scaffolds 池开始（最初，这个池是一组输入 scaffold 本身）。scaffold 算法用于对这些 scaffold 进行排序和定相。接着应用错误连接校正算法来检测 scaffold 池中的错误，从而创建一个编辑后的 scaffold 池。最后，">
+<meta property="og:description" content="简单介绍3D-DNA 一种从头组装管道，从一系列迭代开始，其目标是消除输入 scaffolds 中的错误连接。每个步骤都从一个 scaffolds 池开始（最初，这个池是一组输入 scaffold 本身）。scaffold 算法用于对这些 scaffold 进行排序和定相。接着应用错误连接校正算法来检测 scaffold 池中的错误，从而创建一个编辑后的 scaffold 池。最后，将编辑后的 s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-30T11:42:35.000Z">
 <meta property="article:modified_time" content="2022-06-07T13:12:18.201Z">
@@ -191,7 +191,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references"><span class="nav-number">2.</span> <span class="nav-text">References</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">2.</span> <span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -730,22 +730,15 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="简单介绍">简单介绍</h2>
-<p><code>3D-DNA</code>
-一种从头组装管道，从一系列迭代开始，其目标是消除输入 scaffolds
-中的错误连接。每个步骤都从一个 scaffolds 池开始（最初，这个池是一组输入
-scaffold 本身）。scaffold 算法用于对这些 scaffold
-进行排序和定相。接着应用错误连接校正算法来检测 scaffold
-池中的错误，从而创建一个编辑后的 scaffold 池。最后，将编辑后的 scaffold
-池用作错误连接校正算法进行下一次迭代的输入。这些迭代的最终效果是再不删除正确组装的序列的情况下可靠地检测输入
-scaffold 中的错误连接。此过程完整后，将 scaffold 算法应用于修改后的输入
-scaffold。</p>
+        <h2 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h2><p><code>3D-DNA</code> 一种从头组装管道，从一系列迭代开始，其目标是消除输入 scaffolds 中的错误连接。每个步骤都从一个 scaffolds 池开始（最初，这个池是一组输入 scaffold 本身）。scaffold 算法用于对这些 scaffold 进行排序和定相。接着应用错误连接校正算法来检测 scaffold 池中的错误，从而创建一个编辑后的 scaffold 池。最后，将编辑后的 scaffold 池用作错误连接校正算法进行下一次迭代的输入。这些迭代的最终效果是再不删除正确组装的序列的情况下可靠地检测输入 scaffold 中的错误连接。此过程完整后，将 scaffold 算法应用于修改后的输入 scaffold。</p>
 <span id="more"></span>
+
+
+
 <blockquote>
 <p>搁置</p>
 </blockquote>
-<h2 id="references">References</h2>
-<p>[1] https://github.com/aidenlab/3d-dna</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FpZGVubGFiLzNkLWRuYQ==">https://github.com/aidenlab/3d-dna<i class="fa fa-external-link-alt"></i></span></p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
@@ -840,13 +833,13 @@ scaffold。</p>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">286k</span>
+    <span title="站点总字数">287k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:20</span>
+    <span title="站点阅读时长">4:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

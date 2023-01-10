@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Introduction Linux 对于开发人员来讲，是一款必学的操作系统。且现服务器端基本都是部署于Linux；常见的有Red Hat、CentOS、Ubuntu...... 熟悉Linux系统下诸多命令的常用用法，在服务器端进行生产时，将会事半功倍；往往一个简单的操作，可以使用很多自己熟悉的方式进行实现；Python、Perl、R可能都可以实现，但是在Linux操作系统下，其配套的sh">
+    <meta name="description" content="IntroductionLinux 对于开发人员来讲，是一款必学的操作系统。且现服务器端基本都是部署于Linux；常见的有Red Hat、CentOS、Ubuntu…… 熟悉Linux系统下诸多命令的常用用法，在服务器端进行生产时，将会事半功倍；往往一个简单的操作，可以使用很多自己熟悉的方式进行实现；Python、Perl、R可能都可以实现，但是在Linux操作系统下，其配套的shell不会更香吗">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 快捷命令学习">
 <meta property="og:url" content="https://zerobio.github.io/archives/c4f79a3b.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="Introduction Linux 对于开发人员来讲，是一款必学的操作系统。且现服务器端基本都是部署于Linux；常见的有Red Hat、CentOS、Ubuntu...... 熟悉Linux系统下诸多命令的常用用法，在服务器端进行生产时，将会事半功倍；往往一个简单的操作，可以使用很多自己熟悉的方式进行实现；Python、Perl、R可能都可以实现，但是在Linux操作系统下，其配套的sh">
+<meta property="og:description" content="IntroductionLinux 对于开发人员来讲，是一款必学的操作系统。且现服务器端基本都是部署于Linux；常见的有Red Hat、CentOS、Ubuntu…… 熟悉Linux系统下诸多命令的常用用法，在服务器端进行生产时，将会事半功倍；往往一个简单的操作，可以使用很多自己熟悉的方式进行实现；Python、Perl、R可能都可以实现，但是在Linux操作系统下，其配套的shell不会更香吗">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zerobio.github.io/images/image-20220907102938349.png">
 <meta property="article:published_time" content="2023-01-02T08:18:06.000Z">
@@ -192,9 +192,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getting-started"><span class="nav-number">2.</span> <span class="nav-text">Getting started</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">2.1.</span> <span class="nav-text">1. find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#du"><span class="nav-number">2.2.</span> <span class="nav-text">2. du</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">2.3.</span> <span class="nav-text">3. grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sed"><span class="nav-number">2.4.</span> <span class="nav-text">4. sed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bc"><span class="nav-number">2.5.</span> <span class="nav-text">5. bc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">2.6.</span> <span class="nav-text">6. Sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1%E7%9A%84%E8%BF%90%E8%A1%8C%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="nav-number">2.7.</span> <span class="nav-text">7. 查询后台任务的运行绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%90%8D%E7%A7%B0"><span class="nav-number">2.8.</span> <span class="nav-text">8. 获取操作系统名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ps"><span class="nav-number">2.9.</span> <span class="nav-text">9. ps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top"><span class="nav-number">2.10.</span> <span class="nav-text">10. top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#watch"><span class="nav-number">2.11.</span> <span class="nav-text">11. watch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xargs"><span class="nav-number">2.12.</span> <span class="nav-text">12. xargs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jobs"><span class="nav-number">2.13.</span> <span class="nav-text">13. jobs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ping"><span class="nav-number">2.14.</span> <span class="nav-text">14. ping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E4%BC%A0%E5%8F%82"><span class="nav-number">2.15.</span> <span class="nav-text">15. 用户输入传参</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#read---%E6%98%AF%E5%B8%B8%E8%A7%84%E7%94%A8%E5%88%B0%E7%9A%84%E9%80%9A%E8%BF%87%E7%94%A8%E6%88%B7%E9%94%AE%E5%85%A5%E5%AD%97%E7%AC%A6%E8%AF%BB%E5%8F%96%E5%8F%82%E6%95%B0"><span class="nav-number">2.15.1.</span> <span class="nav-text">15.1 read -
-是常规用到的，通过用户键入字符读取参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xargs---%E5%85%B6%E5%8D%95%E7%8B%AC%E4%BD%BF%E7%94%A8%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E9%BB%98%E8%AE%A4%E6%98%AF-echo-%E7%9A%84%E6%95%88%E6%9E%9C"><span class="nav-number">2.15.2.</span> <span class="nav-text">15.2 xargs -
-其单独使用的情况下，默认是 echo 的效果；</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tr"><span class="nav-number">2.16.</span> <span class="nav-text">16. tr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#printf"><span class="nav-number">2.17.</span> <span class="nav-text">17. printf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jq"><span class="nav-number">2.18.</span> <span class="nav-text">18. jq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toilet-figlet"><span class="nav-number">2.19.</span> <span class="nav-text">19. toilet &amp;&amp; figlet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loginctl"><span class="nav-number">2.20.</span> <span class="nav-text">20. loginctl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eval"><span class="nav-number">2.21.</span> <span class="nav-text">21. eval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-number">2.22.</span> <span class="nav-text">22. set</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Getting-started"><span class="nav-number">2.</span> <span class="nav-text">Getting started</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-find"><span class="nav-number">2.1.</span> <span class="nav-text">1. find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-du"><span class="nav-number">2.2.</span> <span class="nav-text">2. du</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-grep"><span class="nav-number">2.3.</span> <span class="nav-text">3. grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-sed"><span class="nav-number">2.4.</span> <span class="nav-text">4. sed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-bc"><span class="nav-number">2.5.</span> <span class="nav-text">5. bc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Sort"><span class="nav-number">2.6.</span> <span class="nav-text">6. Sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%9F%A5%E8%AF%A2%E5%90%8E%E5%8F%B0%E4%BB%BB%E5%8A%A1%E7%9A%84%E8%BF%90%E8%A1%8C%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="nav-number">2.7.</span> <span class="nav-text">7. 查询后台任务的运行绝对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E8%8E%B7%E5%8F%96%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%90%8D%E7%A7%B0"><span class="nav-number">2.8.</span> <span class="nav-text">8. 获取操作系统名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-ps"><span class="nav-number">2.9.</span> <span class="nav-text">9. ps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-top"><span class="nav-number">2.10.</span> <span class="nav-text">10. top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-watch"><span class="nav-number">2.11.</span> <span class="nav-text">11. watch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-xargs"><span class="nav-number">2.12.</span> <span class="nav-text">12. xargs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-jobs"><span class="nav-number">2.13.</span> <span class="nav-text">13. jobs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-ping"><span class="nav-number">2.14.</span> <span class="nav-text">14. ping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E4%BC%A0%E5%8F%82"><span class="nav-number">2.15.</span> <span class="nav-text">15. 用户输入传参</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#15-1-read-%E6%98%AF%E5%B8%B8%E8%A7%84%E7%94%A8%E5%88%B0%E7%9A%84%EF%BC%8C%E9%80%9A%E8%BF%87%E7%94%A8%E6%88%B7%E9%94%AE%E5%85%A5%E5%AD%97%E7%AC%A6%E8%AF%BB%E5%8F%96%E5%8F%82%E6%95%B0"><span class="nav-number">2.15.1.</span> <span class="nav-text">15.1 read - 是常规用到的，通过用户键入字符读取参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-2-xargs-%E5%85%B6%E5%8D%95%E7%8B%AC%E4%BD%BF%E7%94%A8%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E9%BB%98%E8%AE%A4%E6%98%AF-echo-%E7%9A%84%E6%95%88%E6%9E%9C%EF%BC%9B"><span class="nav-number">2.15.2.</span> <span class="nav-text">15.2 xargs - 其单独使用的情况下，默认是 echo 的效果；</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-tr"><span class="nav-number">2.16.</span> <span class="nav-text">16. tr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-printf"><span class="nav-number">2.17.</span> <span class="nav-text">17. printf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-jq"><span class="nav-number">2.18.</span> <span class="nav-text">18. jq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-toilet-amp-amp-figlet"><span class="nav-number">2.19.</span> <span class="nav-text">19. toilet &amp;&amp; figlet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-loginctl"><span class="nav-number">2.20.</span> <span class="nav-text">20. loginctl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-eval"><span class="nav-number">2.21.</span> <span class="nav-text">21. eval</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-set"><span class="nav-number">2.22.</span> <span class="nav-text">22. set</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -727,119 +725,121 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="introduction">Introduction</h2>
-<p><code>Linux</code>
-对于开发人员来讲，是一款必学的操作系统。且现服务器端基本都是部署于<code>Linux</code>；常见的有<code>Red Hat</code>、<code>CentOS</code>、<code>Ubuntu</code>......</p>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><code>Linux</code> 对于开发人员来讲，是一款必学的操作系统。且现服务器端基本都是部署于<code>Linux</code>；常见的有<code>Red Hat</code>、<code>CentOS</code>、<code>Ubuntu</code>……</p>
 <p>熟悉<code>Linux</code>系统下诸多命令的常用用法，在服务器端进行生产时，将会事半功倍；往往一个简单的操作，可以使用很多自己熟悉的方式进行实现；<code>Python</code>、<code>Perl</code>、<code>R</code>可能都可以实现，但是在<code>Linux</code>操作系统下，其配套的<code>shell</code>不会更香吗？<code>Shell</code>一行代码能解决的事情，<code>Python</code>却要一个脚本，怎么想都差点意思。</p>
 <span id="more"></span>
+
 <blockquote>
 <p>这里主要是记录一些常用的文本处理涉及到的<code>shell</code>命令。</p>
 </blockquote>
-<h2 id="getting-started">Getting started</h2>
-<blockquote>
+<h2 id="Getting-started"><a href="#Getting-started" class="headerlink" title="Getting started"></a>Getting started</h2><blockquote>
 <p>可惜的是没有对各种命令进行整理，后续有时间可以归纳分类一下。</p>
 </blockquote>
-<h3 id="find">1. find</h3>
-<p>1.1 查找某个目录下的某个文件</p>
+<h3 id="1-find"><a href="#1-find" class="headerlink" title="1. find"></a>1. find</h3><p>1.1 查找某个目录下的某个文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find ./ -name <span class="string">&quot;**&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find ./ -<span class="built_in">type</span> f <span class="comment">## 打印出当前目录下的所有文件；file</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find ./ -<span class="built_in">type</span> d <span class="comment">## 打印出当前目录下的所有文件夹；</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find . -maxdepth 1 -name <span class="string">&quot;*.sh&quot;</span>  <span class="comment">## 只在当前一级目录下查找</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find -L -name <span class="string">&quot;cxd&quot;</span>  <span class="comment">## -L 参数是对当前目录下的所有文件递归查找，包括在该路径下的软链接目录</span></span></span><br></pre></td></tr></table></figure>
+
 <p>1.2 对查找得到的文件进行某项操作</p>
 <blockquote>
 <p>后面的 <code>占位符&#123;&#125;</code> 用来表示 find 到的文件名。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find <span class="built_in">dir</span> -<span class="built_in">exec</span> cmd &#123;&#125; \;  <span class="comment">## 每 find 到一个文件就会执行一次 cmd 命令</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find <span class="built_in">dir</span> -<span class="built_in">exec</span> cmd &#123;&#125; +   <span class="comment">## 当 find 到所有满足条件的文件之后，一次性执行 cmd 命令</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find ./ -<span class="built_in">type</span> f -<span class="built_in">exec</span> <span class="built_in">chmod</span> 644 &#123;&#125; \; <span class="comment">## 对当前目录下的所有 file 赋予 644 权限（拥有者可读可写，其他群组或其他用户只可读）</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 扩展---【-ok】</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 参数 -ok 的作用与 -exec 类似；但多个用户确认的环节；适合的使用场景为需要对查找的文件进行删除操作时，使用 -ok；可实现进一步的确认是否删除，从而提高删除操作的an&#x27;quan&#x27;xin</span></span></span><br></pre></td></tr></table></figure>
+
 <p>1.3 按创建时间，修改时间查找文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find <span class="built_in">dir</span> -ctime -7 -amin -30</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查找 7天 内被修改过，且 30 分钟 内又被读取过的文件</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">【-mtime】修改时间（Modification time）：最后一次文件内容有过更改的时间点</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">【-atime】访问时间（Access time）：最后一次文件有被读取过的时间点</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">【-ctime】变更时间（Change time）：最后一次文件有被变更过的时间点（如内容被修改，或权限等 metadata 被修改）</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">### 表现方式</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-mtime 2：该文件 2 天前被修改过</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-mtime -2：该文件 2 天以内被修改过</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-mtime +2：该文件距离上次修改已经超过 2 天时间</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">### 同理还有分钟级别的查找；【-mmin, -amin, -cmin】；相同的前缀，不同的只有后面的time改成min</span></span></span><br></pre></td></tr></table></figure>
+
 <p>1.4 -exec 的花样使用</p>
 <blockquote>
-<p>使用了一段时间的 find -exec 参数，就会发现，参数 -exec
-只能支持linux系统的原生终端命令；一些通过alias改写的快捷命令并不能使用，且还不支持管道符
-|</p>
-<p>当我们需要对查找到的文件路径进行复杂操作时，-exec的用法就有点鸡肋了；于是我们能不能通过占位符
-‘{}’ 来进行传参并通过管道符 ‘|’ 来完成一系列的操作呢？？？</p>
+<p>使用了一段时间的 find -exec 参数，就会发现，参数 -exec 只能支持linux系统的原生终端命令；一些通过alias改写的快捷命令并不能使用，且还不支持管道符 |</p>
+<p>当我们需要对查找到的文件路径进行复杂操作时，-exec的用法就有点鸡肋了；于是我们能不能通过占位符 ‘{}’ 来进行传参并通过管道符 ‘|’ 来完成一系列的操作呢？？？</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">## 首先，必须了解的另一种用法</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;echo &quot;</span>hello<span class="string">&quot;&quot;</span>               <span class="comment">## output: echo hello</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sh -c <span class="string">&#x27;echo -e &quot;echo &quot;hello&quot;&quot;&#x27;</span>	   <span class="comment">## output: echo hello</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;echo &quot;</span>hello<span class="string">&quot;&quot;</span> | sh          <span class="comment">## output: hello  ## 这里就很好的解释了管道符 &#x27;|&#x27; 的作用，就是将前面echo打印出的 &quot;echo &quot;hello&quot;&quot;（即标准输出） 传入 sh 命令并运行命令，最终便打印出 hello（&#x27;echo &quot;hello&quot;&#x27; 命令的运行结果）</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sh -c <span class="string">&#x27;echo -e &quot;echo &quot;hello&quot;&quot; | sh&#x27;</span>  <span class="comment">## output: hello  ## sh -c 命令便是解决 -exec 参数不能使用管道符的限制，可以尝试以下哈</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># find /data5/Rawdata/Sequencer/bcl/* -maxdepth 0 -type d -ctime -7 -exec sh -c &#x27;echo &#123;&#125; | awk &#x27;\&#x27;&#x27;&#123;print &quot;==&quot;$0&#125;&#x27;\&#x27;&#x27;&#x27; \;</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="du">2. du</h3>
-<p>2.1 查询当前目录下文件的大小</p>
+
+<h3 id="2-du"><a href="#2-du" class="headerlink" title="2. du"></a>2. du</h3><p>2.1 查询当前目录下文件的大小</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">du</span> -h --max-depth=1</span></span><br></pre></td></tr></table></figure>
+
 <p>2.2 计算文件大小，单位 Mb</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">du</span> -sm test.fq.gz  <span class="comment">## 以 Mb 为单位输出文件 test.fq.gz 的文件大小</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 3066    test.fq.gz  ## 说明 test.fq.gz 的文件大小为 3066Mbp</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="grep">3. grep</h3>
-<p>3.1 匹配多个字符</p>
+
+<h3 id="3-grep"><a href="#3-grep" class="headerlink" title="3. grep"></a>3. grep</h3><p>3.1 匹配多个字符</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep <span class="string">&quot;ins\|del&quot;</span> annot.xls  <span class="comment">## 打印出含有 ins 或 del 字符的行</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># or</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -E <span class="string">&quot;ins|del&quot;</span> annot.xls</span></span><br></pre></td></tr></table></figure>
+
 <p>3.2 只匹配整个单词</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -w on ddd.txt   <span class="comment">## 这只会匹配完整单词 on，而不会匹配含有 on 的单词，如不会匹配 only</span></span></span><br></pre></td></tr></table></figure>
+
 <p>3.3 同时匹配多个字符</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -E <span class="string">&quot;EML4.*ALK&quot;</span> ddd.txt  <span class="comment">## 打印出同时含有 EML4 和 ALK 的行</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -El <span class="string">&quot;BCR|RUNX1&quot;</span> *  <span class="comment">## 打印出当前目录下满足</span></span></span><br></pre></td></tr></table></figure>
+
 <p>3.4 去除空行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -v <span class="string">&#x27;^$&#x27;</span> ddd.txt <span class="comment">## 打印除了空行以外的所有</span></span></span><br></pre></td></tr></table></figure>
+
 <p>3.5 取匹配的前3行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -B 3 str xxx.txt</span></span><br></pre></td></tr></table></figure>
+
 <p>3.6 取匹配的后3行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -A 3 str xxx.txt</span></span><br></pre></td></tr></table></figure>
+
 <p>3.7 取匹配的前后3行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -C 3 str xxx.txt</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># or</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">grep -3 str xxx.txt</span></span><br></pre></td></tr></table></figure>
-<h3 id="sed">4. sed</h3>
-<p>4.1 替换前 n 个字符</p>
+
+
+
+<h3 id="4-sed"><a href="#4-sed" class="headerlink" title="4. sed"></a>4. sed</h3><p>4.1 替换前 n 个字符</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;s/^.\&#123;15\&#125;//g&#x27;</span> ddd.txt  <span class="comment">## 替换前 15 个字符</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;s/^.\&#123;n\&#125;//g&#x27;</span> ddd.txt  <span class="comment">## 替换前 n 个字符</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;s/^.//g&#x27;</span> ddd.txt  <span class="comment">## 替换第一个字符</span></span></span><br></pre></td></tr></table></figure>
+
 <p>4.2 替换某一行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;1c str&#x27;</span> ddd.txt  <span class="comment">## 替换文件 ddd.txt 的第一行为 &quot;str&quot;</span></span></span><br></pre></td></tr></table></figure>
+
 <p>4.3 删除某一行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;1d&#x27;</span> ddd.txt  <span class="comment">## 删除文件 ddd.txt 的di</span></span></span><br></pre></td></tr></table></figure>
+
 <p>4.4 某一行前插入一行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed -i <span class="string">&quot;1i##charu&quot;</span> ddd.txt  <span class="comment">## 在文件 ddd.txt 的第一行插入 ##charu</span></span></span><br></pre></td></tr></table></figure>
+
 <p>4.5 替换换行符<code>\n</code></p>
 <blockquote>
-<p>正常情况下，<code>sed</code> 并不能替换 <code>\n</code>，
-需要额外添加参数</p>
+<p>正常情况下，<code>sed</code> 并不能替换 <code>\n</code>， 需要额外添加参数</p>
 <p>那 <code>sed</code> 为什么不能直接替换换行符 <code>\n</code> 呢？</p>
-<p>原因在于 <code>sed</code>
-是逐行处理替换操作的，且在每进行一次替换之后，都会在行尾自动添加
-<code>trailing newline</code>，即行的分隔符，即换行符，于是常规的替换是无法将换行符替换成其他分隔符的；于是，我们可以对每两行或以上的行进行换行符的替换，这样中间的换行符就能被替换，而最后的换行符保留。</p>
+<p>原因在于 <code>sed</code> 是逐行处理替换操作的，且在每进行一次替换之后，都会在行尾自动添加 <code>trailing newline</code>，即行的分隔符，即换行符，于是常规的替换是无法将换行符替换成其他分隔符的；于是，我们可以对每两行或以上的行进行换行符的替换，这样中间的换行符就能被替换，而最后的换行符保留。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&quot;:a;N;s/\n/|/g;ta&quot;</span> ddd.txt  <span class="comment">## 替换 ddd.txt 文件的换行符为 |</span></span></span><br></pre></td></tr></table></figure>
-<p>在利用 <code>sed</code> 替换换行符 <code>\n</code>
-时，上面的命令有点复杂，故这里做个说明：</p>
+
+<p>在利用 <code>sed</code> 替换换行符 <code>\n</code> 时，上面的命令有点复杂，故这里做个说明：</p>
 <ul>
-<li>首先提供一个通用写法：<code>sed ":label;N;s/\n/|/g;t label"</code>;
-or <code>sed ":label;N;s/\n/|/g;b label"</code></li>
-<li><code>:label;</code> ---
-这是一个标签，用来实现跳转处理，名字可任意取，如上上面的
-<code>:label</code> 就是 <code>a</code>；只不过需要注意的就是，前后的
-<code>label</code> 值需要保持一致</li>
-<li><code>N;</code> --- 是 <code>sed</code>
-的一个处理命令，追加文本流中的下一行到模式空间进行合并处理，也就以换行符
-<code>\n</code> 分隔（我是这么理解的），这样 <code>sed</code>
-替换的时候就可以识别到 <code>\n</code> 字符，从而实现替换</li>
-<li><code>;t</code> --- 即 <code>test</code>，测试的意思，与
-<code>label</code> 搭配使用，实现跳转处理，跳转到指定的标签处</li>
-<li><code>;b</code> --- 即 <code>branch</code>，分支的意思，功能同
-<code>;t</code>；只不过是所代表的含义不同；</li>
-<li><code>branch</code> 是循环到文本结束；而 <code>test</code>
-可以根据替换命令的完成是否成功来决定是否跳转</li>
+<li>首先提供一个通用写法：<code>sed &quot;:label;N;s/\n/|/g;t label&quot;</code>; or <code>sed &quot;:label;N;s/\n/|/g;b label&quot;</code></li>
+<li><code>:label;</code> — 这是一个标签，用来实现跳转处理，名字可任意取，如上上面的 <code>:label</code> 就是 <code>a</code>；只不过需要注意的就是，前后的 <code>label</code> 值需要保持一致</li>
+<li><code>N;</code> — 是 <code>sed</code> 的一个处理命令，追加文本流中的下一行到模式空间进行合并处理，也就以换行符 <code>\n</code> 分隔（我是这么理解的），这样 <code>sed</code> 替换的时候就可以识别到 <code>\n</code> 字符，从而实现替换</li>
+<li><code>;t</code> — 即 <code>test</code>，测试的意思，与 <code>label</code> 搭配使用，实现跳转处理，跳转到指定的标签处</li>
+<li><code>;b</code> — 即 <code>branch</code>，分支的意思，功能同 <code>;t</code>；只不过是所代表的含义不同；</li>
+<li><code>branch</code> 是循环到文本结束；而 <code>test</code> 可以根据替换命令的完成是否成功来决定是否跳转</li>
 </ul>
 <p>4.6 替换每一行第一个匹配值</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;s/dd/aa/&#x27;</span> a.txt</span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 也就是去掉 /g</span></span></span><br></pre></td></tr></table></figure>
+
 <p>4.7 替换第一行的第一个匹配值</p>
 <blockquote>
-<p>当我们只需要替换匹配到的第一个匹配值时，就不能用 <code>4.6</code>
-的方法了，因为这会将每一行的第一个匹配值进行替换，于是有了下面的方法</p>
+<p>当我们只需要替换匹配到的第一个匹配值时，就不能用 <code>4.6</code> 的方法了，因为这会将每一行的第一个匹配值进行替换，于是有了下面的方法</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 【0,/待替换内容/s/待替换内容/替换内容/】</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&quot;0,/:/s/:/null/&quot;</span>  a.txt</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 这里只会替换整个文件匹配到的第一个匹配值</span></span></span><br></pre></td></tr></table></figure>
+
 <p>4.8 删除匹配行</p>
 <blockquote>
 <p>查找匹配含有特定字符的行，并删除</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed <span class="string">&#x27;/str/d&#x27;</span> aaa.txt</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 删除文件 aaa.txt 中含有 str zi&#x27;fu&#x27;chu&#x27;a</span></span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 待整理</span></span></span><br><span class="line">sed &#x27;s/[A-Z]*\([0-9]\)\([0-9A-Za-z]\)/\1\2/g&#x27;</span><br></pre></td></tr></table></figure>
-<h3 id="bc">5. bc</h3>
-<blockquote>
-<p>bc 命令是任意精度计算器语言，通常在 Linux
-下当计算器使用；类似基本的计算器，使用这个计算器可以做基本的数学运算</p>
+
+
+
+
+
+<h3 id="5-bc"><a href="#5-bc" class="headerlink" title="5. bc"></a>5. bc</h3><blockquote>
+<p>bc 命令是任意精度计算器语言，通常在 Linux 下当计算器使用；类似基本的计算器，使用这个计算器可以做基本的数学运算</p>
 </blockquote>
 <blockquote>
-<p>==采用 <code>expr</code> 计算数值或者字符串长度，获取更加合适==</p>
+<p>&#x3D;&#x3D;采用 <code>expr</code> 计算数值或者字符串长度，获取更加合适&#x3D;&#x3D;</p>
 </blockquote>
-<p>==参数介绍==</p>
+<p>&#x3D;&#x3D;参数介绍&#x3D;&#x3D;</p>
 <ul>
 <li>-i：强制进入交互模式</li>
 <li>-l：定义使用的标准数学库</li>
@@ -850,25 +850,26 @@ or <code>sed ":label;N;s/\n/|/g;b label"</code></li>
 </ul>
 <p>5.1 通过管道符进行计算</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;scale=2; 3066/1024&quot;</span>| bc <span class="comment">## scale 用来设定小数位</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># out：2.99</span></span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 但是计算出来的值小于 1；则以 .* 表示；如 .9 == 0.9</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 所以可以替换一下</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;scale=2; 3066/1024&quot;</span>| bc | sed <span class="string">&#x27;s/^\./0./g&#x27;</span>  <span class="comment">## 可以避免出现没有 0 的qing&#x27;kaun</span></span></span><br></pre></td></tr></table></figure>
+
 <p>5.2 进行其他进制的计算</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;ibase=2; 111&quot;</span> | bc  <span class="comment">## ibase 用来指定进制</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># out：7</span></span></span><br></pre></td></tr></table></figure>
+
 <p>5.3 进制转换</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">abc=192 </span><br><span class="line">echo &quot;obase=2;$abc&quot; | bc  ## 将 10 进制转换成 2 进制</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># out：11000000</span></span></span><br><span class="line"></span><br><span class="line">abc=11000000 </span><br><span class="line">echo &quot;obase=10;ibase=2;$abc&quot; | bc  ## 将 2 进制转换成 10 进制</span><br></pre></td></tr></table></figure>
+
 <p>5.4 计算平方与平方根</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;10^10&quot;</span> | bc</span> </span><br><span class="line">10000000000</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;sqrt(100)&quot;</span> | bc</span></span><br><span class="line">10</span><br></pre></td></tr></table></figure>
-<h3 id="sort">6. Sort</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sort -k1 aaa.txt  ## 对文件 aaa.txt 的第一列进行重排；默认是升序（以 ASCII 码的次序进行排列）</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-n 表示按照数值的大小进行排序</span></span><br></pre></td></tr></table></figure>
-<h3 id="查询后台任务的运行绝对路径">7. 查询后台任务的运行绝对路径</h3>
-<blockquote>
-<p>通常我们通过 <code>ps</code> 或 <code>top</code>
-命令来查看后台任务的部分信息，却查不到进程的详细信息，比如
-<code>运行进程的绝对路径</code> 等，<code>top</code> 命令可以使用
-<code>c</code>
-来查看运行时投递的具体信息，但也没有运行进程所在的绝对路径</p>
+
+
+
+<h3 id="6-Sort"><a href="#6-Sort" class="headerlink" title="6. Sort"></a>6. Sort</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sort -k1 aaa.txt  ## 对文件 aaa.txt 的第一列进行重排；默认是升序（以 ASCII 码的次序进行排列）</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-n 表示按照数值的大小进行排序</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-查询后台任务的运行绝对路径"><a href="#7-查询后台任务的运行绝对路径" class="headerlink" title="7. 查询后台任务的运行绝对路径"></a>7. 查询后台任务的运行绝对路径</h3><blockquote>
+<p>通常我们通过 <code>ps</code> 或 <code>top</code> 命令来查看后台任务的部分信息，却查不到进程的详细信息，比如 <code>运行进程的绝对路径</code> 等，<code>top</code> 命令可以使用 <code>c</code> 来查看运行时投递的具体信息，但也没有运行进程所在的绝对路径</p>
 </blockquote>
-<p>此外，我们需要知道的是 <code>Linux</code> 在启动一个进程时，系统会在
-<code>/proc</code> 目录下创建一个以 <code>PID</code>
-命名的文件夹，在该目录下会有我们创建进程的详细信息，其中：</p>
+<p>此外，我们需要知道的是 <code>Linux</code> 在启动一个进程时，系统会在 <code>/proc</code> 目录下创建一个以 <code>PID</code> 命名的文件夹，在该目录下会有我们创建进程的详细信息，其中：</p>
 <ul>
 <li><code>cwd</code>：链接的是进程运行目录</li>
 <li><code>exe</code>：链接的是执行程序的绝对路径</li>
@@ -876,229 +877,187 @@ or <code>sed ":label;N;s/\n/|/g;b label"</code></li>
 <li><code>environ</code>：记录了进程运行时的环境变量</li>
 <li><code>fd</code>：目录下为进程打开或使用的文件的符号链接</li>
 </ul>
-<h3 id="获取操作系统名称">8. 获取操作系统名称</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">uname</span> -s</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Linux</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="8-获取操作系统名称"><a href="#8-获取操作系统名称" class="headerlink" title="8. 获取操作系统名称"></a>8. 获取操作系统名称</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">uname</span> -s</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Linux</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>8.1 获取所有用户的登录情况</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">who</span> -uH</span></span><br></pre></td></tr></table></figure>
-<h3 id="ps">9. ps</h3>
-<blockquote>
+
+
+
+<h3 id="9-ps"><a href="#9-ps" class="headerlink" title="9. ps"></a>9. ps</h3><blockquote>
 <p>获取后台任务的详细信息</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ps -ef | grep <span class="variable">$yourname</span>  <span class="comment">## 查询指定用户的所有后台任务</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查询进程打开的文件</span></span></span><br><span class="line">lsof -p [PID]</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查询内存分配</span></span></span><br><span class="line">lcat /proc/[PID]/maps  ## 没有权限，非 root 用户</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查询后台任务的运行详情</span></span></span><br><span class="line">ll /proc/[PID]  ## 其中 cwd --- 链接的是进程运行目录；exe --- 执行程序的绝对路径；cmdline --- 程序执行时输入的命令行命令；environ --- 记录了进程运行时的环境变量；fd --- 目录下是进程打开或使用的文件的符号链接</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 查看当前的后台任务</span></span></span><br><span class="line">jobs</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 把后台任务拉到前台运行</span></span></span><br><span class="line">fg %任务号  ## 默认为任务1</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 使用 CTRL+Z 是将任务暂停并挂载到后台</span></span></span><br><span class="line">bg %任务号 ## 使暂停的任务在后台运行</span><br></pre></td></tr></table></figure>
-<p>==注意==</p>
+
+<p>&#x3D;&#x3D;注意&#x3D;&#x3D;</p>
 <ul>
 <li>后台任务的信息查询便捷命令</li>
-<li><ol type="1">
+<li><ol>
 <li>首先获得后台任务的<code>[PID]</code></li>
-<li><code>pwdx [PID]</code> --- 获取对应进程的运行路径</li>
-<li><code>pgrep [进程名]</code> --- 这命令可以列出对应进程名的所有进程id
-- <code>[PID]</code>，</li>
-</ol></li>
+<li><code>pwdx [PID]</code> — 获取对应进程的运行路径</li>
+<li><code>pgrep [进程名]</code> — 这命令可以列出对应进程名的所有进程id - <code>[PID]</code>，</li>
+</ol>
+</li>
 </ul>
-<h3 id="top">10. top</h3>
-<blockquote>
+<h3 id="10-top"><a href="#10-top" class="headerlink" title="10. top"></a>10. top</h3><blockquote>
 <p>查询系统的详细信息，如内存，CPU，IO等</p>
 </blockquote>
-<figure>
-<img data-src="../images/image-20220907102938349.png"
-alt="image-20220907102938349" />
-<figcaption aria-hidden="true">image-20220907102938349</figcaption>
-</figure>
-<p>==如上==</p>
+<p><img data-src="/../images/image-20220907102938349.png" alt="image-20220907102938349"></p>
+<p>&#x3D;&#x3D;如上&#x3D;&#x3D;</p>
 <ul>
-<li>第一行（<code>top -</code>）：系统当前时间 <code>up</code>
-系统到目前为止运行的时间 <code>，</code>
-当前登录系统的用户数量（<code>users</code>），<code>load average：</code>
-后面的 3 个数字分别标识距离现在 1min、5min、15min 的负载情况 ---
-这行的信息与命令 <code>uptime</code> 的输出结果一致</li>
-<li>第二行（<code>Tasks：</code>）：<code>Tasks</code>
-表示任务（进程），<code>total</code> 表示总进程数，<code>running</code>
-正在运行，<code>sleeping</code>
-休眠（挂起）的任务数量，<code>stopped</code>
-任务状态为暂停的数量，<code>zombie</code> 表示僵尸进程的数量</li>
-<li>第三行（<code>%Cpu(s)：</code>）：表示 <code>CPU</code>
-的状态，<code>us(user)</code>
-用户空间占用cpu的百分比；<code>sy(system)</code>
-内核空间占用cpu的百分比；<code>ni(niced)</code>
-改变过优先级的进程占用cpu的百分比；<code>id</code>
-空闲CPU百分比；<code>wa(IO wait)</code> IO
-等待占用cpu的百分比；<code>hi(hardware IO)</code>
-硬中断占用cpu的百分比；<code>si(software interrupts)</code>
-软中断占用cpu的百分比</li>
+<li>第一行（<code>top -</code>）：系统当前时间 <code>up</code> 系统到目前为止运行的时间 <code>，</code> 当前登录系统的用户数量（<code>users</code>），<code>load average：</code> 后面的 3 个数字分别标识距离现在 1min、5min、15min 的负载情况 — 这行的信息与命令 <code>uptime</code> 的输出结果一致</li>
+<li>第二行（<code>Tasks：</code>）：<code>Tasks</code> 表示任务（进程），<code>total</code> 表示总进程数，<code>running</code> 正在运行，<code>sleeping</code> 休眠（挂起）的任务数量，<code>stopped</code> 任务状态为暂停的数量，<code>zombie</code> 表示僵尸进程的数量</li>
+<li>第三行（<code>%Cpu(s)：</code>）：表示 <code>CPU</code> 的状态，<code>us(user)</code> 用户空间占用cpu的百分比；<code>sy(system)</code> 内核空间占用cpu的百分比；<code>ni(niced)</code> 改变过优先级的进程占用cpu的百分比；<code>id</code> 空闲CPU百分比；<code>wa(IO wait)</code> IO 等待占用cpu的百分比；<code>hi(hardware IO)</code> 硬中断占用cpu的百分比；<code>si(software interrupts)</code> 软中断占用cpu的百分比 </li>
 <li>第四行（<code>KiB Mem：</code>）：内存状态，依次为物理内存总量，空闲内存总量，使用中的内存总量，缓冲内存量</li>
-<li>第五行（<code>KiB Swap：</code>）：swap
-交换分区，依次为交换区总量，空闲交换区总量，使用中的交换区总量，可用交换区总量</li>
+<li>第五行（<code>KiB Swap：</code>）：swap 交换分区，依次为交换区总量，空闲交换区总量，使用中的交换区总量，可用交换区总量</li>
 </ul>
 <p>（<code>对于内存监控，在 top 里，我们要时刻关注 swap 交换分区中的 used，如果这个数值在不同的变换，说明内核在不断进行内存和交换区的数据交换，预示着内存不够用</code>）</p>
 <ul>
 <li>第六行：空行</li>
-<li>第七行：各进程的监控
-<ul>
+<li>第七行：各进程的监控<ul>
 <li><code>PID</code>：进程 id</li>
 <li><code>USER</code>：进程所有者</li>
 <li><code>PR</code>：进程优先级</li>
 <li><code>NI</code>：nice值，负值表示高优先级，正值表示低优先级</li>
-<li><code>VIRT</code>：进程使用的虚拟内存总量，单位 kb；<span
-class="math inline">\({VIRT = SWAP + RES}\)</span></li>
-<li><code>RES</code>：进程使用的、未被换出的物理内存大小，单位 kb；<span
-class="math inline">\({RES = CODE + DATA}\)</span></li>
+<li><code>VIRT</code>：进程使用的虚拟内存总量，单位 kb；${VIRT &#x3D; SWAP + RES}$</li>
+<li><code>RES</code>：进程使用的、未被换出的物理内存大小，单位 kb；${RES &#x3D; CODE + DATA}$</li>
 <li><code>SHR</code>：共享内存大小，单位 kb</li>
-<li><code>S</code>：进程状态；<code>D</code> -
-不可中断的休眠状态；<code>R</code> - 运行； <code>S</code> - 休眠；
-<code>T</code> - 跟踪/停止；<code>Z</code> - 僵尸进程</li>
+<li><code>S</code>：进程状态；<code>D</code> - 不可中断的休眠状态；<code>R</code> - 运行； <code>S</code> - 休眠； <code>T</code> - 跟踪&#x2F;停止；<code>Z</code> - 僵尸进程</li>
 <li><code>%CPU</code>：上次更新到现在的cpu占用百分比</li>
 <li><code>%MEM</code>：进程使用的物理内存百分比</li>
 <li><code>TIME+</code>：进程所用的cpu时间总计，单位 0.01 秒</li>
-<li><code>COMMAND</code>：进程名称（<code>top</code> 命令运行中，键入
-<code>c</code>，可以显示进程的详细信息）</li>
-</ul></li>
+<li><code>COMMAND</code>：进程名称（<code>top</code> 命令运行中，键入 <code>c</code>，可以显示进程的详细信息）</li>
 </ul>
-<h3 id="watch">11. watch</h3>
-<blockquote>
-<p>检测一些重复的操作，<code>-n</code>
-参数指定间隔多长时间重新运行某个命令</p>
+</li>
+</ul>
+<h3 id="11-watch"><a href="#11-watch" class="headerlink" title="11. watch"></a>11. watch</h3><blockquote>
+<p>检测一些重复的操作，<code>-n</code> 参数指定间隔多长时间重新运行某个命令</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">watch --differences=permanent -n10 [cmd]</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 对发生变化的部分进行高亮</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 每隔 10s 运行后面的 cmd</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="xargs">12. xargs</h3>
-<blockquote>
-<p>这是个功能非常强大的命令，可以将标准输出作为参数传入某个命令中运行；特别是对于不能接收标准输入为参数的命令；如
-echo（不能接受管道传递的标准输出为参数）</p>
+
+
+
+<h3 id="12-xargs"><a href="#12-xargs" class="headerlink" title="12. xargs"></a>12. xargs</h3><blockquote>
+<p>这是个功能非常强大的命令，可以将标准输出作为参数传入某个命令中运行；特别是对于不能接收标准输入为参数的命令；如 echo（不能接受管道传递的标准输出为参数）</p>
 </blockquote>
 <blockquote>
-<p>Link: https://ruanyifeng.com/blog/2019/08/xargs-tutorial.html</p>
+<p>Link: <span class="exturl" data-url="aHR0cHM6Ly9ydWFueWlmZW5nLmNvbS9ibG9nLzIwMTkvMDgveGFyZ3MtdHV0b3JpYWwuaHRtbA==">https://ruanyifeng.com/blog/2019/08/xargs-tutorial.html<i class="fa fa-external-link-alt"></i></span></p>
 </blockquote>
 <p>12.1 将标准输出通过管道符传递给某个命令作为参数运行</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># echo 便是一个不能将标准输出通过管道符作为参数进入下一个命令的命令</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span>              <span class="comment">## output: hello world</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> | <span class="built_in">echo</span>		  <span class="comment">## output: null  ## 空行</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> | xargs <span class="built_in">echo</span> <span class="comment">## output: hello world</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 说明 xargs 的功能</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 此外还有一些命令需要 xargs 的辅助才能实现参数的读入</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 如：rm, mkdir, ls 等等</span></span></span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>说明 xargs 的功能，便是为那些不能从管道符获取参数的命令服务的；但是
-xargs 开发初衷是为 find 服务，所以更多便捷的使用，都可以从 find
-中找到</p>
+<p>说明 xargs 的功能，便是为那些不能从管道符获取参数的命令服务的；但是 xargs 开发初衷是为 find 服务，所以更多便捷的使用，都可以从 find 中找到</p>
 </blockquote>
 <p>12.2 默认分隔符</p>
 <blockquote>
-<p>【<code>-d</code>】xargs
-默认的分隔符是换行符和空格，从而将标准输入分隔成多个参数进行读取；同时也支持
-<code>-d</code> 参数指定分隔符</p>
+<p>【<code>-d</code>】xargs 默认的分隔符是换行符和空格，从而将标准输入分隔成多个参数进行读取；同时也支持 <code>-d</code> 参数指定分隔符</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\tworld&quot;</span> | xargs -d <span class="string">&#x27;\t&#x27;</span> <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output: hello world</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 等效于： $ echo hello world</span></span></span><br></pre></td></tr></table></figure>
+
 <p>12.3 打印最终执行的命令</p>
 <blockquote>
-<p>【<code>-p | -t</code>】当我们不知道参数是否传递正确的情况下，可以通过这两个参数来确认；<code>-t</code>
-参数便是将接下来需要执行的命令打印并输出标准输出结果；<code>-p</code>
-参数则是在 <code>-t</code>
-的基础上增加了一个询问功能，打印执行命令之后，会有一个
-<code>yes or no</code> 的选择，需要用户键入 <code>y or n</code>
-，大小写无所谓，来确认是否执行该命令；这种参数在设置敏感数据删除
-<code>rm</code>
-的情况下非常重要，防止命令参数的传入失误导致数据误删。</p>
+<p>【<code>-p | -t</code>】当我们不知道参数是否传递正确的情况下，可以通过这两个参数来确认；<code>-t</code> 参数便是将接下来需要执行的命令打印并输出标准输出结果；<code>-p</code> 参数则是在 <code>-t</code> 的基础上增加了一个询问功能，打印执行命令之后，会有一个 <code>yes or no</code> 的选择，需要用户键入 <code>y or n</code> ，大小写无所谓，来确认是否执行该命令；这种参数在设置敏感数据删除 <code>rm</code> 的情况下非常重要，防止命令参数的传入失误导致数据误删。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\tworld&quot;</span> | xargs -d <span class="string">&#x27;\t&#x27;</span> -t <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">echo hello world</span><br><span class="line"> </span><br><span class="line">hello world</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 以上四行均为输出，但不清楚什么会有两个空行，</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 目前的猜测是 xargs 在存在参数 &#x27;-d&#x27; 的情况下，换行符 &#x27;\n&#x27; 保留; 而在打印时，本身就会自动添加换行符，所以这里就多了两个空行</span></span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 所以上面的传参应该是 $ echo hello world&#x27;\n&#x27;</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\nworld dd&quot;</span> | xargs -d <span class="string">&#x27; &#x27;</span> -t <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">echo hello</span><br><span class="line">world dd</span><br><span class="line"> </span><br><span class="line">hello</span><br><span class="line">world dd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\tworld&quot;</span> | xargs -d <span class="string">&#x27;\n&#x27;</span> -p <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">echo hello	world ?...y</span><br><span class="line">hello	world</span><br></pre></td></tr></table></figure>
+
 <p>12.4 指定传入几行数据传入参数</p>
 <blockquote>
-<p>【<code>-L</code>】若标准输入包含多行，<code>-L</code>
-参数指定多少行作为一个命令行参数</p>
+<p>【<code>-L</code>】若标准输入包含多行，<code>-L</code> 参数指定多少行作为一个命令行参数</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">xargs -L 1 find -name</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output: ## -L 1 指定每次传入一行作为参数</span></span></span><br><span class="line">&quot;*.txt&quot;</span><br><span class="line">./foo.txt</span><br><span class="line">./hello.txt</span><br><span class="line">&quot;*.md&quot;</span><br><span class="line">./README.md</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 再如</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\nworld&quot;</span>| xargs -t <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 这里 -L 参数，故直接默认换行符作为分隔符同时传入两个参数</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">echo hello world </span><br><span class="line">hello world</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;hello\nworld&quot;</span>| xargs -L 1 -t <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 添加了 -L 参数，便每次只传入一行的数据进行参数传递；针对对每一行进行相同处理极为方便</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">echo hello </span><br><span class="line">hello</span><br><span class="line">echo world </span><br><span class="line">world</span><br></pre></td></tr></table></figure>
+
 <p>12.5 指定传入几列数据作为参数</p>
 <blockquote>
-<p>【<code>-n</code>】作用与 <code>-L</code>
-类似，但是其是横向选定，在用户同一行键入多项时，需要利用 <code>-n</code>
-参数指定每次传入多少项，作为命令行参数</p>
+<p>【<code>-n</code>】作用与 <code>-L</code> 类似，但是其是横向选定，在用户同一行键入多项时，需要利用 <code>-n</code> 参数指定每次传入多少项，作为命令行参数</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">xargs -t -n 1 find -name</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 上面命令指定将每一项（-n 1）标准输入作为命令行参数，分别执行一次命令（find -name）</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">&quot;*.txt&quot; &quot;*.md&quot;</span><br><span class="line">find -name &quot;*.txt&quot;</span><br><span class="line">./foo.txt</span><br><span class="line">./hello.txt</span><br><span class="line">find -name &quot;*.md&quot;</span><br><span class="line">./README.md</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 再如</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> &#123;0..9&#125; | xargs -n 2 <span class="built_in">echo</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 每次传入 -n 2 个参数；便循环了 5 次 echo 输出</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">0 1</span><br><span class="line">2 3</span><br><span class="line">4 5</span><br><span class="line">6 7</span><br><span class="line">8 9</span><br></pre></td></tr></table></figure>
+
 <p>12.6 将命令行参数传递给多个命令</p>
 <blockquote>
-<p>【<code>-I</code>】前面默认的都是在 <code>xargs</code>
-后面的命令后直接添加参数，但是当我们需要向多个命令传递参数时，就需要用到
-<code>-I</code> 参数，指定需要传递的参数</p>
+<p>【<code>-I</code>】前面默认的都是在 <code>xargs</code> 后面的命令后直接添加参数，但是当我们需要向多个命令传递参数时，就需要用到 <code>-I</code> 参数，指定需要传递的参数</p>
 <p><code>-I</code> 指定每一项命令行参数的替代字符串</p>
-<p><code>-i</code> 同 <code>-I</code>，只不过是默认以占位符
-<code>&#123;&#125;</code> 代替变量</p>
+<p><code>-i</code> 同 <code>-I</code>，只不过是默认以占位符 <code>&#123;&#125;</code> 代替变量</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;one\ntwo\nthree&quot;</span> | xargs -I num sh -c <span class="string">&#x27;echo num; echo --num--&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># -I 参数对传入的参数重命名；也就是对传入的参数创建对应的变量</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span></span><br><span class="line">one</span><br><span class="line">--one--</span><br><span class="line">two</span><br><span class="line">--two--</span><br><span class="line">three</span><br><span class="line">--three--</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 再如</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;one\ntwo\nthree&quot;</span> | xargs -t -I &#123;&#125; sh -c <span class="string">&#x27;echo &#123;&#125;; echo --&#123;&#125;--&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">sh -c echo one; echo --one--   ## 正常运行应该是 sh -c &#x27;echo one; echo --one--&#x27;</span><br><span class="line">one</span><br><span class="line">--one--</span><br><span class="line">sh -c echo two; echo --two-- </span><br><span class="line">two</span><br><span class="line">--two--</span><br><span class="line">sh -c echo three; echo --three-- </span><br><span class="line">three</span><br><span class="line">--three--</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#</span></span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 需要注意的是，在给 sh -c 进行传参时，&#x27;$&#x27; 符号需要进行转义；即书写成 &#x27;\$1....&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;3\n17&quot;</span> | xargs -t -L 2 sh -c <span class="string">&quot;echo exon\$0-exon\$1&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 注意 sh -c chuan&#x27;can</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">sh -c echo exon$0-exon$1 3 17 </span><br><span class="line">exon3-exon17</span><br></pre></td></tr></table></figure>
+
 <p>12.7 多进程执行命令</p>
 <blockquote>
-<p>【<code>--max-procs</code>】xargs
-命令默认只用一个进程执行命令，只有当执行结束上一个命令，才能执行下一个命令；当需要循环执行命令，且相互之间没有依赖关系的情况下，各个循环可独立运行，故这里可以采用参数
-<code>--max-procs</code> 命令指定调用的进程数，从而实现同时进行 n
-次命令执行；</p>
+<p>【<code>--max-procs</code>】xargs 命令默认只用一个进程执行命令，只有当执行结束上一个命令，才能执行下一个命令；当需要循环执行命令，且相互之间没有依赖关系的情况下，各个循环可独立运行，故这里可以采用参数 <code>--max-procs</code> 命令指定调用的进程数，从而实现同时进行 n 次命令执行；</p>
 <p><code>--max-procs</code> 参数指定同时调用多少个进行并执行命令；</p>
-<p><code>--max-procs 2</code> -- 表示同时最多调用两个进程</p>
-<p><code>--max-procs 0</code> -- 表示不限制进程数</p>
+<p><code>--max-procs 2</code> – 表示同时最多调用两个进程</p>
+<p><code>--max-procs 0</code> – 表示不限制进程数</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker ps -q | xargs -n 1 --max-procs 0 docker <span class="built_in">kill</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 同时关闭尽可能多的 Docker 容器，这样运行速度会快很多；不懂</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 再如</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;sleep 30 &amp;&amp; echo hello\nsleep 10 &amp;&amp; echo world&quot;</span> | xargs -t -I &#123;&#125; sh -c <span class="string">&quot;&#123;&#125;&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 单进程的情况下，只有在前一个命令执行结束之后，才能运行下一条命令；故这里先输出 hello；而后才能打印 world</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output:</span></span> </span><br><span class="line">sh -c sleep 30 &amp;&amp; echo hello </span><br><span class="line">hello</span><br><span class="line">sh -c sleep 10 &amp;&amp; echo world </span><br><span class="line">world</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 那提供两个进程呢？？？</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;sleep 30 &amp;&amp; echo hello\nsleep 10 &amp;&amp; echo world&quot;</span> | xargs --max-procs 2 -t -I &#123;&#125; sh -c <span class="string">&quot;&#123;&#125;&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 这里由于提供了两个进程，于是，同时执行 echo hello 和 echo world 两条命令，但是因为 world 的睡眠时间较短，提前打印出来，而后才打印 hello</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">sh -c sleep 30 &amp;&amp; echo hello </span><br><span class="line">sh -c sleep 10 &amp;&amp; echo world </span><br><span class="line">world</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+
 <p>12.8 <code>xargs</code> 与 <code>find</code> 的搭伙</p>
 <blockquote>
-<p>【<code>-0</code>】<code>xargs</code>
-默认是将空格作为分隔符，在处理文件名时，若文件名中存在空格，则不会太方便；</p>
-<p><code>find</code> 命令有个特别的参数 <code>-print0</code>
-，指定输出的文件列表以 <code>null</code> 分隔，而 <code>xargs</code> 的
-<code>-0</code> 参数表示用 <code>null</code> 当作分隔符</p>
+<p>【<code>-0</code>】<code>xargs</code> 默认是将空格作为分隔符，在处理文件名时，若文件名中存在空格，则不会太方便；</p>
+<p><code>find</code> 命令有个特别的参数 <code>-print0</code> ，指定输出的文件列表以 <code>null</code> 分隔，而 <code>xargs</code> 的 <code>-0</code> 参数表示用 <code>null</code> 当作分隔符</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find /path -<span class="built_in">type</span> f -print0 | xargs -0 <span class="built_in">rm</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 删除 /path 路径下的所有文件；由于分隔符是 null ，所以处理含有空格的文件名，也不会报错</span></span></span><br></pre></td></tr></table></figure>
-<p>还有一个原因，使得<code>xargs</code>特别适合<code>find</code>命令。有些命令（比如<code>rm</code>）一旦参数过多会报错"参数列表过长"，而无法执行，改用<code>xargs</code>就没有这个问题，因为它对每个参数执行一次命令。</p>
+
+<p>还有一个原因，使得<code>xargs</code>特别适合<code>find</code>命令。有些命令（比如<code>rm</code>）一旦参数过多会报错”参数列表过长”，而无法执行，改用<code>xargs</code>就没有这个问题，因为它对每个参数执行一次命令。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find . -name <span class="string">&quot;*.txt&quot;</span> | xargs grep <span class="string">&quot;abc&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 找出所有 TXT 文件以后，对每个文件搜索一次是否包含字符串abc。</span></span></span><br></pre></td></tr></table></figure>
+
+
+
 <p>12.9 <code>xargs</code> 与 <code>sed</code> 搭配</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> -e <span class="string">&quot;MSFVAGVIRRLDETVVNRIAAGEVIQRPANAIKEMIENCLDAKSTSIQVIVKEGGLKLIQIQDNGTGIRKEDLDIVCERFTTSKLQSFEDLASISTYGFRGEALASISHVAHVTITTKTADGKCAYRASYSDGKLKAPPKPCAGNQGTQITVEDLFYNIATRRKALKNPSEEYGKILEVVGRYSVHNAGISFSVKKQGETVADVRTLPNASTVDNIRSIFGNAVSRELIEIGCEDKTLAFKMNGYISNANYSVKKCIFLLFINHRLVESTSLRKAIETVYAAYLPKNTHPFLYLSLEISPQNVDVNVHPTKHEVHFLHEESILERVQQHIESKLIAMTNT*&quot;</span> | sed <span class="string">&quot;s/.\&#123;10\&#125;/&amp; /g&quot;</span> | xargs -d <span class="string">&#x27; &#x27;</span> -n 6 <span class="built_in">echo</span> -e</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 作用，便是将长字符串以固定长度【10bp】空格分隔，方便查看</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：</span></span></span><br><span class="line">MSFVAGVIRR LDETVVNRIA AGEVIQRPAN AIKEMIENCL DAKSTSIQVI VKEGGLKLIQ</span><br><span class="line">IQDNGTGIRK EDLDIVCERF TTSKLQSFED LASISTYGFR GEALASISHV AHVTITTKTA</span><br><span class="line">DGKCAYRASY SDGKLKAPPK PCAGNQGTQI TVEDLFYNIA TRRKALKNPS EEYGKILEVV</span><br><span class="line">GRYSVHNAGI SFSVKKQGET VADVRTLPNA STVDNIRSIF GNAVSRELIE IGCEDKTLAF</span><br><span class="line">KMNGYISNAN YSVKKCIFLL FINHRLVEST SLRKAIETVY AAYLPKNTHP FLYLSLEISP</span><br><span class="line">QNVDVNVHPT KHEVHFLHEE SILERVQQHI ESKLIAMTNT *</span><br></pre></td></tr></table></figure>
-<h3 id="jobs">13. jobs</h3>
-<blockquote>
+
+<h3 id="13-jobs"><a href="#13-jobs" class="headerlink" title="13. jobs"></a>13. jobs</h3><blockquote>
 <p>查看当前环境的后台任务</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">jobs</span> -l <span class="comment">## 同时查看后台任务的 PID 号</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="ping">14. ping</h3>
-<blockquote>
+
+
+
+<h3 id="14-ping"><a href="#14-ping" class="headerlink" title="14. ping"></a>14. ping</h3><blockquote>
 <p>待整理</p>
 </blockquote>
-<h3 id="用户输入传参">15. 用户输入传参</h3>
-<blockquote>
+<h3 id="15-用户输入传参"><a href="#15-用户输入传参" class="headerlink" title="15. 用户输入传参"></a>15. 用户输入传参</h3><blockquote>
 <p>当我们需要通过用户输入进行传参，这里有两种可选方案：read 和 xargs</p>
 </blockquote>
-<h4 id="read---是常规用到的通过用户键入字符读取参数">15.1 read -
-是常规用到的，通过用户键入字符读取参数</h4>
-<p>。。。。。【待整理】</p>
-<h4 id="xargs---其单独使用的情况下默认是-echo-的效果">15.2 xargs -
-其单独使用的情况下，默认是 <code>echo</code> 的效果；</h4>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">xargs find -name</span></span><br><span class="line">&quot;*.txt&quot; (用户键入，并 Ctrl+d 退出)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 等效于</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find -name <span class="string">&quot;*.txt&quot;</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="tr">16. tr</h3>
-<blockquote>
+<h4 id="15-1-read-是常规用到的，通过用户键入字符读取参数"><a href="#15-1-read-是常规用到的，通过用户键入字符读取参数" class="headerlink" title="15.1 read - 是常规用到的，通过用户键入字符读取参数"></a>15.1 read - 是常规用到的，通过用户键入字符读取参数</h4><p>。。。。。【待整理】</p>
+<h4 id="15-2-xargs-其单独使用的情况下，默认是-echo-的效果；"><a href="#15-2-xargs-其单独使用的情况下，默认是-echo-的效果；" class="headerlink" title="15.2 xargs - 其单独使用的情况下，默认是 echo 的效果；"></a>15.2 xargs - 其单独使用的情况下，默认是 <code>echo</code> 的效果；</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">xargs find -name</span></span><br><span class="line">&quot;*.txt&quot; (用户键入，并 Ctrl+d 退出)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 等效于</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">find -name <span class="string">&quot;*.txt&quot;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="16-tr"><a href="#16-tr" class="headerlink" title="16. tr"></a>16. tr</h3><blockquote>
 <p>用户转换或删除给定字符串中的某个字符</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> a.txt | <span class="built_in">tr</span> [:lower:] [:upper:]</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 将所有的小写字母替换成大写字母</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># link：https://linux.cn/article-11983-1.html</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="printf">17. printf</h3>
-<blockquote>
-<p><code>printf</code> 作用同
-<code>echo</code>，但可以有更多花样可以玩；这还得多多尝试</p>
-<p>比如，当我们需要输出打印 <code>n</code>
-个相同字符时，总不能自己数数吧？？？当然是通过一定的语法来输出，如下：</p>
+
+
+
+<h3 id="17-printf"><a href="#17-printf" class="headerlink" title="17. printf"></a>17. printf</h3><blockquote>
+<p><code>printf</code> 作用同 <code>echo</code>，但可以有更多花样可以玩；这还得多多尝试</p>
+<p>比如，当我们需要输出打印 <code>n</code> 个相同字符时，总不能自己数数吧？？？当然是通过一定的语法来输出，如下：</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">printf</span> %.s<span class="string">&quot;-&quot;</span> &#123;1..100&#125;</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output：【默认不断行】</span></span></span><br><span class="line">----------------------------------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
-<h3 id="jq">18. jq</h3>
-<blockquote>
+
+<h3 id="18-jq"><a href="#18-jq" class="headerlink" title="18. jq"></a>18. jq</h3><blockquote>
 <p>一个轻量级的命令行 JSON 处理器</p>
-<p>link1：https://linux.cmsblogs.cn/c/jq.html</p>
-<p>link2：https://cloud.tencent.com/developer/article/1614025</p>
-<p>link3：https://www.cnblogs.com/kevingrace/p/7565371.html</p>
+<p>link1：<span class="exturl" data-url="aHR0cHM6Ly9saW51eC5jbXNibG9ncy5jbi9jL2pxLmh0bWw=">https://linux.cmsblogs.cn/c/jq.html<i class="fa fa-external-link-alt"></i></span></p>
+<p>link2：<span class="exturl" data-url="aHR0cHM6Ly9jbG91ZC50ZW5jZW50LmNvbS9kZXZlbG9wZXIvYXJ0aWNsZS8xNjE0MDI1">https://cloud.tencent.com/developer/article/1614025<i class="fa fa-external-link-alt"></i></span></p>
+<p>link3：<span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20va2V2aW5ncmFjZS9wLzc1NjUzNzEuaHRtbA==">https://www.cnblogs.com/kevingrace/p/7565371.html<i class="fa fa-external-link-alt"></i></span></p>
 </blockquote>
-<h3 id="toilet-figlet">19. toilet &amp;&amp; figlet</h3>
-<blockquote>
+<h3 id="19-toilet-amp-amp-figlet"><a href="#19-toilet-amp-amp-figlet" class="headerlink" title="19. toilet &amp;&amp; figlet"></a>19. toilet &amp;&amp; figlet</h3><blockquote>
 <p>一对在 <code>Linux</code> 终端整花活的难兄难弟。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;<span class="subst">$(date &#x27;+%D %T&#x27; | toilet -f term -F border --gay)</span>&quot;</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 彩色时钟打印</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="loginctl">20. loginctl</h3>
-<blockquote>
+
+<h3 id="20-loginctl"><a href="#20-loginctl" class="headerlink" title="20. loginctl"></a>20. loginctl</h3><blockquote>
 <p>返回当前登录情况</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">loginctl list-sessions</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 列出当前 sessions</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">loginctl list-users</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 列出当前登录用户</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">loginctl show-user majunwei</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 显示指定用户的信息</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="eval">21. eval</h3>
-<blockquote>
+
+<h3 id="21-eval"><a href="#21-eval" class="headerlink" title="21. eval"></a>21. eval</h3><blockquote>
 <p>了解指定的参数在一起成为一个单一的可执行命令</p>
 <p>对后面的命令进行两次扫描；简单来说就是对输出的变量进行执行，具体看下面的示例</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">test</span>=<span class="string">&#x27;echo &quot;hello&quot;&#x27;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="variable">$test</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output</span></span></span><br><span class="line">echo &quot;hello&quot;</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">eval</span> <span class="variable">$test</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># output</span></span></span><br><span class="line">hello</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 不难发现的是，eval $变量 的作用便是将变量当成ming&#x27;lin</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="set">22. set</h3>
-<blockquote>
-<p><code>set</code>
-命令可显示打印出当前用户所设置的所有变量名与对应的值</p>
+
+<h3 id="22-set"><a href="#22-set" class="headerlink" title="22. set"></a>22. set</h3><blockquote>
+<p><code>set</code> 命令可显示打印出当前用户所设置的所有变量名与对应的值</p>
 </blockquote>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
@@ -1193,13 +1152,13 @@ xargs 开发初衷是为 find 服务，所以更多便捷的使用，都可以�
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">286k</span>
+    <span title="站点总字数">287k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:20</span>
+    <span title="站点阅读时长">4:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

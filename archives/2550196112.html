@@ -22,19 +22,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Introduction 单倍型解析的基因组组装对于了解变体组合如何影响表型非常重要。Falcon phase 使用超远程 Hi-C 染色质相互作用数据将部分定相二倍体组装的 phase blocks 扩展到染色体&#x2F;scaffolds 水平；使用 Hi-C reads 中固有的定相信息，跳过变体调用，并降低定相的计算复杂度。">
+    <meta name="description" content="Introduction单倍型解析的基因组组装对于了解变体组合如何影响表型非常重要。Falcon phase 使用超远程 Hi-C 染色质相互作用数据将部分定相二倍体组装的 phase blocks 扩展到染色体&#x2F;scaffolds 水平；使用 Hi-C reads 中固有的定相信息，跳过变体调用，并降低定相的计算复杂度。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单倍型基因组组装工具 --- Falcon phase">
 <meta property="og:url" content="https://zerobio.github.io/archives/2550196112.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="Introduction 单倍型解析的基因组组装对于了解变体组合如何影响表型非常重要。Falcon phase 使用超远程 Hi-C 染色质相互作用数据将部分定相二倍体组装的 phase blocks 扩展到染色体&#x2F;scaffolds 水平；使用 Hi-C reads 中固有的定相信息，跳过变体调用，并降低定相的计算复杂度。">
+<meta property="og:description" content="Introduction单倍型解析的基因组组装对于了解变体组合如何影响表型非常重要。Falcon phase 使用超远程 Hi-C 染色质相互作用数据将部分定相二倍体组装的 phase blocks 扩展到染色体&#x2F;scaffolds 水平；使用 Hi-C reads 中固有的定相信息，跳过变体调用，并降低定相的计算复杂度。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zerobio.github.io/images/41467_2020_20536_Fig1_HTML.jpg">
 <meta property="article:published_time" content="2022-03-23T12:55:20.000Z">
 <meta property="article:modified_time" content="2022-06-07T13:12:18.163Z">
 <meta property="article:author" content="JWei Ma">
-<meta property="article:tag" content="haplotype">
 <meta property="article:tag" content="Falcon phase">
+<meta property="article:tag" content="haplotype">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zerobio.github.io/images/41467_2020_20536_Fig1_HTML.jpg">
 
@@ -193,7 +193,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#falcon-phase-%E7%BB%84%E8%A3%85%E7%AD%96%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">Falcon phase 组装策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Falcon-phase-%E7%BB%84%E8%A3%85%E7%AD%96%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">Falcon phase 组装策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -732,47 +732,24 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="introduction">Introduction</h2>
-<p>单倍型解析的基因组组装对于了解变体组合如何影响表型非常重要。<code>Falcon phase</code>
-使用超远程 <code>Hi-C</code> 染色质相互作用数据将部分定相二倍体组装的
-<code>phase blocks</code> 扩展到染色体/scaffolds 水平；使用
-<code>Hi-C reads</code>
-中固有的定相信息，跳过变体调用，并降低定相的计算复杂度。</p>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>单倍型解析的基因组组装对于了解变体组合如何影响表型非常重要。<code>Falcon phase</code> 使用超远程 <code>Hi-C</code> 染色质相互作用数据将部分定相二倍体组装的 <code>phase blocks</code> 扩展到染色体&#x2F;scaffolds 水平；使用 <code>Hi-C reads</code> 中固有的定相信息，跳过变体调用，并降低定相的计算复杂度。</p>
 <span id="more"></span>
+
 <blockquote>
 <p><code>Falcon phase</code> 尤其是在杂合度较高的样本中表现最好。</p>
-<p><code>Falcon phase</code>
-可以有效的解决相邻单倍体之间的相位未知的限制，因为其没有通过调用或定相相对于现有参考基因组的
-<code>SNP variants</code>，而是通过使用来自独特的、单倍型特异性的比对上的
-<code>Hi-C reads</code> 中的超远程信息（&gt;1Mb）和随机算法，用于在
-<code>contigs</code>
-之间建立单倍体之间的正确联系，最终得到两个全长伪单倍型。</p>
+<p><code>Falcon phase</code> 可以有效的解决相邻单倍体之间的相位未知的限制，因为其没有通过调用或定相相对于现有参考基因组的 <code>SNP variants</code>，而是通过使用来自独特的、单倍型特异性的比对上的 <code>Hi-C reads</code> 中的超远程信息（&gt;1Mb）和随机算法，用于在 <code>contigs</code> 之间建立单倍体之间的正确联系，最终得到两个全长伪单倍型。</p>
 </blockquote>
-<p>此外，<code>Falcon phase</code> 的分型效果依赖于
-<code>Falcon unzip</code>
-的分型长读的组装结果；也就是说，<code>Falcon phase</code> 需要结合
-<code>Falcon</code> 组装套件一起使用，才能得到最佳的分型效果。</p>
-<h2 id="falcon-phase-组装策略"><code>Falcon phase</code> 组装策略</h2>
-<p><img data-src="../images/41467_2020_20536_Fig1_HTML.jpg" /></p>
+<p>此外，<code>Falcon phase</code> 的分型效果依赖于 <code>Falcon unzip</code> 的分型长读的组装结果；也就是说，<code>Falcon phase</code> 需要结合 <code>Falcon</code> 组装套件一起使用，才能得到最佳的分型效果。</p>
+<h2 id="Falcon-phase-组装策略"><a href="#Falcon-phase-组装策略" class="headerlink" title="Falcon phase 组装策略"></a><code>Falcon phase</code> 组装策略</h2><p><img data-src="/../images/41467_2020_20536_Fig1_HTML.jpg"></p>
 <blockquote>
-<p>a、“long reads” 组装一般得到的是 主要 contigs
-和较短的交替单倍体；蓝色为 contigs；红色为 haplotig（单倍体）。</p>
+<p>a、“long reads” 组装一般得到的是 主要 contigs 和较短的交替单倍体；蓝色为 contigs；红色为 haplotig（单倍体）。</p>
 <p>b、单倍体与 contigs 之间对齐；</p>
-<p>c、按照与单倍体对齐的 contigs 的开始与结束位置对 contig
-进行切割。便产生了（phase blocks + collapsed haplotypes）</p>
-<p>d、Hi-C reads 比对到被切碎的
-contigs；并进行过滤以保留单倍型特异性的比对。</p>
-<p>e、phase blocks 通过定相算法分配到 0/1 状态。</p>
-<p>f、最终输出的两个全长伪单倍型。（phase0/phase1）</p>
+<p>c、按照与单倍体对齐的 contigs 的开始与结束位置对 contig 进行切割。便产生了（phase blocks + collapsed haplotypes）</p>
+<p>d、Hi-C reads 比对到被切碎的 contigs；并进行过滤以保留单倍型特异性的比对。</p>
+<p>e、phase blocks 通过定相算法分配到 0&#x2F;1 状态。</p>
+<p>f、最终输出的两个全长伪单倍型。（phase0&#x2F;phase1）</p>
 </blockquote>
-<h2 id="references">References</h2>
-<p>Kronenberg, Z. N., Rhie, A., Koren, S., Concepcion, G. T., Peluso,
-P., Munson, K. M., Porubsky, D., Kuhn, K., Mueller, K. A., Low, W. Y.,
-Hiendleder, S., Fedrigo, O., Liachko, I., Hall, R. J., Phillippy, A. M.,
-Eichler, E. E., Williams, J. L., Smith, T., Jarvis, E. D., Sullivan, S.
-T., … Kingan, S. B. (2021). Extended haplotype-phasing of long-read de
-novo genome assemblies using Hi-C. <em>Nature communications</em>,
-<em>12</em>(1), 1935. https://doi.org/10.1038/s41467-020-20536-y</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>Kronenberg, Z. N., Rhie, A., Koren, S., Concepcion, G. T., Peluso, P., Munson, K. M., Porubsky, D., Kuhn, K., Mueller, K. A., Low, W. Y., Hiendleder, S., Fedrigo, O., Liachko, I., Hall, R. J., Phillippy, A. M., Eichler, E. E., Williams, J. L., Smith, T., Jarvis, E. D., Sullivan, S. T., … Kingan, S. B. (2021). Extended haplotype-phasing of long-read de novo genome assemblies using Hi-C. <em>Nature communications</em>, <em>12</em>(1), 1935. <span class="exturl" data-url="aHR0cHM6Ly9kb2kub3JnLzEwLjEwMzgvczQxNDY3LTAyMC0yMDUzNi15">https://doi.org/10.1038/s41467-020-20536-y<i class="fa fa-external-link-alt"></i></span></p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
@@ -819,8 +796,8 @@ novo genome assemblies using Hi-C. <em>Nature communications</em>,
 </div>
 
           <div class="post-tags">
-              <a href="/tags/haplotype/" rel="tag"><i class="fa fa-tag"></i> haplotype</a>
               <a href="/tags/Falcon-phase/" rel="tag"><i class="fa fa-tag"></i> Falcon phase</a>
+              <a href="/tags/haplotype/" rel="tag"><i class="fa fa-tag"></i> haplotype</a>
           </div>
 
         
@@ -867,13 +844,13 @@ novo genome assemblies using Hi-C. <em>Nature communications</em>,
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">286k</span>
+    <span title="站点总字数">287k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:20</span>
+    <span title="站点阅读时长">4:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

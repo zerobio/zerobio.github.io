@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="背景 单倍型基因组组装方法是针对于动植物基因组组装提出的更为精确的组装策略，二倍体基因组同时拥有来自父本与母本的基因型，存在复杂的等位基因变异，极大地提高了二倍型基因组的组装难度。也就是说我们如要完整组装二倍型基因组，需要将二倍型基因组进行两次单倍型基因组组装，从而精准的定位到染色体水平。目前，大多数二倍体基因组组装忽略了同源染色体之间的差异，从而将基因组组装成一个伪单倍体序列，这将会对之后基因">
+    <meta name="description" content="背景单倍型基因组组装方法是针对于动植物基因组组装提出的更为精确的组装策略，二倍体基因组同时拥有来自父本与母本的基因型，存在复杂的等位基因变异，极大地提高了二倍型基因组的组装难度。也就是说我们如要完整组装二倍型基因组，需要将二倍型基因组进行两次单倍型基因组组装，从而精准的定位到染色体水平。目前，大多数二倍体基因组组装忽略了同源染色体之间的差异，从而将基因组组装成一个伪单倍体序列，这将会对之后基因注释">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单倍型基因组组装工具 --- ALLHic">
 <meta property="og:url" content="https://zerobio.github.io/archives/f7e90e2b.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="背景 单倍型基因组组装方法是针对于动植物基因组组装提出的更为精确的组装策略，二倍体基因组同时拥有来自父本与母本的基因型，存在复杂的等位基因变异，极大地提高了二倍型基因组的组装难度。也就是说我们如要完整组装二倍型基因组，需要将二倍型基因组进行两次单倍型基因组组装，从而精准的定位到染色体水平。目前，大多数二倍体基因组组装忽略了同源染色体之间的差异，从而将基因组组装成一个伪单倍体序列，这将会对之后基因">
+<meta property="og:description" content="背景单倍型基因组组装方法是针对于动植物基因组组装提出的更为精确的组装策略，二倍体基因组同时拥有来自父本与母本的基因型，存在复杂的等位基因变异，极大地提高了二倍型基因组的组装难度。也就是说我们如要完整组装二倍型基因组，需要将二倍型基因组进行两次单倍型基因组组装，从而精准的定位到染色体水平。目前，大多数二倍体基因组组装忽略了同源染色体之间的差异，从而将基因组组装成一个伪单倍体序列，这将会对之后基因注释">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zerobio.github.io/images/image-20220323212351372.png">
 <meta property="article:published_time" content="2022-03-09T02:10:22.000Z">
@@ -193,9 +193,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86%E6%9F%93%E8%89%B2%E4%BD%93"><span class="nav-number">1.1.</span> <span class="nav-text">认识染色体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#allhic-%E7%9A%84%E8%AF%9E%E7%94%9F"><span class="nav-number">2.</span> <span class="nav-text">ALLHiC 的诞生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#allhic-%E7%BB%84%E8%A3%85%E7%AD%96%E7%95%A5"><span class="nav-number">3.</span> <span class="nav-text">ALLHiC 组装策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#allhic-%E7%BB%84%E8%A3%85%E4%BA%8C%E5%80%8D%E4%BD%93"><span class="nav-number">4.</span> <span class="nav-text">ALLHiC 组装二倍体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-%E7%A8%8B%E5%BA%8F%E5%AE%89%E8%A3%85"><span class="nav-number">4.1.</span> <span class="nav-text">环境搭建 + 程序安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E5%BA%8F%E6%95%B0%E6%8D%AE%E4%B8%8B%E8%BD%BD"><span class="nav-number">4.2.</span> <span class="nav-text">测序数据下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E7%BB%84%E8%A3%85"><span class="nav-number">4.3.</span> <span class="nav-text">初步组装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allhic-%E4%BB%A5%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85"><span class="nav-number">4.4.</span> <span class="nav-text">ALLHiC
-以获得染色体水平基因组组装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allhic-%E4%BD%9C%E7%94%A8%E4%BA%8E%E5%A4%9A%E5%80%8D%E4%BD%93%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85"><span class="nav-number">4.5.</span> <span class="nav-text">ALLHiC
-作用于多倍体的单倍型组装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86%E6%9F%93%E8%89%B2%E4%BD%93"><span class="nav-number">1.1.</span> <span class="nav-text">认识染色体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ALLHiC-%E7%9A%84%E8%AF%9E%E7%94%9F"><span class="nav-number">2.</span> <span class="nav-text">ALLHiC 的诞生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ALLHiC-%E7%BB%84%E8%A3%85%E7%AD%96%E7%95%A5"><span class="nav-number">3.</span> <span class="nav-text">ALLHiC 组装策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ALLHiC-%E7%BB%84%E8%A3%85%E4%BA%8C%E5%80%8D%E4%BD%93"><span class="nav-number">4.</span> <span class="nav-text">ALLHiC 组装二倍体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-%E7%A8%8B%E5%BA%8F%E5%AE%89%E8%A3%85"><span class="nav-number">4.1.</span> <span class="nav-text">环境搭建 + 程序安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E5%BA%8F%E6%95%B0%E6%8D%AE%E4%B8%8B%E8%BD%BD"><span class="nav-number">4.2.</span> <span class="nav-text">测序数据下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AD%A5%E7%BB%84%E8%A3%85"><span class="nav-number">4.3.</span> <span class="nav-text">初步组装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ALLHiC-%E4%BB%A5%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85"><span class="nav-number">4.4.</span> <span class="nav-text">ALLHiC 以获得染色体水平基因组组装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ALLHiC-%E4%BD%9C%E7%94%A8%E4%BA%8E%E5%A4%9A%E5%80%8D%E4%BD%93%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85"><span class="nav-number">4.5.</span> <span class="nav-text">ALLHiC 作用于多倍体的单倍型组装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">5.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -734,257 +732,151 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="背景">背景</h2>
-<p>单倍型基因组组装方法是针对于动植物基因组组装提出的更为精确的组装策略，二倍体基因组同时拥有来自父本与母本的基因型，存在复杂的等位基因变异，极大地提高了二倍型基因组的组装难度。也就是说我们如要完整组装二倍型基因组，需要将二倍型基因组进行两次单倍型基因组组装，从而精准的定位到染色体水平。目前，大多数二倍体基因组组装忽略了同源染色体之间的差异，从而将基因组组装成一个伪单倍体序列，这将会对之后基因注释产生很多不确定因素以及得到不准确的生物学解释。想要得到二倍体精确的单倍体基因组，从测序样本入手是一种常见的策略。我们可以通过不断近交以得到纯合双单倍体基因型，便可组装得到纯合基因组；又或者提供物种的配子进行测序，亦能得到准确的单倍型基因组；又或者在测序前分离单个染色体，从而实现单个单倍型基因组的测序和组装。</p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>单倍型基因组组装方法是针对于动植物基因组组装提出的更为精确的组装策略，二倍体基因组同时拥有来自父本与母本的基因型，存在复杂的等位基因变异，极大地提高了二倍型基因组的组装难度。也就是说我们如要完整组装二倍型基因组，需要将二倍型基因组进行两次单倍型基因组组装，从而精准的定位到染色体水平。目前，大多数二倍体基因组组装忽略了同源染色体之间的差异，从而将基因组组装成一个伪单倍体序列，这将会对之后基因注释产生很多不确定因素以及得到不准确的生物学解释。想要得到二倍体精确的单倍体基因组，从测序样本入手是一种常见的策略。我们可以通过不断近交以得到纯合双单倍体基因型，便可组装得到纯合基因组；又或者提供物种的配子进行测序，亦能得到准确的单倍型基因组；又或者在测序前分离单个染色体，从而实现单个单倍型基因组的测序和组装。</p>
 <span id="more"></span>
-<p>虽然通过各种技术想方设法从测序样本中得到单个染色体进行测序组装，能够满足部分需求；但是实验技术也存在诸多不确定的局限。如染色体分选局限于能否通过荧光强度或光散射区分特定染色体；单细胞技术
-Strand-seq
-局限于其数据获取困难。所以，将重心转移到二倍体基因组组装策略是一个不错的思路</p>
-<h3 id="认识染色体">认识染色体</h3>
-<p>在介绍组装工具之前，有必要先了解一下生物体内的染色体构成。就拿人染色体来讲，可以表示为
-<code>2n=2x=46</code> ；其中 <code>n</code>
-代表的是单倍体染色体数目，也就是我们今天提到的组装工具 ALLHiC
-的组装目标，<code>n</code> 是正常细胞的同源染色体的对数，则
-<code>2n</code> 就代表着生物体体细胞的染色体数目。<code>x</code>
-是有别于 <code>n</code>
-的概念，代表的是染色体基数，表示一套染色体组的染色体数量，其也决定了生物体基因组的倍性。如人类基因组就是二倍体，则表示为
-<code>2x=46</code> ；代表人类一套完整的染色体组包含 <code>23条</code>
-染色体；<code>2n=46</code>
-则代表着人类配子（精子/卵子）携带的染色体数量为 <code>23条</code>。</p>
+
+<p>虽然通过各种技术想方设法从测序样本中得到单个染色体进行测序组装，能够满足部分需求；但是实验技术也存在诸多不确定的局限。如染色体分选局限于能否通过荧光强度或光散射区分特定染色体；单细胞技术 Strand-seq 局限于其数据获取困难。所以，将重心转移到二倍体基因组组装策略是一个不错的思路</p>
+<h3 id="认识染色体"><a href="#认识染色体" class="headerlink" title="认识染色体"></a>认识染色体</h3><p>在介绍组装工具之前，有必要先了解一下生物体内的染色体构成。就拿人染色体来讲，可以表示为 <code>2n=2x=46</code> ；其中 <code>n</code> 代表的是单倍体染色体数目，也就是我们今天提到的组装工具 ALLHiC 的组装目标，<code>n</code> 是正常细胞的同源染色体的对数，则 <code>2n</code> 就代表着生物体体细胞的染色体数目。<code>x</code> 是有别于 <code>n</code> 的概念，代表的是染色体基数，表示一套染色体组的染色体数量，其也决定了生物体基因组的倍性。如人类基因组就是二倍体，则表示为 <code>2x=46</code> ；代表人类一套完整的染色体组包含 <code>23条</code> 染色体；<code>2n=46</code> 则代表着人类配子（精子&#x2F;卵子）携带的染色体数量为 <code>23条</code>。</p>
 <blockquote>
 <p>染色体组：指形态、大小各不相同的一组染色体</p>
-<p>n：生物体配子体的染色体数量 = 体细胞同源染色体对数 =
-单倍体染色体数量</p>
-<p>x：生物体一个染色体组中染色体数量 =
-含有控制生物所有性状的一整套基因的染色体数量（一套染色体组中没有重复的基因，同时也没有缺失，即控制同一性状的基因只有一个，同时在一个染色体组中不存在等位基因）</p>
+<p>n：生物体配子体的染色体数量 &#x3D; 体细胞同源染色体对数 &#x3D; 单倍体染色体数量</p>
+<p>x：生物体一个染色体组中染色体数量 &#x3D; 含有控制生物所有性状的一整套基因的染色体数量（一套染色体组中没有重复的基因，同时也没有缺失，即控制同一性状的基因只有一个，同时在一个染色体组中不存在等位基因）</p>
 </blockquote>
-<p>这里再举个四倍体的例子：<code>2n=4x=32</code>
-；那我们能得到的信息如下：</p>
+<p>这里再举个四倍体的例子：<code>2n=4x=32</code> ；那我们能得到的信息如下：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1.</span> 该物种的染色体总数：<span class="code">`32`</span></span><br><span class="line"><span class="bullet">2.</span> 单倍体染色体条数：<span class="code">`16`</span>  --- 1n=2x=16；即来自亲本的配子有 <span class="code">`16`</span> 条。</span><br><span class="line"><span class="bullet">3.</span> 一个单倍体内有两套染色体组，四倍体内有四套染色体组，各来自两个亲本的两套。</span><br></pre></td></tr></table></figure>
-<p>今天主要是看二倍体基因组单倍体组装流程，采用的组装工具是
-<code>ALLHiC</code>
-；二倍体基因组是由两个同源的染色体拷贝组装的，两个亲本各有一个，而我们要得到的结果便是其中一个同源染色体拷贝，即具有一套完整染色体信息的单倍体基因组；通过
-<code>ALLHic</code> 组装，最终得到两组染色体水平的单倍型基因组。</p>
-<h2 id="allhic-的诞生">ALLHiC 的诞生</h2>
-<p>2019年8月5日，福建农林大学基因组中心张兴坦副教授和唐海宝教授研究组在<em>Nature
-Plants</em>杂志在线发表题为“<a
-target="_blank" rel="noopener" href="https://www.nature.com/articles/s41477-019-0487-8">Assembly of
-allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C
-data</a>”的研究论文，开发了一种 <code>ALLHiC</code>
-算法，成功完成了同源四倍体和同源八倍体甘蔗染色体水平组装。<code>ALLHiC</code>
-可以从头组装获得单倍型染色体水平的多倍体基因组，分离每一个等位基因。<code>ALLHiC</code>
-同时适用于多倍体和杂合二倍体的单倍型染色体水平组装。</p>
+
+<p>今天主要是看二倍体基因组单倍体组装流程，采用的组装工具是 <code>ALLHiC</code> ；二倍体基因组是由两个同源的染色体拷贝组装的，两个亲本各有一个，而我们要得到的结果便是其中一个同源染色体拷贝，即具有一套完整染色体信息的单倍体基因组；通过 <code>ALLHic</code> 组装，最终得到两组染色体水平的单倍型基因组。</p>
+<h2 id="ALLHiC-的诞生"><a href="#ALLHiC-的诞生" class="headerlink" title="ALLHiC 的诞生"></a>ALLHiC 的诞生</h2><p>2019年8月5日，福建农林大学基因组中心张兴坦副教授和唐海宝教授研究组在<em>Nature Plants</em>杂志在线发表题为“<span class="exturl" data-url="aHR0cHM6Ly93d3cubmF0dXJlLmNvbS9hcnRpY2xlcy9zNDE0NzctMDE5LTA0ODctOA==">Assembly of allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C data<i class="fa fa-external-link-alt"></i></span>”的研究论文，开发了一种 <code>ALLHiC</code> 算法，成功完成了同源四倍体和同源八倍体甘蔗染色体水平组装。<code>ALLHiC</code> 可以从头组装获得单倍型染色体水平的多倍体基因组，分离每一个等位基因。<code>ALLHiC</code> 同时适用于多倍体和杂合二倍体的单倍型染色体水平组装。</p>
 <p><strong>作者对 <code>ALLHiC</code> 所有代码进行开源</strong></p>
 <blockquote>
-<p>Github：<a
-target="_blank" rel="noopener" href="https://github.com/tangerzhang/ALLHiC">tangerzhang/ALLHiC: ALLHiC:
-phasing and scaffolding polyploid genomes based on Hi-C data
-(github.com)</a></p>
-<p>Pipeline：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtp">Home ·
-tangerzhang/ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>Github：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQw==">tangerzhang&#x2F;ALLHiC: ALLHiC: phasing and scaffolding polyploid genomes based on Hi-C data (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>Pipeline：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtp">Home · tangerzhang&#x2F;ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
 </blockquote>
-<h2 id="allhic-组装策略">ALLHiC 组装策略</h2>
-<p><img data-src="../images/image-20220323212351372.png" /></p>
+<h2 id="ALLHiC-组装策略"><a href="#ALLHiC-组装策略" class="headerlink" title="ALLHiC 组装策略"></a>ALLHiC 组装策略</h2><p><img data-src="/../images/image-20220323212351372.png"></p>
 <blockquote>
-<p>Allelic contig table --- 等位基因重叠群表（通过参考基因组生成）</p>
-<p>BAM --- HiC 数据 mapping 的 BAM</p>
-<p>Prunning ---
-修剪；连续的红线表示折叠区域；紫色、蓝色和绿色的连续线表示假设的多倍体基因组中的不同单倍型。粉红色虚线表示等位基因间
-Hi-C 信号，而灰色虚线表示折叠区域和非折叠重叠群之间的 Hi-C 信号。</p>
-<p>Partitioning ---
-分区；彩色圆点表示在真实数据集中具有原始染色体分配的重叠群。</p>
-<p>Rescue ---
-救援（一个检查过程）；不同的颜色表示来自四种不同单倍型的重叠群，而红色实线表示折叠的重叠群。</p>
-<p>Optimization --- 优化；不同的颜色表示四种不同的单倍型。</p>
-<p>Building --- 构建；生成 group.asm.fasta，染色体水平的单倍体基因组</p>
+<p>Allelic contig table — 等位基因重叠群表（通过参考基因组生成）</p>
+<p>BAM — HiC 数据 mapping 的 BAM</p>
+<p>Prunning — 修剪；连续的红线表示折叠区域；紫色、蓝色和绿色的连续线表示假设的多倍体基因组中的不同单倍型。粉红色虚线表示等位基因间 Hi-C 信号，而灰色虚线表示折叠区域和非折叠重叠群之间的 Hi-C 信号。</p>
+<p>Partitioning — 分区；彩色圆点表示在真实数据集中具有原始染色体分配的重叠群。</p>
+<p>Rescue — 救援（一个检查过程）；不同的颜色表示来自四种不同单倍型的重叠群，而红色实线表示折叠的重叠群。</p>
+<p>Optimization — 优化；不同的颜色表示四种不同的单倍型。</p>
+<p>Building — 构建；生成 group.asm.fasta，染色体水平的单倍体基因组</p>
 </blockquote>
 <div class="note info"><p>我们采用 canu 组装的伪单倍体 contigs 作为 ALLHiC 的输入。</p>
-<p>Allhic 在很大程度上依赖于初始 contigs
-组装的质量。单倍型之间序列高相似性会导致不明确的 reads
-比对，可能会导致大量的 HiC reads 在 ALLHiC
-管道中被删除，从而影响组装效果。</p>
+<p>Allhic 在很大程度上依赖于初始 contigs 组装的质量。单倍型之间序列高相似性会导致不明确的 reads 比对，可能会导致大量的 HiC reads 在 ALLHiC 管道中被删除，从而影响组装效果。</p>
 </div>
-<h2 id="allhic-组装二倍体">ALLHiC 组装二倍体</h2>
-<p>接下来我们就利用 <code>ALLHiC</code> 对杂合二倍体 <a
-target="_blank" rel="noopener" href="https://www.ncbi.nlm.nih.gov/genome/?term=Prunus+armeniaca">Prunus
-armeniaca</a> 进行组装，以获得染色体水平的单倍型基因组。</p>
-<h3 id="环境搭建-程序安装">环境搭建 + 程序安装</h3>
-<p>首先，配置 <code>ALLHiC</code> 运行所需的依赖，我们利用
-<code>miniconda3</code> 来配置相关环境。</p>
+
+<h2 id="ALLHiC-组装二倍体"><a href="#ALLHiC-组装二倍体" class="headerlink" title="ALLHiC 组装二倍体"></a>ALLHiC 组装二倍体</h2><p>接下来我们就利用 <code>ALLHiC</code> 对杂合二倍体 <span class="exturl" data-url="aHR0cHM6Ly93d3cubmNiaS5ubG0ubmloLmdvdi9nZW5vbWUvP3Rlcm09UHJ1bnVzK2FybWVuaWFjYQ==">Prunus armeniaca<i class="fa fa-external-link-alt"></i></span> 进行组装，以获得染色体水平的单倍型基因组。</p>
+<h3 id="环境搭建-程序安装"><a href="#环境搭建-程序安装" class="headerlink" title="环境搭建 + 程序安装"></a>环境搭建 + 程序安装</h3><p>首先，配置 <code>ALLHiC</code> 运行所需的依赖，我们利用 <code>miniconda3</code> 来配置相关环境。</p>
 <ul>
 <li><span class="exturl" data-url="aHR0cDovL3NhbXRvb2xzLnNvdXJjZWZvcmdlLm5ldC8=">samtools v1.9+<i class="fa fa-external-link-alt"></i></span></li>
-<li><a
-target="_blank" rel="noopener" href="http://bedtools.readthedocs.io/en/latest/">bedtools</a></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9tYXRwbG90bGliLm9yZy91c2Vycy9pbnN0YWxsaW5nLmh0bWw=">matplotlib
-v2.0+<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cDovL2JlZHRvb2xzLnJlYWR0aGVkb2NzLmlvL2VuL2xhdGVzdC8=">bedtools<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9tYXRwbG90bGliLm9yZy91c2Vycy9pbnN0YWxsaW5nLmh0bWw=">matplotlib v2.0+<i class="fa fa-external-link-alt"></i></span></li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">conda create -y -n allhic python=3.7 samtools bedtools matplotlib</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 下载二进制文件，解压之后可直接运行，无需编译</span></span></span><br><span class="line">wget https://github.com/tanghaibao/allhic/releases/download/v0.9.13/allhic_0.9.13_Linux_64-bit.tar.gz  </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 解压</span></span></span><br><span class="line">tar -zxvf allhic_0.9.13_Linux_64-bit.tar.gz</span><br><span class="line">./allhic --version  ## 查考 allhic 版本号</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># allhic version 0.9.13</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 文件结构</span></span></span><br><span class="line">tree</span><br><span class="line">.</span><br><span class="line">|-- LICENSE</span><br><span class="line">|-- README.md</span><br><span class="line">|-- allhic</span><br><span class="line">`-- allhic_0.9.13_Linux_64-bit.tar.gz</span><br><span class="line"></span><br><span class="line">0 directories, 4 files</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 上面的方法是直接下载 ALLHiC 的二进制文件，省去了编译的过程，在唐海宝教授的 Github 上的；但是我之前是根据张兴坦教授在 Github 留的 Pipline 进行组装的，所以下面记录一下另外一种运行 ALLHiC 的方法。</span></span></span><br><span class="line">git clone https://github.com/tangerzhang/ALLHiC</span><br><span class="line">cd ALLHiC</span><br><span class="line">chmod +x bin/*</span><br><span class="line">chmod +x scripts/*  </span><br><span class="line">export PATH=/your/path/to/ALLHiC/scripts/:/your/path/to/ALLHiC/bin/:$PATH</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 所需的依赖参照上面，利用 miniconda 进行配置</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="测序数据下载">测序数据下载</h3>
-<p><code>ALLHiC</code> 运行前的数据准备：</p>
+
+
+
+<h3 id="测序数据下载"><a href="#测序数据下载" class="headerlink" title="测序数据下载"></a>测序数据下载</h3><p><code>ALLHiC</code> 运行前的数据准备：</p>
 <ul>
-<li>具有良好 <code>N50</code> 指标的 <code>contig</code>
-水平的目标基因组组装</li>
+<li>具有良好 <code>N50</code> 指标的 <code>contig</code> 水平的目标基因组组装</li>
 <li>Hi-C reads</li>
 </ul>
-<p>我们通过 <code>Canu</code> 对 PacBio CLR 数据进行初步组装，从而得到
-<code>contig</code> 水平的基因组，首先，我们从 <a
-target="_blank" rel="noopener" href="https://www.ebi.ac.uk/ena/browser/home">ENA</a> 数据库中下载需要的
-<code>PacBio</code> 原始测序数据。这里利用 <code>ascp</code>
-进行高速下载。</p>
+<p>我们通过 <code>Canu</code> 对 PacBio CLR 数据进行初步组装，从而得到 <code>contig</code> 水平的基因组，首先，我们从 <span class="exturl" data-url="aHR0cHM6Ly93d3cuZWJpLmFjLnVrL2VuYS9icm93c2VyL2hvbWU=">ENA<i class="fa fa-external-link-alt"></i></span> 数据库中下载需要的 <code>PacBio</code> 原始测序数据。这里利用 <code>ascp</code> 进行高速下载。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">ascp -v -QT -l 400m -P33001 -k1 -i \</span><br><span class="line">                    ~/.aspera/connect/etc/asperaweb_id_dsa.openssh \</span><br><span class="line">                    --mode recv --host fasp.sra.ebi.ac.uk --user era-fasp \</span><br><span class="line">                    --file-list download.txt ./</span><br><span class="line">								</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># download.txt</span></span></span><br><span class="line">cat download.txt</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Hi-C Data</span></span></span><br><span class="line">vol1/run/ERR461/ERR4619488/4672_A_run658_ATCACGAT_S2_L005_R1_001.fastq.gz</span><br><span class="line">vol1/run/ERR461/ERR4619488/4672_A_run658_ATCACGAT_S2_L005_R2_001.fastq.gz</span><br><span class="line">vol1/run/ERR461/ERR4619489/4672_B_run658_GCCAATAT_S3_L005_R1_001.fastq.gz</span><br><span class="line">vol1/run/ERR461/ERR4619489/4672_B_run658_GCCAATAT_S3_L005_R2_001.fastq.gz</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># PacBio CLR Data</span></span></span><br><span class="line">vol1/run/ERR409/ERR4093216/m54124_180918_044155.subreads.bam</span><br><span class="line">vol1/run/ERR409/ERR4093217/m54124_180917_082648.subreads.bam</span><br><span class="line">vol1/run/ERR409/ERR4093218/m54124_180911_161116.subreads.bam</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 因为数据库提供了多次测序数据，所以我们需要将多个合并成一个进行下面的分析</span></span></span><br><span class="line">cat 4672_A_run658_ATCACGAT_S2_L005_R1_001.fastq.gz 4672_B_run658_GCCAATAT_S3_L005_R1_001.fastq.gz \</span><br><span class="line">                    &gt; hic_R1.fastq.gz</span><br><span class="line">cat 4672_A_run658_ATCACGAT_S2_L005_R2_001.fastq.gz 4672_B_run658_GCCAATAT_S3_L005_R2_001.fastq.gz \</span><br><span class="line">                    &gt; hic_R2.fastq.gz</span><br><span class="line">																			</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 合并 bam 文件</span></span></span><br><span class="line">samtools merge pacbio.clr.bam m54124_180911_161116.subreads.bam \</span><br><span class="line">                    m54124_180917_082648.subreads.bam m54124_180918_044155.subreads.bam</span><br></pre></td></tr></table></figure>
-<h3 id="初步组装">初步组装</h3>
-<p>下载好测序数据之后，我们就可以对 <code>PacBio CLR</code>
-进行初步组装，如下：</p>
+
+<h3 id="初步组装"><a href="#初步组装" class="headerlink" title="初步组装"></a>初步组装</h3><p>下载好测序数据之后，我们就可以对 <code>PacBio CLR</code> 进行初步组装，如下：</p>
 <blockquote>
-<p>我们利用 <code>Canu</code> 工具对 <code>PacBio</code>
-数据进行组装，从而得到 <code>contigs</code>；</p>
+<p>我们利用 <code>Canu</code> 工具对 <code>PacBio</code> 数据进行组装，从而得到 <code>contigs</code>；</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 上面我们从 ENA 数据库中下载的是 bam 文件，所以我们需要先对其格式转换成 fasta 序列</span></span></span><br><span class="line">name=pacbio.clr</span><br><span class="line">samtools bam2fq $&#123;name&#125;.bam &gt; $&#123;name&#125;.fastq</span><br><span class="line">awk &#x27;&#123;if(NR%4 == 1)&#123;print &quot;&gt;&quot; substr($0, 2)&#125;&#125;&#123;if(NR%4 == 2)&#123;print&#125;&#125;&#x27; $&#123;name&#125;.fastq &gt; $&#123;name&#125;.fasta</span><br><span class="line">canu -p preasm -d canu_result useGrid=false genomeSize=250000000 \</span><br><span class="line">                    corMhapSensitivity=high corMinCoverage=0 corOutCoverage=100 \</span><br><span class="line">                    correctedErrorRate=0.105 -pacbio-raw $&#123;name&#125;.fasta</span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p><code>Canu</code> 组装很耗时间，耐心等待之后，我们便得到了初步组装的
-<code>contigs</code> 序列。</p>
+<p><code>Canu</code> 组装很耗时间，耐心等待之后，我们便得到了初步组装的 <code>contigs</code> 序列。</p>
 </blockquote>
-<h3 id="allhic-以获得染色体水平基因组组装">ALLHiC
-以获得染色体水平基因组组装</h3>
-<ol type="1">
+<h3 id="ALLHiC-以获得染色体水平基因组组装"><a href="#ALLHiC-以获得染色体水平基因组组装" class="headerlink" title="ALLHiC 以获得染色体水平基因组组装"></a>ALLHiC 以获得染色体水平基因组组装</h3><ol>
 <li><strong>Map Hi-C reads to draft assembly</strong></li>
 </ol>
 <blockquote>
-<p><code>draft.asm.fasta</code> 是我们上面利用 <code>Canu</code>
-组装得到的 <code>contigs</code></p>
+<p><code>draft.asm.fasta</code> 是我们上面利用 <code>Canu</code> 组装得到的 <code>contigs</code></p>
 <p><code>reads_R*.fastq.gz</code> 是 <code>Hi-C</code> 的双端数据</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 建立索引</span></span></span><br><span class="line">bwa index -a bwtsw draft.asm.fasta  </span><br><span class="line">samtools faidx draft.asm.fasta  </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 将 Hi-C reads 比对到 contigs</span></span></span><br><span class="line">bwa aln -t 24 draft.asm.fasta reads_R1.fastq.gz &gt; sample_R1.sai  </span><br><span class="line">bwa aln -t 24 draft.asm.fasta reads_R2.fastq.gz &gt; sample_R2.sai  </span><br><span class="line">bwa sampe draft.asm.fasta sample_R1.sai sample_R2.sai reads_R1.fastq.gz reads_R2.fastq.gz \</span><br><span class="line">                    &gt; sample.bwa_aln.sam  </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 过滤 SAM 文件</span></span></span><br><span class="line">PreprocessSAMs.pl sample.bwa_aln.sam draft.asm.fasta MBOI</span><br><span class="line">(*)filterBAM_forHiC.pl sample.bwa_aln.REduced.paired_only.bam sample.clean.sam</span><br><span class="line">samtools view -bt draft.asm.fasta.fai sample.clean.sam &gt; sample.clean.bam</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># *Tip: skip this step if you are using bwa mem for alignment（如果上面的比对采用的是 bwa mem ； 则跳过这个步骤）</span></span></span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
+
+<ol start="2">
 <li><strong>Prune</strong></li>
 </ol>
 <blockquote>
-<p><code>Allele.ctg.table</code>
-为<strong>等位基因重叠群表</strong>；<code>Prune</code>
-步骤可以根据用于输入的 <code>Allele.ctg.table</code> 从 <code>bam</code>
-文件中删除等位基因 <code>contigs</code> 之间的 <code>Hi-C reads</code>
-，这这一步，仅保留折叠( <code>collapsed</code> )和分阶段重叠群(
-<code>phased contigs</code> )之间的最佳联系。</p>
+<p><code>Allele.ctg.table</code> 为<strong>等位基因重叠群表</strong>；<code>Prune</code> 步骤可以根据用于输入的 <code>Allele.ctg.table</code> 从 <code>bam</code> 文件中删除等位基因 <code>contigs</code> 之间的 <code>Hi-C reads</code> ，这这一步，仅保留折叠( <code>collapsed</code> )和分阶段重叠群( <code>phased contigs</code> )之间的最佳联系。</p>
 <p>识别等位基因群，从而消除质量不好的 <code>Hi-C</code> 信号。</p>
-<p>具体如何生成 <code>Allele.ctg.table</code>，请移步 ：<a
-target="_blank" rel="noopener" href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-identify-allelic-contigs">ALLHiC:
-identify allelic contigs · tangerzhang/ALLHiC Wiki (github.com)</a></p>
+<p>具体如何生成 <code>Allele.ctg.table</code>，请移步 ：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtpL0FMTEhpQzotaWRlbnRpZnktYWxsZWxpYy1jb250aWdz">ALLHiC: identify allelic contigs · tangerzhang&#x2F;ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
 <p>若构建简单二倍体基因组的 <code>scaffolds</code>，可跳过这一步。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_prune -i Allele.ctg.table -b sample.clean.bam -r draft.asm.fasta  </span><br><span class="line"></span><br><span class="line">Parameters:   </span><br><span class="line">          -h : help and usage  </span><br><span class="line">          -i : Allele.ctg.table  ## 等位基因重叠群表，内含等位基因对信息</span><br><span class="line">          -b : input bam file  </span><br><span class="line">          -r : draft.asm.fasta  </span><br><span class="line"></span><br><span class="line">Tips: Details on how to identify allelic contigs can be found in the following link: </span><br><span class="line">https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-identify-allelic-contigs</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
+
+<ol start="3">
 <li><strong>Partition</strong></li>
 </ol>
 <blockquote>
-<p>将 <code>contigs</code>
-分配到预定数量的组中，基于分层链接算法迭代合并并包含它们之间大量链接的
-<code>contigs</code> 。</p>
-<p>此外，这里的 <code>-K</code>
-值指的是目标物种的染色体数目，在最终结果中，每一个分组代表着一条染色体，所以我们最后得到的结果是染色体水平的
-<code>scaffolds</code></p>
+<p>将 <code>contigs</code> 分配到预定数量的组中，基于分层链接算法迭代合并并包含它们之间大量链接的 <code>contigs</code> 。</p>
+<p>此外，这里的 <code>-K</code> 值指的是目标物种的染色体数目，在最终结果中，每一个分组代表着一条染色体，所以我们最后得到的结果是染色体水平的 <code>scaffolds</code></p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_partition -b prunning.bam -r draft.asm.fasta -e AAGCTT -k 16  </span><br><span class="line"></span><br><span class="line">Parameters: </span><br><span class="line">      -h : help and usage.</span><br><span class="line">      -b : prunned bam (optional, default prunning.bam)</span><br><span class="line">      -r : draft.sam.fasta</span><br><span class="line">      -e : enzyme_sites (HindIII: AAGCTT; MboI: GATC) ## 限制性酶切位点</span><br><span class="line">      -k : number of groups (user defined K value)    ## 可以设置多个 K 值，从而比较出最佳结果</span><br><span class="line">      -m : minimum number of restriction sites (default, 25)</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
+
+<ol start="4">
 <li><strong>Rescue</strong></li>
 </ol>
 <blockquote>
-<p>由于 <code>Hi-C</code> 信号较弱，在 <code>Partition</code>
-步骤中，可能得不到很多 <code>contigs</code>
-；于是，这一步主要是为了恢复这些 <code>contigs</code>。</p>
+<p>由于 <code>Hi-C</code> 信号较弱，在 <code>Partition</code> 步骤中，可能得不到很多 <code>contigs</code> ；于是，这一步主要是为了恢复这些 <code>contigs</code>。</p>
 <p>同时，进行进一步的排序和定向。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_rescue -b sample.clean.bam -r draft.asm.fasta -c clusters.txt -i counts_RE.txt  </span><br><span class="line"></span><br><span class="line">Parameters:  </span><br><span class="line">      -h : help and usage.</span><br><span class="line">      -b : sample.clean.bam (unpruned bam)</span><br><span class="line">      -r : draft.sam.fasta</span><br><span class="line">      -c : clusters.txt</span><br><span class="line">      -i : counts_RE.txt</span><br><span class="line">      -m : minimum single density for rescuing contigs (optional, default 0.01)  ## 这里设置保留 contigs 的最小阈值，默认是 0.01</span><br><span class="line">Tips: </span><br><span class="line">    clusters.txt (-c) and counts_RE.txt (-i) can be generated by allhic extract.</span><br><span class="line">    The format of clusters.txt is like below:</span><br><span class="line">    #Group  nContigs    Contigs</span><br><span class="line">    48g1    506         tig0000150 tig0000151 tig0000152 </span><br><span class="line">    48g2    692         tig0000097 tig0000114 tig0000231 </span><br><span class="line">    48g3    683         tig0000015 tig0000035 tig0000235</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#  组别    该组含有的congtis个数	具体的 contigs 编号</span></span></span><br><span class="line">    The first column is group name. The second is number of</span><br><span class="line">    contigs anchored in the group and the third lists contigs </span><br><span class="line">    in the group.</span><br></pre></td></tr></table></figure>
-<ol start="5" type="1">
+
+<ol start="5">
 <li><strong>Optimize</strong></li>
 </ol>
 <blockquote>
-<p>优化每一个 <code>Group</code> 的排序，同时确定 <code>contig</code>
-的正负方向。</p>
+<p>优化每一个 <code>Group</code> 的排序，同时确定 <code>contig</code> 的正负方向。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">allhic extract sample.clean.bam draft.asm.fasta --RE AAGCTT  </span><br><span class="line">allhic optimize group1.txt sample.clean.clm</span><br><span class="line">allhic optimize group2.txt sample.clean.clm</span><br><span class="line">...</span><br><span class="line">allhic optimize group16.txt sample.clean.clm</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># optimize 需要运行 -k 16 次；故这里我们可以添加一个循环，以便自动运行 16 次</span></span></span><br><span class="line">groups=16</span><br><span class="line">for i in &#123;1..$gourps&#125;; do allhic optimize group$&#123;i&#125;.txt sample.clean.clm; done</span><br><span class="line"></span><br><span class="line">Parameters:  </span><br><span class="line"></span><br><span class="line">allhic extract  </span><br><span class="line">    Input files:  </span><br><span class="line">        bam file and contig-level assembly  ## bam 文件和 contig 水平的组装 fasta 文件</span><br><span class="line">    Options:</span><br><span class="line">        --RE value  Restriction site pattern (default: &quot;GATC&quot;)  ## 限制性酶切位点</span><br><span class="line"></span><br><span class="line">allhic optimize  </span><br><span class="line">    Input files: </span><br><span class="line">      **counts_RE.txt - counts of restriction sites for each  ## 在每组中对酶切位点的数量统计</span><br><span class="line">        contig in a clusterd group, which can be generated 	  ## 以及 contig 长度</span><br><span class="line">        by allhic extract. The format is like below:</span><br><span class="line">             #Contig     RECounts    Length</span><br><span class="line">             tig0000001      572     157863</span><br><span class="line">             tig0000002      143     33000</span><br><span class="line">             tig0000003      231     60910</span><br><span class="line">             tig0000004      3789    1044000</span><br><span class="line">             tig0000005      646     166098</span><br><span class="line">             tig0000006      67      15000</span><br><span class="line">             tig0000007      1094    319000</span><br><span class="line">      **clmfile -  The file records basic information of Hi-C  ## 该文件记录了两个 contigs 之间 Hi-C 链接的</span><br><span class="line">      links between two contigs, including potential ordering  ## 基本信息，包含顺序和方向</span><br><span class="line">      and orientation, number of supported reads and distance of ## 由 allhic extract 生成</span><br><span class="line">      paired-end reads. This file can be accessed by allhic</span><br><span class="line">      extract.</span><br><span class="line">    Options:</span><br><span class="line">           --skipGA       Skip GA step                   ## 跳过 GA 过程</span><br><span class="line">           --resume       Resume from existing tour file ## 从现有的 tour 文件中恢复</span><br><span class="line">           --seed value   Random seed (default: 42)      ## 随机种子？</span><br><span class="line">           --npop value   Population size (default: 100)</span><br><span class="line">           --ngen value   Number of generations for convergence (default: 5000)  ## 收敛代数</span><br><span class="line">           --mutpb value  Mutation prob in GA (default: 0.2)  ## 遗传算法（GA）中的突变概率</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ol start="6" type="1">
+
+<ol start="6">
 <li><strong>Build</strong></li>
 </ol>
 <blockquote>
-<p>将 <code>tour</code> 格式的文件转换成 <code>fasta</code> 序列文件和
-<code>agp</code> 位置文件；从而得到染色体水平的 <code>scaffolds</code>
---- <code>groups.asm.fasta</code>。</p>
+<p>将 <code>tour</code> 格式的文件转换成 <code>fasta</code> 序列文件和 <code>agp</code> 位置文件；从而得到染色体水平的 <code>scaffolds</code> — <code>groups.asm.fasta</code>。</p>
 <p><code>agp</code> 文件记录每个 <code>contig</code> 的位置和方向。</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">ALLHiC_build draft.asm.fasta  </span><br><span class="line"></span><br><span class="line">Input file:</span><br><span class="line">    draft.asm.fasta - contig-level assmbly  ## contig 水平的组装</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>至此，我们已经从预组装的 <code>contigs</code> 得到最终染色体水平的
-<code>scaffolds</code> ；但是单倍型体现在哪里呢？</p>
-<p>在 <code>Hi-C</code> 质量高，预组装的 <code>contigs</code> 的
-<code>N50</code> 指标高，且 <code>-k</code>
-值的设置合理的情况下，<code>Build</code> 步骤输出的
-<code>groups.asm.fasta</code>
-文件就是我们最终得到的染色体水平的单倍型组装结果，也就是说我们能在
-<code>groups.asm.fasta</code>
-文件中获得我们需要的两个单倍型（二倍体）；只不过是需要通过与参考基因组绘制两者之间的<strong>点阵图</strong>来分析确定哪些染色体是同源的。</p>
+<p>至此，我们已经从预组装的 <code>contigs</code> 得到最终染色体水平的 <code>scaffolds</code> ；但是单倍型体现在哪里呢？</p>
+<p>在 <code>Hi-C</code> 质量高，预组装的 <code>contigs</code> 的 <code>N50</code> 指标高，且 <code>-k</code> 值的设置合理的情况下，<code>Build</code> 步骤输出的 <code>groups.asm.fasta</code> 文件就是我们最终得到的染色体水平的单倍型组装结果，也就是说我们能在 <code>groups.asm.fasta</code> 文件中获得我们需要的两个单倍型（二倍体）；只不过是需要通过与参考基因组绘制两者之间的<strong>点阵图</strong>来分析确定哪些染色体是同源的。</p>
 </blockquote>
-<ol start="7" type="1">
+<ol start="7">
 <li><strong>Plot</strong></li>
 </ol>
 <blockquote>
 <p>我们将生成染色质接触矩阵来评估基因组支架</p>
 </blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Usage:  </span><br><span class="line"></span><br><span class="line">samtools faidx groups.asm.fasta                        ## 创建索引</span><br><span class="line">cut -f1,2 groups.asm.fasta.fai|grep sample &gt; chrn.list ## 取出长度信息</span><br><span class="line"></span><br><span class="line">ALLHiC_plot sample.clean.bam groups.agp chrn.list 500k pdf</span><br><span class="line"></span><br><span class="line">Input files:</span><br><span class="line">   **bam file   - mapping bam file</span><br><span class="line">   **agp file   - Placement of contigs in each Hi-C groups,</span><br><span class="line">    which can be generated by ALLHiC_build</span><br><span class="line">   **chrn.list  - a list of group name and length. The </span><br><span class="line">    format of this file is like below:  ## 第一列为 组名，第二列为对应的长度</span><br><span class="line">        group1  125000</span><br><span class="line">        group2  159000</span><br><span class="line">    **bin size - heatmap bin size     ## 热图大小</span><br><span class="line">    **ext      - extension of plot figures, e.g. pdf  ## 输出格式</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>以上 <code>1-7</code> 是 <code>ALLHiC</code> 提供的从预组装的
-<code>contigs</code> 得到染色体水平的 <code>scaffolds</code>
-的流程，但并不是表示其可以适用于任何基因型组装。</p>
-<p>针对简单二倍体的 <code>scaffolds</code>
-组装，教授也给出了更适合的流程：<a
-target="_blank" rel="noopener" href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-scaffolding-of-a-simple-diploid-genome">ALLHiC:
-scaffolding of a simple diploid genome · tangerzhang/ALLHiC Wiki
-(github.com)</a></p>
-<p>同时，教授还对简单二倍体基因组 <code>scaffolds</code>
-组装包装了一个脚本，可以更加方便的得到我们想要的单倍型基因组：<a
-target="_blank" rel="noopener" href="https://github.com/tangerzhang/ALLHiC/blob/master/bin/ALLHiC_pip.sh">ALLHiC_pip.sh</a></p>
+<p>以上 <code>1-7</code> 是 <code>ALLHiC</code> 提供的从预组装的 <code>contigs</code> 得到染色体水平的 <code>scaffolds</code> 的流程，但并不是表示其可以适用于任何基因型组装。</p>
+<p>针对简单二倍体的 <code>scaffolds</code> 组装，教授也给出了更适合的流程：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtpL0FMTEhpQzotc2NhZmZvbGRpbmctb2YtYS1zaW1wbGUtZGlwbG9pZC1nZW5vbWU=">ALLHiC: scaffolding of a simple diploid genome · tangerzhang&#x2F;ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>同时，教授还对简单二倍体基因组 <code>scaffolds</code> 组装包装了一个脚本，可以更加方便的得到我们想要的单倍型基因组：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy9ibG9iL21hc3Rlci9iaW4vQUxMSGlDX3BpcC5zaA==">ALLHiC_pip.sh<i class="fa fa-external-link-alt"></i></span></p>
 </blockquote>
-<h3 id="allhic-作用于多倍体的单倍型组装">ALLHiC
-作用于多倍体的单倍型组装</h3>
-<blockquote>
-<p>针对多倍体的单倍型组装，我们可能遇到 <code>Hi-C</code>
-数据质量低的情况，从而导致最终用于评估 <code>scaffolds</code>
-的热图效果不好，这是我们可以利用 <code>ALLHIC_corrector</code> 根据
-<code>Hi-C</code> 信号检测并纠正错误连接的重叠群。它利用核心算法对
-<code>3D-DNA</code> 进行重叠群校正，但不包括迭代 <code>scaffolds</code>
-步骤，这为大基因组节省了大量时间。此外，<code>ALLHiC_corrector</code> 将
-<code>bam</code> 文件（来自 <code>bwa mem</code>）作为输入，不需要
-<code>juice box mapping</code> 。</p>
-<p>教授在 <code>Github issue</code> 中有讨论到这个问题：<a
-target="_blank" rel="noopener" href="https://github.com/tangerzhang/ALLHiC/issues/86">haplotype
-assembly for a polyploid · Issue #86 · tangerzhang/ALLHiC
-(github.com)</a></p>
+<h3 id="ALLHiC-作用于多倍体的单倍型组装"><a href="#ALLHiC-作用于多倍体的单倍型组装" class="headerlink" title="ALLHiC 作用于多倍体的单倍型组装"></a>ALLHiC 作用于多倍体的单倍型组装</h3><blockquote>
+<p>针对多倍体的单倍型组装，我们可能遇到 <code>Hi-C</code> 数据质量低的情况，从而导致最终用于评估 <code>scaffolds</code> 的热图效果不好，这是我们可以利用 <code>ALLHIC_corrector</code> 根据 <code>Hi-C</code> 信号检测并纠正错误连接的重叠群。它利用核心算法对 <code>3D-DNA</code> 进行重叠群校正，但不包括迭代 <code>scaffolds</code> 步骤，这为大基因组节省了大量时间。此外，<code>ALLHiC_corrector</code> 将 <code>bam</code> 文件（来自 <code>bwa mem</code>）作为输入，不需要 <code>juice box mapping</code> 。</p>
+<p>教授在 <code>Github issue</code> 中有讨论到这个问题：<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy9pc3N1ZXMvODY=">haplotype assembly for a polyploid · Issue #86 · tangerzhang&#x2F;ALLHiC (github.com)<i class="fa fa-external-link-alt"></i></span> </p>
 </blockquote>
-<h2 id="参考链接">参考链接</h2>
-<p>[1] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtp">Home ·
-tangerzhang/ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
-<p>[2] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdoYWliYW8vYWxsaGlj">tanghaibao/allhic:
-Genome scaffolding based on HiC data in heterozygous and high ploidy
-genomes (github.com)<i class="fa fa-external-link-alt"></i></span></p>
-<p>[3] <a
-target="_blank" rel="noopener" href="https://www.nature.com/articles/s41477-019-0487-8">Assembly of
-allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C data
-| Nature Plants</a></p>
-<p>[4] <a
-target="_blank" rel="noopener" href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-scaffolding-of-a-simple-diploid-genome">ALLHiC:
-scaffolding of a simple diploid genome · tangerzhang/ALLHiC Wiki
-(github.com)</a></p>
-<p>[5] <a
-target="_blank" rel="noopener" href="https://github.com/tangerzhang/ALLHiC/wiki/ALLHiC:-scaffolding-an-auto-polyploid-sugarcane-genome">ALLHiC:
-scaffolding an auto polyploid sugarcane genome · tangerzhang/ALLHiC Wiki
-(github.com)</a></p>
-<p>[6] <a
-target="_blank" rel="noopener" href="https://github.com/tangerzhang/ALLHiC/issues/94">Question about
-pruning step and input/output files · Issue #94 · tangerzhang/ALLHiC
-(github.com)</a></p>
-<p>[7] <a
-target="_blank" rel="noopener" href="https://github.com/tangerzhang/ALLHiC/issues/86">haplotype
-assembly for a polyploid · Issue #86 · tangerzhang/ALLHiC
-(github.com)</a></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>[1] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtp">Home · tangerzhang&#x2F;ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>[2] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdoYWliYW8vYWxsaGlj">tanghaibao&#x2F;allhic: Genome scaffolding based on HiC data in heterozygous and high ploidy genomes (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>[3] <span class="exturl" data-url="aHR0cHM6Ly93d3cubmF0dXJlLmNvbS9hcnRpY2xlcy9zNDE0NzctMDE5LTA0ODctOA==">Assembly of allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C data | Nature Plants<i class="fa fa-external-link-alt"></i></span></p>
+<p>[4] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtpL0FMTEhpQzotc2NhZmZvbGRpbmctb2YtYS1zaW1wbGUtZGlwbG9pZC1nZW5vbWU=">ALLHiC: scaffolding of a simple diploid genome · tangerzhang&#x2F;ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>[5] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy93aWtpL0FMTEhpQzotc2NhZmZvbGRpbmctYW4tYXV0by1wb2x5cGxvaWQtc3VnYXJjYW5lLWdlbm9tZQ==">ALLHiC: scaffolding an auto polyploid sugarcane genome · tangerzhang&#x2F;ALLHiC Wiki (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>[6] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy9pc3N1ZXMvOTQ=">Question about pruning step and input&#x2F;output files · Issue #94 · tangerzhang&#x2F;ALLHiC (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>[7] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy9pc3N1ZXMvODY=">haplotype assembly for a polyploid · Issue #86 · tangerzhang&#x2F;ALLHiC (github.com)<i class="fa fa-external-link-alt"></i></span></p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
@@ -1079,13 +971,13 @@ assembly for a polyploid · Issue #86 · tangerzhang/ALLHiC
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">286k</span>
+    <span title="站点总字数">287k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:20</span>
+    <span title="站点阅读时长">4:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -733,24 +733,23 @@ if(canvas.getContext){
     
     <div class="post-body" itemprop="articleBody">
         <p>今天在逛别人博客的时候，发现一个很好看的动态的模型，有人形的也有次元风的；不过我还是喜欢下面的小狗狗，于是我也希望自己的博客能有它的加入。</p>
-<p><img data-src="/images/image-20220311203850761.png" /></p>
+<p><img data-src="/images/image-20220311203850761.png"></p>
 <span id="more"></span>
-<h2 id="加个需求">加个需求</h2>
-<p>邀请可爱的小宠物入驻 <code>生信小白</code> 博客。</p>
-<h2 id="安装插件">安装插件</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-helper-live2d   <span class="comment">## 插件</span></span><br><span class="line">npm install live2d-widget-model-wanko   <span class="comment">## 模型</span></span><br></pre></td></tr></table></figure>
-<h2 id="添加站点配置文件">添加站点配置文件</h2>
-<ul>
+
+<h2 id="加个需求"><a href="#加个需求" class="headerlink" title="加个需求"></a>加个需求</h2><p>邀请可爱的小宠物入驻 <code>生信小白</code> 博客。</p>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-helper-live2d   <span class="comment">## 插件</span></span><br><span class="line">npm install live2d-widget-model-wanko   <span class="comment">## 模型</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="添加站点配置文件"><a href="#添加站点配置文件" class="headerlink" title="添加站点配置文件"></a>添加站点配置文件</h2><ul>
 <li>_config.yml</li>
 </ul>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Live2D</span></span><br><span class="line"><span class="comment">## https://github.com/EYHN/hexo-helper-live2d</span></span><br><span class="line"><span class="attr">live2d:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># enable: false</span></span><br><span class="line">  <span class="attr">scriptFrom:</span> <span class="string">local</span> <span class="comment"># 默认</span></span><br><span class="line">  <span class="attr">pluginRootPath:</span> <span class="string">live2dw/</span> <span class="comment"># 插件在站点上的根目录(相对路径)</span></span><br><span class="line">  <span class="attr">pluginJsPath:</span> <span class="string">lib/</span> <span class="comment"># 脚本文件相对与插件根目录路径</span></span><br><span class="line">  <span class="attr">pluginModelPath:</span> <span class="string">assets/</span> <span class="comment"># 模型文件相对与插件根目录路径</span></span><br><span class="line">  <span class="comment"># scriptFrom: jsdelivr # jsdelivr CDN</span></span><br><span class="line">  <span class="comment"># scriptFrom: unpkg # unpkg CDN</span></span><br><span class="line">  <span class="comment"># scriptFrom: https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js # 你的自定义 url</span></span><br><span class="line">  <span class="attr">tagMode:</span> <span class="literal">false</span> <span class="comment"># 标签模式, 是否仅替换 live2d tag标签而非插入到所有页面中</span></span><br><span class="line">  <span class="attr">debug:</span> <span class="literal">false</span> <span class="comment"># 调试, 是否在控制台输出日志</span></span><br><span class="line">  <span class="comment"># model:</span></span><br><span class="line">  <span class="comment">#   use: live2d-widget-model-wanko # npm-module package name</span></span><br><span class="line">  <span class="comment">#   # use: wanko # 博客根目录/live2d_models/ 下的目录名</span></span><br><span class="line">  <span class="comment">#   # use: ./wives/wanko # 相对于博客根目录的路径</span></span><br><span class="line">  <span class="comment">#   # use: https://cdn.jsdelivr.net/npm/live2d-widget-model-wanko@1.0.5/assets/wanko.model.json # 你的自定义 url</span></span><br><span class="line">  <span class="attr">model:</span></span><br><span class="line">    <span class="attr">use:</span> <span class="string">live2d-widget-model-wanko</span> <span class="comment"># npm-module package name</span></span><br><span class="line">    <span class="attr">scale:</span> <span class="number">1</span></span><br><span class="line">    <span class="attr">hHeadPos:</span> <span class="number">0.5</span></span><br><span class="line">    <span class="attr">vHeadPos:</span> <span class="number">0.618</span></span><br><span class="line">  <span class="attr">display:</span></span><br><span class="line">    <span class="attr">superSample:</span> <span class="number">2</span></span><br><span class="line">    <span class="attr">width:</span> <span class="number">150</span></span><br><span class="line">    <span class="attr">height:</span> <span class="number">300</span></span><br><span class="line">    <span class="attr">position:</span> <span class="string">left</span>  <span class="comment">## 主页左边</span></span><br><span class="line">    <span class="attr">hOffset:</span> <span class="number">20</span></span><br><span class="line">    <span class="attr">vOffset:</span> <span class="number">0</span></span><br><span class="line">  <span class="attr">mobile:</span></span><br><span class="line">    <span class="attr">show:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">scale:</span> <span class="number">0.5</span></span><br><span class="line">  <span class="attr">react:</span></span><br><span class="line">    <span class="attr">opacityDefault:</span> <span class="number">0.7</span></span><br><span class="line">    <span class="attr">opacityOnHover:</span> <span class="number">0.2</span></span><br></pre></td></tr></table></figure>
-<h2 id="参考链接">参考链接</h2>
-<p>[1] <a
-target="_blank" rel="noopener" href="https://github.com/EYHN/hexo-helper-live2d">EYHN/hexo-helper-live2d:
-Add the Sseexxyyy live2d to your hexo! (github.com)</a></p>
-<p>[2] <a
-target="_blank" rel="noopener" href="https://github.com/EYHN/hexo-helper-live2d/commit/e2ac803">feat:
-add tagMode. · EYHN/hexo-helper-live2d@e2ac803 (github.com)</a></p>
+
+
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>[1] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0VZSE4vaGV4by1oZWxwZXItbGl2ZTJk">EYHN&#x2F;hexo-helper-live2d: Add the Sseexxyyy live2d to your hexo! (github.com)<i class="fa fa-external-link-alt"></i></span></p>
+<p>[2] <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0VZSE4vaGV4by1oZWxwZXItbGl2ZTJkL2NvbW1pdC9lMmFjODAz">feat: add tagMode. · EYHN&#x2F;hexo-helper-live2d@e2ac803 (github.com)<i class="fa fa-external-link-alt"></i></span></p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
@@ -845,13 +844,13 @@ add tagMode. · EYHN/hexo-helper-live2d@e2ac803 (github.com)</a></p>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">286k</span>
+    <span title="站点总字数">287k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:20</span>
+    <span title="站点阅读时长">4:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

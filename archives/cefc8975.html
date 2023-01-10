@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="摘要 二倍体个体具有两套遗传信息，一套来自父本，一套来自母本。在大多数二倍体基因组组装中，来自同源染色体的两个同源拷贝被折叠在一起，最终得到一个马赛克(mosaic)序列，也被称为伪单倍型(pseudo-haplotypes)，即一套基因组表示两个单倍型信息，缺失了近50%的等位变异信息。单倍型基因组信息对于研究基因组如何影响表型差异至关重要。常规二倍体基因组组装缺失的单倍型信息将会影响后续基因">
+    <meta name="description" content="摘要二倍体个体具有两套遗传信息，一套来自父本，一套来自母本。在大多数二倍体基因组组装中，来自同源染色体的两个同源拷贝被折叠在一起，最终得到一个马赛克(mosaic)序列，也被称为伪单倍型(pseudo-haplotypes)，即一套基因组表示两个单倍型信息，缺失了近50%的等位变异信息。单倍型基因组信息对于研究基因组如何影响表型差异至关重要。常规二倍体基因组组装缺失的单倍型信息将会影响后续基因注释">
 <meta property="og:type" content="article">
 <meta property="og:title" content="几种单倍型基因组组装方法的比较">
 <meta property="og:url" content="https://zerobio.github.io/archives/cefc8975.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="摘要 二倍体个体具有两套遗传信息，一套来自父本，一套来自母本。在大多数二倍体基因组组装中，来自同源染色体的两个同源拷贝被折叠在一起，最终得到一个马赛克(mosaic)序列，也被称为伪单倍型(pseudo-haplotypes)，即一套基因组表示两个单倍型信息，缺失了近50%的等位变异信息。单倍型基因组信息对于研究基因组如何影响表型差异至关重要。常规二倍体基因组组装缺失的单倍型信息将会影响后续基因">
+<meta property="og:description" content="摘要二倍体个体具有两套遗传信息，一套来自父本，一套来自母本。在大多数二倍体基因组组装中，来自同源染色体的两个同源拷贝被折叠在一起，最终得到一个马赛克(mosaic)序列，也被称为伪单倍型(pseudo-haplotypes)，即一套基因组表示两个单倍型信息，缺失了近50%的等位变异信息。单倍型基因组信息对于研究基因组如何影响表型差异至关重要。常规二倍体基因组组装缺失的单倍型信息将会影响后续基因注释">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zerobio.github.io/images/linear_plot-16576306275931.png">
 <meta property="og:image" content="https://zerobio.github.io/images/polished.hapmer.blob.png">
@@ -311,22 +311,7 @@ mjx-container[display="true"] + br {
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">1 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 项目背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#trio-binning%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Trio binning方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#allhic%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 ALLHiC方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gamete-binning%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 Gamete binning方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#falcon-phase%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 FALCON-Phase方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 研究目的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%90%E6%96%99%E4%B8%8E%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">2 材料与方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%A7%8B%E6%B5%8B%E5%BA%8F%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 原始测序数据统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Ekmer%E7%9A%84%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%89%B9%E5%BE%81%E5%88%86%E6%9E%90"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 基于Kmer的基因组特征分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%80%8D%E4%BD%93%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%88%9D%E6%AD%A5%E7%BB%84%E8%A3%85"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 二倍体基因组初步组装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Etrio-binning%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E5%BA%8F%E5%88%97"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 基于Trio
-binning方法获得单倍型组装序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Eallhic%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%BA%8F%E5%88%97"><span class="nav-number">3.5.</span> <span class="nav-text">2.5
-基于ALLHiC方法获得染色体水平的单倍型基因组序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Egamete-binning%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E5%BA%8F%E5%88%97"><span class="nav-number">3.6.</span> <span class="nav-text">2.6
-基于Gamete binning方法获得染色体水平的单倍型组装序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8falcon-phase%E5%B7%A5%E5%85%B7%E8%8E%B7%E5%BE%97%E4%B8%A4%E4%B8%AA%E5%85%A8%E9%95%BF%E4%BC%AA%E5%8D%95%E5%80%8D%E5%9E%8B%E5%BA%8F%E5%88%97"><span class="nav-number">3.7.</span> <span class="nav-text">2.7
-使用FALCON-Phase工具获得两个全长伪单倍型序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E8%A3%85%E9%94%99%E8%AF%AF%E7%BA%A0%E6%AD%A3"><span class="nav-number">3.8.</span> <span class="nav-text">2.8 组装错误纠正</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0-%E7%BB%84%E8%A3%85%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="nav-number">3.9.</span> <span class="nav-text">2.9 组装质量评估-组装连续性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0-%E7%BB%84%E8%A3%85%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">3.10.</span> <span class="nav-text">2.10 组装质量评估-组装完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0"><span class="nav-number">3.11.</span> <span class="nav-text">2.11 单倍型组装质量评估</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">3 结果与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 评估基因组组装连续性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 评估基因组组装完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85%E7%9A%84%E5%87%86%E7%A1%AE%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">3.3
-评估单倍型基因组组装的准确性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%86%97%E4%BD%99%E6%80%A7%E5%92%8C%E6%9D%82%E5%90%88%E6%80%A7"><span class="nav-number">4.4.</span> <span class="nav-text">3.4
-评估单倍型基因组冗余性和杂合性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">4.5.</span> <span class="nav-text">3.5
-评估单倍型基因组组装的完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%9A%84%E4%BA%A4%E6%8D%A2%E9%94%99%E8%AF%AF"><span class="nav-number">4.6.</span> <span class="nav-text">3.6 统计单倍型基因组的交换错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.7.</span> <span class="nav-text">3.7 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A8%E8%AE%BA"><span class="nav-number">5.</span> <span class="nav-text">4 讨论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95a"><span class="nav-number">7.</span> <span class="nav-text">附录A</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a.1-%E6%9C%AC%E6%96%87%E6%B6%89%E5%8F%8A%E8%BD%AF%E4%BB%B6%E5%8F%8A%E5%85%B6%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">7.1.</span> <span class="nav-text">A.1 本文涉及软件及其版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a.2-%E6%9C%AC%E6%96%87%E6%B6%89%E5%8F%8A%E7%9A%84%E4%BB%A3%E7%A0%81%E4%B8%8E%E8%84%9A%E6%9C%AC"><span class="nav-number">7.2.</span> <span class="nav-text">A.2 本文涉及的代码与脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a.2.1-%E5%9F%BA%E4%BA%8Ekmer%E7%9A%84%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%89%B9%E5%BE%81%E5%88%86%E6%9E%90"><span class="nav-number">7.2.1.</span> <span class="nav-text">A.2.1
-基于Kmer的基因组特征分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#a.2.2-%E4%BA%8C%E5%80%8D%E4%BD%93%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%88%9D%E6%AD%A5%E7%BB%84%E8%A3%85"><span class="nav-number">7.2.2.</span> <span class="nav-text">A.2.2 二倍体基因组初步组装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#a.2.3-%E5%9F%BA%E4%BA%8Etrio-binning%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E5%BA%8F%E5%88%97"><span class="nav-number">7.2.3.</span> <span class="nav-text">A.2.3 基于Trio
-binning方法获得单倍型组装序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#a.2.4-%E5%9F%BA%E4%BA%8Eallhic%E6%96%B9%E6%B3%95-%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%BA%8F%E5%88%97"><span class="nav-number">7.2.4.</span> <span class="nav-text">A.2.4
-基于ALLHiC方法 获得染色体水平的单倍型基因组序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#a.2.5-%E5%9F%BA%E4%BA%8Egamete-binning%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E5%BA%8F%E5%88%97"><span class="nav-number">7.2.5.</span> <span class="nav-text">A.2.5
-基于Gamete binning方法获得染色体水平的单倍型组装序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#a.2.6-%E4%BD%BF%E7%94%A8falcon-phase%E5%B7%A5%E5%85%B7%E8%8E%B7%E5%BE%97%E4%B8%A4%E4%B8%AA%E5%85%A8%E9%95%BF%E4%BC%AA%E5%8D%95%E5%80%8D%E5%9E%8B%E5%BA%8F%E5%88%97"><span class="nav-number">7.2.6.</span> <span class="nav-text">A.2.6
-使用FALCON-Phase工具获得两个全长伪单倍型序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#a.2.7-%E7%BB%84%E8%A3%85%E9%94%99%E8%AF%AF%E7%BA%A0%E6%AD%A3"><span class="nav-number">7.2.7.</span> <span class="nav-text">A.2.7 组装错误纠正</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#a.2.8-%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0-%E7%BB%84%E8%A3%85%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">7.2.8.</span> <span class="nav-text">A.2.8
-组装质量评估-组装完整性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#a.2.9-%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0"><span class="nav-number">7.2.9.</span> <span class="nav-text">A.2.9 单倍型组装质量评估</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a.3-qv"><span class="nav-number">7.3.</span> <span class="nav-text">A.3 QV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a.4-spectra-cn-plotsallhic"><span class="nav-number">7.4.</span> <span class="nav-text">A.4 Spectra-cn plots(ALLHiC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a.5-spectra-asm-plotsallhic"><span class="nav-number">7.5.</span> <span class="nav-text">A.5 Spectra-asm plots(ALLHiC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a.6-hap-mers-blob-plotallhic"><span class="nav-number">7.6.</span> <span class="nav-text">A.6 Hap-mers blob
-plot(ALLHiC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#a.7-allhick16%E4%B8%8Eallhick8%E7%9A%84%E7%82%B9%E9%98%B5%E5%9B%BE"><span class="nav-number">7.7.</span> <span class="nav-text">A.7
-ALLHiC(k&#x3D;16)与ALLHiC(k&#x3D;8)的点阵图</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%89%8D%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">1 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 项目背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Trio-binning%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 Trio binning方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-ALLHiC%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.3.</span> <span class="nav-text">1.3 ALLHiC方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Gamete-binning%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.4.</span> <span class="nav-text">1.4 Gamete binning方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-FALCON-Phase%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="nav-number">2.5.</span> <span class="nav-text">1.5 FALCON-Phase方法概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-%E7%A0%94%E7%A9%B6%E7%9B%AE%E7%9A%84"><span class="nav-number">2.6.</span> <span class="nav-text">1.6 研究目的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%9D%90%E6%96%99%E4%B8%8E%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">2 材料与方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%8E%9F%E5%A7%8B%E6%B5%8B%E5%BA%8F%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 原始测序数据统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%9F%BA%E4%BA%8EKmer%E7%9A%84%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%89%B9%E5%BE%81%E5%88%86%E6%9E%90"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 基于Kmer的基因组特征分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E4%BA%8C%E5%80%8D%E4%BD%93%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%88%9D%E6%AD%A5%E7%BB%84%E8%A3%85"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 二倍体基因组初步组装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E5%9F%BA%E4%BA%8ETrio-binning%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E5%BA%8F%E5%88%97"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 基于Trio binning方法获得单倍型组装序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E5%9F%BA%E4%BA%8EALLHiC%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%BA%8F%E5%88%97"><span class="nav-number">3.5.</span> <span class="nav-text">2.5 基于ALLHiC方法获得染色体水平的单倍型基因组序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-%E5%9F%BA%E4%BA%8EGamete-binning%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E5%BA%8F%E5%88%97"><span class="nav-number">3.6.</span> <span class="nav-text">2.6 基于Gamete binning方法获得染色体水平的单倍型组装序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-%E4%BD%BF%E7%94%A8FALCON-Phase%E5%B7%A5%E5%85%B7%E8%8E%B7%E5%BE%97%E4%B8%A4%E4%B8%AA%E5%85%A8%E9%95%BF%E4%BC%AA%E5%8D%95%E5%80%8D%E5%9E%8B%E5%BA%8F%E5%88%97"><span class="nav-number">3.7.</span> <span class="nav-text">2.7 使用FALCON-Phase工具获得两个全长伪单倍型序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-%E7%BB%84%E8%A3%85%E9%94%99%E8%AF%AF%E7%BA%A0%E6%AD%A3"><span class="nav-number">3.8.</span> <span class="nav-text">2.8 组装错误纠正</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0-%E7%BB%84%E8%A3%85%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="nav-number">3.9.</span> <span class="nav-text">2.9 组装质量评估-组装连续性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0-%E7%BB%84%E8%A3%85%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">3.10.</span> <span class="nav-text">2.10 组装质量评估-组装完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-11-%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0"><span class="nav-number">3.11.</span> <span class="nav-text">2.11 单倍型组装质量评估</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E7%BB%93%E6%9E%9C%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">3 结果与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E8%AF%84%E4%BC%B0%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85%E8%BF%9E%E7%BB%AD%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 评估基因组组装连续性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E8%AF%84%E4%BC%B0%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 评估基因组组装完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E8%AF%84%E4%BC%B0%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85%E7%9A%84%E5%87%86%E7%A1%AE%E6%80%A7"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 评估单倍型基因组组装的准确性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E8%AF%84%E4%BC%B0%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%86%97%E4%BD%99%E6%80%A7%E5%92%8C%E6%9D%82%E5%90%88%E6%80%A7"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 评估单倍型基因组冗余性和杂合性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E8%AF%84%E4%BC%B0%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%BB%84%E8%A3%85%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">4.5.</span> <span class="nav-text">3.5 评估单倍型基因组组装的完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-%E7%BB%9F%E8%AE%A1%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%9A%84%E4%BA%A4%E6%8D%A2%E9%94%99%E8%AF%AF"><span class="nav-number">4.6.</span> <span class="nav-text">3.6 统计单倍型基因组的交换错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-%E6%80%BB%E7%BB%93"><span class="nav-number">4.7.</span> <span class="nav-text">3.7 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E8%AE%A8%E8%AE%BA"><span class="nav-number">5.</span> <span class="nav-text">4 讨论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95A"><span class="nav-number">7.</span> <span class="nav-text">附录A</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-1-%E6%9C%AC%E6%96%87%E6%B6%89%E5%8F%8A%E8%BD%AF%E4%BB%B6%E5%8F%8A%E5%85%B6%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">7.1.</span> <span class="nav-text">A.1 本文涉及软件及其版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-2-%E6%9C%AC%E6%96%87%E6%B6%89%E5%8F%8A%E7%9A%84%E4%BB%A3%E7%A0%81%E4%B8%8E%E8%84%9A%E6%9C%AC"><span class="nav-number">7.2.</span> <span class="nav-text">A.2 本文涉及的代码与脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-2-1-%E5%9F%BA%E4%BA%8EKmer%E7%9A%84%E5%9F%BA%E5%9B%A0%E7%BB%84%E7%89%B9%E5%BE%81%E5%88%86%E6%9E%90"><span class="nav-number">7.2.1.</span> <span class="nav-text">A.2.1 基于Kmer的基因组特征分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-2-2-%E4%BA%8C%E5%80%8D%E4%BD%93%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%88%9D%E6%AD%A5%E7%BB%84%E8%A3%85"><span class="nav-number">7.2.2.</span> <span class="nav-text">A.2.2 二倍体基因组初步组装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-2-3-%E5%9F%BA%E4%BA%8ETrio-binning%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E5%BA%8F%E5%88%97"><span class="nav-number">7.2.3.</span> <span class="nav-text">A.2.3 基于Trio binning方法获得单倍型组装序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-2-4-%E5%9F%BA%E4%BA%8EALLHiC%E6%96%B9%E6%B3%95-%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%BA%8F%E5%88%97"><span class="nav-number">7.2.4.</span> <span class="nav-text">A.2.4 基于ALLHiC方法 获得染色体水平的单倍型基因组序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-2-5-%E5%9F%BA%E4%BA%8EGamete-binning%E6%96%B9%E6%B3%95%E8%8E%B7%E5%BE%97%E6%9F%93%E8%89%B2%E4%BD%93%E6%B0%B4%E5%B9%B3%E7%9A%84%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E5%BA%8F%E5%88%97"><span class="nav-number">7.2.5.</span> <span class="nav-text">A.2.5 基于Gamete binning方法获得染色体水平的单倍型组装序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-2-6-%E4%BD%BF%E7%94%A8FALCON-Phase%E5%B7%A5%E5%85%B7%E8%8E%B7%E5%BE%97%E4%B8%A4%E4%B8%AA%E5%85%A8%E9%95%BF%E4%BC%AA%E5%8D%95%E5%80%8D%E5%9E%8B%E5%BA%8F%E5%88%97"><span class="nav-number">7.2.6.</span> <span class="nav-text">A.2.6 使用FALCON-Phase工具获得两个全长伪单倍型序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-2-7-%E7%BB%84%E8%A3%85%E9%94%99%E8%AF%AF%E7%BA%A0%E6%AD%A3"><span class="nav-number">7.2.7.</span> <span class="nav-text">A.2.7 组装错误纠正</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-2-8-%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0-%E7%BB%84%E8%A3%85%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">7.2.8.</span> <span class="nav-text">A.2.8 组装质量评估-组装完整性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-2-9-%E5%8D%95%E5%80%8D%E5%9E%8B%E7%BB%84%E8%A3%85%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0"><span class="nav-number">7.2.9.</span> <span class="nav-text">A.2.9 单倍型组装质量评估</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-3-QV"><span class="nav-number">7.3.</span> <span class="nav-text">A.3 QV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-4-Spectra-cn-plots-ALLHiC"><span class="nav-number">7.4.</span> <span class="nav-text">A.4 Spectra-cn plots(ALLHiC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-5-Spectra-asm-plots-ALLHiC"><span class="nav-number">7.5.</span> <span class="nav-text">A.5 Spectra-asm plots(ALLHiC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-6-Hap-mers-blob-plot-ALLHiC"><span class="nav-number">7.6.</span> <span class="nav-text">A.6 Hap-mers blob plot(ALLHiC)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-7-ALLHiC-k-x3D-16-%E4%B8%8EALLHiC-k-x3D-8-%E7%9A%84%E7%82%B9%E9%98%B5%E5%9B%BE"><span class="nav-number">7.7.</span> <span class="nav-text">A.7 ALLHiC(k&#x3D;16)与ALLHiC(k&#x3D;8)的点阵图</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -865,625 +850,258 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="摘要">摘要</h2>
-<p>二倍体个体具有两套遗传信息，一套来自父本，一套来自母本。在大多数二倍体基因组组装中，来自同源染色体的两个同源拷贝被折叠在一起，最终得到一个马赛克(mosaic)序列，也被称为伪单倍型(pseudo-haplotypes)，即一套基因组表示两个单倍型信息，缺失了近50%的等位变异信息。单倍型基因组信息对于研究基因组如何影响表型差异至关重要。常规二倍体基因组组装缺失的单倍型信息将会影响后续基因注释的准确性，忽略了两个同源染色体之间的差异。本研究介绍了Gamete
-binning、FALCON-Phase、Trio binning和ALLHiC
-4种用于单倍型基因组组装的方法，旨在获得二倍体两个完整的单倍型基因组，并从连续性、完整性、交换错误率等方面评估其单倍型组装质量。分析整理4种组装方法获得不同水平的单倍型基因组，根据不同的测序数据选择合适的单倍型组装方法，比较得出更适合单倍型基因组组装的组装方法，发现Gamete
-binning的整体效果最佳，可以获得染色体水平的单倍型解析基因组，N50达到了25Mbp。
-ALLHiC虽然可以得到染色体水平的组装，但对于二倍体基因组只获得了单倍型混合基因组，并没有将两个单倍型完全解析出来。而FALCON-Phase和Trio
-binning虽然获得了两个单倍型，但两者组装序列连续性较低，N50均没有达到兆(Mb)级。整理4种组装方法的优缺点，尝试寻找一种适合单倍型基因组组装的组装方法，为后续的基因注释等下游分析提供保障。得到两个完整的单倍型基因组序列，有助于了解单倍型之间的等位基因差异影响个体表型差异的机制。</p>
+        <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>二倍体个体具有两套遗传信息，一套来自父本，一套来自母本。在大多数二倍体基因组组装中，来自同源染色体的两个同源拷贝被折叠在一起，最终得到一个马赛克(mosaic)序列，也被称为伪单倍型(pseudo-haplotypes)，即一套基因组表示两个单倍型信息，缺失了近50%的等位变异信息。单倍型基因组信息对于研究基因组如何影响表型差异至关重要。常规二倍体基因组组装缺失的单倍型信息将会影响后续基因注释的准确性，忽略了两个同源染色体之间的差异。本研究介绍了Gamete binning、FALCON-Phase、Trio binning和ALLHiC 4种用于单倍型基因组组装的方法，旨在获得二倍体两个完整的单倍型基因组，并从连续性、完整性、交换错误率等方面评估其单倍型组装质量。分析整理4种组装方法获得不同水平的单倍型基因组，根据不同的测序数据选择合适的单倍型组装方法，比较得出更适合单倍型基因组组装的组装方法，发现Gamete binning的整体效果最佳，可以获得染色体水平的单倍型解析基因组，N50达到了25Mbp。 ALLHiC虽然可以得到染色体水平的组装，但对于二倍体基因组只获得了单倍型混合基因组，并没有将两个单倍型完全解析出来。而FALCON-Phase和Trio binning虽然获得了两个单倍型，但两者组装序列连续性较低，N50均没有达到兆(Mb)级。整理4种组装方法的优缺点，尝试寻找一种适合单倍型基因组组装的组装方法，为后续的基因注释等下游分析提供保障。得到两个完整的单倍型基因组序列，有助于了解单倍型之间的等位基因差异影响个体表型差异的机制。</p>
 <span id="more"></span>
+
 <p><strong>关键字：</strong>二倍体；单倍型基因组组装；方法评估；等位变异；染色体水平组装；伪单倍型</p>
-<h2 id="前言">1 前言</h2>
-<h3 id="项目背景">1.1 项目背景</h3>
-<p>单倍型(Haplotype)是指共存于单条染色体上的一系列遗传变异位点的组合（李双双等
-2018），是一组来自相同亲本的等位序列组合，描述的是一段单条染色体上的序列差异。单倍型基因组组装旨在获得单倍型解析(haplotype-resolved)的组装序列，即从二倍体物种获得两个完整的单倍型基因组序列；单倍型基因组之间存在的序列差异可能导致某些表型或性状发生改变，如等位基因表达差异、等位基因甲基化差异等。</p>
-<p>大多数二倍体基因组组装工具只是简单的将读段(reads)组装到重叠群(contigs)水平，忽略了同源染色体之间的差异，得到的组装序列被称为伪单倍型(pseudo-haplotypes)序列，其中混合了两个单倍型的序列。这种单倍型混合的组装可能影响下游分析(Al
-Bkhetan et al
-2021)，从而导致错误的生物学解释。二倍体基因组的两组同源染色体，一组来自父本，另一组来自母本；彼此之间存在复杂的等位基因变异。得到两个完整的单倍型基因组序列，有助于了解单倍型之间的等位基因差异影响个体表型差异的机制，如最近在荔枝(<em>Litchi
-chinensis
-Sonn</em>)单倍型基因组中发现每个单倍型之间存在显著的覆盖差异，具有特定于极早熟和晚熟的不同模式(Edger
-2022, Hu et al
-2022)，这一研究证实了单倍型基因组之间的等位差异会影响荔枝的果实成熟期。完全相同的一组变体的不同配置可能会导致表型和疾病易感性的不同结果，这往往是通过将组装序列对齐人类参考基因组获得，所以精确的人类单倍型解析基因组对于了解基因组与个体表型之间的关系至关重要(Cao
-et al 2015)。</p>
-<p>为了得到高精度的单倍型基因组序列，一方面可以从测序样本入手，另一方面则是开发新的组装算法，从杂合二倍体中尽可能的恢复其两个单倍体基因组序列。从测序样本入手，可以考虑近交、染色体分选(chromosome
-sorting)、Strand-seq。对目标物种进行近交，减少单倍型变异，获得纯合个体的基因组组装，但这限制于可育；况且，人为干预得到的纯合个体可能导致基因组不能代表自然种群中发现的变异(Koren
-et al 2018)。染色体分选(Yang et al 2011)是通过Phase-Seq(Chen et al
-2017)技术分离同源染色体的两条姐妹染色单体，并分别进行测序组装，从而获得染色体层次的单倍型基因组，但这依赖于染色体分选时的荧光强度，并不能保证染色体的两条姐妹染色单体被正确分离。Strand-seq是一种单细胞测序技术，使用二代测序技术独立分析每条染色体的姐妹染色单体遗传模式(Falconer
-and Lansdorp
-2013)；仅对DNA模板链进行测序，保留了单个同源物的结构连续性(Kronenberg et
-al 2021)，但是其数据的生成难度限制了其广泛应用。</p>
-<p>FALCON-Unzip无法完整的输出单倍型序列，只能进行部分定相，从主要重叠群(primary
-contigs)中识别杂合变异，并根据杂合位置之间的相位信息输出一个单倍型参考基因组序列和单倍型特异性重叠群(haplotigs)(Chin
-et al
-2016)。FALCON-Unzip输出的单倍型参考基因组序列混合了两个单倍型的序列，可能会影响下游的基因注释准确性；输出的单倍型特异性重叠群也只是杂合区域的局部单倍型信息。FALCON-Phase作为FALCON-Unzip的扩展，利用Hi-C测序数据的超远程连接信息将相位块（phase
-block）连接，从而生成更长的单倍型序列，但并不能定相整个染色体。</p>
-<p>DipAsm可以利用PacBio HiFi<a href="#_ftn1"><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.887ex" role="img" focusable="false" viewBox="0 -833.9 436.6 833.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="TeXAtom" transform="translate(33,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></g></g></svg></mjx-container></span></a>测序数据和Hi-C数据重建二倍体的两个单倍型基因组(Garg
-et al 2020)。在人类基因组中得到了验证，但由于测试物种杏(<em>Prunus
-armeniaca</em>)没有公开的PacBio
-HiFi测序数据，故本文没有将其一同比较。此外，能够利用PacBio
-HiFi数据和Hi-C数据的单倍型组装算法还有hifiasm，不过hifiasm需要两个亲本的Hi-C或Illumina短读段双末端测序数据和子代的PacBio
-HiFi测序数据(Cheng et al
-2021)，这也限制了hifiasm的发展。相比之下，DipAsm在不需要亲本测序数据的情况下，尽可能的恢复二倍体生物的单倍型解析基因组。PacBio
-HiFi测序数据单分子读段的准确度高达99.9%(Wenger et al
-2019)，在保证长读段的同时兼顾了测序准确性，可以获得连续性更好、适合结构变异检测的基因组组装。</p>
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h2><h3 id="1-1-项目背景"><a href="#1-1-项目背景" class="headerlink" title="1.1 项目背景"></a>1.1 项目背景</h3><p>单倍型(Haplotype)是指共存于单条染色体上的一系列遗传变异位点的组合（李双双等 2018），是一组来自相同亲本的等位序列组合，描述的是一段单条染色体上的序列差异。单倍型基因组组装旨在获得单倍型解析(haplotype-resolved)的组装序列，即从二倍体物种获得两个完整的单倍型基因组序列；单倍型基因组之间存在的序列差异可能导致某些表型或性状发生改变，如等位基因表达差异、等位基因甲基化差异等。</p>
+<p>大多数二倍体基因组组装工具只是简单的将读段(reads)组装到重叠群(contigs)水平，忽略了同源染色体之间的差异，得到的组装序列被称为伪单倍型(pseudo-haplotypes)序列，其中混合了两个单倍型的序列。这种单倍型混合的组装可能影响下游分析(Al Bkhetan et al 2021)，从而导致错误的生物学解释。二倍体基因组的两组同源染色体，一组来自父本，另一组来自母本；彼此之间存在复杂的等位基因变异。得到两个完整的单倍型基因组序列，有助于了解单倍型之间的等位基因差异影响个体表型差异的机制，如最近在荔枝(<em>Litchi chinensis Sonn</em>)单倍型基因组中发现每个单倍型之间存在显著的覆盖差异，具有特定于极早熟和晚熟的不同模式(Edger 2022, Hu et al 2022)，这一研究证实了单倍型基因组之间的等位差异会影响荔枝的果实成熟期。完全相同的一组变体的不同配置可能会导致表型和疾病易感性的不同结果，这往往是通过将组装序列对齐人类参考基因组获得，所以精确的人类单倍型解析基因组对于了解基因组与个体表型之间的关系至关重要(Cao et al 2015)。</p>
+<p>为了得到高精度的单倍型基因组序列，一方面可以从测序样本入手，另一方面则是开发新的组装算法，从杂合二倍体中尽可能的恢复其两个单倍体基因组序列。从测序样本入手，可以考虑近交、染色体分选(chromosome sorting)、Strand-seq。对目标物种进行近交，减少单倍型变异，获得纯合个体的基因组组装，但这限制于可育；况且，人为干预得到的纯合个体可能导致基因组不能代表自然种群中发现的变异(Koren et al 2018)。染色体分选(Yang et al 2011)是通过Phase-Seq(Chen et al 2017)技术分离同源染色体的两条姐妹染色单体，并分别进行测序组装，从而获得染色体层次的单倍型基因组，但这依赖于染色体分选时的荧光强度，并不能保证染色体的两条姐妹染色单体被正确分离。Strand-seq是一种单细胞测序技术，使用二代测序技术独立分析每条染色体的姐妹染色单体遗传模式(Falconer and Lansdorp 2013)；仅对DNA模板链进行测序，保留了单个同源物的结构连续性(Kronenberg et al 2021)，但是其数据的生成难度限制了其广泛应用。</p>
+<p>FALCON-Unzip无法完整的输出单倍型序列，只能进行部分定相，从主要重叠群(primary contigs)中识别杂合变异，并根据杂合位置之间的相位信息输出一个单倍型参考基因组序列和单倍型特异性重叠群(haplotigs)(Chin et al 2016)。FALCON-Unzip输出的单倍型参考基因组序列混合了两个单倍型的序列，可能会影响下游的基因注释准确性；输出的单倍型特异性重叠群也只是杂合区域的局部单倍型信息。FALCON-Phase作为FALCON-Unzip的扩展，利用Hi-C测序数据的超远程连接信息将相位块（phase block）连接，从而生成更长的单倍型序列，但并不能定相整个染色体。</p>
+<p>DipAsm可以利用PacBio HiFi<a href="#_ftn1"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.887ex" role="img" focusable="false" viewBox="0 -833.9 436.6 833.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="TeXAtom" transform="translate(33,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></g></g></svg></mjx-container></a>测序数据和Hi-C数据重建二倍体的两个单倍型基因组(Garg et al 2020)。在人类基因组中得到了验证，但由于测试物种杏(<em>Prunus armeniaca</em>)没有公开的PacBio HiFi测序数据，故本文没有将其一同比较。此外，能够利用PacBio HiFi数据和Hi-C数据的单倍型组装算法还有hifiasm，不过hifiasm需要两个亲本的Hi-C或Illumina短读段双末端测序数据和子代的PacBio HiFi测序数据(Cheng et al 2021)，这也限制了hifiasm的发展。相比之下，DipAsm在不需要亲本测序数据的情况下，尽可能的恢复二倍体生物的单倍型解析基因组。PacBio HiFi测序数据单分子读段的准确度高达99.9%(Wenger et al 2019)，在保证长读段的同时兼顾了测序准确性，可以获得连续性更好、适合结构变异检测的基因组组装。</p>
 <p>本文比较了4种单倍型基因组组装方法（除ALLHiC）产生的二倍体两组单倍型基因组序列。准确的单倍型基因组信息为研究同源染色体等位差异提供了可能性。</p>
-<h3 id="trio-binning方法概述">1.2 Trio binning方法概述</h3>
-<p>Trio binning(Koren et al
-2018)在组装之前，利用亲本基因组之间的基因组差异将子代全基因组测序读段分离成单倍型特异性读段集，并分别进行基因组组装，从而获得目标个体的两个单倍型基因组。二倍体个体分别从两个亲本各继承一个重组单倍型。二倍体基因组存在的复杂等位基因变异阻碍了其单倍型基因组序列的组装，而Trio
-binning在组装前解决等位基因变异来简化单倍型组装，即在组装前识别来自父母Illumina短读段测序数据的特异性k-mers，将子代PacBio
-CLR<a href="#_ftn2"><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.887ex" role="img" focusable="false" viewBox="0 -833.9 436.6 833.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="mn" transform="translate(33,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg></mjx-container></span></a>长读段划分为特定于单倍型的集合，而后对每个单倍型进行独立组装，从而形成完整的单倍型解析基因组，避免了单倍型之间等位变异的干扰(Koren
-et al
-2018)。但这取决于目标个体的杂合性，后代杂合度越高，单倍体分型效果越佳。Trio
-binning方法集成于Canu程序，可在Canu程序中直接调用。</p>
-<h3 id="allhic方法概述">1.3 ALLHiC方法概述</h3>
-<p>ALLHiC(Zhang et al
-2019)是专为多倍体构建单倍型、染色体级别组装设计的一种新算法；该算法能够使用Hi-C配对末端读段和创新的修剪(prune)和优化(optimize)步骤构建多倍体基因组的等位基因感知、染色体规模的单倍型基因组组装(Zhang
-et al
-2019)。ALLHiC能够实现同源多倍体基因组的染色体水平的从头组装，分离每个等位基因，同时也适用于异源多倍体和杂合二倍体基因组的单倍型染色体水平组装。ALLHiC算法包括五个步骤：修剪(pruning)，分区(partition)，修复(rescue)，优化(optimization)和构建(building)(Zhang
-et al
-2019)。修剪步骤提供等位基因感知的组装技术；分区步骤使用聚类算法将重叠群(contigs)划分为与染色体条数相对应数量（用户定义的k值）的组；修复步骤是一个检查的过程，搜索最佳Hi-C信号，在初始修剪步骤中由于缺乏有效信号而未处理的重叠群被进一步划分到特定组中；优化步骤使用遗传算法对每个组内的重叠群进行排序和定向；最终从重叠群中构建染色体水平或支架(scaffold)水平组装。</p>
-<h3 id="gamete-binning方法概述">1.4 Gamete binning方法概述</h3>
-<p>Gamete binning(Campoy et al
-2020)是一种基于单倍体配子的单细胞测序方法，能够将全基因组测序读段分离成单倍型特异性读段集；在组装每个单倍型的读段后，使用源自配子的遗传图谱将contigs构建到染色体水平。Gamete
-binning首先从目标个体中分离配子核，对数百个单倍体配子基因组进行高通量单细胞测序；配子基因组中序列变异的分离能够直接将所有变体定相为两个单倍型，并给予配子基因组中的重组模式构建基因图谱。基于遗传连锁群利用此外定相好的等位变异分离子代PacBio
-CLR长读段为两个不同的读段组（每组代表一个单倍型），而后对每个单倍型进行独立组装，并使用配子衍生的遗传图谱将每个单倍型支架(scaffolding)到染色体水平(Campoy
-et al 2020)。</p>
-<h3 id="falcon-phase方法概述">1.5 FALCON-Phase方法概述</h3>
-<p>FALCON-Phase(Kronenberg et al
-2021)是一个定相(phasing)工具，使用超远程Hi-C染色质作用数据将部分定相(partially
-phased)二倍体组装的相位块(phase
-block)扩展到染色体或支架(scaffold)水平。PacBio
-CLR长读段测序组装一般得到的是主要重叠群（同时代表两个单倍型信息）和较短的交替单倍体(haplotigs)。FALCON-Phase输入一个部分定相的长读段重叠群水平的组装(primary
-contigs)，并使用来自同一样本的Hi-C测序数据扩展重叠群的定相。这里引入一个新的概念--相位块(phase
-block)，通过将交替的单倍体与其相关的主要重叠群对齐来定义。通过相位块的对齐区分主要重叠群的定相区域与非定相区域，然后使用Hi-C测序数据对沿着每个重叠群处于相同相位（相同亲本同源物）的单倍型块进行分类，最后通过将折叠的序列整合到两个单倍型中来扩展组装单倍型序列，以获得两组重叠群集。FALCON-Phase的分型效果取决于目标个体的杂合度和提供的主要重叠群准确度，杂合度越高，分型效果越佳。</p>
-<h3 id="研究目的">1.6 研究目的</h3>
-<p>分别利用Trio binning、ALLHiC、Gamete binning、FALCON-Phase
-4种组装方法获得杏(<em>Prunus
-armeniaca</em>)的单倍型基因组序列，并从连续性、完整性、准确性等方面评估4种组装方法的单倍型组装质量。根据不同的测序数据选择合适的单倍型基因组组装方法，获得两个完整的单倍型基因组序列。整理4种组装方法的优缺点，尝试寻找一种适合单倍型基因组组装的组装方法，为后续的基因注释等下游分析提供保障。</p>
-<h2 id="材料与方法">2 材料与方法</h2>
-<h3 id="原始测序数据统计">2.1 原始测序数据统计</h3>
-<p>根据4种组装方法所需测序数据的要求，我们采用<em>Prunus
-armeniaca</em>（杏，栽培品种：“Rojo
-Pasión”）作为评估组装效果的物种，所有的原始测序数据均可从ENA数据库中获得，登录号为“PRJEB37669”，其中Currot和OrangeRed为目标个体的两个亲本。对原始测序数据进行了初步统计（表1），包含两个亲本高于60x的Illumina双端测序，这将用于Trio
-binning分型以及后期验证各种方法分型质量；目标个体F1接近80x的PacBio
-CLR长读段测序(19.9 Gbp)、Hi-C(57.6
-Gbp)以及花粉10x-Genomics单细胞测序数据(61.7 Gbp)。</p>
+<h3 id="1-2-Trio-binning方法概述"><a href="#1-2-Trio-binning方法概述" class="headerlink" title="1.2 Trio binning方法概述"></a>1.2 Trio binning方法概述</h3><p>Trio binning(Koren et al 2018)在组装之前，利用亲本基因组之间的基因组差异将子代全基因组测序读段分离成单倍型特异性读段集，并分别进行基因组组装，从而获得目标个体的两个单倍型基因组。二倍体个体分别从两个亲本各继承一个重组单倍型。二倍体基因组存在的复杂等位基因变异阻碍了其单倍型基因组序列的组装，而Trio binning在组装前解决等位基因变异来简化单倍型组装，即在组装前识别来自父母Illumina短读段测序数据的特异性k-mers，将子代PacBio CLR<a href="#_ftn2"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.887ex" role="img" focusable="false" viewBox="0 -833.9 436.6 833.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="mn" transform="translate(33,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg></mjx-container></a>长读段划分为特定于单倍型的集合，而后对每个单倍型进行独立组装，从而形成完整的单倍型解析基因组，避免了单倍型之间等位变异的干扰(Koren et al 2018)。但这取决于目标个体的杂合性，后代杂合度越高，单倍体分型效果越佳。Trio binning方法集成于Canu程序，可在Canu程序中直接调用。</p>
+<h3 id="1-3-ALLHiC方法概述"><a href="#1-3-ALLHiC方法概述" class="headerlink" title="1.3 ALLHiC方法概述"></a>1.3 ALLHiC方法概述</h3><p>ALLHiC(Zhang et al 2019)是专为多倍体构建单倍型、染色体级别组装设计的一种新算法；该算法能够使用Hi-C配对末端读段和创新的修剪(prune)和优化(optimize)步骤构建多倍体基因组的等位基因感知、染色体规模的单倍型基因组组装(Zhang et al 2019)。ALLHiC能够实现同源多倍体基因组的染色体水平的从头组装，分离每个等位基因，同时也适用于异源多倍体和杂合二倍体基因组的单倍型染色体水平组装。ALLHiC算法包括五个步骤：修剪(pruning)，分区(partition)，修复(rescue)，优化(optimization)和构建(building)(Zhang et al 2019)。修剪步骤提供等位基因感知的组装技术；分区步骤使用聚类算法将重叠群(contigs)划分为与染色体条数相对应数量（用户定义的k值）的组；修复步骤是一个检查的过程，搜索最佳Hi-C信号，在初始修剪步骤中由于缺乏有效信号而未处理的重叠群被进一步划分到特定组中；优化步骤使用遗传算法对每个组内的重叠群进行排序和定向；最终从重叠群中构建染色体水平或支架(scaffold)水平组装。</p>
+<h3 id="1-4-Gamete-binning方法概述"><a href="#1-4-Gamete-binning方法概述" class="headerlink" title="1.4 Gamete binning方法概述"></a>1.4 Gamete binning方法概述</h3><p>Gamete binning(Campoy et al 2020)是一种基于单倍体配子的单细胞测序方法，能够将全基因组测序读段分离成单倍型特异性读段集；在组装每个单倍型的读段后，使用源自配子的遗传图谱将contigs构建到染色体水平。Gamete binning首先从目标个体中分离配子核，对数百个单倍体配子基因组进行高通量单细胞测序；配子基因组中序列变异的分离能够直接将所有变体定相为两个单倍型，并给予配子基因组中的重组模式构建基因图谱。基于遗传连锁群利用此外定相好的等位变异分离子代PacBio CLR长读段为两个不同的读段组（每组代表一个单倍型），而后对每个单倍型进行独立组装，并使用配子衍生的遗传图谱将每个单倍型支架(scaffolding)到染色体水平(Campoy et al 2020)。</p>
+<h3 id="1-5-FALCON-Phase方法概述"><a href="#1-5-FALCON-Phase方法概述" class="headerlink" title="1.5 FALCON-Phase方法概述"></a>1.5 FALCON-Phase方法概述</h3><p>FALCON-Phase(Kronenberg et al 2021)是一个定相(phasing)工具，使用超远程Hi-C染色质作用数据将部分定相(partially phased)二倍体组装的相位块(phase block)扩展到染色体或支架(scaffold)水平。PacBio CLR长读段测序组装一般得到的是主要重叠群（同时代表两个单倍型信息）和较短的交替单倍体(haplotigs)。FALCON-Phase输入一个部分定相的长读段重叠群水平的组装(primary contigs)，并使用来自同一样本的Hi-C测序数据扩展重叠群的定相。这里引入一个新的概念–相位块(phase block)，通过将交替的单倍体与其相关的主要重叠群对齐来定义。通过相位块的对齐区分主要重叠群的定相区域与非定相区域，然后使用Hi-C测序数据对沿着每个重叠群处于相同相位（相同亲本同源物）的单倍型块进行分类，最后通过将折叠的序列整合到两个单倍型中来扩展组装单倍型序列，以获得两组重叠群集。FALCON-Phase的分型效果取决于目标个体的杂合度和提供的主要重叠群准确度，杂合度越高，分型效果越佳。</p>
+<h3 id="1-6-研究目的"><a href="#1-6-研究目的" class="headerlink" title="1.6 研究目的"></a>1.6 研究目的</h3><p>分别利用Trio binning、ALLHiC、Gamete binning、FALCON-Phase 4种组装方法获得杏(<em>Prunus armeniaca</em>)的单倍型基因组序列，并从连续性、完整性、准确性等方面评估4种组装方法的单倍型组装质量。根据不同的测序数据选择合适的单倍型基因组组装方法，获得两个完整的单倍型基因组序列。整理4种组装方法的优缺点，尝试寻找一种适合单倍型基因组组装的组装方法，为后续的基因注释等下游分析提供保障。</p>
+<h2 id="2-材料与方法"><a href="#2-材料与方法" class="headerlink" title="2 材料与方法"></a>2 材料与方法</h2><h3 id="2-1-原始测序数据统计"><a href="#2-1-原始测序数据统计" class="headerlink" title="2.1 原始测序数据统计"></a>2.1 原始测序数据统计</h3><p>根据4种组装方法所需测序数据的要求，我们采用<em>Prunus armeniaca</em>（杏，栽培品种：“Rojo Pasión”）作为评估组装效果的物种，所有的原始测序数据均可从ENA数据库中获得，登录号为“PRJEB37669”，其中Currot和OrangeRed为目标个体的两个亲本。对原始测序数据进行了初步统计（表1），包含两个亲本高于60x的Illumina双端测序，这将用于Trio binning分型以及后期验证各种方法分型质量；目标个体F1接近80x的PacBio CLR长读段测序(19.9 Gbp)、Hi-C(57.6 Gbp)以及花粉10x-Genomics单细胞测序数据(61.7 Gbp)。</p>
 <div style="text-align: center; font-size: 85%;">
-<p>表1 原始测序数据统计 <br> Table 1 The statistics of raw sequencing
-data <br></p>
+表1 原始测序数据统计 <br>
+Table 1 The statistics of raw sequencing data <br>
 </div>
+
+
+
 <table>
-<colgroup>
-<col style="width: 20%">
-<col style="width: 14%">
-<col style="width: 19%">
-<col style="width: 17%">
-<col style="width: 27%">
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>数据来源</th>
 <th>数据类型</th>
 <th>读段/读对(条/对)</th>
 <th>总碱基数/bp</th>
-<th>测序深度<a href="#_ftn3"><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.885ex" role="img" focusable="false" viewBox="0 -833.2 436.6 833.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="mn" transform="translate(33,363) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g></g></g></svg></mjx-container></span></a></th>
+<th>测序深度<a href="#_ftn3"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.885ex" role="img" focusable="false" viewBox="0 -833.2 436.6 833.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="mn" transform="translate(33,363) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g></g></g></svg></mjx-container></a></th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
+<tbody><tr>
 <td>F1果实组织</td>
 <td>PacBio CLR</td>
 <td>2,587,118</td>
 <td>19,929,106,572</td>
 <td>~ 80x</td>
 </tr>
-<tr class="even">
+<tr>
 <td>F1叶片组织</td>
 <td>Hi-C</td>
 <td>191,194,281</td>
 <td>57,579,855,538</td>
 <td>~ 230x</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>F1花粉</td>
 <td>10x Genomics</td>
 <td>220,312,318</td>
 <td>61,687,449,040</td>
 <td>~ 247x</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Currot叶片组织</td>
 <td>Illumina</td>
 <td>53,802,680</td>
 <td>16,226,087,299</td>
 <td>~ 65x</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>OrangeRed叶片组织</td>
 <td>Illumina</td>
 <td>52,115,882</td>
 <td>15,720,264,273</td>
 <td>~ 63x</td>
 </tr>
-</tbody>
-</table>
-<h3 id="基于kmer的基因组特征分析">2.2 基于Kmer的基因组特征分析</h3>
-<p>在进行基因组组装之前，了解基因组的基本特征有助于我们后续组装参数的调整。GenomeScope
-v2.0可以在没有参考基因组的情况下，分析原始测序读段的k-mer频率以估计目标基因组的主要特征，如基因组大小、杂合度和重复率(Ranallo-Benavidez
-et al 2020)。首先，利用Jellyfish v2.2.10(Marçais and Kingsford
-2011)工具以kmer=21统计来自10x-Genomics
-Illumina短读段测序数据k-mers的出现频率，并将其输入到GenomeScope
-v2.0程序，参数设置为“--max_kmercov=1000000”（过滤高频出现的
-k-mers）；这将会过滤在测序数据中出现次数超过1000000次的k-mers，从而避免人为引入的碱基错误。从k-mers频率分布图，我们得知预测的单倍型基因组大小约为250
-Mbp，杂合率为1.06%，重复率为41%（图1
-a）。在coverage=1的位置出现大量唯一k-mer（红色线）可能是PCR错误导致。</p>
-<p><img data-src="../images/linear_plot-16576306275931.png"></p>
+</tbody></table>
+<h3 id="2-2-基于Kmer的基因组特征分析"><a href="#2-2-基于Kmer的基因组特征分析" class="headerlink" title="2.2 基于Kmer的基因组特征分析"></a>2.2 基于Kmer的基因组特征分析</h3><p>在进行基因组组装之前，了解基因组的基本特征有助于我们后续组装参数的调整。GenomeScope v2.0可以在没有参考基因组的情况下，分析原始测序读段的k-mer频率以估计目标基因组的主要特征，如基因组大小、杂合度和重复率(Ranallo-Benavidez et al 2020)。首先，利用Jellyfish v2.2.10(Marçais and Kingsford 2011)工具以kmer=21统计来自10x-Genomics Illumina短读段测序数据k-mers的出现频率，并将其输入到GenomeScope v2.0程序，参数设置为“–max_kmercov=1000000”（过滤高频出现的 k-mers）；这将会过滤在测序数据中出现次数超过1000000次的k-mers，从而避免人为引入的碱基错误。从k-mers频率分布图，我们得知预测的单倍型基因组大小约为250 Mbp，杂合率为1.06%，重复率为41%（图1 a）。在coverage=1的位置出现大量唯一k-mer（红色线）可能是PCR错误导致。</p>
+<p><img data-src="/../images/linear_plot-16576306275931.png"></p>
 <div style="text-align: center; font-size: 85%;">
-<p>图1 k-mers频率分布图与PacBio长读段长度分布 <br> Fig. 1 Frequency
-distribution of k-mers and PacBio long read length distribution <br> a)
-为K-mers
-频率分布图，x轴表示k-mer出现次数，y轴则指示出现x次的k-mer数量。从左至右依次为杂合峰、纯合峰、重复峰。其中len为预测的单倍型基因组大小；uniq表示基因组中非重复序列比例；aa为纯合率；ab为杂合率。b)
-PacBio CLR测序读段(19.9 Gbp)的长度分布。</p>
+图1 k-mers频率分布图与PacBio长读段长度分布 <br>
+Fig. 1 Frequency distribution of k-mers and PacBio long read length distribution <br>
+a) 为K-mers 频率分布图，x轴表示k-mer出现次数，y轴则指示出现x次的k-mer数量。从左至右依次为杂合峰、纯合峰、重复峰。其中len为预测的单倍型基因组大小；uniq表示基因组中非重复序列比例；aa为纯合率；ab为杂合率。b) PacBio CLR测序读段(19.9 Gbp)的长度分布。
 </div>
-<h3 id="二倍体基因组初步组装">2.3 二倍体基因组初步组装</h3>
-<p>对F1的19.9 Gbp原始PacBio CLR测序数据(图1 b)，使用Canu(Koren et al
-2017) v2.2构建初步的二倍体组装。参数设置为“‘batOptions=-dg 3 -db 3 -dr 1
--ca 500 -cp 50’ genomeSize=250m
-corOutCoverage=200”，其中参数‘batOptions=-dg 3 -db 3 -dr 1 -ca 500 -cp
-50’是针对多倍体基因组设计的优化参数，尽可能的组装杂合基因组序列，但这也适用于杂合度高的杂合二倍体组装。Genomescope2预测F1基因组杂合率为1.06%，这说明其基因组组装有一定困难。最终，得到约为389
-Mbp的基因组（二倍体基因组的单倍型混合表示），是预测单倍型基因组大小(250
-Mbp)的1.56倍，其中含有将近52.4%的重复序列。</p>
-<p>基因组的某些部分可能具有非常高的杂合性，导致该部分两种单倍型的重叠群被组装为单独的主要重叠群(primary
-contigs)，而不是作为重叠群或相关的单倍体。Canu获得的基因组是二倍体的单倍型融合表示(Roach
-et al 2018)(haplotype-fused
-representation)，即代表两组等位基因序列。其算法会将高度杂合的区域组装成单独的重叠群（对于二倍体来讲，可以得到两条染色单体），而不是预期的单个单倍型融合的重叠群，从而导致基因组大小显著大于单倍型基因组的实际大小。Purge
-haplotigs程序可以为单倍型组装生成去冗余的单倍型融合重叠群(Roach et al
-2018)。最终389 Mbp的基因组去除166
-Mbp单倍型特异性重叠群(haplotigs)，得到约219
-Mbp的单倍型融合组装（其中丢失了约3.4
-Mbp可能存在的错误），与Genomescope2预测的单倍型基因组大小相差不大。</p>
-<h3 id="基于trio-binning方法获得单倍型组装序列">2.4 基于Trio
-binning方法获得单倍型组装序列</h3>
-<p>首先使用Meryl对亲本近60x的未组装短读段测序数据进行k-mers(kmer=19)统计以获得k-mers频率分布，并去除可能存在的错误k-mers（低拷贝）和重复序列（高拷贝），只留下来自特异性纯合或杂合基因组序列的k-mers(Koren
-et al 2018)。接着，对F1代PacBio
-CLR测序数据中的每一条长读段进行k-mers统计，并与亲本特异性k-mers数据库进行比对，将长读段分给具有最匹配的单倍型特异性k-mer的单倍型读段集。最后分别利用Canu
-v2.2组装工具对两个单倍型进行组装，从而得到两个重叠群(contigs)水平的单倍型分辨的单倍型基因组。</p>
-<h3 id="基于allhic方法获得染色体水平的单倍型基因组序列">2.5
-基于ALLHiC方法获得染色体水平的单倍型基因组序列</h3>
-<p>将Canu得到的单倍型融合基因组和Hi-C数据输入ALLHiC程序，参数设置为“-k
-16 -e
-GATC”，最终获得一个含有16条染色体以及未识别的scaffolds的fasta文件(groups.asm.fasta)。对于简单二倍体，Zhang等人(Zhang
-et al
-2019)提供了一个流程脚本(https://github.com/tangerzhang/ALLHiC/blob/master/bin/ALLHiC_pip.sh)可直接对基因组进行支架(scaffolding)。为了验证ALLHiC管道是否能够分离同源染色体，以参数“-k
-8 -e GATC”运行ALLHiC管道，对Purge
-haplotigs处理的主要重叠群进行支架(scaffolding)，获得8条染色体的基因组序列。</p>
-<h3 id="基于gamete-binning方法获得染色体水平的单倍型组装序列">2.6
-基于Gamete binning方法获得染色体水平的单倍型组装序列</h3>
-<p>两个完整的单倍型基因组可从ENA数据库中获得，组装ID(Assembly
-ID)分别是GCA_903112645(Currot haplotype)和GCA_903114435(OrangeRed
-haplotype)。</p>
-<h3 id="使用falcon-phase工具获得两个全长伪单倍型序列">2.7
-使用FALCON-Phase工具获得两个全长伪单倍型序列</h3>
-<p>FALCON-Phase程序需要输入主要重叠群(primary
-contigs)和单倍型特异性重叠群(haplotigs)。FALCON从PacBio
-CLR长读段组装得到主要重叠群(p_contigs)和次级重叠群(a_contigs)；接着FALCON-Unzip算法利用主要重叠群中的杂合信息进行单倍型定相，最终生成一组更新的主要重叠群和单倍型特异性重叠群(Chin
-et al
-2016)（可利用长读段测序数据进行自身校正）。单倍型特异性重叠群比FALCON生成的次级重叠群体现更连续的单倍型特异性序列信息。最终得到237,925,913
-bp(N50: 364,944 bp)的主要重叠群和117,123,257 bp(N50: 74,370
-bp)的单倍型特异性重叠群，并将两者输入FALCON-Phase程序，FALCON-Phase识别Hi-C测序数据中的超远程链接信息对基因组进行进一步分型，最终得到两个重叠群(contigs)水平的全长伪单倍型(pseudo-haplotypes)。</p>
-<h3 id="组装错误纠正">2.8 组装错误纠正</h3>
-<p>Pilon是一款集成基因组组装改进和变异检测的软件，通过将基因组组装与原始Illumina测序数据进行比对，可以检测并校正单碱基差异(single
-base differences)、插入缺失(indels)、局部组装错误(local
-misassemblies)、填充间隙(gap filling)等(Walker et al 2014)。利用bowtie2
-v2.4.5以默认参数构建每个单倍型组装与子代10x
-Genomics测序数据的对齐Bam文件，并通过samtools
-v1.13进行排序，以及构建索引，最后以参数“--fix bases –mindepth
-0.85”运行pilon v1.24。</p>
-<h3 id="组装质量评估-组装连续性">2.9 组装质量评估-组装连续性</h3>
-<p>N50是评估基因组连续性的重要指标。首先需要将组装中所有序列按照长度从长到短依次排列，并按照该顺序将序列长度依次相加，当相加的长度达到序列总长度的50%时，最后一条序列的长度便是N50。N90是当相加的长度达到序列总长度的90%时，最后一条序列的长度。N50，N90值越大，则表明组装连续性越高。</p>
-<h3 id="组装质量评估-组装完整性">2.10 组装质量评估-组装完整性</h3>
-<p>基于OrthoDB v10
-的有胚植物单拷贝同源物数据库(embryophyta_odb10)，对每个单倍型基因组进行BUSCO
-v3.0.2评估，可以显示基因组的完整率(C)、重复率(D)、缺失率(M)等指标。</p>
-<h3 id="单倍型组装质量评估">2.11 单倍型组装质量评估</h3>
-<p>Merqury可以在没有参考基因组的情况下，基于k-mers频率分布对组装进行完整性和质量评估；更重要的是其可以对单倍型分辨的两个单倍型基因组进行单倍型组装质量评估。首先，利用Meryl统计两个亲本（Currot和OrangeRed）Illumina测序数据和子代10x
-Genomics数据的k-mers频率分布。</p>
-<p>在Merqury中，hap-mers被定义为亲本遗传的单倍型特异性k-mers，代表着子代从亲本中继承的k-mers，仅在单个单倍型中出现一次或多次，用集合的思想表示为亲本各自特异的k-mers与子代k-mers的交集。Hap-mers用于确定Merqury中定义的相位块(phase
-block)，相位块被定义为源自相同单倍型的一组一致性的标记(Rhie et al
-2020)。Merqury最终可以输出拷贝数谱图(spectra-cn
-plot)、组装谱图(spectra-asm plot)、评估单倍型组装质量的圆圈图(hap-mers
-blob plot)(Rhie et al 2020)。</p>
-<p>杂合二倍体的拷贝数谱主要由两个峰组装，一个代表在二倍体基因组为1个拷贝(1-copy)的k-mers（杂合，在单个单倍型上出现）；另一个在基因组中代表2个拷贝(2-copy)的k-mers（纯合，在两个单倍型上或在一个单倍型中出现两次）(Rhie
-et al 2020)。最终生成一组多重性直方图，并以拷贝数着色。</p>
-<p>组装谱与拷贝数谱类似，通过k-mers在不同的单倍型来着色，主要显示两个单倍型中的k-mers分布。可以检测到只存在于一个单倍型组装中的k-mers、在两个单倍型组装中同时存在的k-mers(shared)、仅在原始测序数据中发现的k-mers(Rhie
-et al
-2020)。其次，组装谱可以指示k-mers的完整性，从而评估两个单倍型组装的完整性（如果其中出现了黑色峰，则说明单倍型组装不完整，只有部分单倍型被识别，剩下的仅在原始测序数据中被发现）。圆圈图(blob
-plot)可以直观地显示两个单倍型的分型效果，通过单倍型类别着色图中的圆圈，圆圈的位置将指示单倍型基因组组装的好坏（圆圈越靠近坐标轴，定相效果越好）。</p>
-<h2 id="结果与分析">3 结果与分析</h2>
-<p>Gamete binning、Trio
-binning、FALCON-Phase都得到了不同程度的单倍型分辨的单倍型基因组序列。Gamete
-binning的单倍型组装序列是从ENA数据库获得，已被校正；而Trio
-binning、FALCON-Phase得到的两个单倍型基因组均通过Pilon
-v1.24进行校正，纠正错误组装。Pilon可以从原始测序数据中恢复组装中缺失的基因或修正组装错误，尤其是在Trio
-binning中表现突出。根据单拷贝基因完整性评估(BUSCO)，Trio
-binning得到的两个单倍型在pilon校正之前均存在约6.0%的缺失，检测到的单拷贝基因占比仅有87.0%；经pilon校正之后，缺失率降低至2.6%以下，单拷贝基因占比也达到了91.7%以上（表3），说明Pilon从原始测序数据中有效的恢复了由组装错误导致的缺失。ALLHiC方法并没有得到两个单倍型分辨的基因组，但是我们通过不同的k值获得两个单倍型混合基因组（k=8和k=16），ALLHiC提供的二倍体模型(ALLHiC_pip.sh<a href="#_ftn4"><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.904ex" role="img" focusable="false" viewBox="0 -841.7 436.6 841.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="mn" transform="translate(33,363) scale(0.707)"><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path></g></g></g></g></svg></mjx-container></span></a>)并不足以支撑单倍型解析的单倍型基因组组装；正如我们预期的一样，ALLHiC（k=16，二倍体，染色体条数为8）得到的基因组并没有两两同源的染色体，更像是ALLHiC(k=8)组装基因组的碎片（图S4）。输入k=8管道的主要重叠群是经过Purge
-haplotigs以参数“-l 7 -m 60 -h
-120”处理（去除冗余的单倍型特异性重叠群，保留主要重叠群）。</p>
-<p>本文主要从基因组连续性(N50)、基因组组装完整性(BSUCO)、单倍型组装质量(Merqury)等方面评估Gamete
-binning、Trio binning、FALCON-Phase、ALLHiC
-4种单倍型组装方法对二倍体物种杏(<em>Prunus
-armeniaca</em>)的单倍型基因组组装质量。</p>
+
+<h3 id="2-3-二倍体基因组初步组装"><a href="#2-3-二倍体基因组初步组装" class="headerlink" title="2.3 二倍体基因组初步组装"></a>2.3 二倍体基因组初步组装</h3><p>对F1的19.9 Gbp原始PacBio CLR测序数据(图1 b)，使用Canu(Koren et al 2017) v2.2构建初步的二倍体组装。参数设置为“‘batOptions=-dg 3 -db 3 -dr 1 -ca 500 -cp 50’ genomeSize=250m corOutCoverage=200”，其中参数‘batOptions=-dg 3 -db 3 -dr 1 -ca 500 -cp 50’是针对多倍体基因组设计的优化参数，尽可能的组装杂合基因组序列，但这也适用于杂合度高的杂合二倍体组装。Genomescope2预测F1基因组杂合率为1.06%，这说明其基因组组装有一定困难。最终，得到约为389 Mbp的基因组（二倍体基因组的单倍型混合表示），是预测单倍型基因组大小(250 Mbp)的1.56倍，其中含有将近52.4%的重复序列。</p>
+<p>基因组的某些部分可能具有非常高的杂合性，导致该部分两种单倍型的重叠群被组装为单独的主要重叠群(primary contigs)，而不是作为重叠群或相关的单倍体。Canu获得的基因组是二倍体的单倍型融合表示(Roach et al 2018)(haplotype-fused representation)，即代表两组等位基因序列。其算法会将高度杂合的区域组装成单独的重叠群（对于二倍体来讲，可以得到两条染色单体），而不是预期的单个单倍型融合的重叠群，从而导致基因组大小显著大于单倍型基因组的实际大小。Purge haplotigs程序可以为单倍型组装生成去冗余的单倍型融合重叠群(Roach et al 2018)。最终389 Mbp的基因组去除166 Mbp单倍型特异性重叠群(haplotigs)，得到约219 Mbp的单倍型融合组装（其中丢失了约3.4 Mbp可能存在的错误），与Genomescope2预测的单倍型基因组大小相差不大。</p>
+<h3 id="2-4-基于Trio-binning方法获得单倍型组装序列"><a href="#2-4-基于Trio-binning方法获得单倍型组装序列" class="headerlink" title="2.4 基于Trio binning方法获得单倍型组装序列"></a>2.4 基于Trio binning方法获得单倍型组装序列</h3><p>首先使用Meryl对亲本近60x的未组装短读段测序数据进行k-mers(kmer=19)统计以获得k-mers频率分布，并去除可能存在的错误k-mers（低拷贝）和重复序列（高拷贝），只留下来自特异性纯合或杂合基因组序列的k-mers(Koren et al 2018)。接着，对F1代PacBio CLR测序数据中的每一条长读段进行k-mers统计，并与亲本特异性k-mers数据库进行比对，将长读段分给具有最匹配的单倍型特异性k-mer的单倍型读段集。最后分别利用Canu v2.2组装工具对两个单倍型进行组装，从而得到两个重叠群(contigs)水平的单倍型分辨的单倍型基因组。</p>
+<h3 id="2-5-基于ALLHiC方法获得染色体水平的单倍型基因组序列"><a href="#2-5-基于ALLHiC方法获得染色体水平的单倍型基因组序列" class="headerlink" title="2.5 基于ALLHiC方法获得染色体水平的单倍型基因组序列"></a>2.5 基于ALLHiC方法获得染色体水平的单倍型基因组序列</h3><p>将Canu得到的单倍型融合基因组和Hi-C数据输入ALLHiC程序，参数设置为“-k 16 -e GATC”，最终获得一个含有16条染色体以及未识别的scaffolds的fasta文件(groups.asm.fasta)。对于简单二倍体，Zhang等人(Zhang et al 2019)提供了一个流程脚本(<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy9ibG9iL21hc3Rlci9iaW4vQUxMSGlDX3BpcC5zaCklRTUlOEYlQUYlRTclOUIlQjQlRTYlOEUlQTUlRTUlQUYlQjklRTUlOUYlQkElRTUlOUIlQTAlRTclQkIlODQlRTglQkYlOUIlRTglQTElOEMlRTYlOTQlQUYlRTYlOUUlQjYoc2NhZmZvbGRpbmcpJUUzJTgwJTgyJUU0JUI4JUJBJUU0JUJBJTg2JUU5JUFBJThDJUU4JUFGJTgxQUxMSGlDJUU3JUFFJUExJUU5JTgxJTkzJUU2JTk4JUFGJUU1JTkwJUE2JUU4JTgzJUJEJUU1JUE0JTlGJUU1JTg4JTg2JUU3JUE2JUJCJUU1JTkwJThDJUU2JUJBJTkwJUU2JTlGJTkzJUU4JTg5JUIyJUU0JUJEJTkzJUVGJUJDJThDJUU0JUJCJUE1JUU1JThGJTgyJUU2JTk1JUIwJUUyJTgwJTlDLWs=">https://github.com/tangerzhang/ALLHiC/blob/master/bin/ALLHiC_pip.sh)可直接对基因组进行支架(scaffolding)。为了验证ALLHiC管道是否能够分离同源染色体，以参数“-k<i class="fa fa-external-link-alt"></i></span> 8 -e GATC”运行ALLHiC管道，对Purge haplotigs处理的主要重叠群进行支架(scaffolding)，获得8条染色体的基因组序列。</p>
+<h3 id="2-6-基于Gamete-binning方法获得染色体水平的单倍型组装序列"><a href="#2-6-基于Gamete-binning方法获得染色体水平的单倍型组装序列" class="headerlink" title="2.6 基于Gamete binning方法获得染色体水平的单倍型组装序列"></a>2.6 基于Gamete binning方法获得染色体水平的单倍型组装序列</h3><p>两个完整的单倍型基因组可从ENA数据库中获得，组装ID(Assembly ID)分别是GCA_903112645(Currot haplotype)和GCA_903114435(OrangeRed haplotype)。</p>
+<h3 id="2-7-使用FALCON-Phase工具获得两个全长伪单倍型序列"><a href="#2-7-使用FALCON-Phase工具获得两个全长伪单倍型序列" class="headerlink" title="2.7 使用FALCON-Phase工具获得两个全长伪单倍型序列"></a>2.7 使用FALCON-Phase工具获得两个全长伪单倍型序列</h3><p>FALCON-Phase程序需要输入主要重叠群(primary contigs)和单倍型特异性重叠群(haplotigs)。FALCON从PacBio CLR长读段组装得到主要重叠群(p_contigs)和次级重叠群(a_contigs)；接着FALCON-Unzip算法利用主要重叠群中的杂合信息进行单倍型定相，最终生成一组更新的主要重叠群和单倍型特异性重叠群(Chin et al 2016)（可利用长读段测序数据进行自身校正）。单倍型特异性重叠群比FALCON生成的次级重叠群体现更连续的单倍型特异性序列信息。最终得到237,925,913 bp(N50: 364,944 bp)的主要重叠群和117,123,257 bp(N50: 74,370 bp)的单倍型特异性重叠群，并将两者输入FALCON-Phase程序，FALCON-Phase识别Hi-C测序数据中的超远程链接信息对基因组进行进一步分型，最终得到两个重叠群(contigs)水平的全长伪单倍型(pseudo-haplotypes)。</p>
+<h3 id="2-8-组装错误纠正"><a href="#2-8-组装错误纠正" class="headerlink" title="2.8 组装错误纠正"></a>2.8 组装错误纠正</h3><p>Pilon是一款集成基因组组装改进和变异检测的软件，通过将基因组组装与原始Illumina测序数据进行比对，可以检测并校正单碱基差异(single base differences)、插入缺失(indels)、局部组装错误(local misassemblies)、填充间隙(gap filling)等(Walker et al 2014)。利用bowtie2 v2.4.5以默认参数构建每个单倍型组装与子代10x Genomics测序数据的对齐Bam文件，并通过samtools v1.13进行排序，以及构建索引，最后以参数“–fix bases –mindepth 0.85”运行pilon v1.24。</p>
+<h3 id="2-9-组装质量评估-组装连续性"><a href="#2-9-组装质量评估-组装连续性" class="headerlink" title="2.9 组装质量评估-组装连续性"></a>2.9 组装质量评估-组装连续性</h3><p>N50是评估基因组连续性的重要指标。首先需要将组装中所有序列按照长度从长到短依次排列，并按照该顺序将序列长度依次相加，当相加的长度达到序列总长度的50%时，最后一条序列的长度便是N50。N90是当相加的长度达到序列总长度的90%时，最后一条序列的长度。N50，N90值越大，则表明组装连续性越高。</p>
+<h3 id="2-10-组装质量评估-组装完整性"><a href="#2-10-组装质量评估-组装完整性" class="headerlink" title="2.10 组装质量评估-组装完整性"></a>2.10 组装质量评估-组装完整性</h3><p>基于OrthoDB v10 的有胚植物单拷贝同源物数据库(embryophyta_odb10)，对每个单倍型基因组进行BUSCO v3.0.2评估，可以显示基因组的完整率(C)、重复率(D)、缺失率(M)等指标。</p>
+<h3 id="2-11-单倍型组装质量评估"><a href="#2-11-单倍型组装质量评估" class="headerlink" title="2.11 单倍型组装质量评估"></a>2.11 单倍型组装质量评估</h3><p>Merqury可以在没有参考基因组的情况下，基于k-mers频率分布对组装进行完整性和质量评估；更重要的是其可以对单倍型分辨的两个单倍型基因组进行单倍型组装质量评估。首先，利用Meryl统计两个亲本（Currot和OrangeRed）Illumina测序数据和子代10x Genomics数据的k-mers频率分布。</p>
+<p>在Merqury中，hap-mers被定义为亲本遗传的单倍型特异性k-mers，代表着子代从亲本中继承的k-mers，仅在单个单倍型中出现一次或多次，用集合的思想表示为亲本各自特异的k-mers与子代k-mers的交集。Hap-mers用于确定Merqury中定义的相位块(phase block)，相位块被定义为源自相同单倍型的一组一致性的标记(Rhie et al 2020)。Merqury最终可以输出拷贝数谱图(spectra-cn plot)、组装谱图(spectra-asm plot)、评估单倍型组装质量的圆圈图(hap-mers blob plot)(Rhie et al 2020)。</p>
+<p>杂合二倍体的拷贝数谱主要由两个峰组装，一个代表在二倍体基因组为1个拷贝(1-copy)的k-mers（杂合，在单个单倍型上出现）；另一个在基因组中代表2个拷贝(2-copy)的k-mers（纯合，在两个单倍型上或在一个单倍型中出现两次）(Rhie et al 2020)。最终生成一组多重性直方图，并以拷贝数着色。</p>
+<p>组装谱与拷贝数谱类似，通过k-mers在不同的单倍型来着色，主要显示两个单倍型中的k-mers分布。可以检测到只存在于一个单倍型组装中的k-mers、在两个单倍型组装中同时存在的k-mers(shared)、仅在原始测序数据中发现的k-mers(Rhie et al 2020)。其次，组装谱可以指示k-mers的完整性，从而评估两个单倍型组装的完整性（如果其中出现了黑色峰，则说明单倍型组装不完整，只有部分单倍型被识别，剩下的仅在原始测序数据中被发现）。圆圈图(blob plot)可以直观地显示两个单倍型的分型效果，通过单倍型类别着色图中的圆圈，圆圈的位置将指示单倍型基因组组装的好坏（圆圈越靠近坐标轴，定相效果越好）。</p>
+<h2 id="3-结果与分析"><a href="#3-结果与分析" class="headerlink" title="3 结果与分析"></a>3 结果与分析</h2><p>Gamete binning、Trio binning、FALCON-Phase都得到了不同程度的单倍型分辨的单倍型基因组序列。Gamete binning的单倍型组装序列是从ENA数据库获得，已被校正；而Trio binning、FALCON-Phase得到的两个单倍型基因组均通过Pilon v1.24进行校正，纠正错误组装。Pilon可以从原始测序数据中恢复组装中缺失的基因或修正组装错误，尤其是在Trio binning中表现突出。根据单拷贝基因完整性评估(BUSCO)，Trio binning得到的两个单倍型在pilon校正之前均存在约6.0%的缺失，检测到的单拷贝基因占比仅有87.0%；经pilon校正之后，缺失率降低至2.6%以下，单拷贝基因占比也达到了91.7%以上（表3），说明Pilon从原始测序数据中有效的恢复了由组装错误导致的缺失。ALLHiC方法并没有得到两个单倍型分辨的基因组，但是我们通过不同的k值获得两个单倍型混合基因组（k=8和k=16），ALLHiC提供的二倍体模型(ALLHiC_pip.sh<a href="#_ftn4"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.904ex" role="img" focusable="false" viewBox="0 -841.7 436.6 841.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="mn" transform="translate(33,363) scale(0.707)"><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path></g></g></g></g></svg></mjx-container></a>)并不足以支撑单倍型解析的单倍型基因组组装；正如我们预期的一样，ALLHiC（k=16，二倍体，染色体条数为8）得到的基因组并没有两两同源的染色体，更像是ALLHiC(k=8)组装基因组的碎片（图S4）。输入k=8管道的主要重叠群是经过Purge haplotigs以参数“-l 7 -m 60 -h 120”处理（去除冗余的单倍型特异性重叠群，保留主要重叠群）。</p>
+<p>本文主要从基因组连续性(N50)、基因组组装完整性(BSUCO)、单倍型组装质量(Merqury)等方面评估Gamete binning、Trio binning、FALCON-Phase、ALLHiC 4种单倍型组装方法对二倍体物种杏(<em>Prunus armeniaca</em>)的单倍型基因组组装质量。</p>
 <div style="text-align: center; font-size: 85%;">
-<p>表2 每个单倍型基因组组装统计 <br> Table 2 Genome assembly statistics
-per haplotype <br></p>
+表2 每个单倍型基因组组装统计 <br>
+Table 2 Genome assembly statistics per haplotype <br>
 </div>
+
+
 <table>
 <tr>
-<td>
-方法
-</td>
-<td>
-单倍型
-</td>
-<td>
-序列/条
-</td>
-<td>
-N50/bp
-</td>
-<td>
-N90/bp
-</td>
-<td>
-总碱基数/bp
-</td>
+<td>方法</td>
+<td>单倍型</td>
+<td>序列/条</td>
+<td>N50/bp</td>
+<td>N90/bp</td>
+<td>总碱基数/bp</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-Gamete binning
-</td>
-<td>
-Currot
-</td>
-<td>
-93
-</td>
-<td>
-25,835,044
-</td>
-<td>
-20,833,752
-</td>
-<td>
-215,952,222
-</td>
+<td rowspan="2">Gamete binning</td>
+<td>Currot</td>
+<td>93</td>
+<td>25,835,044</td>
+<td>20,833,752</td>
+<td>215,952,222</td>
 </tr>
 <tr class="even">
-<td>
-OrangeRed
-</td>
-<td>
-104
-</td>
-<td>
-25,508,227
-</td>
-<td>
-20,530,804
-</td>
-<td>
-215,239,966
-</td>
+<td>OrangeRed</td>
+<td>104</td>
+<td>25,508,227</td>
+<td>20,530,804</td>
+<td>215,239,966</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-FALCON-Phase
-</td>
-<td>
-phased.0
-</td>
-<td>
-1,321
-</td>
-<td>
-362,109
-</td>
-<td>
-75,530
-</td>
-<td>
-238,169,392
-</td>
+<td rowspan="2">FALCON-Phase</td>
+<td>phased.0</td>
+<td>1,321</td>
+<td>362,109</td>
+<td>75,530</td>
+<td>238,169,392</td>
 </tr>
 <tr class="even">
-<td>
-phased.1
-</td>
-<td>
-1,321
-</td>
-<td>
-362,109
-</td>
-<td>
-75,530
-</td>
-<td>
-238,042,337
-</td>
+<td>phased.1</td>
+<td>1,321</td>
+<td>362,109</td>
+<td>75,530</td>
+<td>238,042,337</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-Trio binning
-</td>
-<td>
-F1-haplotypeCurrot
-</td>
-<td>
-1,648
-</td>
-<td>
-484,325
-</td>
-<td>
-49,148
-</td>
-<td>
-237,732,501
-</td>
+<td rowspan="2">Trio binning</td>
+<td>F1-haplotypeCurrot</td>
+<td>1,648</td>
+<td>484,325</td>
+<td>49,148</td>
+<td>237,732,501</td>
 </tr>
 <tr class="even">
-<td>
-F1-haplotypeOrangeRed
-</td>
-<td>
-1,664
-</td>
-<td>
-489,043
-</td>
-<td>
-46,145
-</td>
-<td>
-236,509,352
-</td>
+<td>F1-haplotypeOrangeRed</td>
+<td>1,664</td>
+<td>489,043</td>
+<td>46,145</td>
+<td>236,509,352</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-ALLHiC
-</td>
-<td>
-k=8
-</td>
-<td>
-8
-</td>
-<td>
-24,510,357
-</td>
-<td>
-22,706,253
-</td>
-<td>
-218,080,681
-</td>
+<td rowspan="2">ALLHiC</td>
+<td>k=8</td>
+<td>8</td>
+<td>24,510,357</td>
+<td>22,706,253</td>
+<td>218,080,681</td>
 </tr>
 <tr class="even">
-<td>
-k=16
-</td>
-<td>
-16
-</td>
-<td>
-25,351,798
-</td>
-<td>
-15,217,824
-</td>
-<td>
-367,847,792
-</td>
+<td>k=16</td>
+<td>16</td>
+<td>25,351,798</td>
+<td>15,217,824</td>
+<td>367,847,792</td>
 </tr>
 </table>
-<h3 id="评估基因组组装连续性">3.1 评估基因组组装连续性</h3>
-<p>N50是评估基因组组装连续性的重要指标。N50越大，表示组装连续性越高。此外，对组装的基因组大小、序列条数进行统计（表2）。每种方法（除ALLHiC）获得的两个单倍型之间差距不大，说明获得的两个单倍型基因组组装在连续性上有一定的相似性。获得的单倍型基因组大小在210
-Mbp-240 Mbp之间，符合GenomeScope2预测的250 Mbp（图1
-a）单倍型基因组大小的预期（误差在可接受范围之内）。染色体水平的单倍型基因组N50都在20
-Mbp以上，而FALCON-Phase与Trio binning获得的单倍型组装N50均在500
-kbp以下。从连续性上来看，效果最佳的是Gamete
-binning方法。如果对FALCON-Phase和Trio
-binning的单倍型基因组组装进行Scaffolding，可以一定程度上改善组装的连续性，但也有可能引入未知的错误。ALLHiC(k=8)是在去除单倍型特异性重叠群(haplotigs)之后运行的结果，整体的基因组大小也在正常范围之内；理想状态下，ALLHiC(k=16)基因组中含有目标个体的两套遗传信息，即基因组大小应该是单倍型基因组的两倍，但是k=16得到的基因组大小只有单倍型基因组的1.69倍，说明二倍体基因组约30%的等位变异没有被分离。在完全分离等位变异的情况下，ALLHiC(k=16)可以通过与参考基因组进行点阵图分析分离同源染色体（图S4），但是本文得到的k=16基因组并没有这个特征。</p>
-<h3 id="评估基因组组装完整性">3.2 评估基因组组装完整性</h3>
-<p>使用OrthoDB(Zdobnov et al
-2021)的单拷贝直系同源物数据库，BUSCO可以基于预期基因含量提供具有生物学意义的指标来估计基因组的完整性和冗余性(Manni
-et al
-2021)。杏属于有胚植物，选择有胚植物直系同源数据库(embryophyta_odb10)，其中共有1614个保守的单拷贝基因。4种单倍型基因组组装方法得到的基因组完整性(C)均在93.2%以上，且缺失率(M)在5.9%以下（表3），说明各种方法基本恢复了单倍型基因组中的单拷贝基因。FALCON-Phase与ALLHiC(k=16)的单倍型基因组组装存在9.0%以上的重复(D)（表3）。尽管ALLHiC并没有分离二倍体的单倍型基因组序列，但其组装的基因组序列完整性较高；将k值设置为二倍体染色体条数(k=8)，则可以获得Scaffolding之后的基因组Scaffold水平的组装。可以进一步提升组装序列的连续性。</p>
+
+<h3 id="3-1-评估基因组组装连续性"><a href="#3-1-评估基因组组装连续性" class="headerlink" title="3.1 评估基因组组装连续性"></a>3.1 评估基因组组装连续性</h3><p>N50是评估基因组组装连续性的重要指标。N50越大，表示组装连续性越高。此外，对组装的基因组大小、序列条数进行统计（表2）。每种方法（除ALLHiC）获得的两个单倍型之间差距不大，说明获得的两个单倍型基因组组装在连续性上有一定的相似性。获得的单倍型基因组大小在210 Mbp-240 Mbp之间，符合GenomeScope2预测的250 Mbp（图1 a）单倍型基因组大小的预期（误差在可接受范围之内）。染色体水平的单倍型基因组N50都在20 Mbp以上，而FALCON-Phase与Trio binning获得的单倍型组装N50均在500 kbp以下。从连续性上来看，效果最佳的是Gamete binning方法。如果对FALCON-Phase和Trio binning的单倍型基因组组装进行Scaffolding，可以一定程度上改善组装的连续性，但也有可能引入未知的错误。ALLHiC(k=8)是在去除单倍型特异性重叠群(haplotigs)之后运行的结果，整体的基因组大小也在正常范围之内；理想状态下，ALLHiC(k=16)基因组中含有目标个体的两套遗传信息，即基因组大小应该是单倍型基因组的两倍，但是k=16得到的基因组大小只有单倍型基因组的1.69倍，说明二倍体基因组约30%的等位变异没有被分离。在完全分离等位变异的情况下，ALLHiC(k=16)可以通过与参考基因组进行点阵图分析分离同源染色体（图S4），但是本文得到的k=16基因组并没有这个特征。</p>
+<h3 id="3-2-评估基因组组装完整性"><a href="#3-2-评估基因组组装完整性" class="headerlink" title="3.2 评估基因组组装完整性"></a>3.2 评估基因组组装完整性</h3><p>使用OrthoDB(Zdobnov et al 2021)的单拷贝直系同源物数据库，BUSCO可以基于预期基因含量提供具有生物学意义的指标来估计基因组的完整性和冗余性(Manni et al 2021)。杏属于有胚植物，选择有胚植物直系同源数据库(embryophyta_odb10)，其中共有1614个保守的单拷贝基因。4种单倍型基因组组装方法得到的基因组完整性(C)均在93.2%以上，且缺失率(M)在5.9%以下（表3），说明各种方法基本恢复了单倍型基因组中的单拷贝基因。FALCON-Phase与ALLHiC(k=16)的单倍型基因组组装存在9.0%以上的重复(D)（表3）。尽管ALLHiC并没有分离二倍体的单倍型基因组序列，但其组装的基因组序列完整性较高；将k值设置为二倍体染色体条数(k=8)，则可以获得Scaffolding之后的基因组Scaffold水平的组装。可以进一步提升组装序列的连续性。</p>
 <div style="text-align: center; font-size: 85%;">
-<p>表3 单倍型基因组的BUSCO评估（经pilon校正）<br> Table 3 BUSCO
-assessment of haplotype genomes (pilon-corrected) <br></p>
+表3 单倍型基因组的BUSCO评估（经pilon校正）<br>
+Table 3 BUSCO assessment of haplotype genomes (pilon-corrected) <br>
 </div>
+
+
 <table>
 <tr class="header" style="opacity: 1; top: 0px;">
-<th>
-方法
-</th>
-<th>
-单倍型
-</th>
-<th>
-完整率 (C)/%
-</th>
-<th>
-单拷贝率 (S)/%
-</th>
-<th>
-重复率 (D)/%
-</th>
-<th>
-缺失率 (M)/%
-</th>
-</tr>
-<tr class="odd">
-<td rowspan="2">
-Gamete binning
-</td>
-<td>
-Currot
-</td>
-<td>
-97.9
-</td>
-<td>
-96.1
-</td>
-<td>
-1.8
-</td>
-<td>
-1.4
-</td>
+<th>方法</th>
+<th>单倍型</th>
+<th>完整率 (C)/%</th>
+<th> 单拷贝率 (S)/%</th>
+<th> 重复率 (D)/%</th>
+<th> 缺失率 (M)/%</th>
+</tr><tr class="odd">
+<td rowspan="2">Gamete binning</td>
+<td>Currot</td>
+<td>97.9</td>
+<td>96.1</td>
+<td>1.8</td>
+<td>1.4</td>
 </tr>
 <tr class="even">
-<td>
-OrangeRed
-</td>
-<td>
-97.6
-</td>
-<td>
-95.3
-</td>
-<td>
-2.3
-</td>
-<td>
-1.3
-</td>
+<td>OrangeRed</td>
+<td>97.6</td>
+<td>95.3</td>
+<td>2.3</td>
+<td>1.3</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-FALCON-Phase
-</td>
-<td>
-phased.0
-</td>
-<td>
-96.7
-</td>
-<td>
-87.6
-</td>
-<td>
-9.1
-</td>
-<td>
-2.2
-</td>
+<td rowspan="2">FALCON-Phase</td>
+<td>phased.0</td>
+<td>96.7</td>
+<td>87.6</td>
+<td>9.1</td>
+<td>2.2</td>
 </tr>
 <tr class="even">
-<td>
-phased.1
-</td>
-<td>
-96.7
-</td>
-<td>
-87.7
-</td>
-<td>
-9.0
-</td>
-<td>
-2.2
-</td>
+<td>phased.1</td>
+<td>96.7</td>
+<td>87.7</td>
+<td>9.0</td>
+<td>2.2</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-Trio binning
-</td>
-<td>
-F1-haplotypeCurrot
-</td>
-<td>
-97.1
-</td>
-<td>
-92.6
-</td>
-<td>
-4.5
-</td>
-<td>
-1.8
-</td>
+<td rowspan="2">Trio binning</td>
+<td>F1-haplotypeCurrot</td>
+<td>97.1</td>
+<td>92.6</td>
+<td>4.5</td>
+<td>1.8</td>
 </tr>
 <tr class="even">
-<td>
-F1-haplotypeOrangeRed
-</td>
-<td>
-96.3
-</td>
-<td>
-91.7
-</td>
-<td>
-4.6
-</td>
-<td>
-2.6
-</td>
+<td>F1-haplotypeOrangeRed</td>
+<td>96.3</td>
+<td>91.7</td>
+<td>4.6</td>
+<td>2.6</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-ALLHiC
-</td>
-<td>
-k=8
-</td>
-<td>
-97.9
-</td>
-<td>
-94.7
-</td>
-<td>
-3.2
-</td>
-<td>
-1.1
-</td>
+<td rowspan="2">ALLHiC</td>
+<td>k=8</td>
+<td>97.9</td>
+<td>94.7</td>
+<td>3.2</td>
+<td>1.1</td>
 </tr>
 <tr class="even">
-<td>
-k=16
-</td>
-<td>
-93.2
-</td>
-<td>
-82.2
-</td>
-<td>
-11.0
-</td>
-<td>
-5.9
-</td>
+<td>k=16</td>
+<td>93.2</td>
+<td>82.2</td>
+<td>11.0</td>
+<td>5.9</td>
 </tr>
 </table>
-<h3 id="评估单倍型基因组组装的准确性">3.3
-评估单倍型基因组组装的准确性</h3>
-<p>利用两个亲本Illumina全基因组测序数据来验证单倍型基因组的准确性。Merqury提出基于hap-mers评估单倍型的准确性，相较于只考虑亲本特异性k-mers更加严格。亲本遗传的单倍型特异性k-mers(hap-mers)是子代从亲本中继承而来的k-mers，仅在一个单倍型中出现一次或多次，可作为评估单倍型准确性的指标。经统计，来自亲本Currot和OrangeRed的亲本遗传的单倍型特异性k-mer数量分别为15,033,008条和19,212,772条。</p>
-<p>Gamete
-binning方法得到的两个单倍型基因组均在相应亲本基因组中找到92.70%以上的hap-mers。Trio
-binning方法生成的两个单倍型更是在95.85%以上（表4），表明大部分的单倍型序列都被正确分配给了单倍型。FALCON-Phase得到的两个单倍型的hap-mers在两个亲本中的占比相似，说明其单倍型为单倍型融合基因组，并没有将基因组中的单倍型序列分离开。ALLHiC(k=8)与FALCON-Phase类似，但其中只包含49.84%左右的hap-mers，说明ALLHiC(k=8)的单倍型混合基因组并不完整；而ALLHiC(k=16)虽然恢复了更多的单倍型信息，但仍是混合的单倍型基因组。</p>
+
+<h3 id="3-3-评估单倍型基因组组装的准确性"><a href="#3-3-评估单倍型基因组组装的准确性" class="headerlink" title="3.3 评估单倍型基因组组装的准确性"></a>3.3 评估单倍型基因组组装的准确性</h3><p>利用两个亲本Illumina全基因组测序数据来验证单倍型基因组的准确性。Merqury提出基于hap-mers评估单倍型的准确性，相较于只考虑亲本特异性k-mers更加严格。亲本遗传的单倍型特异性k-mers(hap-mers)是子代从亲本中继承而来的k-mers，仅在一个单倍型中出现一次或多次，可作为评估单倍型准确性的指标。经统计，来自亲本Currot和OrangeRed的亲本遗传的单倍型特异性k-mer数量分别为15,033,008条和19,212,772条。</p>
+<p>Gamete binning方法得到的两个单倍型基因组均在相应亲本基因组中找到92.70%以上的hap-mers。Trio binning方法生成的两个单倍型更是在95.85%以上（表4），表明大部分的单倍型序列都被正确分配给了单倍型。FALCON-Phase得到的两个单倍型的hap-mers在两个亲本中的占比相似，说明其单倍型为单倍型融合基因组，并没有将基因组中的单倍型序列分离开。ALLHiC(k=8)与FALCON-Phase类似，但其中只包含49.84%左右的hap-mers，说明ALLHiC(k=8)的单倍型混合基因组并不完整；而ALLHiC(k=16)虽然恢复了更多的单倍型信息，但仍是混合的单倍型基因组。</p>
 <div style="text-align: center; font-size: 85%;">
-<p>表4 各个单倍型中来自不同亲本hap-mers的统计 <br> Table 4 Statistics of
-hap-mers from different parents in each haplotype <br></p>
+表4 各个单倍型中来自不同亲本hap-mers的统计 <br>
+Table 4 Statistics of hap-mers from different parents in each haplotype <br>
 </div>
 <table>
 <colgroup>
@@ -1497,237 +1115,110 @@ hap-mers from different parents in each haplotype <br></p>
 <tbody>
 <thead>
 <tr class="header" style="opacity: 1; top: 0px;">
-<th>
-方法
-</th>
-<th>
-单倍型
-</th>
-<th>
-Currot.hap-mer
-</th>
-<th>
-占比<a href="#_ftn5"><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.887ex" role="img" focusable="false" viewBox="0 -833.9 436.6 833.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="mn" transform="translate(33,363) scale(0.707)"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path></g></g></g></g></svg></mjx-container></span></a>
-/%
-</th>
-<th>
-Orange.hap-mer
-</th>
-<th>
-占比 /%
-</th>
+<th>方法</th>
+<th>单倍型</th>
+<th> Currot.hap-mer</th>
+<th> 占比<a href="#_ftn5"><span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.887ex" role="img" focusable="false" viewBox="0 -833.9 436.6 833.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="mn" transform="translate(33,363) scale(0.707)"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path></g></g></g></g></svg></mjx-container></span></a> /%</th>
+<th>Orange.hap-mer</th>
+<th> 占比 /%</th>
 </tr>
 </thead>
 <tr class="odd">
-<td rowspan="2">
-Gamete binning
-</td>
-<td>
-Currot
-</td>
-<td>
-14,006,321
-</td>
-<td>
-93.17
-</td>
-<td>
-679,810
-</td>
-<td>
-3.54
-</td>
+<td rowspan="2">Gamete binning</td>
+<td>Currot</td>
+<td>14,006,321</td>
+<td>93.17</td>
+<td>679,810</td>
+<td>3.54</td>
 </tr>
 <tr class="even">
-<td>
-OrangeRed
-</td>
-<td>
-531,039
-</td>
-<td>
-3.53
-</td>
-<td>
-17,809,062
-</td>
-<td>
-92.70
-</td>
+<td>OrangeRed</td>
+<td>531,039</td>
+<td>3.53</td>
+<td>17,809,062</td>
+<td>92.70</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-FALCON-Phase
-</td>
-<td>
-phased.0
-</td>
-<td>
-8,575,279
-</td>
-<td>
-57.04
-</td>
-<td>
-10,805,973
-</td>
-<td>
-56.24
-</td>
+<td rowspan="2">FALCON-Phase</td>
+<td>phased.0</td>
+<td>8,575,279</td>
+<td>57.04</td>
+<td>10,805,973</td>
+<td>56.24</td>
 </tr>
 <tr class="even">
-<td>
-phased.1
-</td>
-<td>
-8,552,823
-</td>
-<td>
-56.89
-</td>
-<td>
-10,812,787
-</td>
-<td>
-56.28
-</td>
+<td>phased.1</td>
+<td>8,552,823</td>
+<td>56.89</td>
+<td>10,812,787</td>
+<td>56.28</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-Trio binning
-</td>
-<td>
-F1-haplotypeCurrot
-</td>
-<td>
-14,408,428
-</td>
-<td>
-95.85
-</td>
-<td>
-81,132
-</td>
-<td>
-0.42
-</td>
+<td rowspan="2">Trio binning</td>
+<td>F1-haplotypeCurrot</td>
+<td>14,408,428</td>
+<td>95.85</td>
+<td>81,132</td>
+<td>0.42</td>
 </tr>
 <tr class="even">
-<td>
-F1-haplotypeOrangeRed
-</td>
-<td>
-59,666
-</td>
-<td>
-0.40
-</td>
-<td>
-18,495,382
-</td>
-<td>
-96.27
-</td>
+<td>F1-haplotypeOrangeRed</td>
+<td>59,666</td>
+<td>0.40</td>
+<td>18,495,382</td>
+<td>96.27</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-ALLHiC
-</td>
-<td>
-k=8
-</td>
-<td>
-7,492,212
-</td>
-<td>
-49.84
-</td>
-<td>
-9,535,258
-</td>
-<td>
-49.63
-</td>
+<td rowspan="2">ALLHiC</td>
+<td>k=8</td>
+<td>7,492,212</td>
+<td>49.84</td>
+<td>9,535,258</td>
+<td>49.63</td>
 </tr>
 <tr class="even">
-<td>
-k=16
-</td>
-<td>
-13,590,882
-</td>
-<td>
-90.41
-</td>
-<td>
-17,478,066
-</td>
-<td>
-90.97
-</td>
+<td>k=16</td>
+<td>13,590,882</td>
+<td>90.41</td>
+<td>17,478,066</td>
+<td>90.97</td>
 </tr>
 </tbody>
 </table>
-<p>Hap-mers圆圈图(hap-mers blob
-plot)可以直观的显示各条组装序列的单倍型来源，从而评估单倍型分型质量。从两个亲本中统计各自特异的hap-mers（表4），作为圆圈图的x轴和y轴，显示理想状态下的单倍型分布；圆圈颜色对应着不同的单倍型，大小为序列长度。理想状态下的圆圈图是两种颜色的圆圈（两个单倍型）无限接近于两轴（如Trio
-binning的圆圈图）。Gamete binning与Trio
-binning的分型效果最佳（图2），几乎将所有的单倍型序列正确分配给了每个单倍型。FALCON-Phase则是两个单倍型序列的混合（紫色圆圈，红色与蓝色的重合）。</p>
-<p><img data-src="../images/polished.hapmer.blob.png"></p>
+
+
+<p>Hap-mers圆圈图(hap-mers blob plot)可以直观的显示各条组装序列的单倍型来源，从而评估单倍型分型质量。从两个亲本中统计各自特异的hap-mers（表4），作为圆圈图的x轴和y轴，显示理想状态下的单倍型分布；圆圈颜色对应着不同的单倍型，大小为序列长度。理想状态下的圆圈图是两种颜色的圆圈（两个单倍型）无限接近于两轴（如Trio binning的圆圈图）。Gamete binning与Trio binning的分型效果最佳（图2），几乎将所有的单倍型序列正确分配给了每个单倍型。FALCON-Phase则是两个单倍型序列的混合（紫色圆圈，红色与蓝色的重合）。</p>
+<p><img data-src="/../images/polished.hapmer.blob.png"></p>
 <div style="text-align: center; font-size: 85%;">
-<p>图2 hap-mers圆圈图 <br> Fig.2 Hap-mer blob plots <br>
-两轴分别是来自两个亲本Currot和OrangeRed原始测序数据的hap-mers计数；圆圈颜色表示不同的单倍型，大小表示序列长度。理想状态下，两种不同颜色的圆圈分别无限接近于两轴，不重叠。a)
-Gamete binning方法两个单倍型的hap-mers圆圈图。b)
-FALCON-Phase方法两个单倍型的hap-mers圆圈图。c) Trio
-binning方法两个单倍型的hap-mers圆圈图。</p>
+图2 hap-mers圆圈图 <br>
+Fig.2 Hap-mer blob plots <br>
+两轴分别是来自两个亲本Currot和OrangeRed原始测序数据的hap-mers计数；圆圈颜色表示不同的单倍型，大小表示序列长度。理想状态下，两种不同颜色的圆圈分别无限接近于两轴，不重叠。a) Gamete binning方法两个单倍型的hap-mers圆圈图。b) FALCON-Phase方法两个单倍型的hap-mers圆圈图。c) Trio binning方法两个单倍型的hap-mers圆圈图。
 </div>
-<h3 id="评估单倍型基因组冗余性和杂合性">3.4
-评估单倍型基因组冗余性和杂合性</h3>
-<p>BUSCO通过检测组装中是否存在给定数据库中的单拷贝基因来评估组装的完整性。Merqury通过组装基因组和原始测序数据两者之间的k-mers计数进行统计比较，绘制k-mer拷贝数谱(k-mer
-copy number
-spectra)，从而指示拷贝数分布，可以在一定程度上显示组装基因组的冗余性和杂合性，以及缺失率(Mapleson
-et al
-2017)。k-mer拷贝数谱，即k-mer拷贝数直方图。一般情况下，二倍体基因组的k-mer拷贝数谱会出现两个峰，根据k-mer在每个单倍型中出现的次数来决定拷贝数。第一个峰为单拷贝峰(1-copy)，表示只在其中一个单倍型中发现的k-mers，也被称为杂合峰；第二个峰为双拷贝峰(2-copy)，表示同时在两个单倍型中找到，也就是纯合峰。</p>
-<p>由于ALLHiC方法并没有得到两个单倍型解析的基因组，故本节只对Gamete
-binning、FALCON-Phase和Trio
-binning三种方法得到的单倍型解析基因组绘制k-mer拷贝数谱（图3），图中不同的颜色表示不同的拷贝数。FALCON-Phase中出现了4拷贝(4-copy)峰（蓝色峰下的紫色峰），说明FALCON-Phase方法得到的单倍型中存在一定的错误重复，正如BUSCO统计其两个单倍型的重复率均在9.0%以上（表3）。Gamete
-binning与Trio
-binning方法运用的是相同的策略，都是在组装前将子代长读段测序数据分成两组不同的读段，再进行分别组装；从图3可看出两者的拷贝数差异不大。反观FALCON-Phase的两个单倍型存在大量缺失，图3显示组装中的单拷贝k-mers在原始测序数据中大量出现（黑色峰），说明FALCON-Phase只恢复了测序数据中的部分单倍型信息。此外，FALCON-Phase的两个单倍型中几乎没有单拷贝峰，说明组装得到的两个单倍型序列几乎都是纯合的（k-mer拷贝数谱中只有2拷贝峰），且两个单倍型的序列高度相似，所以我们猜测FALCON-Phase组装缺失的可能是单倍型的杂合序列（黑色峰）。K-mer拷贝数谱还显示各个单倍型组装中均存在不同程度的碱基错误，因为在单倍型组装中发现了在原始测序数据中不存在的k-mers（在0覆盖度下均存在红色竖线）。</p>
-<img data-src="../images/polished.spectra-cn.fl.ln.png">
+
+
+<h3 id="3-4-评估单倍型基因组冗余性和杂合性"><a href="#3-4-评估单倍型基因组冗余性和杂合性" class="headerlink" title="3.4 评估单倍型基因组冗余性和杂合性"></a>3.4 评估单倍型基因组冗余性和杂合性</h3><p>BUSCO通过检测组装中是否存在给定数据库中的单拷贝基因来评估组装的完整性。Merqury通过组装基因组和原始测序数据两者之间的k-mers计数进行统计比较，绘制k-mer拷贝数谱(k-mer copy number spectra)，从而指示拷贝数分布，可以在一定程度上显示组装基因组的冗余性和杂合性，以及缺失率(Mapleson et al 2017)。k-mer拷贝数谱，即k-mer拷贝数直方图。一般情况下，二倍体基因组的k-mer拷贝数谱会出现两个峰，根据k-mer在每个单倍型中出现的次数来决定拷贝数。第一个峰为单拷贝峰(1-copy)，表示只在其中一个单倍型中发现的k-mers，也被称为杂合峰；第二个峰为双拷贝峰(2-copy)，表示同时在两个单倍型中找到，也就是纯合峰。</p>
+<p>由于ALLHiC方法并没有得到两个单倍型解析的基因组，故本节只对Gamete binning、FALCON-Phase和Trio binning三种方法得到的单倍型解析基因组绘制k-mer拷贝数谱（图3），图中不同的颜色表示不同的拷贝数。FALCON-Phase中出现了4拷贝(4-copy)峰（蓝色峰下的紫色峰），说明FALCON-Phase方法得到的单倍型中存在一定的错误重复，正如BUSCO统计其两个单倍型的重复率均在9.0%以上（表3）。Gamete binning与Trio binning方法运用的是相同的策略，都是在组装前将子代长读段测序数据分成两组不同的读段，再进行分别组装；从图3可看出两者的拷贝数差异不大。反观FALCON-Phase的两个单倍型存在大量缺失，图3显示组装中的单拷贝k-mers在原始测序数据中大量出现（黑色峰），说明FALCON-Phase只恢复了测序数据中的部分单倍型信息。此外，FALCON-Phase的两个单倍型中几乎没有单拷贝峰，说明组装得到的两个单倍型序列几乎都是纯合的（k-mer拷贝数谱中只有2拷贝峰），且两个单倍型的序列高度相似，所以我们猜测FALCON-Phase组装缺失的可能是单倍型的杂合序列（黑色峰）。K-mer拷贝数谱还显示各个单倍型组装中均存在不同程度的碱基错误，因为在单倍型组装中发现了在原始测序数据中不存在的k-mers（在0覆盖度下均存在红色竖线）。</p>
+<p><img data-src="/../images/polished.spectra-cn.fl.ln.png"></p>
 <div style="text-align: center; font-size: 85%;">
-<p>图3 K-mer拷贝数谱图 <br> Fig. 3 K-mer copy number spectrum plots <br>
-x轴表示k-mer出现的次数，y轴表示出现x次数的k-mers数量；不同的颜色表示不同的拷贝数，黑色表示在测序数据中统计的k-mer数量，在一定程度上显示单倍型组装的缺失。第一个峰（杂合）表示基因组中的1拷贝(1-copy)k-mers，仅在一个单倍型中发现的k-mers；第二个峰（纯合）代表来自纯合序列或单倍型特异性重复的2拷贝(2-copy)k-mers，即同时在两个单倍型中存在的k-mers。a)
-Gamete binning方法两个单倍型的k-mer拷贝数谱。b)
-FALCON-Phase方法两个单倍型的k-mer拷贝数谱。c) Trio
-binning方法两个单倍型的k-mer拷贝数谱。</p>
+图3 K-mer拷贝数谱图 <br>
+Fig. 3 K-mer copy number spectrum plots <br>
+x轴表示k-mer出现的次数，y轴表示出现x次数的k-mers数量；不同的颜色表示不同的拷贝数，黑色表示在测序数据中统计的k-mer数量，在一定程度上显示单倍型组装的缺失。第一个峰（杂合）表示基因组中的1拷贝(1-copy)k-mers，仅在一个单倍型中发现的k-mers；第二个峰（纯合）代表来自纯合序列或单倍型特异性重复的2拷贝(2-copy)k-mers，即同时在两个单倍型中存在的k-mers。a) Gamete binning方法两个单倍型的k-mer拷贝数谱。b) FALCON-Phase方法两个单倍型的k-mer拷贝数谱。c) Trio binning方法两个单倍型的k-mer拷贝数谱。
 </div>
-<h3 id="评估单倍型基因组组装的完整性">3.5
-评估单倍型基因组组装的完整性</h3>
-<p>k-mer拷贝数谱图是从所有的拷贝数进行评估两个单倍型基因组的质量，k-mer组装谱图(spectra-asm)则是分别统计两个单倍型组装的拷贝数，并以单倍型类别进行着色（图4）。一个完美组装的二倍体基因组预计具有特异于代表杂合等位序列的每个单倍型k-mer平衡(Rhie
-et al 2020)。Gamete binning与Trio
-binning除了存在可能的碱基错误之外，几乎是完美的；其中1拷贝峰k-mers对每个单倍型组装都是特异的，2拷贝峰（绿色峰）则是两个单倍型组装共有的k-mers。这也验证了前面提到的高于92.70%的k-mer完整性（表4）。FALCON-Phase单倍型组装中并没有发现特异于单个单倍型的k-mers，所有统计的k-mers在两个单倍型中共享，且在1拷贝和2拷贝中都存在不同程度的缺失（黑色峰）。</p>
-<img data-src="../images/polished.spectra-asm.fl.ln.png">
+
+
+<h3 id="3-5-评估单倍型基因组组装的完整性"><a href="#3-5-评估单倍型基因组组装的完整性" class="headerlink" title="3.5 评估单倍型基因组组装的完整性"></a>3.5 评估单倍型基因组组装的完整性</h3><p>k-mer拷贝数谱图是从所有的拷贝数进行评估两个单倍型基因组的质量，k-mer组装谱图(spectra-asm)则是分别统计两个单倍型组装的拷贝数，并以单倍型类别进行着色（图4）。一个完美组装的二倍体基因组预计具有特异于代表杂合等位序列的每个单倍型k-mer平衡(Rhie et al 2020)。Gamete binning与Trio binning除了存在可能的碱基错误之外，几乎是完美的；其中1拷贝峰k-mers对每个单倍型组装都是特异的，2拷贝峰（绿色峰）则是两个单倍型组装共有的k-mers。这也验证了前面提到的高于92.70%的k-mer完整性（表4）。FALCON-Phase单倍型组装中并没有发现特异于单个单倍型的k-mers，所有统计的k-mers在两个单倍型中共享，且在1拷贝和2拷贝中都存在不同程度的缺失（黑色峰）。</p>
+<p><img data-src="/../images/polished.spectra-asm.fl.ln.png"></p>
 <div style="text-align: center; font-size: 85%;">
-<p>图4 K-mer组装谱图 <br> Fig. 4 K-mer assembly spectrum plots <br>
-从左至右，第一个峰是纯合峰，以单倍型着色；紫色（红色与蓝色重叠）峰是两个单倍型中特异性的k-mers，绿色则代表在两个单倍型中同时存在的k-mers。a)
-Gamete binning方法两个单倍型的k-mer组装谱。b)
-FALCON-Phase方法两个单倍型的k-mer组装谱。c) Trio
-binning方法两个单倍型的k-mer组装谱。</p>
+图4 K-mer组装谱图 <br>
+Fig. 4 K-mer assembly spectrum plots  <br>
+从左至右，第一个峰是纯合峰，以单倍型着色；紫色（红色与蓝色重叠）峰是两个单倍型中特异性的k-mers，绿色则代表在两个单倍型中同时存在的k-mers。a) Gamete binning方法两个单倍型的k-mer组装谱。b) FALCON-Phase方法两个单倍型的k-mer组装谱。c) Trio binning方法两个单倍型的k-mer组装谱。
 </div>
-<h3 id="统计单倍型基因组的交换错误">3.6 统计单倍型基因组的交换错误</h3>
-<p>交换错误(switch
-error)是对等位变异定相到错误单倍型的统计，是评估基因分型质量的重要指标。在单倍型中检测到的来自其他单倍型的k-mers，被定义为交换错误。Merqury将存在交换错误的重叠群打断成相位块(phase
-block)，相位块被定义为至少具有两个来自相同单倍型特异性k-mers(hap-mers)的连续序列(Rhie
-et al 2020)。这里设置的阈值是每20
-kbp允许存在100次交换，即允许0.5%的交换错误发生。此外，还对相位块进行统计N50、序列总长度等信息，方便定位交换错误在基因组中发生的位置。单倍型解析基因组组装的整个单倍型可以算做一个单独的块(block)(Rhie
-et al
-2020)；理想状态下，在不存在交换错误时，统计的相位块N50与组装序列N50相同，并且相位块的总碱基数将与组装序列总碱基数持平。</p>
-<p>4种方法得到的单倍型组装中只有Gamete binning、Trio
-binning和FALCON-Phase得到的是单倍型解析的基因组组装，三者相位块的总长度与其组装序列总长度相近，但是相位块的N50相差较大。经统计，Gamete
-binning的单倍型解析基因组交换错误率最低，在0.3515%以下。Trio
-binning也控制在0.5000%以下，但是FALCON-Phase的交换错误率超出了预先设置的阈值(0.5000%)，高达0.6161%，这也验证了FALCON-Phase的单倍型之间都混合了另一个单倍型的等位变异序列。而ALLHiC无论是k=8还是k=16，交换错误率均在1.6491%以上，这也说明了ALLHiC获得的杂合二倍体基因组是单倍型混合的组装。</p>
+
+<h3 id="3-6-统计单倍型基因组的交换错误"><a href="#3-6-统计单倍型基因组的交换错误" class="headerlink" title="3.6 统计单倍型基因组的交换错误"></a>3.6 统计单倍型基因组的交换错误</h3><p>交换错误(switch error)是对等位变异定相到错误单倍型的统计，是评估基因分型质量的重要指标。在单倍型中检测到的来自其他单倍型的k-mers，被定义为交换错误。Merqury将存在交换错误的重叠群打断成相位块(phase block)，相位块被定义为至少具有两个来自相同单倍型特异性k-mers(hap-mers)的连续序列(Rhie et al 2020)。这里设置的阈值是每20 kbp允许存在100次交换，即允许0.5%的交换错误发生。此外，还对相位块进行统计N50、序列总长度等信息，方便定位交换错误在基因组中发生的位置。单倍型解析基因组组装的整个单倍型可以算做一个单独的块(block)(Rhie et al 2020)；理想状态下，在不存在交换错误时，统计的相位块N50与组装序列N50相同，并且相位块的总碱基数将与组装序列总碱基数持平。</p>
+<p>4种方法得到的单倍型组装中只有Gamete binning、Trio binning和FALCON-Phase得到的是单倍型解析的基因组组装，三者相位块的总长度与其组装序列总长度相近，但是相位块的N50相差较大。经统计，Gamete binning的单倍型解析基因组交换错误率最低，在0.3515%以下。Trio binning也控制在0.5000%以下，但是FALCON-Phase的交换错误率超出了预先设置的阈值(0.5000%)，高达0.6161%，这也验证了FALCON-Phase的单倍型之间都混合了另一个单倍型的等位变异序列。而ALLHiC无论是k=8还是k=16，交换错误率均在1.6491%以上，这也说明了ALLHiC获得的杂合二倍体基因组是单倍型混合的组装。</p>
 <div style="text-align: center; font-size: 85%;">
-<p>表5 交换错误率统计 <br> Table 5 The statistics of switch error rate
-<br></p>
+表5 交换错误率统计 <br>
+Table 5 The statistics of switch error rate <br>
 </div>
 <table>
 <colgroup>
@@ -1741,222 +1232,97 @@ binning也控制在0.5000%以下，但是FALCON-Phase的交换错误率超出了
 </colgroup>
 <thead>
 <tr class="header" style="opacity: 1; top: 0px;">
-<th>
-方法
-</th>
-<th>
-单倍型
-</th>
-<th>
-块数
-</th>
-<th>
-总长度 /bp
-</th>
-<th>
-最长 /bp
-</th>
-<th>
-N50/bp
-</th>
-<th>
-交换错误率 /%
-</th>
+<th>方法</th>
+<th>单倍型</th>
+<th>块数</th>
+<th>总长度 /bp</th>
+<th> 最长 /bp</th>
+<th>N50/bp</th>
+<th> 交换错误率 /%</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td rowspan="2">
-Gamete binning
-</td>
-<td>
-Currot
-</td>
-<td>
-658
-</td>
-<td>
-206,632,055
-</td>
-<td>
-4,213,615
-</td>
-<td>
-886,066
-</td>
-<td>
-0.3515
-</td>
+<td rowspan="2">Gamete binning</td>
+<td>Currot</td>
+<td>658</td>
+<td>206,632,055</td>
+<td>4,213,615</td>
+<td>886,066</td>
+<td>0.3515</td>
 </tr>
 <tr class="even">
-<td>
-OrangeRed
-</td>
-<td>
-599
-</td>
-<td>
-207,177,951
-</td>
-<td>
-6,596,059
-</td>
-<td>
-1,188,055
-</td>
-<td>
-0.2800
-</td>
+<td>OrangeRed</td>
+<td>599</td>
+<td>207,177,951</td>
+<td>6,596,059</td>
+<td>1,188,055</td>
+<td>0.2800</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-FALCON-Phase
-</td>
-<td>
-phased.0
-</td>
-<td>
-2,854
-</td>
-<td>
-215,706,318
-</td>
-<td>
-1,117,862
-</td>
-<td>
-150,569
-</td>
-<td>
-0.6173
-</td>
+<td rowspan="2">FALCON-Phase</td>
+<td>phased.0</td>
+<td>2,854</td>
+<td>215,706,318</td>
+<td>1,117,862</td>
+<td>150,569</td>
+<td>0.6173</td>
 </tr>
 <tr class="even">
-<td>
-phased.1
-</td>
-<td>
-2,853
-</td>
-<td>
-215,499,112
-</td>
-<td>
-1,117,860
-</td>
-<td>
-150,410
-</td>
-<td>
-0.6161
-</td>
+<td>phased.1</td>
+<td>2,853</td>
+<td>215,499,112</td>
+<td>1,117,860</td>
+<td>150,410</td>
+<td>0.6161</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-Trio binning
-</td>
-<td>
-F1-haplotypeCurrot
-</td>
-<td>
-2,292
-</td>
-<td>
-215,912,840
-</td>
-<td>
-2,630,238
-</td>
-<td>
-407,484
-</td>
-<td>
-0.4995
-</td>
+<td rowspan="2">Trio binning</td>
+<td>F1-haplotypeCurrot</td>
+<td>2,292</td>
+<td>215,912,840</td>
+<td>2,630,238</td>
+<td>407,484</td>
+<td>0.4995</td>
 </tr>
 <tr class="even">
-<td>
-F1-haplotypeOrangeRed
-</td>
-<td>
-2,174
-</td>
-<td>
-216,187,017
-</td>
-<td>
-2,645,633
-</td>
-<td>
-409,347
-</td>
-<td>
-0.3155
-</td>
+<td>F1-haplotypeOrangeRed</td>
+<td>2,174</td>
+<td>216,187,017</td>
+<td>2,645,633</td>
+<td>409,347</td>
+<td>0.3155</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-ALLHiC
-</td>
-<td>
-k=8
-</td>
-<td>
-2,323
-</td>
-<td>
-210,205,802
-</td>
-<td>
-2,290,945
-</td>
-<td>
-194,128
-</td>
-<td>
-2.1485
-</td>
+<td rowspan="2">ALLHiC</td>
+<td>k=8</td>
+<td>2,323</td>
+<td>210,205,802</td>
+<td>2,290,945</td>
+<td>194,128</td>
+<td>2.1485</td>
 </tr>
 <tr class="even">
-<td>
-k=16
-</td>
-<td>
-4,106
-</td>
-<td>
-356,383,539
-</td>
-<td>
-2,277,856
-</td>
-<td>
-158,390
-</td>
-<td>
-1.6491
-</td>
+<td>k=16</td>
+<td>4,106</td>
+<td>356,383,539</td>
+<td>2,277,856</td>
+<td>158,390</td>
+<td>1.6491</td>
 </tr>
 </tbody>
 </table>
-<h3 id="总结">3.7 总结</h3>
-<p>结合以上几种单倍型基因组评估指标（表6），发现Gamete binning与Trio
-binning这两种方法得到的单倍型基因组较为完整，其中Gamete
-binning方法整体表现最好。FALCON-Phase方法分离得到的二倍体两组单倍型序列准确度不高，其中交换错误率超出了阈值（表5），说明单倍型序列中存在另一单倍型序列。ALLHiC方法则没有从基因组初步组装中分离出完整的单倍型基因组序列，但是可以利用ALLHiC对基因组组装进行scaffolding，从而提高基因组组装连续性。</p>
+
+
+<h3 id="3-7-总结"><a href="#3-7-总结" class="headerlink" title="3.7 总结"></a>3.7 总结</h3><p>结合以上几种单倍型基因组评估指标（表6），发现Gamete binning与Trio binning这两种方法得到的单倍型基因组较为完整，其中Gamete binning方法整体表现最好。FALCON-Phase方法分离得到的二倍体两组单倍型序列准确度不高，其中交换错误率超出了阈值（表5），说明单倍型序列中存在另一单倍型序列。ALLHiC方法则没有从基因组初步组装中分离出完整的单倍型基因组序列，但是可以利用ALLHiC对基因组组装进行scaffolding，从而提高基因组组装连续性。</p>
 <div style="text-align: center; font-size: 85%;">
-<p>表6 4种单倍型基因组组装方法的优缺点 <br> Table 6 Advantages and
-disadvantages of 4 haplotype genome assembly methods <br></p>
+表6 4种单倍型基因组组装方法的优缺点 <br>
+Table 6 Advantages and disadvantages of 4 haplotype genome assembly methods <br>
 </div>
+
 <table>
-<colgroup>
-<col style="width: 18%">
-<col style="width: 21%">
-<col style="width: 21%">
-<col style="width: 18%">
-<col style="width: 18%">
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>评估指标</th>
 <th>最好</th>
 <th>较好</th>
@@ -1964,183 +1330,75 @@ disadvantages of 4 haplotype genome assembly methods <br></p>
 <th>最差</th>
 </tr>
 </thead>
-<tbody>
-<tr class="odd">
+<tbody><tr>
 <td>组装连续性</td>
 <td>Gamete binning</td>
 <td>ALLHiC</td>
 <td>Trio binning</td>
 <td>FALCON-Phase</td>
 </tr>
-<tr class="even">
+<tr>
 <td>组装完整性</td>
 <td>Gamete binning</td>
 <td>Trio binning</td>
 <td>ALLHiC</td>
 <td>FALCON-Phase</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>单倍型准确性</td>
 <td>Trio binning</td>
 <td>Gamete binning</td>
 <td>FALCON-Phase</td>
 <td>ALLHiC</td>
 </tr>
-<tr class="even">
+<tr>
 <td>交换错误</td>
 <td>Gamete binning</td>
 <td>Trio binning</td>
 <td>FALCON-Phase</td>
 <td>ALLHiC</td>
 </tr>
-</tbody>
-</table>
-<h2 id="讨论">4 讨论</h2>
-<p>本文最终得到了Gamete binning、Trio binning和FALCON-Phase
-3种单倍型基因组组装方法的单倍型解析基因组，分别从组装序列连续性、完整性、分型质量等方面整体评估单倍型组装质量。利用Trio
-binning方法在组装前将子代长读段测序数据以单倍型进行分组，再分别进行独立组装，在很大程度上避免了等位变异对单倍型组装的影响。Gamete
-binning借鉴了Trio
-binning方法的分型策略，只是前期单倍型信息来源不同。Trio
-binning利用亲本各自特异的k-mers将子代长读段测序数据进行分组（每组作为单独的单倍型），依赖于目标个体的两个亲本Illumina短读段测序数据，但这对于部分难以获得亲本的样本是行不通的；Gamete
-binning则是从上百个配子10x
-Genomics高通量单细胞测序数据中获取用于分型的单倍型信息，在没有亲本测序数据的情况下完成对子代PacBio长读段测序数据的每个连锁群进行分组（每个连锁群代表一条染色体；每组表示一个染色单体信息），再对每个连锁群进行独立的单倍型组装，并基于遗传图谱将单倍型基因组挂载到染色体水平（Trio
-binning只能得到重叠群水平的组装，染色体水平需要通过其他scaffolding工具获得）。FALCON-Phase更多的是算法上的突破，利用Hi-C测序数据中特有的定相信息对基因组进行定相，在一定程度上可以降低定相的计算复杂度(Kronenberg
-et al
-2021)。ALLHiC同样从Hi-C测序数据中获取用于长读段组装序列分型的信息，但这严重依赖于基因组的杂合性与提供的初步重叠群组装的准确性；杏(<em>Prunus
-armeniaca</em>)的杂合性为1.06%，还不足以ALLHiC识别长读段组装序列中所有的等位变异，根据ALLHiC对二倍体物种茶(<em>Camellia
-sinensis</em>)的应用，杂合度在2.00%以上可能会有更好的分型效果(Zhang et
-al 2021)。ALLHiC用于将组装序列挂载到染色体水平会是一个不错的选择。</p>
-<p>Gamete binning和Trio binning的分型质量最佳（表6），但是Trio
-binning的组装序列连续性较差，不过这可以通过scaffolding工具来提升N50的长度。FALCON-Phase和ALLHiC方法得到的单倍型组装都混合了另一单倍型序列，我们预测FALCON-Phase的分型质量与前期提供的主要重叠群和交替的单倍体重叠群质量有关；经统计，其中只有约49%的基因组被解压缩(unzip)，不足以支撑单倍型的分离，这也与基因组的杂合性有关（基因组的解压缩率与杂合性成正比），且FALCON-Phase组装序列中出现大于9.0%的重复序列，这可以考虑利用Purge
-haplotigs(Roach et al
-2018)程序去除冗余。ALLHiC目前只从长读段初级组装中获得二倍体单倍型混合的基因组，并没有得到预期的单倍型解析基因组，故没有将其同另3种组装方法一同比较，而是对不同的k值进行比较（详见附录A）。ALLHiC的组装质量严重依赖于输入的长读段初级组装，以及合理的k值设置。</p>
-<p>本文几种单倍型组装方法比较并不全面，用于单倍型解析基因组组装的测序技术还有PacBio
-HiFi高保真测序，DipAsm与hifiasm均可以通过HiFi测序数据获得单倍型解析基因组；由于没有获得公开的杏(<em>Prunus
-armeniaca</em>)PacBio
-HiFi测序数据，故没有将其加入一同比较，这也是本文的遗憾与不足。PacBio
-HiFi测序数据比PacBio
-CLR测序数据具有更准确的优势，可以生成连续性更好、准确度更高的基因组组装。同时，PacBio
-HiFi测序数据由于高准确度，可以在较低测序深度（如30x-50x）即可获得连续性较好的基因组；反观PacBio
-CLR测序需要至少80x才能满足基因组组装的需求。</p>
-<p>最后，就适用性而言，Trio
-binning对新手最友好，集成于Canu程序，但耗资源、运行慢，依赖于集群作业。Gamete
-binning是诸多相关程序的整合，涉及的依赖也相应增加，并且需要上百个配子单细胞测序用于分型，但Gamete
-binning可确定单倍型序列来自于哪个亲本。FALCON-Phase组装序列的连续性，与输入的主要重叠群和单倍型特异性重叠群密切相关，可利用FALCON
-+ FALCON-Unzip或Canu + Purge-haplotigs对PacBio
-CLR原始测序数据组装获得。ALLHiC对于简单二倍体而言，可获得染色体水平单倍型混合的基因组，或许可以通过ALLHiC的多倍体模型获得二倍体的单倍型解析基因组，但这也依赖于高质量染色体水平参考基因组生成的等位基因重叠群表(allelic
-contig table)。</p>
+</tbody></table>
+<h2 id="4-讨论"><a href="#4-讨论" class="headerlink" title="4 讨论"></a>4 讨论</h2><p>本文最终得到了Gamete binning、Trio binning和FALCON-Phase 3种单倍型基因组组装方法的单倍型解析基因组，分别从组装序列连续性、完整性、分型质量等方面整体评估单倍型组装质量。利用Trio binning方法在组装前将子代长读段测序数据以单倍型进行分组，再分别进行独立组装，在很大程度上避免了等位变异对单倍型组装的影响。Gamete binning借鉴了Trio binning方法的分型策略，只是前期单倍型信息来源不同。Trio binning利用亲本各自特异的k-mers将子代长读段测序数据进行分组（每组作为单独的单倍型），依赖于目标个体的两个亲本Illumina短读段测序数据，但这对于部分难以获得亲本的样本是行不通的；Gamete binning则是从上百个配子10x Genomics高通量单细胞测序数据中获取用于分型的单倍型信息，在没有亲本测序数据的情况下完成对子代PacBio长读段测序数据的每个连锁群进行分组（每个连锁群代表一条染色体；每组表示一个染色单体信息），再对每个连锁群进行独立的单倍型组装，并基于遗传图谱将单倍型基因组挂载到染色体水平（Trio binning只能得到重叠群水平的组装，染色体水平需要通过其他scaffolding工具获得）。FALCON-Phase更多的是算法上的突破，利用Hi-C测序数据中特有的定相信息对基因组进行定相，在一定程度上可以降低定相的计算复杂度(Kronenberg et al 2021)。ALLHiC同样从Hi-C测序数据中获取用于长读段组装序列分型的信息，但这严重依赖于基因组的杂合性与提供的初步重叠群组装的准确性；杏(<em>Prunus armeniaca</em>)的杂合性为1.06%，还不足以ALLHiC识别长读段组装序列中所有的等位变异，根据ALLHiC对二倍体物种茶(<em>Camellia sinensis</em>)的应用，杂合度在2.00%以上可能会有更好的分型效果(Zhang et al 2021)。ALLHiC用于将组装序列挂载到染色体水平会是一个不错的选择。</p>
+<p>Gamete binning和Trio binning的分型质量最佳（表6），但是Trio binning的组装序列连续性较差，不过这可以通过scaffolding工具来提升N50的长度。FALCON-Phase和ALLHiC方法得到的单倍型组装都混合了另一单倍型序列，我们预测FALCON-Phase的分型质量与前期提供的主要重叠群和交替的单倍体重叠群质量有关；经统计，其中只有约49%的基因组被解压缩(unzip)，不足以支撑单倍型的分离，这也与基因组的杂合性有关（基因组的解压缩率与杂合性成正比），且FALCON-Phase组装序列中出现大于9.0%的重复序列，这可以考虑利用Purge haplotigs(Roach et al 2018)程序去除冗余。ALLHiC目前只从长读段初级组装中获得二倍体单倍型混合的基因组，并没有得到预期的单倍型解析基因组，故没有将其同另3种组装方法一同比较，而是对不同的k值进行比较（详见附录A）。ALLHiC的组装质量严重依赖于输入的长读段初级组装，以及合理的k值设置。</p>
+<p>本文几种单倍型组装方法比较并不全面，用于单倍型解析基因组组装的测序技术还有PacBio HiFi高保真测序，DipAsm与hifiasm均可以通过HiFi测序数据获得单倍型解析基因组；由于没有获得公开的杏(<em>Prunus armeniaca</em>)PacBio HiFi测序数据，故没有将其加入一同比较，这也是本文的遗憾与不足。PacBio HiFi测序数据比PacBio CLR测序数据具有更准确的优势，可以生成连续性更好、准确度更高的基因组组装。同时，PacBio HiFi测序数据由于高准确度，可以在较低测序深度（如30x-50x）即可获得连续性较好的基因组；反观PacBio CLR测序需要至少80x才能满足基因组组装的需求。</p>
+<p>最后，就适用性而言，Trio binning对新手最友好，集成于Canu程序，但耗资源、运行慢，依赖于集群作业。Gamete binning是诸多相关程序的整合，涉及的依赖也相应增加，并且需要上百个配子单细胞测序用于分型，但Gamete binning可确定单倍型序列来自于哪个亲本。FALCON-Phase组装序列的连续性，与输入的主要重叠群和单倍型特异性重叠群密切相关，可利用FALCON + FALCON-Unzip或Canu + Purge-haplotigs对PacBio CLR原始测序数据组装获得。ALLHiC对于简单二倍体而言，可获得染色体水平单倍型混合的基因组，或许可以通过ALLHiC的多倍体模型获得二倍体的单倍型解析基因组，但这也依赖于高质量染色体水平参考基因组生成的等位基因重叠群表(allelic contig table)。</p>
 <blockquote>
-<p><a id="_ftn1">[1]</a> Circular Consensus
-Sequencing(CCS)测序模式产生的测序序列，表示DNA分子的循环连续测序序列。</p>
-<p><a id="_ftn2">[2]</a> Continuous Long
-Read的简称，表示DNA分子的连续长测序序列。</p>
-<p><a id="_ftn3">[3]</a> 根据GenomeScope2预测的单倍型基因组大小(250
-Mbp)计算，即总碱基数除以基因组大小。</p>
-<p><a id="_ftn4">[4]</a>
-https://github.com/tangerzhang/ALLHiC/blob/master/bin/ALLHiC_pip.sh</p>
-<p><a id="_ftn5">[5]</a>
-各个单倍型统计的hap-mers数量与亲本原始测序数据的hap-mers数量比值。</p>
+<p><a id="_ftn1">[1]</a> Circular Consensus Sequencing(CCS)测序模式产生的测序序列，表示DNA分子的循环连续测序序列。</p>
+<p><a id="_ftn2">[2]</a> Continuous Long Read的简称，表示DNA分子的连续长测序序列。</p>
+<p><a id="_ftn3">[3]</a> 根据GenomeScope2预测的单倍型基因组大小(250 Mbp)计算，即总碱基数除以基因组大小。</p>
+<p><a id="_ftn4">[4]</a> <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3RhbmdlcnpoYW5nL0FMTEhpQy9ibG9iL21hc3Rlci9iaW4vQUxMSGlDX3BpcC5zaA==">https://github.com/tangerzhang/ALLHiC/blob/master/bin/ALLHiC_pip.sh<i class="fa fa-external-link-alt"></i></span></p>
+<p><a id="_ftn5">[5]</a> 各个单倍型统计的hap-mers数量与亲本原始测序数据的hap-mers数量比值。</p>
 </blockquote>
-<h2 id="参考文献">参考文献</h2>
-<p>[1] 李双双, 邓传良, 张迎新, 胡赞民, 范成明, 陈宇红.
-单倍型分析技术研究进展. <em>生物工程学报</em>, 2018, 34: 852–861</p>
-<p>[2] Al Bkhetan Z, Chana G, Ramamohanarao K, Verspoor K, Goudey B.
-Evaluation of consensus strategies for haplotype phasing. <em>Brief
-Bioinform</em>, 2021, 22: 1–12</p>
-<p>[3] Cheng H, Concepcion GT, Feng X, Zhang H, Li H. Haplotype-resolved
-de novo assembly using phased assembly graphs with hifiasm. <em>Nat
-Methods</em>, 2021, 18: 170</p>
-<p>[4] Chin CS, Peluso P, Sedlazeck FJ, Nattestad M, Concepcion GT, Clum
-A, Dunn C, O’Malley R, Figueroa-Balderas R, Morales-Cruz A, Cramer GR,
-Delledonne M, Luo C, Ecker JR, Cantu D, Rank DR, Schatz MC. Phased
-diploid genome assembly with single-molecule real-time sequencing.
-<em>Nat Methods</em>, 2016, 13: 1050–1054</p>
-<p>[5] Campoy JA, Sun H, Goel M, Jiao WB, Folz-Donahue K, Wang N, Rubio
-M, Liu C, Kukat C, Ruiz D, Huettel B, Schneeberger K. Gamete binning:
-chromosome-level and haplotype-resolved genome assembly enabled by
-high-throughput single-cell sequencing of gamete genomes. <em>Genome
-Biol</em>, 2020, 21: 1–20</p>
-<p>[6] Cao H., Wu H., Luo R, Huang S, Sun Y, Tong X, Xie Y, Liu B, Yang
-H, Zheng H, Li J, Li B, Wang Y, Yang F, Sun P, Liu S, Gao P, Huang H,
-Sun J, Chen D. et al. De novo assembly of a haplotype-resolved human
-genome. <em>Nat Biotechnol</em>, 2015, 33: 617–622</p>
-<p>[7] Chen X, Yang H, Wong WH. Phased Genome Sequencing Through
-Chromosome Sorting. <em>Methods Mol Biol</em>, 2017, 1551: 171–188</p>
-<p>[8] Edger PP. The power of chromosome-scale, haplotype-resolved
-genomes. <em>Mol Plant</em>, 2022, 15: 393–395</p>
-<p>[9] Falconer E, Lansdorp PM. Strand-seq: a unifying tool for studies
-of chromosome segregation. <em>Semin Cell Dev Biol</em>, 2013, 24:
-643–652</p>
-<p>[10] Garg S, Fungtammasan A, Carroll A, Chou M, Schmitt A, Zhou X,
-Mac S, Peluso P, Hatas E, Ghurye J, Maguire J, Mahmoud M, Cheng H,
-Heller D, Zook JM, Moemke T, Marschall T, Sedlazeck FJ, Aach J, et al.
-Chromosome-scale, haplotype-resolved assembly of human genomes. <em>Nat
-Biotechnol</em>, 2020, 39: 309–312</p>
-<p>[11] Hu G, Feng J, Xiang X, Wang J, Salojärvi J, Liu C, Wu Z, Zhang
-J, Liang X, Jiang Z, Liu W, Ou L, Li J, Fan G, Mai Y, Chen C, Zhang X,
-Zheng J, Zhang Y, Peng H, et al. Two divergent haplotypes from a highly
-heterozygous lychee genome suggest independent domestication events for
-early and late-maturing cultivars. <em>Nat Genet</em>, 2022, 54:
-73–83</p>
-<p>[12] Kronenberg ZN, Rhie A, Koren S, Concepcion GT, Peluso P, Munson
-KM, Porubsky D, Kuhn K, Mueller KA, Low WY, Hiendleder S, Fedrigo O,
-Liachko I, Hall RJ, Phillippy AM, Eichler EE, Williams JL, Smith TPL,
-Jarvis ED, Sullivan ST, et al. Extended haplotype-phasing of long-read
-de novo genome assemblies using Hi-C. <em>Nat Commun</em>, 2021, 12:
-1935</p>
-<p>[13] Koren S, Rhie A, Walenz BP, Dilthey AT, Bickhart DM, Kingan SB,
-Hiendleder S, Williams JL, Smith TPL, Phillippy AM. De novo assembly of
-haplotype-resolved genomes with trio binning. <em>Nat Biotechnol</em>,
-2018, 36: 1174–1182</p>
-<p>[14] Koren S, Walenz BP, Berlin K, Miller JR, Bergman NH, Phillippy
-AM. Canu: Scalable and accurate long-read assembly via adaptive κ-mer
-weighting and repeat separation. <em>Genome Res</em>, 2017, 27:
-722–736</p>
-<p>[15] Mapleson D, Accinelli GG, Kettleborough G, Wright J, Clavijo BJ.
-KAT: a K-mer analysis toolkit to quality control NGS datasets and genome
-assemblies. <em>Bioinformatics</em>, 2017, 33: 574</p>
-<p>[16] Manni M, Berkeley MR, Seppey M, Zdobnov EM. BUSCO: Assessing
-Genomic Data Quality and Beyond. <em>Curr Protoc</em>, 2021, 1: e323</p>
-<p>[17] Marçais G, Kingsford C. A fast, lock-free approach for efficient
-parallel counting of occurrences of k-mers. <em>Bioinformatics</em>,
-2011, 27: 764</p>
-<p>[18] Ranallo-Benavidez TR, Jaron KS, Schatz MC. GenomeScope 2.0 and
-Smudgeplot for reference-free profiling of polyploid genomes. <em>Nat
-Commun</em>, 2020, 11: 1432</p>
-<p>[19] Roach MJ, Schmidt SA, Borneman AR. a: Purge Haplotigs: allelic
-contig reassignment for third-gen diploid genome assemblies. <em>BMC
-Bioinformatics</em>, 2018, 19: 1–10</p>
-<p>[20] Rhie A, Walenz BP, Koren S, Phillippy AM. Merqury:
-Reference-free quality, completeness, and phasing assessment for genome
-assemblies. <em>Genome Biol</em>, 2020, 21: 1–27</p>
-<p>[21] Walker BJ, Abeel T, Shea T, Priest M, Abouelliel A, Sakthikumar
-S, Cuomo CA, Zeng Q, Wortman J, Young SK, Earl AM. Pilon: An Integrated
-Tool for Comprehensive Microbial Variant Detection and Genome Assembly
-Improvement. <em>PLoS One</em>, 2014, 9: e112963</p>
-<p>[22] Wenger AM, Peluso P, Rowell WJ, Chang PC, Hall RJ, Concepcion
-GT, Ebler J, Fungtammasan A, Kolesnikov A, Olson ND, Töpfer A, Alonge M,
-Mahmoud M, Qian Y, Chin CS, Phillippy AM, Schatz MC, Myers G, DePristo
-MA, Ruan J, et al. Accurate circular consensus long-read sequencing
-improves variant detection and assembly of a human genome. <em>Nat
-Biotechnol</em>, 2019, 37: 1155–1162</p>
-<p>[23] Yang H, Chen X, Wong WH. Completely phased genome sequencing
-through chromosome sorting. <em>Proc Natl Acad Sci USA</em>, 2011, 108:
-12–17</p>
-<p>[24] Zhang X, Chen S, Shi L, Gong D, Zhang S, Zhao Q, Zhan D, Vasseur
-L, Wang Y, Yu J, Liao Z, Xu X, Qi R, Wang W, Ma Y, Wang P, Ye N, Ma D,
-Shi Y, Wang, H, et al. Haplotype-resolved genome assembly provides
-insights into evolutionary history of the tea plant Camellia sinensis.
-<em>Nat Genet</em>, 2021, 53: 1250</p>
-<p>[25] Zdobnov EM, Kuznetsov D, Tegenfeldt F, Manni M, Berkeley M,
-Kriventseva E V. OrthoDB in 2020: evolutionary and functional
-annotations of orthologs. <em>Nucleic Acids Res</em>, 2021, 49: D389</p>
-<p>[26] Zhang X, Zhang S, Zhao Q, Ming R, Tang H. Assembly of
-allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C
-data. <em>Nat Plants</em>, 2019, 5: 833-845</p>
-<h2 id="附录a">附录A</h2>
-<h3 id="a.1-本文涉及软件及其版本号">A.1 本文涉及软件及其版本号</h3>
-<div style="text-align: center; font-size: 85%;">
-<p>表S1 软件及其版本号 <br> Table S1 Softwares and versions <br></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>[1] 李双双, 邓传良, 张迎新, 胡赞民, 范成明, 陈宇红. 单倍型分析技术研究进展. <em>生物工程学报</em>, 2018, 34: 852–861</p>
+<p>[2] Al Bkhetan Z, Chana G, Ramamohanarao K, Verspoor K, Goudey B. Evaluation of consensus strategies for haplotype phasing. <em>Brief Bioinform</em>, 2021, 22: 1–12</p>
+<p>[3] Cheng H, Concepcion GT, Feng X, Zhang H, Li H. Haplotype-resolved de novo assembly using phased assembly graphs with hifiasm. <em>Nat Methods</em>, 2021, 18: 170</p>
+<p>[4] Chin CS, Peluso P, Sedlazeck FJ, Nattestad M, Concepcion GT, Clum A, Dunn C, O’Malley R, Figueroa-Balderas R, Morales-Cruz A, Cramer GR, Delledonne M, Luo C, Ecker JR, Cantu D, Rank DR, Schatz MC. Phased diploid genome assembly with single-molecule real-time sequencing. <em>Nat Methods</em>, 2016, 13: 1050–1054</p>
+<p>[5] Campoy JA, Sun H, Goel M, Jiao WB, Folz-Donahue K, Wang N, Rubio M, Liu C, Kukat C, Ruiz D, Huettel B, Schneeberger K. Gamete binning: chromosome-level and haplotype-resolved genome assembly enabled by high-throughput single-cell sequencing of gamete genomes. <em>Genome Biol</em>, 2020, 21: 1–20</p>
+<p>[6] Cao H., Wu H., Luo R, Huang S, Sun Y, Tong X, Xie Y, Liu B, Yang H, Zheng H, Li J, Li B, Wang Y, Yang F, Sun P, Liu S, Gao P, Huang H, Sun J, Chen D. et al. De novo assembly of a haplotype-resolved human genome. <em>Nat Biotechnol</em>, 2015, 33: 617–622</p>
+<p>[7] Chen X, Yang H, Wong WH. Phased Genome Sequencing Through Chromosome Sorting. <em>Methods Mol Biol</em>, 2017, 1551: 171–188</p>
+<p>[8] Edger PP. The power of chromosome-scale, haplotype-resolved genomes. <em>Mol Plant</em>, 2022, 15: 393–395</p>
+<p>[9] Falconer E, Lansdorp PM. Strand-seq: a unifying tool for studies of chromosome segregation. <em>Semin Cell Dev Biol</em>, 2013, 24: 643–652</p>
+<p>[10] Garg S, Fungtammasan A, Carroll A, Chou M, Schmitt A, Zhou X, Mac S, Peluso P, Hatas E, Ghurye J, Maguire J, Mahmoud M, Cheng H, Heller D, Zook JM, Moemke T, Marschall T, Sedlazeck FJ, Aach J, et al. Chromosome-scale, haplotype-resolved assembly of human genomes. <em>Nat Biotechnol</em>, 2020, 39: 309–312</p>
+<p>[11] Hu G, Feng J, Xiang X, Wang J, Salojärvi J, Liu C, Wu Z, Zhang J, Liang X, Jiang Z, Liu W, Ou L, Li J, Fan G, Mai Y, Chen C, Zhang X, Zheng J, Zhang Y, Peng H, et al. Two divergent haplotypes from a highly heterozygous lychee genome suggest independent domestication events for early and late-maturing cultivars. <em>Nat Genet</em>, 2022, 54: 73–83</p>
+<p>[12] Kronenberg ZN, Rhie A, Koren S, Concepcion GT, Peluso P, Munson KM, Porubsky D, Kuhn K, Mueller KA, Low WY, Hiendleder S, Fedrigo O, Liachko I, Hall RJ, Phillippy AM, Eichler EE, Williams JL, Smith TPL, Jarvis ED, Sullivan ST, et al. Extended haplotype-phasing of long-read de novo genome assemblies using Hi-C. <em>Nat Commun</em>, 2021, 12: 1935</p>
+<p>[13] Koren S, Rhie A, Walenz BP, Dilthey AT, Bickhart DM, Kingan SB, Hiendleder S, Williams JL, Smith TPL, Phillippy AM. De novo assembly of haplotype-resolved genomes with trio binning. <em>Nat Biotechnol</em>, 2018, 36: 1174–1182</p>
+<p>[14] Koren S, Walenz BP, Berlin K, Miller JR, Bergman NH, Phillippy AM. Canu: Scalable and accurate long-read assembly via adaptive κ-mer weighting and repeat separation. <em>Genome Res</em>, 2017, 27: 722–736</p>
+<p>[15] Mapleson D, Accinelli GG, Kettleborough G, Wright J, Clavijo BJ. KAT: a K-mer analysis toolkit to quality control NGS datasets and genome assemblies. <em>Bioinformatics</em>, 2017, 33: 574</p>
+<p>[16] Manni M, Berkeley MR, Seppey M, Zdobnov EM. BUSCO: Assessing Genomic Data Quality and Beyond. <em>Curr Protoc</em>, 2021, 1: e323</p>
+<p>[17] Marçais G, Kingsford C. A fast, lock-free approach for efficient parallel counting of occurrences of k-mers. <em>Bioinformatics</em>, 2011, 27: 764</p>
+<p>[18] Ranallo-Benavidez TR, Jaron KS, Schatz MC. GenomeScope 2.0 and Smudgeplot for reference-free profiling of polyploid genomes. <em>Nat Commun</em>, 2020, 11: 1432</p>
+<p>[19] Roach MJ, Schmidt SA, Borneman AR. a: Purge Haplotigs: allelic contig reassignment for third-gen diploid genome assemblies. <em>BMC Bioinformatics</em>, 2018, 19: 1–10</p>
+<p>[20] Rhie A, Walenz BP, Koren S, Phillippy AM. Merqury: Reference-free quality, completeness, and phasing assessment for genome assemblies. <em>Genome Biol</em>, 2020, 21: 1–27</p>
+<p>[21] Walker BJ, Abeel T, Shea T, Priest M, Abouelliel A, Sakthikumar S, Cuomo CA, Zeng Q, Wortman J, Young SK, Earl AM. Pilon: An Integrated Tool for Comprehensive Microbial Variant Detection and Genome Assembly Improvement. <em>PLoS One</em>, 2014, 9: e112963</p>
+<p>[22] Wenger AM, Peluso P, Rowell WJ, Chang PC, Hall RJ, Concepcion GT, Ebler J, Fungtammasan A, Kolesnikov A, Olson ND, Töpfer A, Alonge M, Mahmoud M, Qian Y, Chin CS, Phillippy AM, Schatz MC, Myers G, DePristo MA, Ruan J, et al. Accurate circular consensus long-read sequencing improves variant detection and assembly of a human genome. <em>Nat Biotechnol</em>, 2019, 37: 1155–1162</p>
+<p>[23] Yang H, Chen X, Wong WH. Completely phased genome sequencing through chromosome sorting. <em>Proc Natl Acad Sci USA</em>, 2011, 108: 12–17</p>
+<p>[24] Zhang X, Chen S, Shi L, Gong D, Zhang S, Zhao Q, Zhan D, Vasseur L, Wang Y, Yu J, Liao Z, Xu X, Qi R, Wang W, Ma Y, Wang P, Ye N, Ma D, Shi Y, Wang, H, et al. Haplotype-resolved genome assembly provides insights into evolutionary history of the tea plant Camellia sinensis. <em>Nat Genet</em>, 2021, 53: 1250</p>
+<p>[25] Zdobnov EM, Kuznetsov D, Tegenfeldt F, Manni M, Berkeley M, Kriventseva E V. OrthoDB in 2020: evolutionary and functional annotations of orthologs. <em>Nucleic Acids Res</em>, 2021, 49: D389</p>
+<p>[26] Zhang X, Zhang S, Zhao Q, Ming R, Tang H. Assembly of allele-aware, chromosomal-scale autopolyploid genomes based on Hi-C data. <em>Nat Plants</em>, 2019, 5: 833-845</p>
+<h2 id="附录A"><a href="#附录A" class="headerlink" title="附录A"></a>附录A</h2><h3 id="A-1-本文涉及软件及其版本号"><a href="#A-1-本文涉及软件及其版本号" class="headerlink" title="A.1 本文涉及软件及其版本号"></a>A.1 本文涉及软件及其版本号</h3><div style="text-align: center; font-size: 85%;">
+表S1 软件及其版本号 <br>
+Table S1 Softwares and versions <br>
 </div>
 <table>
 <colgroup>
@@ -2151,446 +1409,240 @@ data. <em>Nat Plants</em>, 2019, 5: 833-845</p>
 </colgroup>
 <thead>
 <tr class="header" style="opacity: 1; top: 0px;">
-<th>
-序号
-</th>
-<th>
-软件
-</th>
-<th>
-版本号
-</th>
-<th>
-下载链接
-</th>
+<th>序号</th>
+<th>软件</th>
+<th>版本号</th>
+<th>下载链接</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>
-1
-</td>
-<td>
-GenomeScope
-</td>
-<td>
-2.0
-</td>
-<td>
-https://github.com/tbenavi1/genomescope2.0
-</td>
+<td> 1</td>
+<td>GenomeScope</td>
+<td>2.0</td>
+<td>https://github.com/tbenavi1/genomescope2.0</td>
 </tr>
 <tr class="even">
-<td>
-2
-</td>
-<td>
-Jellyfish
-</td>
-<td>
-2.2.10
-</td>
-<td>
-https://github.com/gmarcais/Jellyfish/releases/tag/v2.2.10
-</td>
+<td>2</td>
+<td>Jellyfish</td>
+<td>2.2.10</td>
+<td>https://github.com/gmarcais/Jellyfish/releases/tag/v2.2.10</td>
 </tr>
 <tr class="odd">
-<td>
-3
-</td>
-<td>
-Canu
-</td>
-<td>
-2.2
-</td>
-<td>
-https://github.com/marbl/canu/releases/tag/v2.2
-</td>
+<td>3</td>
+<td>Canu</td>
+<td>2.2</td>
+<td>https://github.com/marbl/canu/releases/tag/v2.2</td>
 </tr>
 <tr class="even">
-<td>
-4
-</td>
-<td>
-Purge haplotigs
-</td>
-<td>
-1.1.2
-</td>
-<td>
-https://bitbucket.org/mroachawri/purge_haplotigs/src/master/
-</td>
+<td>4</td>
+<td>Purge haplotigs</td>
+<td>1.1.2</td>
+<td>https://bitbucket.org/mroachawri/purge_haplotigs/src/master/</td>
 </tr>
 <tr class="odd">
-<td>
-5
-</td>
-<td>
-Trio binning
-</td>
-<td>
-2.2
-</td>
-<td>
-https://github.com/marbl/canu/releases/tag/v2.2
-</td>
+<td>5</td>
+<td>Trio binning</td>
+<td>2.2</td>
+<td>https://github.com/marbl/canu/releases/tag/v2.2</td>
 </tr>
 <tr class="even">
-<td>
-6
-</td>
-<td>
-ALLHiC
-</td>
-<td>
-0.9.13
-</td>
-<td>
-https://github.com/tangerzhang/ALLHiC
-</td>
+<td>6</td>
+<td>ALLHiC</td>
+<td>0.9.13</td>
+<td>https://github.com/tangerzhang/ALLHiC</td>
 </tr>
 <tr class="odd">
-<td>
-7
-</td>
-<td>
-FALCON
-</td>
-<td>
-1.4.2
-</td>
-<td>
-https://github.com/PacificBiosciences/pb-assembly
-</td>
+<td>7</td>
+<td>FALCON</td>
+<td>1.4.2</td>
+<td>https://github.com/PacificBiosciences/pb-assembly</td>
 </tr>
 <tr class="even">
-<td>
-8
-</td>
-<td>
-FALCON-Unzip
-</td>
-<td>
-1.3.1
-</td>
-<td>
-https://github.com/PacificBiosciences/pb-assembly
-</td>
+<td>8</td>
+<td>FALCON-Unzip</td>
+<td>1.3.1</td>
+<td>https://github.com/PacificBiosciences/pb-assembly</td>
 </tr>
 <tr class="odd">
-<td>
-9
-</td>
-<td>
-FALCON-Phase
-</td>
-<td>
-1.1.0
-</td>
-<td>
-https://github.com/PacificBiosciences/pb-assembly
-</td>
+<td>9</td>
+<td>FALCON-Phase</td>
+<td>1.1.0</td>
+<td>https://github.com/PacificBiosciences/pb-assembly</td>
 </tr>
 <tr class="even">
-<td>
-10
-</td>
-<td>
-Pilon
-</td>
-<td>
-1.24
-</td>
-<td>
-https://github.com/broadinstitute/pilon/releases/tag/v1.24
-</td>
+<td>10</td>
+<td>Pilon</td>
+<td>1.24</td>
+<td>https://github.com/broadinstitute/pilon/releases/tag/v1.24</td>
 </tr>
 <tr class="odd">
-<td>
-11
-</td>
-<td>
-BUSCO
-</td>
-<td>
-3.0.2
-</td>
-<td>
-https://anaconda.org/thiesgehrmann/busco
-</td>
+<td>11</td>
+<td>BUSCO</td>
+<td>3.0.2</td>
+<td>https://anaconda.org/thiesgehrmann/busco</td>
 </tr>
 <tr class="even">
-<td>
-12
-</td>
-<td>
-Meryl
-</td>
-<td>
-1.3
-</td>
-<td>
-https://github.com/marbl/meryl/releases/tag/v1.3
-</td>
+<td>12</td>
+<td>Meryl</td>
+<td>1.3</td>
+<td>https://github.com/marbl/meryl/releases/tag/v1.3</td>
 </tr>
 <tr class="odd">
-<td>
-13
-</td>
-<td>
-Merqury
-</td>
-<td>
-1.3
-</td>
-<td>
-https://github.com/marbl/merqury/releases/tag/v1.3
-</td>
+<td>13</td>
+<td>Merqury</td>
+<td>1.3</td>
+<td>https://github.com/marbl/merqury/releases/tag/v1.3</td>
 </tr>
 <tr class="even">
-<td>
-14
-</td>
-<td>
-Minimap2
-</td>
-<td>
-2.24
-</td>
-<td>
-https://github.com/lh3/minimap2/releases/tag/v2.24
-</td>
+<td>14</td>
+<td>Minimap2</td>
+<td>2.24</td>
+<td>https://github.com/lh3/minimap2/releases/tag/v2.24</td>
 </tr>
 <tr class="odd">
-<td>
-15
-</td>
-<td>
-Samtools
-</td>
-<td>
-1.15.1
-</td>
-<td>
-https://github.com/samtools/samtools/releases/tag/1.15.1
-</td>
+<td>15</td>
+<td>Samtools</td>
+<td>1.15.1</td>
+<td>https://github.com/samtools/samtools/releases/tag/1.15.1</td>
 </tr>
 <tr class="even">
-<td>
-16
-</td>
-<td>
-Bowtie2
-</td>
-<td>
-2.4.5
-</td>
-<td>
-https://anaconda.org/bioconda/bowtie2
-</td>
+<td>16</td>
+<td>Bowtie2</td>
+<td>2.4.5</td>
+<td>https://anaconda.org/bioconda/bowtie2</td>
 </tr>
 </tbody>
 </table>
-<h3 id="a.2-本文涉及的代码与脚本">A.2 本文涉及的代码与脚本</h3>
-<h4 id="a.2.1-基于kmer的基因组特征分析">A.2.1
-基于Kmer的基因组特征分析</h4>
-<p>​ GenomeScope2 v2.0运行Shell脚本：</p>
+
+
+<h3 id="A-2-本文涉及的代码与脚本"><a href="#A-2-本文涉及的代码与脚本" class="headerlink" title="A.2 本文涉及的代码与脚本"></a>A.2 本文涉及的代码与脚本</h3><h4 id="A-2-1-基于Kmer的基因组特征分析"><a href="#A-2-1-基于Kmer的基因组特征分析" class="headerlink" title="A.2.1 基于Kmer的基因组特征分析"></a>A.2.1 基于Kmer的基因组特征分析</h4><p>​    GenomeScope2 v2.0运行Shell脚本：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">k=21</span><br><span class="line">h=1000000</span><br><span class="line">name=rojpas</span><br><span class="line">fq1=trimmed_bamtofastq_R1.fastq</span><br><span class="line">fq2=trimmed_bamtofastq_R2.fastq</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Unzip</span></span></span><br><span class="line">&lt;path&gt;/pigz-2.6/unpigz -p 8 ${fq1}.gz</span><br><span class="line">&lt;path&gt;/pigz-2.6/unpigz -p 8 ${fq2}.gz</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># count and histo</span></span></span><br><span class="line">&lt;path&gt;/jellyfish-2.2.10/bin/jellyfish count ./ -C -o ${name}_${k}mer -t 2 -s 30G \</span><br><span class="line">-m ${k} ${fq1} ${fq2}</span><br><span class="line">&lt;path&gt;/jellyfish-2.2.10/bin/jellyfish histo -t 2 \</span><br><span class="line">-o ${name}_${k}mer.histo ${name}_${k}mer -h $h</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Genomescope2</span></span> </span><br><span class="line">&lt;path&gt;/genomescope2 -i ${name}_${k}mer.histo -o Result_m1e6 -k $k -p 2 -m $h</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="a.2.2-二倍体基因组初步组装">A.2.2 二倍体基因组初步组装</h4>
-<p>​ Canu v2.2组装PacBio
-CLR长读段获取主要重叠群（Linux命令终端运行）：</p>
+
+<h4 id="A-2-2-二倍体基因组初步组装"><a href="#A-2-2-二倍体基因组初步组装" class="headerlink" title="A.2.2 二倍体基因组初步组装"></a>A.2.2 二倍体基因组初步组装</h4><p>​    Canu v2.2组装PacBio CLR长读段获取主要重叠群（Linux命令终端运行）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">canu -p rojpas -d out_canu_result genomeSize=250m corOutCoverage=200 \</span></span><br><span class="line"><span class="language-bash">		 <span class="string">"batOptions=-dg 3 -db 3 -dr 1 -ca 500 -cp 50"</span> -pacbio <span class="variable">$fasta</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>​ Purge haplotigs v1.1.2去除主要重叠群中的单倍型特异性重叠群：</p>
+
+<p>​    Purge haplotigs v1.1.2去除主要重叠群中的单倍型特异性重叠群：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># step0 – alignment</span></span></span><br><span class="line">assembly=  ## Canu获得的主要重叠群</span><br><span class="line">pacbio=   ## 目标个体的PacBio CLR长读段测序fasta文件</span><br><span class="line">minimap2 -ax map-pb ${assembly} ${pacbio} \</span><br><span class="line">    	| samtools view -hF 256 - \</span><br><span class="line">    	| samtools sort -@ 8 -m 1G -o aligned.bam -T tmp.ali</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># step1 - hist</span></span></span><br><span class="line">purge_haplotigs hist -b aligned.bam  -g ${assembly} -t 8</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># step2 - cov step1-Low Cutoff-Mid Cutoff-High Cutoff</span></span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment">#（查看step1生成的直方图进行判断-l、-m、-h的值）</span></span></span><br><span class="line">purge_haplotigs  cov  -i aligned.bam.gencov  \</span><br><span class="line">		-l 7 -m 60 -h 120 -o coverage_stats.csv</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># step3 - purge</span></span></span><br><span class="line">purge_haplotigs purge -g ${assembly} -c coverage_stats.csv -b aligned.bam </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="a.2.3-基于trio-binning方法获得单倍型组装序列">A.2.3 基于Trio
-binning方法获得单倍型组装序列</h4>
-<p>​ Canu v2.2 运行trio binning组件命令（Linux命令终端运行）：</p>
+
+<h4 id="A-2-3-基于Trio-binning方法获得单倍型组装序列"><a href="#A-2-3-基于Trio-binning方法获得单倍型组装序列" class="headerlink" title="A.2.3 基于Trio binning方法获得单倍型组装序列"></a>A.2.3 基于Trio binning方法获得单倍型组装序列</h4><p>​    Canu v2.2 运行trio binning组件命令（Linux命令终端运行）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">canu -p F1 -d Result genomeSize=250m \</span></span><br><span class="line"><span class="language-bash">		-haplotypeCurrot 0_RawData/CurrotParental/*.fastq.gz \</span></span><br><span class="line"><span class="language-bash">		-haplotypeOrangeRed 0_RawData/OrangeRedParental/*.fastq.gz \</span></span><br><span class="line"><span class="language-bash">		-pacbio 0_RawData/pacbioF1/*.fasta \</span></span><br><span class="line"><span class="language-bash">		hapUnknownFraction=0.01 \</span></span><br><span class="line"><span class="language-bash">		corMhapSensitivity=high corMinCoverage=0 corOutCoverage=200 \</span></span><br><span class="line"><span class="language-bash">		correctedErrorRate=0.105 useGrid=<span class="literal">true</span></span> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="a.2.4-基于allhic方法-获得染色体水平的单倍型基因组序列">A.2.4
-基于ALLHiC方法 获得染色体水平的单倍型基因组序列</h4>
-<p>​ 以“k=16”运行ALLHiC管道（Linux命令终端运行）：</p>
+
+<h4 id="A-2-4-基于ALLHiC方法-获得染色体水平的单倍型基因组序列"><a href="#A-2-4-基于ALLHiC方法-获得染色体水平的单倍型基因组序列" class="headerlink" title="A.2.4 基于ALLHiC方法 获得染色体水平的单倍型基因组序列"></a>A.2.4 基于ALLHiC方法 获得染色体水平的单倍型基因组序列</h4><p>​    以“k=16”运行ALLHiC管道（Linux命令终端运行）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sh ALLHiC_pip.sh -r assembly.fasta \</span></span><br><span class="line"><span class="language-bash">		-1 hic_R1.fastq.gz -2 hic_R2.fastq.gz -k 16 -e GATC -t 16 -b 500k</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>​ 以“k=8”运行ALLHiC管道（Linux命令终端运行）：</p>
+
+<p>​    以“k=8”运行ALLHiC管道（Linux命令终端运行）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sh ALLHiC_pip.sh -r assembly_purge.fasta \</span></span><br><span class="line"><span class="language-bash">		-1 hic_R1.fastq.gz -2 hic_R2.fastq.gz -k 8 -e GATC -t 16 -b 500k</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="a.2.5-基于gamete-binning方法获得染色体水平的单倍型组装序列">A.2.5
-基于Gamete binning方法获得染色体水平的单倍型组装序列</h4>
-<p>由Gamete binning方法获得杏(<em>Prunus
-armeniaca</em>)的两个单倍型基因组序列下载链接分别是http://www.ebi.ac.uk/ena/data/view/GCA_903112645(Currot)和http://www.ebi.ac.uk/ena/data/view/GCA_903114435(OrangeRed)</p>
-<h4 id="a.2.6-使用falcon-phase工具获得两个全长伪单倍型序列">A.2.6
-使用FALCON-Phase工具获得两个全长伪单倍型序列</h4>
-<p>​ FALCON参数(fc_run.cfg)：</p>
+
+<h4 id="A-2-5-基于Gamete-binning方法获得染色体水平的单倍型组装序列"><a href="#A-2-5-基于Gamete-binning方法获得染色体水平的单倍型组装序列" class="headerlink" title="A.2.5 基于Gamete binning方法获得染色体水平的单倍型组装序列"></a>A.2.5 基于Gamete binning方法获得染色体水平的单倍型组装序列</h4><p>由Gamete binning方法获得杏(<em>Prunus armeniaca</em>)的两个单倍型基因组序列下载链接分别是<span class="exturl" data-url="aHR0cDovL3d3dy5lYmkuYWMudWsvZW5hL2RhdGEvdmlldy9HQ0FfOTAzMTEyNjQ1KEN1cnJvdCklRTUlOTIlOENodHRwOi8vd3d3LmViaS5hYy51ay9lbmEvZGF0YS92aWV3L0dDQV85MDMxMTQ0MzUoT3JhbmdlUmVkKQ==">http://www.ebi.ac.uk/ena/data/view/GCA_903112645(Currot)和http://www.ebi.ac.uk/ena/data/view/GCA_903114435(OrangeRed)<i class="fa fa-external-link-alt"></i></span></p>
+<h4 id="A-2-6-使用FALCON-Phase工具获得两个全长伪单倍型序列"><a href="#A-2-6-使用FALCON-Phase工具获得两个全长伪单倍型序列" class="headerlink" title="A.2.6 使用FALCON-Phase工具获得两个全长伪单倍型序列"></a>A.2.6 使用FALCON-Phase工具获得两个全长伪单倍型序列</h4><p>​    FALCON参数(fc_run.cfg)：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">input_fofn=input.fofn</span><br><span class="line">input_type=raw</span><br><span class="line">pa_fasta_filter_option=pass</span><br><span class="line">target=assembly</span><br><span class="line">skip_checks=False</span><br><span class="line">LA4Falcon_preload=false</span><br><span class="line">pa_DBsplit_option=-x500 -s200</span><br><span class="line">ovlp_DBsplit_option=-x500 -s200</span><br><span class="line">pa_HPCTANmask_option=</span><br><span class="line">pa_REPmask_code=0,300;0,300;0,300</span><br><span class="line">genome_size = 244847837</span><br><span class="line">seed_coverage = 30</span><br><span class="line">length_cutoff = -1  </span><br><span class="line">pa_HPCdaligner_option=-v -B128 -M24</span><br><span class="line">pa_daligner_option= -k19 -e0.80 -l1000 -h256 -w8 -s100</span><br><span class="line">falcon_sense_option=--output-multi --min-idt 0.70 --min-cov 4 --max-n-read 200</span><br><span class="line">falcon_sense_greedy=False</span><br><span class="line">ovlp_HPCdaligner_option=-v -B128 -M24 </span><br><span class="line">ovlp_daligner_option= -k24 -e.92 -l1800 -h1024 -s100</span><br><span class="line">length_cutoff_pr=1000</span><br><span class="line">overlap_filtering_setting=--max-diff 100 --max-cov 100 --min-cov 2</span><br></pre></td></tr></table></figure>
-<p>​ FALCON-Unzip参数(fc_unzip.cfg)（利用PacBio长读段进行校正）：</p>
+
+<p>​    FALCON-Unzip参数(fc_unzip.cfg)（利用PacBio长读段进行校正）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">max_n_open_files = 100</span><br><span class="line">input_fofn=input.fofn</span><br><span class="line">input_bam_fofn=input_bam.fofn</span><br><span class="line">polish_include_zmw_all_subreads = true</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>​ FALCON-Phase参数(fc_phase.cfg)：</p>
+
+<p>​    FALCON-Phase参数(fc_phase.cfg)：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">min_aln_len=100000</span><br><span class="line">iterations=10000000</span><br><span class="line">enzyme=GATC</span><br><span class="line">output_format=pseudohap</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="a.2.7-组装错误纠正">A.2.7 组装错误纠正</h4>
-<p>​ Pilon纠正错误组装（Shell脚本）：</p>
+
+<h4 id="A-2-7-组装错误纠正"><a href="#A-2-7-组装错误纠正" class="headerlink" title="A.2.7 组装错误纠正"></a>A.2.7 组装错误纠正</h4><p>​    Pilon纠正错误组装（Shell脚本）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># index</span></span></span><br><span class="line">bowtie2-build -f $asm $asm --threads 4</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Aligned</span></span></span><br><span class="line">bowtie2 -x $asm -1 $R1 -2 $R2 -p 4 \</span><br><span class="line">		| samtools view -@ 20 -bS – </span><br><span class="line">		| samtools sort -@ 20 -o ${name}.aligned.sorted.bam -</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># samtools index</span></span></span><br><span class="line">samtools index -@ 4 ${name}.aligned.sorted.bam</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># polish</span></span></span><br><span class="line">java -Xmx200G -jar &lt;path&gt;/pilon-1.24-0/pilon.jar \</span><br><span class="line">		--genome $asm --bam ${name}.aligned.sorted.bam \</span><br><span class="line">		--fix bases --mindepth 0.85 --output ${name}.polished –vcf</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="a.2.8-组装质量评估-组装完整性">A.2.8
-组装质量评估-组装完整性</h4>
-<p>​ BUSCO v3.0.2评估每个单倍型的组装完整性（Linux命令终端运行）：</p>
+
+<h4 id="A-2-8-组装质量评估-组装完整性"><a href="#A-2-8-组装质量评估-组装完整性" class="headerlink" title="A.2.8 组装质量评估-组装完整性"></a>A.2.8 组装质量评估-组装完整性</h4><p>​    BUSCO v3.0.2评估每个单倍型的组装完整性（Linux命令终端运行）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">run_busco -i <span class="variable">${name}</span>.fasta -l &lt;path&gt;/database_BUSCO/embryophyta_odb10 \</span></span><br><span class="line"><span class="language-bash">		-o <span class="variable">${name}</span>-busco -m genome --cpu 8</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="a.2.9-单倍型组装质量评估">A.2.9 单倍型组装质量评估</h4>
-<p>​ 运行Meryl和Merqury（Shell脚本）：</p>
+
+<h4 id="A-2-9-单倍型组装质量评估"><a href="#A-2-9-单倍型组装质量评估" class="headerlink" title="A.2.9 单倍型组装质量评估"></a>A.2.9 单倍型组装质量评估</h4><p>​    运行Meryl和Merqury（Shell脚本）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 统计illumina数据中的k-mers频率分布，对亲本与子代都运行以下程序以生成各自的meryl数据库</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># meryl 数据库均以k=21构建（即k-mers集合）</span></span></span><br><span class="line">read1=R1</span><br><span class="line">read2=R2</span><br><span class="line">name=ChildF1 ## Currot or OrangeRed</span><br><span class="line">meryl k=21 count output ${read1}.meryl ${read1}.fastq.gz</span><br><span class="line">meryl k=21 count output ${read2}.meryl ${read2}.fastq.gz</span><br><span class="line">meryl union-sum output ${name}.meryl ${read1}.meryl ${read2}.meryl</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 获取hap-mers</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 输入亲本与子代的meryl数据库，自动生成单倍型特异性k-mers（hap-mers）</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># Currot.meryl和OrangeRed.meryl分别是两个亲本k-mers，ChildF1.meryl是子代原始测序数据统计得来的k-mers</span></span></span><br><span class="line">sh hapmers.sh Currot.meryl OrangeRed.meryl ChildF1.meryl</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 运行Merqury</span></span></span><br><span class="line">sh merqury.sh ChildF1.meryl Currot.hapmer.meryl OrangeRed.hapmer.meryl \ </span><br><span class="line">		hap1.fasta hap2.fasta $asm_name</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="a.3-qv">A.3 QV</h3>
-<p>较高的 QV 表示更准确的一致性(consensus)，Q30
-对应于99.9%的准确度，Q40则表示准确度高达99.99%。</p>
+
+<h3 id="A-3-QV"><a href="#A-3-QV" class="headerlink" title="A.3 QV"></a>A.3 QV</h3><p>较高的 QV 表示更准确的一致性(consensus)，Q30 对应于99.9%的准确度，Q40则表示准确度高达99.99%。</p>
 <div style="text-align: center; font-size: 85%;">
-<p>表S2 一致性质量 <br> Table S2 QV <br></p>
+表S2 一致性质量 <br>
+Table S2 QV <br>
 </div>
 <table>
 <thead>
 <tr class="header" style="opacity: 1; top: 0px;">
-<th>
-<strong>方法</strong>
-</th>
-<th>
-<strong>单倍型</strong>
-</th>
-<th>
-<strong> QV</strong>
-</th>
-<th>
-<strong> 错误率</strong>
-</th>
+<th><strong>方法</strong></th>
+<th><strong>单倍型</strong></th>
+<th><strong> QV</strong></th>
+<th><strong> 错误率</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td rowspan="2">
-Gamete binning
-</td>
-<td>
-Currot
-</td>
-<td>
-31.9748
-</td>
-<td>
-0.000635
-</td>
+<td rowspan="2"> Gamete binning</td>
+<td>Currot</td>
+<td>31.9748</td>
+<td>0.000635</td>
 </tr>
 <tr class="even">
-<td>
-OrangeRed
-</td>
-<td>
-31.7811
-</td>
-<td>
-0.000664
-</td>
+<td>OrangeRed</td>
+<td>31.7811</td>
+<td>0.000664</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-FALCON-Phase
-</td>
-<td>
-phased.0
-</td>
-<td>
-34.7795
-</td>
-<td>
-0.000333
-</td>
+<td rowspan="2">FALCON-Phase</td>
+<td>phased.0</td>
+<td>34.7795</td>
+<td>0.000333</td>
 </tr>
 <tr class="even">
-<td>
-phased.1
-</td>
-<td>
-34.7788
-</td>
-<td>
-0.000333
-</td>
+<td>phased.1</td>
+<td>34.7788</td>
+<td>0.000333</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-Trio binning
-</td>
-<td>
-F1-haplotypeCurrot
-</td>
-<td>
-32.2219
-</td>
-<td>
-0.000600
-</td>
+<td rowspan="2">Trio binning</td>
+<td>F1-haplotypeCurrot</td>
+<td>32.2219</td>
+<td>0.000600</td>
 </tr>
 <tr class="even">
-<td>
-F1-haplotypeOrangeRed
-</td>
-<td>
-32.0279
-</td>
-<td>
-0.000627
-</td>
+<td>F1-haplotypeOrangeRed</td>
+<td>32.0279</td>
+<td>0.000627</td>
 </tr>
 <tr class="odd">
-<td rowspan="2">
-ALLHiC
-</td>
-<td>
-k=8
-</td>
-<td>
-35.0411
-</td>
-<td>
-0.000313
-</td>
+<td rowspan="2">ALLHiC</td>
+<td>k=8</td>
+<td>35.0411</td>
+<td>0.000313</td>
 </tr>
 <tr class="even">
-<td>
-k=16
-</td>
-<td>
-32.5396
-</td>
-<td>
-0.000557
-</td>
+<td>k=16</td>
+<td>32.5396</td>
+<td>0.000557</td>
 </tr>
 </tbody>
 </table>
-<h3 id="a.4-spectra-cn-plotsallhic">A.4 Spectra-cn plots(ALLHiC)</h3>
-<p><img data-src="../images/allhic.k8.k16.spectra-cn.fl.ln.png"></p>
+
+
+<h3 id="A-4-Spectra-cn-plots-ALLHiC"><a href="#A-4-Spectra-cn-plots-ALLHiC" class="headerlink" title="A.4 Spectra-cn plots(ALLHiC)"></a>A.4 Spectra-cn plots(ALLHiC)</h3><p><img data-src="/../images/allhic.k8.k16.spectra-cn.fl.ln.png"></p>
 <div style="text-align: center; font-size: 85%;">
-<p>图S1 ALLHiC拷贝数谱图 <br> Fig. S1 ALLHiC spectra-cn plots <br></p>
+图S1 ALLHiC拷贝数谱图 <br>
+Fig. S1 ALLHiC spectra-cn plots <br>
 </div>
-<h3 id="a.5-spectra-asm-plotsallhic">A.5 Spectra-asm plots(ALLHiC)</h3>
-<p><img data-src="../images/allhic.k8.k16.spectra-asm.fl.ln.png"></p>
+
+<h3 id="A-5-Spectra-asm-plots-ALLHiC"><a href="#A-5-Spectra-asm-plots-ALLHiC" class="headerlink" title="A.5 Spectra-asm plots(ALLHiC)"></a>A.5 Spectra-asm plots(ALLHiC)</h3><p><img data-src="/../images/allhic.k8.k16.spectra-asm.fl.ln.png"></p>
 <div style="text-align: center; font-size: 85%;">
-<p>图S2 ALLHiC组装谱图 <br> Fig. S2 ALLHiC spectra-asm plots <br>
-通过上面的拷贝数谱和组装谱图，可以看出k=8的组装缺失了一半的单拷贝k-mers，并在reads中找到（在1-copy峰处红色与黑色几乎重合）；而k=16的光谱图显示其为两个单倍型的混合物，并存在不同程度的缺失，其中只组装了部分单倍型，在2-copy中出现了1-copy的峰，显示混合单倍型组装部分折叠(partially
-collapsed)了单倍型。</p>
+图S2 ALLHiC组装谱图 <br>
+Fig. S2 ALLHiC spectra-asm plots <br>
+通过上面的拷贝数谱和组装谱图，可以看出k=8的组装缺失了一半的单拷贝k-mers，并在reads中找到（在1-copy峰处红色与黑色几乎重合）；而k=16的光谱图显示其为两个单倍型的混合物，并存在不同程度的缺失，其中只组装了部分单倍型，在2-copy中出现了1-copy的峰，显示混合单倍型组装部分折叠(partially collapsed)了单倍型。
 </div>
-<h3 id="a.6-hap-mers-blob-plotallhic">A.6 Hap-mers blob
-plot(ALLHiC)</h3>
-<p><img data-src="../images/allhic.blob.png"></p>
+
+
+<h3 id="A-6-Hap-mers-blob-plot-ALLHiC"><a href="#A-6-Hap-mers-blob-plot-ALLHiC" class="headerlink" title="A.6 Hap-mers blob plot(ALLHiC)"></a>A.6 Hap-mers blob plot(ALLHiC)</h3><p><img data-src="/../images/allhic.blob.png"></p>
 <div style="text-align: center; font-size: 85%;">
-<p>图S3 ALLHiC hap-mers圆圈图 <br> Fig. S3 ALLHiC hap-mers blob plots
-<br>
-从hap-mers圆圈图可以很明显的看出无论是k=8还是k=16，得到的基因组并没有很好的定相，下方两个图正是将其组装序列根据交换错误(switch
-error)打断成相位块(phase
-block)之后重新定相的结果，这也说明输入的基因组中含有两个单倍型信息，只是并没有按照染色体进行区分，而是糅合在一起。</p>
+图S3 ALLHiC hap-mers圆圈图 <br>
+Fig. S3 ALLHiC hap-mers blob plots <br>
+从hap-mers圆圈图可以很明显的看出无论是k=8还是k=16，得到的基因组并没有很好的定相，下方两个图正是将其组装序列根据交换错误(switch error)打断成相位块(phase block)之后重新定相的结果，这也说明输入的基因组中含有两个单倍型信息，只是并没有按照染色体进行区分，而是糅合在一起。
 </div>
-<h3 id="a.7-allhick16与allhick8的点阵图">A.7
-ALLHiC(k=16)与ALLHiC(k=8)的点阵图</h3>
-<p><img data-src="../images/map_allhic-k8_to_allhic-k16.png"></p>
+
+<h3 id="A-7-ALLHiC-k-x3D-16-与ALLHiC-k-x3D-8-的点阵图"><a href="#A-7-ALLHiC-k-x3D-16-与ALLHiC-k-x3D-8-的点阵图" class="headerlink" title="A.7 ALLHiC(k=16)与ALLHiC(k=8)的点阵图"></a>A.7 ALLHiC(k=16)与ALLHiC(k=8)的点阵图</h3><p><img data-src="/../images/map_allhic-k8_to_allhic-k16.png"></p>
 <div style="text-align: center; font-size: 85%;">
-<p>图S4 点阵图 <br> Fig. S4 Dot plot <br>
-横轴为ALLHiC(k=16)结果，纵轴为ALLHiC(k=8)结果</p>
-</div>
-<script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
+图S4 点阵图 <br>
+Fig. S4 Dot plot <br>
+横轴为ALLHiC(k=16)结果，纵轴为ALLHiC(k=8)结果
+</div><script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
     
@@ -2683,13 +1735,13 @@ ALLHiC(k=16)与ALLHiC(k=8)的点阵图</h3>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">286k</span>
+    <span title="站点总字数">287k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:20</span>
+    <span title="站点阅读时长">4:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

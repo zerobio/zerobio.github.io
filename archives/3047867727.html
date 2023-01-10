@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"zerobio.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"width":256},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Introduction 大多数基因组组装工具只是简单的将单倍型共同组装成一个 mosaic consensus，从而导致组装不能准确地代表任何一个原始单倍型。将单倍型折叠成一个单一的 consensus 会引入不存在于任何一单倍型中的错误变体，从而导致注释或分析错误。在理想情况下，基因组应该表示为一组完整的单倍型，而不是 artificial mixture。解决这种问题的常见方法就是">
+    <meta name="description" content="Introduction大多数基因组组装工具只是简单的将单倍型共同组装成一个 mosaic consensus，从而导致组装不能准确地代表任何一个原始单倍型。将单倍型折叠成一个单一的 consensus 会引入不存在于任何一单倍型中的错误变体，从而导致注释或分析错误。在理想情况下，基因组应该表示为一组完整的单倍型，而不是 artificial mixture。解决这种问题的常见方法就是对近交个体进">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单倍型基因组组装工具 --- Trio binning">
 <meta property="og:url" content="https://zerobio.github.io/archives/3047867727.html">
 <meta property="og:site_name" content="JWei&#39;s Blog">
-<meta property="og:description" content="Introduction 大多数基因组组装工具只是简单的将单倍型共同组装成一个 mosaic consensus，从而导致组装不能准确地代表任何一个原始单倍型。将单倍型折叠成一个单一的 consensus 会引入不存在于任何一单倍型中的错误变体，从而导致注释或分析错误。在理想情况下，基因组应该表示为一组完整的单倍型，而不是 artificial mixture。解决这种问题的常见方法就是">
+<meta property="og:description" content="Introduction大多数基因组组装工具只是简单的将单倍型共同组装成一个 mosaic consensus，从而导致组装不能准确地代表任何一个原始单倍型。将单倍型折叠成一个单一的 consensus 会引入不存在于任何一单倍型中的错误变体，从而导致注释或分析错误。在理想情况下，基因组应该表示为一组完整的单倍型，而不是 artificial mixture。解决这种问题的常见方法就是对近交个体进">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://zerobio.github.io/images/41587_2018_Article_BFnbt4277_Fig1_HTML.jpg">
 <meta property="article:published_time" content="2022-03-23T12:14:54.000Z">
@@ -193,7 +193,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#trio-binning-%E7%BB%84%E8%A3%85%E7%AD%96%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">Trio binning 组装策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trio-binning-%E7%BB%84%E8%A3%85%E7%AD%96%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">Trio binning 组装策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">3.</span> <span class="nav-text">References</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -732,63 +732,31 @@ if(canvas.getContext){
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="introduction">Introduction</h2>
-<p>大多数基因组组装工具只是简单的将单倍型共同组装成一个
-<code>mosaic consensus</code>，从而导致组装不能准确地代表任何一个原始单倍型。将单倍型折叠成一个单一的
-<code>consensus</code>
-会引入不存在于任何一单倍型中的错误变体，从而导致注释或分析错误。在理想情况下，基因组应该表示为一组完整的单倍型，而不是
-<code>artificial mixture</code>。解决这种问题的常见方法就是对近交个体进行测序来减少单倍型变异的问题，然而，这对许多物种来说时不切实际的；即使在可能的情况下，也可能导致基因组不能代表自然种群中发现的变异。另一种方法是使用单倍体、基于克隆的基因组库，就像人类基因组计划所做的那样。</p>
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>大多数基因组组装工具只是简单的将单倍型共同组装成一个 <code>mosaic consensus</code>，从而导致组装不能准确地代表任何一个原始单倍型。将单倍型折叠成一个单一的 <code>consensus</code> 会引入不存在于任何一单倍型中的错误变体，从而导致注释或分析错误。在理想情况下，基因组应该表示为一组完整的单倍型，而不是 <code>artificial mixture</code>。解决这种问题的常见方法就是对近交个体进行测序来减少单倍型变异的问题，然而，这对许多物种来说时不切实际的；即使在可能的情况下，也可能导致基因组不能代表自然种群中发现的变异。另一种方法是使用单倍体、基于克隆的基因组库，就像人类基因组计划所做的那样。</p>
 <span id="more"></span>
+
 <blockquote>
-<p>依赖于参考基因图谱的方法在高杂合性/单倍型之间存在大量结构变异的区域表现较差。</p>
+<p>依赖于参考基因图谱的方法在高杂合性&#x2F;单倍型之间存在大量结构变异的区域表现较差。</p>
 </blockquote>
-<p>二倍体组装问题更全面的解决方案是将单倍型分离整合到组装过程本身中。然而，这种方法受限于测序的
-<code>reads</code> 长度。单独的测序 <code>reads</code>
-并不总是包含足够的信息来连接较长纯合子区域的变体，从而导致相对较短的
-<code>phase blocks</code>。作为折中的办法 <code>Falcon phase</code> 和
-<code>Supernova</code> 输出代表每个位置的单个等位基因的
-<code>伪单倍型</code>，但不保留长等位基因或组装
-<code>gaps</code>。此外，这些组装程序可能将重复与发散的等位基因混淆，从而导致人为重复或缺失。一种可能的解决方案是将
-<code>long reads</code> 测序与其他类型的信息相结合。如
-<code>linked reads</code>、<code>bacterial artificial chromosomes（BACs）</code>、<code>Strand-seq</code>、<code>Hi-C</code>。</p>
+<p>二倍体组装问题更全面的解决方案是将单倍型分离整合到组装过程本身中。然而，这种方法受限于测序的 <code>reads</code> 长度。单独的测序 <code>reads</code> 并不总是包含足够的信息来连接较长纯合子区域的变体，从而导致相对较短的 <code>phase blocks</code>。作为折中的办法 <code>Falcon phase</code> 和 <code>Supernova</code> 输出代表每个位置的单个等位基因的 <code>伪单倍型</code>，但不保留长等位基因或组装 <code>gaps</code>。此外，这些组装程序可能将重复与发散的等位基因混淆，从而导致人为重复或缺失。一种可能的解决方案是将 <code>long reads</code> 测序与其他类型的信息相结合。如 <code>linked reads</code>、<code>bacterial artificial chromosomes（BACs）</code>、<code>Strand-seq</code>、<code>Hi-C</code>。</p>
 <blockquote>
 <p><code>pseudo-haplotypes</code>：伪单倍型</p>
 <p><code>assembly gaps</code>：组装间隙</p>
 </blockquote>
-<p><code>Trio binning</code>
-为二倍体组装问题提供了一个简单的解决方案，从而组装准确的基因组规模的单倍型，与其他仅限于对单个染色体进行定相的方法不同，最终可产生两个完整的单倍型基因组
----
-分属两个亲本单倍型。这些完整的单倍型是通用的，可以单独分析或通过比对重组成二倍体基因组图。</p>
+<p><code>Trio binning</code> 为二倍体组装问题提供了一个简单的解决方案，从而组装准确的基因组规模的单倍型，与其他仅限于对单个染色体进行定相的方法不同，最终可产生两个完整的单倍型基因组 — 分属两个亲本单倍型。这些完整的单倍型是通用的，可以单独分析或通过比对重组成二倍体基因组图。</p>
 <blockquote>
-<p><code>Trio binning</code>
-是一种通过在组装前解决等位基因变异来简化单倍型组装的方法，组装准确性随着杂合度的增加而提高。</p>
-<p>根据来自两个亲本基因组的 <code>short reads</code> 来将来自子代的
-<code>long reads</code>
-划分为特定于单倍型的集合，然后对每个单倍型进行独立组装，从而形成完整的二倍体重建。</p>
+<p><code>Trio binning</code> 是一种通过在组装前解决等位基因变异来简化单倍型组装的方法，组装准确性随着杂合度的增加而提高。</p>
+<p>根据来自两个亲本基因组的 <code>short reads</code> 来将来自子代的 <code>long reads</code> 划分为特定于单倍型的集合，然后对每个单倍型进行独立组装，从而形成完整的二倍体重建。</p>
 </blockquote>
-<p><code>Trio binning</code> 在组装之前使用 <code>父本-母本-后代</code>
-三人组分离单倍型是关键，由于是在组装前提前将子代的 <code>reads</code>
-分成两个单倍型进行分别组装，所以不受单倍型间变异的干扰。</p>
-<h2 id="trio-binning-组装策略"><code>Trio binning</code> 组装策略</h2>
-<figure>
-<img data-src="../images/41587_2018_Article_BFnbt4277_Fig1_HTML.jpg"
-alt="图1" />
-<figcaption aria-hidden="true">图1</figcaption>
-</figure>
+<p><code>Trio binning</code> 在组装之前使用 <code>父本-母本-后代</code> 三人组分离单倍型是关键，由于是在组装前提前将子代的 <code>reads</code> 分成两个单倍型进行分别组装，所以不受单倍型间变异的干扰。</p>
+<h2 id="Trio-binning-组装策略"><a href="#Trio-binning-组装策略" class="headerlink" title="Trio binning 组装策略"></a><code>Trio binning</code> 组装策略</h2><p><img data-src="/../images/41587_2018_Article_BFnbt4277_Fig1_HTML.jpg" alt="图1"></p>
 <blockquote>
 <p>a、后代分别从两个亲本各继承一个重组单倍型。</p>
-<p>b、两个亲本的 illumine 短读测序识别出特异性的
-k-mers；从而推断出子代二倍体基因组中杂合等位基因的起源。</p>
-<p>c、根据之前从亲本得到的特异性 k-mers，将 F1 pacbio
-长读划分成两个单倍型集合，即
-Paternal/Maternal；而后将每个单倍型单独组装，不受杂合变异的干扰。</p>
+<p>b、两个亲本的 illumine 短读测序识别出特异性的 k-mers；从而推断出子代二倍体基因组中杂合等位基因的起源。</p>
+<p>c、根据之前从亲本得到的特异性 k-mers，将 F1 pacbio 长读划分成两个单倍型集合，即 Paternal&#x2F;Maternal；而后将每个单倍型单独组装，不受杂合变异的干扰。</p>
 <p>d、生成的组装代表基因组规模的单倍型，并准确的恢复点突变和结构变异。</p>
 </blockquote>
-<h2 id="references">References</h2>
-<p>[1] Koren, S., Rhie, A., Walenz, B. <em>et al.</em> <em>De novo</em>
-assembly of haplotype-resolved genomes with trio binning. <em>Nat
-Biotechnol</em> <strong>36,</strong> 1174–1182 (2018).
-https://doi.org/10.1038/nbt.4277</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1] Koren, S., Rhie, A., Walenz, B. <em>et al.</em> <em>De novo</em> assembly of haplotype-resolved genomes with trio binning. <em>Nat Biotechnol</em> <strong>36,</strong> 1174–1182 (2018). <span class="exturl" data-url="aHR0cHM6Ly9kb2kub3JnLzEwLjEwMzgvbmJ0LjQyNzc=">https://doi.org/10.1038/nbt.4277<i class="fa fa-external-link-alt"></i></span></p>
 <script type="text&#x2F;javascript" src="https://unpkg.com/kity@2.0.4/dist/kity.min.js"></script><script type="text&#x2F;javascript" src="https://unpkg.com/kityminder-core@1.4.50/dist/kityminder.core.min.js"></script><script defer="true" type="text&#x2F;javascript" src="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.js"></script><link rel="stylesheet" type="text&#x2F;css" href="https://unpkg.com/hexo-simple-mindmap@0.8.0/dist/mindmap.min.css">
     </div>
 
@@ -883,13 +851,13 @@ https://doi.org/10.1038/nbt.4277</p>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">286k</span>
+    <span title="站点总字数">287k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:20</span>
+    <span title="站点阅读时长">4:21</span>
   </span>
 </div>
 <div class="busuanzi-count">
